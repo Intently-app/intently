@@ -34,3 +34,40 @@
 /confirm-deletion             /delete-account/confirm/  301
 # Shipped iOS builds linked pawse.liveintently.app/privacy/ios; that host now forwards the same path here.
 /privacy/ios                  /privacy/                 301
+
+# Old shared blog images (replaced 2026-11-04 by one illustration per post). Kept as 301s:
+# liveintently.app/blog-* redirects here and docs/legacy-urls.txt needs each to end in a 200.
+/blog-tiktok-scrolling.jpg  /images/blog/stop-tiktok-scrolling.jpg  301
+/blog-tiktok-scrolling.webp  /images/blog/stop-tiktok-scrolling.webp  301
+/blog-instagram-usage.jpg  /images/blog/reduce-instagram-usage.jpg  301
+/blog-instagram-usage.webp  /images/blog/reduce-instagram-usage.webp  301
+/blog-morning-phone.jpg  /images/blog/stop-checking-phone-morning.jpg  301
+/blog-morning-phone.webp  /images/blog/stop-checking-phone-morning.webp  301
+/blog-night-scrolling.jpg  /images/blog/stop-scrolling-at-night.jpg  301
+/blog-night-scrolling.webp  /images/blog/stop-scrolling-at-night.webp  301
+/blog-phone-addiction-help.jpg  /images/blog/phone-addiction-help.jpg  301
+/blog-phone-addiction-help.webp  /images/blog/phone-addiction-help.webp  301
+/blog-phone-addiction-stop.jpg  /images/blog/how-to-stop-phone-addiction.jpg  301
+/blog-phone-addiction-stop.webp  /images/blog/how-to-stop-phone-addiction.webp  301
+/blog-twitter-doomscroll.jpg  /images/blog/stop-twitter-doomscrolling.jpg  301
+/blog-twitter-doomscroll.webp  /images/blog/stop-twitter-doomscrolling.webp  301
+/blog-youtube-binge.jpg  /images/blog/stop-youtube-binge.jpg  301
+/blog-youtube-binge.webp  /images/blog/stop-youtube-binge.webp  301
+/blog-productivity-social.jpg  /images/blog/productive-without-deleting-social.jpg  301
+/blog-productivity-social.webp  /images/blog/productive-without-deleting-social.webp  301
+/blog-app-comparison.jpg  /images/blog/best-screen-time-apps-2026.jpg  301
+/blog-app-comparison.webp  /images/blog/best-screen-time-apps-2026.webp  301
+/blog-digital-wellbeing-alternatives.jpg  /images/blog/best-digital-wellbeing-apps-2026.jpg  301
+/blog-digital-wellbeing-alternatives.webp  /images/blog/best-digital-wellbeing-apps-2026.webp  301
+/blog-placeholder-1.jpg  /images/blog/what-is-digital-wellbeing.jpg  301
+/blog-placeholder-1.webp  /images/blog/what-is-digital-wellbeing.webp  301
+/blog-placeholder-2.jpg  /images/blog/what-is-digital-wellbeing.jpg  301
+/blog-placeholder-2.webp  /images/blog/what-is-digital-wellbeing.webp  301
+/blog-placeholder-3.jpg  /images/blog/what-is-digital-wellbeing.jpg  301
+/blog-placeholder-3.webp  /images/blog/what-is-digital-wellbeing.webp  301
+/blog-placeholder-4.jpg  /images/blog/what-is-digital-wellbeing.jpg  301
+/blog-placeholder-4.webp  /images/blog/what-is-digital-wellbeing.webp  301
+/blog-placeholder-5.jpg  /images/blog/what-is-digital-wellbeing.jpg  301
+/blog-placeholder-5.webp  /images/blog/what-is-digital-wellbeing.webp  301
+/blog-placeholder-about.jpg  /images/blog/what-is-digital-wellbeing.jpg  301
+/blog-placeholder-about.webp  /images/blog/what-is-digital-wellbeing.webp  301

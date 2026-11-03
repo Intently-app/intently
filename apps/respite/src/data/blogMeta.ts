@@ -123,12 +123,7 @@ export function getBlogCategoryMeta(slug: string): BlogCategoryMeta {
 
 export function getNormalizedHeroImage(image?: string): string {
 	if (!image || image.trim().length === 0) {
-		return '/blog-placeholder-2.jpg';
-	}
-
-	// Some historical posts reference a missing asset.
-	if (image === '/blog-placeholder-1.jpg') {
-		return '/blog-placeholder-2.jpg';
+		return '/images/blog/what-is-digital-wellbeing.jpg';
 	}
 
 	return image;

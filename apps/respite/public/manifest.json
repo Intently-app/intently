@@ -17,18 +17,11 @@
   ],
   "screenshots": [
     {
-      "src": "/blog-placeholder-1.jpg",
-      "sizes": "1020x510",
+      "src": "/images/blog/what-is-digital-wellbeing.jpg",
+      "sizes": "1920x1080",
       "type": "image/jpeg",
       "form_factor": "wide",
-      "label": "Respite home screen"
-    },
-    {
-      "src": "/blog-placeholder-1.jpg",
-      "sizes": "512x512",
-      "type": "image/jpeg",
-      "form_factor": "narrow",
-      "label": "Respite mobile view"
+      "label": "Respite"
     }
   ],
   "icons": [
