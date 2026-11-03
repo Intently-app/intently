@@ -191,7 +191,7 @@ The best screen time app is the one that matches how you actually want to change
 
 ## What about AI screen time apps?
 
-A new group of apps uses AI, and they work differently from the blockers above. Some, such as FOMO, Zensi and Argue, put an AI coach inside the app that talks to you when you open a blocked app (mostly iPhone, around $9 to $10 a month for the ones with listed prices). Respite runs no AI of its own and instead lets your own Claude or ChatGPT read your usage over MCP with Respite Plus; it is read-only today. None of the mainstream blockers in this list had an AI feature when we checked in November 2026. The honest side-by-side is in [best AI app blockers and screen time apps](/blog/best-ai-app-blockers-screen-time-apps-2026/), and the overview is at [AI and screen time](/ai/).
+A new group of apps uses AI, and they work differently from the blockers above. Some, such as FOMO, Zensi and Argue, put an AI coach inside the app that talks to you when you open a blocked app (mostly iPhone, around $9 to $10 a month for the ones with listed prices). Respite runs no AI of its own and instead lets your own Claude or ChatGPT read your usage over MCP with Respite Plus, and, if you opt in, make your limits stricter (loosening always waits for your approval). None of the mainstream blockers in this list had an AI feature when we checked in November 2026. The honest side-by-side is in [best AI app blockers and screen time apps](/blog/best-ai-app-blockers-screen-time-apps-2026/), and the overview is at [AI and screen time](/ai/).
 
 ## Getting Started
 

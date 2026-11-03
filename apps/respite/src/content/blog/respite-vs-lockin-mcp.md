@@ -7,7 +7,7 @@ answer: 'LockIn MCP and Respite both let your own AI, such as Claude or ChatGPT,
 keyTakeaways:
   - 'LockIn MCP: desktop-centric blocking that your AI controls (block, focus mode, temporary unblock).'
   - 'Respite: mobile and browser usage that your AI reads (usage, insights, limits, events, progress).'
-  - 'LockIn switches blocking on and off; Respite''s connector reads by default and, if you opt in, can only make limits stricter.'
+  - 'LockIn switches blocking on and off; Respite''s connector reads by default and, if you opt in, makes limits stricter at once; anything looser waits for your approval.'
   - 'They are complementary: one guards your computer, the other helps you understand your phone.'
   - 'Respite makes no claim to be the only screen time product with MCP, only, to our knowledge, the first mobile one.'
 tags: ['lockin mcp', 'comparison', 'mcp', 'rescuetime mcp', 'activitywatch mcp', 'ai', 'respite vs lockin']
@@ -58,7 +58,7 @@ In short: **your AI becomes your analyst**, for the phone and browser. It change
 
 ## Where does LockIn MCP win?
 
-- **It can act.** Asking Claude to block a list of sites for two hours and having it happen is a real capability, and Respite does not do that: its AI can only make limits and schedules stricter.
+- **It can act.** Asking Claude to block a list of sites for two hours and having it happen is a real capability, and Respite does not do that: its AI can make limits and schedules stricter at once, and anything looser waits for your approval in the app.
 - **Desktop strength.** Hosts-file blocking is much harder to wander around than a browser extension alone.
 - **Price.** It costs less than Respite Plus.
 - **Task-aware focus.** Letting the AI decide what is relevant to your task is a neat use of an LLM, with the trade-off noted above.
