@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="630" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6E9DB2"/><stop offset="0.5" stop-color="#BDE1EC"/><stop offset="1" stop-color="#F2F6F2"/></linearGradient>
+<radialGradient id="sun" cx="1320" cy="200" r="520" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F7FBFC" stop-opacity="0.85"/><stop offset="0.25" stop-color="#F7FBFC" stop-opacity="0.35"/><stop offset="1" stop-color="#F7FBFC" stop-opacity="0"/></radialGradient>
+<linearGradient id="lawn" x1="0" y1="630" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#B9D9C3"/><stop offset="0.4" stop-color="#94BEA4"/><stop offset="1" stop-color="#6E9F8A"/></linearGradient>
+<linearGradient id="path" x1="0" y1="630" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#E8E4D8"/><stop offset="1" stop-color="#F3EFE4"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+    <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+  </filter>
+</defs>
+
+<rect width="1600" height="630" fill="url(#sky)"/>
+<rect width="1600" height="630" fill="url(#sun)"/>
+<circle cx="1320" cy="200" r="40" fill="#F7FBFC"/>
+<!-- distant tree line -->
+<path d="M-10,630 V590 Q40,560 90,588 Q150,548 210,584 Q280,560 340,592 Q420,566 480,600 L480,630Z M900,630 V598 Q960,570 1020,596 Q1100,556 1170,590 Q1250,566 1320,594 Q1400,560 1470,588 Q1540,570 1610,590 V630Z" fill="#B9D9C3"/>
+<rect x="0" y="630" width="1600" height="270" fill="url(#lawn)"/>
+<!-- duck pond, glinting -->
+<ellipse cx="300" cy="680" rx="230" ry="34" fill="#9CC3D3"/>
+<ellipse cx="300" cy="676" rx="200" ry="24" fill="#BDE1EC"/>
+<path d="M210,672 h60 M300,684 h80 M240,690 h30 M350,668 h40" stroke="#F7FBFC" stroke-width="4" stroke-linecap="round"/>
+<path d="M410,670 q8,-14 18,-6 l8,-2 l-4,6 q6,8 -6,10 h-14Z" fill="#F7FBFC"/>
+<!-- the winding path, lower-left to upper-right -->
+<path d="M-10,900 L-10,840 C300,800 520,760 760,730 C960,706 1100,670 1230,630 L1262,630 C1160,684 1020,740 840,780 C620,830 400,870 260,900Z" fill="url(#path)"/>
+<!-- background bench -->
+<g transform="translate(1100 664)">
+  <path d="M-40,0 L40,0 L10,16 L-70,16Z" fill="#0B1C27" opacity=".2"/>
+  <rect x="-44" y="-30" width="88" height="7" rx="2" fill="#2F6079"/>
+  <rect x="-44" y="-16" width="88" height="7" rx="2" fill="#2F6079"/>
+  <rect x="-38" y="-10" width="5" height="12" fill="#24465A"/><rect x="33" y="-10" width="5" height="12" fill="#24465A"/>
+</g>
+<g transform="translate(1000 650) scale(0.9)">
+  <path d="M-6,0 L6,0 L-34,22 L-46,22Z" fill="#0B1C27" opacity=".2"/>
+  <rect x="-5" y="-60" width="10" height="60" fill="#5C7A68"/>
+  <circle cx="0" cy="-92" r="46" fill="#7FA88E"/><circle cx="18" cy="-104" r="28" fill="#A8CDB8" opacity=".55"/>
+</g><g transform="translate(1220 640) scale(0.7)">
+  <path d="M-6,0 L6,0 L-34,22 L-46,22Z" fill="#0B1C27" opacity=".2"/>
+  <rect x="-5" y="-60" width="10" height="60" fill="#5C7A68"/>
+  <circle cx="0" cy="-92" r="46" fill="#94BEA4"/><circle cx="18" cy="-104" r="28" fill="#A8CDB8" opacity=".55"/>
+</g><g transform="translate(560 660) scale(1)">
+  <path d="M-6,0 L6,0 L-34,22 L-46,22Z" fill="#0B1C27" opacity=".2"/>
+  <rect x="-5" y="-60" width="10" height="60" fill="#5C7A68"/>
+  <circle cx="0" cy="-92" r="46" fill="#94BEA4"/><circle cx="18" cy="-104" r="28" fill="#A8CDB8" opacity=".55"/>
+</g><g transform="translate(160 760) scale(1.5)">
+  <path d="M-6,0 L6,0 L-34,22 L-46,22Z" fill="#0B1C27" opacity=".2"/>
+  <rect x="-5" y="-60" width="10" height="60" fill="#5C7A68"/>
+  <circle cx="0" cy="-92" r="46" fill="#7FA88E"/><circle cx="18" cy="-104" r="28" fill="#A8CDB8" opacity=".55"/>
+</g><g transform="translate(1460 700) scale(1.3)">
+  <path d="M-6,0 L6,0 L-34,22 L-46,22Z" fill="#0B1C27" opacity=".2"/>
+  <rect x="-5" y="-60" width="10" height="60" fill="#5C7A68"/>
+  <circle cx="0" cy="-92" r="46" fill="#7FA88E"/><circle cx="18" cy="-104" r="28" fill="#A8CDB8" opacity=".55"/>
+</g>
+
+<!-- figure walking -->
+<g transform="translate(700 774)">
+  <path d="M-30,0 L30,0 L-50,40 L-110,40Z" fill="#0B1C27" opacity=".2"/>
+  <g fill="#24465A">
+    <circle cx="4" cy="-196" r="19"/>
+    <path d="M-20,-170 Q4,-182 26,-170 L28,-92 L-18,-92Z"/>
+    <path d="M-14,-96 L4,-96 L-24,-4 L-42,-4Z"/>
+    <path d="M6,-96 L24,-96 L40,-4 L22,-4Z"/>
+    <path d="M-44,-4 h22 v6 h-26Z M22,-4 h24 l2,6 h-26Z"/>
+    <path d="M-18,-164 L-40,-110 L-30,-104 L-8,-150Z"/>
+    <path d="M22,-164 L52,-118 L44,-110 L16,-148Z"/>
+  </g>
+</g>
+<!-- leash, slack -->
+<path d="M750,662 C800,744 830,748 870,712" stroke="#E8A317" stroke-width="5" fill="none" stroke-linecap="round"/>
+<circle cx="749" cy="660" r="6" fill="#E8A317"/>
+<!-- the phone-shaped puppy -->
+<g transform="translate(950 742) scale(1.3)">
+  <path d="M-58,30 L58,30 L18,52 L-98,52Z" fill="#0B1C27" opacity=".2"/>
+  <rect x="-48" y="2" width="12" height="30" rx="4" fill="#1C3A4D"/>
+  <rect x="-24" y="2" width="12" height="28" rx="4" fill="#24465A"/>
+  <rect x="18" y="2" width="12" height="30" rx="4" fill="#1C3A4D"/>
+  <rect x="40" y="2" width="12" height="28" rx="4" fill="#24465A"/>
+  <rect x="-64" y="-50" width="132" height="62" rx="18" fill="#24465A"/>
+  <rect x="-54" y="-42" width="112" height="46" rx="11" fill="#0B1C27"/>
+  <path d="M30,-40 l14,0 l-30,42 l-14,0z" fill="#F7FBFC" opacity=".08"/>
+  <!-- collar where the leash clips on -->
+  <rect x="-60" y="-50" width="10" height="62" rx="4" fill="#E8A317"/>
+  <!-- floppy ears and nose (front is left, sniffing) -->
+  <path d="M-58,-46 q-26,4 -22,34 q12,-4 18,-20Z" fill="#2F6079"/>
+  <circle cx="-68" cy="2" r="6" fill="#0B1C27"/>
+  <!-- tail: a charging cable, wagging -->
+  <path d="M66,-30 C92,-36 92,-70 112,-80" stroke="#F7FBFC" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <rect x="104" y="-102" width="16" height="24" rx="4" fill="#DCEEF4" transform="rotate(28 112 -90)"/>
+  <rect x="108" y="-110" width="8" height="10" rx="2" fill="#9CC3D3" transform="rotate(28 112 -90)"/>
+  <path d="M120,-58 q14,-10 10,-28 M132,-50 q20,-14 14,-42" stroke="#24465A" stroke-width="3" fill="none" stroke-linecap="round" opacity=".45"/>
+</g>
+<!-- a fallen leaf being sniffed -->
+<path d="M0,0 C8,-7 26,-7 34,0 C26,7 8,7 0,0Z" fill="#5C8A70" transform="translate(812 778) rotate(-12)"/>
+<path d="M0,0 L30,0" stroke="#3E6E55" stroke-width="1.5" transform="translate(812 778) rotate(-12)"/>
+
+<rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

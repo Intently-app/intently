@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <clipPath id="L"><polygon points="0,0 700,0 1020,900 0,900"/></clipPath>
+    <clipPath id="R"><polygon points="700,0 1600,0 1600,900 1020,900"/></clipPath>
+    <linearGradient id="ls" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1C27"/><stop offset="1" stop-color="#24465A"/></linearGradient>
+    <linearGradient id="rs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCEEF4"/><stop offset="1" stop-color="#F7FBFC"/></linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6B8291"/><stop offset=".35" stop-color="#B8C6CE"/><stop offset=".7" stop-color="#9FB0BA"/><stop offset="1" stop-color="#5A7383"/></linearGradient>
+    <linearGradient id="inside" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7FBFC"/><stop offset="1" stop-color="#FCEBC4"/></linearGradient>
+    <linearGradient id="spill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FCEBC4" stop-opacity=".9"/><stop offset="1" stop-color="#FCEBC4" stop-opacity="0"/></linearGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+    </filter>
+  </defs>
+
+  <!-- RIGHT: the open door -->
+  <g clip-path="url(#R)">
+    <rect width="1600" height="900" fill="url(#rs)"/>
+    <!-- roof and facade -->
+    <polygon points="760,170 1600,170 1600,200 760,200" fill="#2F6079"/>
+    <rect x="760" y="200" width="840" height="448" fill="#BDE1EC"/>
+    <rect x="760" y="200" width="840" height="14" fill="#8FBBCD"/>
+    <g fill="#8FBBCD" opacity=".45"><rect x="900" y="300" width="120" height="4"/><rect x="1340" y="270" width="150" height="4"/><rect x="1380" y="420" width="110" height="4"/><rect x="920" y="520" width="90" height="4"/><rect x="1440" y="560" width="120" height="4"/></g>
+    <!-- door frame shadow, frame, lit interior -->
+    <rect x="1104" y="334" width="216" height="314" fill="#0B1C27" opacity=".14"/>
+    <rect x="1080" y="310" width="216" height="338" fill="#F7FBFC"/>
+    <rect x="1098" y="328" width="180" height="320" fill="url(#inside)"/>
+    <!-- interior hint: far wall line and a hall runner -->
+    <rect x="1098" y="560" width="180" height="88" fill="#FCEBC4" opacity=".7"/>
+    <polygon points="1170,560 1240,560 1258,648 1152,648" fill="#E8D3A6" opacity=".55"/>
+    <!-- door leaf swung inward -->
+    <polygon points="1098,328 1150,346 1150,632 1098,648" fill="#5E8FA6"/>
+    <polygon points="1098,328 1112,333 1112,644 1098,648" fill="#2F6079"/>
+    <circle cx="1140" cy="494" r="5" fill="#DCEEF4"/>
+    <!-- step and porch floor -->
+    <rect x="760" y="648" width="840" height="252" fill="#8FBBCD"/>
+    <rect x="1060" y="648" width="256" height="16" fill="#DCEEF4"/>
+    <rect x="760" y="664" width="840" height="5" fill="#5E8FA6" opacity=".35"/>
+    <!-- light spilling out of the doorway -->
+    <polygon points="1098,664 1278,664 1380,860 1000,860" fill="url(#spill)"/>
+    <!-- woven doormat -->
+    <polygon points="1084,700 1300,700 1336,770 1048,770" fill="#0B1C27" opacity=".2" transform="translate(16 16)"/>
+    <polygon points="1084,700 1300,700 1336,770 1048,770" fill="#6E9E7E"/>
+    <polygon points="1084,700 1300,700 1304,708 1080,708" fill="#A8CDB2"/>
+    <g stroke="#A8CDB2" stroke-width="5" stroke-dasharray="12 10" opacity=".75">
+      <path d="M1076 722 H1310"/><path d="M1068 738 H1318" stroke-dashoffset="11"/><path d="M1060 754 H1326"/>
+    </g>
+    <!-- phone standing on the mat -->
+    <rect x="1178" y="586" width="66" height="134" rx="12" fill="#0B1C27" opacity=".22"/>
+    <rect x="1162" y="570" width="66" height="134" rx="12" fill="#24465A"/>
+    <rect x="1169" y="580" width="52" height="114" rx="6" fill="#BDE1EC"/>
+    <rect x="1169" y="580" width="12" height="114" rx="4" fill="#DCEEF4"/>
+    <rect x="1185" y="616" width="20" height="20" rx="10" fill="#F7FBFC"/>
+    <rect x="1180" y="648" width="30" height="5" rx="2.5" fill="#5E8FA6"/>
+    <!-- bell bracket and bell (the accent) -->
+    <rect x="1182" y="214" width="12" height="30" fill="#24465A"/>
+    <rect x="1182" y="238" width="54" height="9" rx="3" fill="#24465A"/>
+    <rect x="1220" y="244" width="5" height="14" fill="#24465A"/>
+    <path d="M1236 262 C1206 262 1202 284 1200 304 L1194 316 H1278 L1272 304 C1270 284 1266 262 1236 262 Z" fill="#0B1C27" opacity=".2" transform="translate(14 14)"/>
+    <path d="M1222 258 C1194 258 1190 282 1188 302 L1182 316 H1262 L1256 302 C1254 282 1250 258 1222 258 Z" fill="#E8A317"/>
+    <path d="M1222 258 C1250 258 1254 282 1256 302 L1262 316 H1240 L1236 302 C1236 282 1236 262 1222 258 Z" fill="#B97F0C"/>
+    <rect x="1196" y="276" width="7" height="26" rx="3" fill="#FCEBC4"/>
+    <rect x="1180" y="314" width="84" height="8" rx="4" fill="#B97F0C"/>
+    <circle cx="1222" cy="330" r="8" fill="#B97F0C"/>
+    <g fill="none" stroke="#E8A317" stroke-width="5" stroke-linecap="round" opacity=".7">
+      <path d="M1162 262 Q1150 286 1160 310"/><path d="M1282 262 Q1294 286 1284 310"/>
+      <path d="M1142 252 Q1126 286 1140 320" opacity=".5"/><path d="M1302 252 Q1318 286 1304 320" opacity=".5"/>
+    </g>
+    <!-- pot plant by the door -->
+    <g transform="translate(1366 648)">
+      <polygon points="-34,-60 34,-60 26,0 -26,0" fill="#0B1C27" opacity=".2" transform="translate(16 16)"/>
+      <path d="M0 -60 C-10 -120 -60 -150 -70 -140 C-60 -110 -30 -80 -6 -60 Z" fill="#6E9E7E"/>
+      <path d="M0 -60 C10 -130 50 -170 66 -160 C56 -120 30 -84 6 -60 Z" fill="#3E9B4F"/>
+      <path d="M0 -60 C-6 -110 4 -160 14 -176 C24 -150 14 -100 4 -60 Z" fill="#A8CDB2"/>
+      <polygon points="-34,-60 34,-60 26,0 -26,0" fill="#2F6079"/>
+      <polygon points="10,-60 34,-60 26,0 8,0" fill="#24465A"/>
+      <rect x="-38" y="-66" width="76" height="12" rx="3" fill="#5E8FA6"/>
+    </g>
+  </g>
+
+  <!-- LEFT: everything on one cable -->
+  <g clip-path="url(#L)">
+    <rect width="1600" height="900" fill="url(#ls)"/>
+    <circle cx="470" cy="500" r="270" fill="#41788F"/>
+    <rect y="648" width="1600" height="252" fill="#142C3A"/>
+    <rect y="648" width="1600" height="6" fill="#3A5263"/>
+    <g fill="#24465A" opacity=".8"><rect x="80" y="720" width="160" height="4"/><rect x="330" y="820" width="220" height="4"/><rect x="760" y="760" width="120" height="4"/></g>
+
+    <!-- cast shadows (+20,+20) -->
+    <g fill="#0B1C27" opacity=".45">
+      <rect x="220" y="490" width="240" height="158" rx="10"/>
+      <rect x="506" y="460" width="130" height="200" rx="14"/>
+      <rect x="680" y="530" width="68" height="130" rx="12"/>
+    </g>
+
+    <!-- cable, back run (behind the devices) -->
+    <path d="M196 566 C260 520 620 512 744 562" stroke="#0B1C27" stroke-width="26" fill="none" stroke-linecap="round"/>
+    <path d="M196 566 C260 520 620 512 744 562" stroke="#46606F" stroke-width="20" fill="none" stroke-linecap="round"/>
+
+    <!-- laptop -->
+    <rect x="200" y="470" width="240" height="160" rx="10" fill="#3A5263"/>
+    <rect x="212" y="482" width="216" height="136" rx="4" fill="#5A7383"/>
+    <polygon points="212,618 280,482 320,482 252,618" fill="#7C93A1" opacity=".55"/>
+    <polygon points="178,630 462,630 474,648 166,648" fill="#7C93A1"/>
+    <rect x="178" y="630" width="284" height="5" fill="#B8C6CE"/>
+    <!-- tablet -->
+    <rect x="486" y="440" width="130" height="208" rx="14" fill="#3A5263"/>
+    <rect x="496" y="452" width="110" height="184" rx="6" fill="#5A7383"/>
+    <polygon points="496,560 560,452 590,452 526,560" fill="#7C93A1" opacity=".5"/>
+    <!-- phone -->
+    <rect x="660" y="510" width="68" height="138" rx="12" fill="#3A5263"/>
+    <rect x="667" y="520" width="54" height="118" rx="6" fill="#5A7383"/>
+    <polygon points="667,590 700,520 714,520 681,590" fill="#7C93A1" opacity=".5"/>
+
+    <!-- cable, front runs (sagging into the lock) -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M196 566 C150 630 260 676 420 662 C480 656 510 630 520 600" stroke="#0B1C27" stroke-width="30" opacity=".4" transform="translate(16 16)"/>
+      <path d="M744 562 C800 640 700 650 640 640 C620 636 606 620 600 600" stroke="#0B1C27" stroke-width="30" opacity=".4" transform="translate(16 16)"/>
+      <path d="M196 566 C150 630 260 676 420 662 C480 656 510 630 520 600" stroke="#5A7383" stroke-width="28"/>
+      <path d="M196 566 C150 630 260 676 420 662 C480 656 510 630 520 600" stroke="#9FB0BA" stroke-width="18"/>
+      <path d="M196 566 C150 630 260 676 420 662 C480 656 510 630 520 600" stroke="#C9D4DA" stroke-width="5" stroke-dasharray="10 12" transform="translate(0 -4)"/>
+      <path d="M744 562 C800 640 700 650 640 640 C620 636 606 620 600 600" stroke="#5A7383" stroke-width="28"/>
+      <path d="M744 562 C800 640 700 650 640 640 C620 636 606 620 600 600" stroke="#9FB0BA" stroke-width="18"/>
+      <path d="M744 562 C800 640 700 650 640 640 C620 636 606 620 600 600" stroke="#C9D4DA" stroke-width="5" stroke-dasharray="10 12" transform="translate(0 -4)"/>
+    </g>
+
+    <!-- the padlock, bigger than the phone -->
+    <path d="M506 660 V590 A54 54 0 0 1 614 590 V660" fill="none" stroke="#0B1C27" stroke-width="30" opacity=".45" transform="translate(20 20)"/>
+    <rect x="460" y="640" width="200" height="170" rx="20" fill="#0B1C27" opacity=".45" transform="translate(20 20)"/>
+    <path d="M506 660 V590 A54 54 0 0 1 614 590 V660" fill="none" stroke="#5A7383" stroke-width="30"/>
+    <path d="M506 660 V590 A54 54 0 0 1 614 590 V660" fill="none" stroke="#C9D4DA" stroke-width="9" transform="translate(-6 0)"/>
+    <rect x="460" y="640" width="200" height="170" rx="20" fill="url(#steel)"/>
+    <rect x="460" y="640" width="200" height="22" rx="10" fill="#C9D4DA"/>
+    <rect x="460" y="790" width="200" height="20" rx="10" fill="#46606F"/>
+    <rect x="640" y="652" width="8" height="136" rx="4" fill="#E4ECF0" opacity=".7"/>
+    <circle cx="560" cy="714" r="16" fill="#0B1C27"/>
+    <path d="M552 716 H568 L572 760 H548 Z" fill="#0B1C27"/>
+    <g fill="#7C93A1"><circle cx="480" cy="680" r="5"/><circle cx="640" cy="680" r="5"/><circle cx="480" cy="776" r="5"/><circle cx="640" cy="776" r="5"/></g>
+  </g>
+
+  <line x1="700" y1="0" x2="1020" y2="900" stroke="#F7FBFC" stroke-width="6"/>
+  <rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

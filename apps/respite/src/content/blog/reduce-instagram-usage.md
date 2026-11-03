@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Have a replacement ready for the urge, or the habit just moves.'
 section: 'Digital Wellbeing'
 tags: ['instagram addiction', 'reduce instagram usage', 'cut down on instagram', 'mindful social media', 'digital wellbeing']
-heroImage: '/blog-instagram-usage.jpg'
+heroImage: '/images/blog/reduce-instagram-usage.jpg'
+heroImageAlt: 'A rowboat on a pond of square tiles, its oars at rest, as a heart-baited hook dangles just above.'
 faq:
   - question: 'Can I really reduce my Instagram usage without deleting the app?'
     answer: 'Yes. Deleting works for some people, but many reinstall within days because the underlying urge is still there. Keeping the app and adding friction, limits and a clear purpose builds self-regulation instead of relying on removal, and you keep the parts of Instagram you value, like messaging friends or following people who inspire you.'

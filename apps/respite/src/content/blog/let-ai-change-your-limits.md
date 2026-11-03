@@ -12,7 +12,8 @@ keyTakeaways:
   - 'Every AI change is logged for 90 days, and an AI can undo its own changes.'
   - 'The in-app Connected AI screen for approvals is arriving in app updates; until then you change limits yourself in the app.'
 tags: ['let ai set limits', 'ai agent control phone limits', 'let claude set app limits', 'mcp', 'approval', 'undo', 'bring your own ai']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/let-ai-change-your-limits.jpg'
+heroImageAlt: 'A ratchet knob that turns freely one way and is held by an orange latch the other, with a curling log ribbon.'
 faq:
   - question: 'Can Claude or ChatGPT set my app limits?'
     answer: 'Yes, to make them stricter, if you opt in. When you connect, tick "Also let it make my limits stricter" on Respite''s approval page. Then your AI can lower a per-app daily limit or add a schedule, and it applies at once. It cannot loosen anything on its own: raising or removing a limit and removing a schedule become requests you approve in the Respite app. It needs Respite Plus.'

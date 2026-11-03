@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <clipPath id="L"><polygon points="0,0 600,0 1000,900 0,900"/></clipPath>
+    <clipPath id="R"><polygon points="600,0 1600,0 1600,900 1000,900"/></clipPath>
+    <linearGradient id="ls" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1C27"/><stop offset="1" stop-color="#2F4A5A"/></linearGradient>
+    <linearGradient id="rs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BDE1EC"/><stop offset="1" stop-color="#F7FBFC"/></linearGradient>
+    <pattern id="brick" width="80" height="40" patternUnits="userSpaceOnUse">
+      <rect width="80" height="40" fill="#9C5B4E"/>
+      <rect y="0" width="80" height="4" fill="#6E3D35"/><rect y="20" width="80" height="4" fill="#6E3D35"/>
+      <rect x="0" y="0" width="4" height="20" fill="#6E3D35"/><rect x="40" y="20" width="4" height="20" fill="#6E3D35"/>
+      <rect x="6" y="6" width="30" height="4" fill="#B5705F"/><rect x="48" y="26" width="26" height="4" fill="#B5705F"/>
+    </pattern>
+    <clipPath id="wallc"><path d="M230 630 V330 H400 Q440 330 450 346 Q470 360 500 346 Q520 330 560 330 H690 V630 Z"/></clipPath>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+    </filter>
+  </defs>
+  <g clip-path="url(#R)">
+    <rect width="1600" height="900" fill="url(#rs)"/>
+    <circle cx="1380" cy="180" r="70" fill="#F7FBFC"/>
+    <path d="M600 630 Q900 560 1200 590 Q1420 560 1600 580 V900 H600 Z" fill="#A8CDB2"/>
+    <rect x="600" y="630" width="1000" height="300" fill="#8DBB99"/>
+    <path d="M1080 630 L1160 630 L1320 900 L900 900 Z" fill="#EEF5F8"/>
+    <path d="M1094 620 Q1120 590 1150 620" fill="#EEF5F8"/>
+    <!-- archway -->
+    <path d="M960 630 V420 A160 160 0 0 1 1280 420 V630 H1240 V420 A120 120 0 0 0 1000 420 V630 Z" fill="#5E8FA6" opacity=".35" transform="translate(16 10)"/>
+    <path d="M960 630 V420 A160 160 0 0 1 1280 420 V630 H1240 V420 A120 120 0 0 0 1000 420 V630 Z" fill="#BDE1EC"/>
+    <path d="M960 630 V420 A160 160 0 0 1 1010 304 L1036 334 A120 120 0 0 0 1000 420 V630 Z" fill="#DCEEF4"/>
+    <path d="M1240 630 V420 A120 120 0 0 0 1206 336 L1232 306 A160 160 0 0 1 1280 420 V630 Z" fill="#8FBBCD"/>
+    <g stroke="#8FBBCD" stroke-width="4"><path d="M1224 360 L1259 340"/><path d="M1180 316 L1200 281"/><path d="M1060 316 L1040 281"/><path d="M1016 360 L981 340"/><path d="M960 520 H1000 M1240 520 H1280 M960 590 H1000 M1240 590 H1280"/></g>
+    <path d="M1096 256 H1144 L1138 304 H1102 Z" fill="#DCEEF4"/><path d="M1120 256 H1144 L1138 304 H1120 Z" fill="#BDE1EC"/>
+    <rect x="950" y="624" width="62" height="12" fill="#8FBBCD"/><rect x="1228" y="624" width="62" height="12" fill="#8FBBCD"/>
+    <!-- vine over keystone -->
+    <path d="M1060 270 C1080 240 1110 236 1130 250 C1150 262 1170 250 1176 232" stroke="#3E9B4F" stroke-width="4" fill="none"/>
+    <g fill="#3E9B4F"><ellipse cx="1074" cy="250" rx="11" ry="6" transform="rotate(-40 1074 250)"/><ellipse cx="1104" cy="240" rx="11" ry="6" transform="rotate(10 1104 240)"/><ellipse cx="1150" cy="256" rx="10" ry="5" transform="rotate(30 1150 256)"/><ellipse cx="1172" cy="236" rx="10" ry="5" transform="rotate(-50 1172 236)"/></g>
+    <!-- wind chime -->
+    <path d="M1120 304 V336" stroke="#24465A" stroke-width="3"/>
+    <g transform="rotate(8 1120 336)">
+      <ellipse cx="1120" cy="340" rx="30" ry="7" fill="#B97F0C"/>
+      <g fill="#E8A317">
+        <rect x="1094" y="348" width="9" height="62" rx="4"/><rect x="1107" y="348" width="9" height="84" rx="4"/><rect x="1120" y="348" width="9" height="98" rx="4"/><rect x="1133" y="348" width="9" height="74" rx="4"/>
+      </g>
+      <g fill="#FCEBC4"><rect x="1096" y="352" width="3" height="40"/><rect x="1109" y="352" width="3" height="56"/><rect x="1122" y="352" width="3" height="64"/><rect x="1135" y="352" width="3" height="48"/></g>
+      <path d="M1118 348 V460" stroke="#24465A" stroke-width="2"/><ellipse cx="1118" cy="466" rx="10" ry="6" fill="#B97F0C"/>
+    </g>
+    <g stroke="#E8A317" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"><path d="M1170 380 q14 18 0 36"/><path d="M1186 370 q20 28 0 56"/><path d="M1070 380 q-14 18 0 36"/></g>
+  </g>
+  <g clip-path="url(#L)">
+    <rect width="1600" height="900" fill="url(#ls)"/>
+    <g fill="#BDE1EC"><circle cx="120" cy="120" r="2"/><circle cx="300" cy="80" r="2.5"/><circle cx="520" cy="160" r="2"/><circle cx="80" cy="260" r="1.8"/></g>
+    <rect y="630" width="1600" height="300" fill="#24465A"/>
+    <rect y="630" width="1600" height="8" fill="#3A5263"/>
+    <path d="M440 630 L520 630 L640 900 L180 900 Z" fill="#2F4A5A"/>
+    <!-- wall -->
+    <rect x="250" y="350" width="460" height="300" fill="#0B1C27" opacity=".35"/>
+    <rect x="0" y="0" width="1600" height="900" fill="url(#brick)" clip-path="url(#wallc)"/>
+    <path d="M400 330 Q440 330 450 346 Q470 360 500 346 Q520 330 560 330" stroke="#D9A08F" stroke-width="7" fill="none"/>
+    <rect x="220" y="316" width="180" height="16" fill="#7E4539"/><rect x="560" y="316" width="140" height="16" fill="#7E4539"/>
+    <!-- rope with knots -->
+    <path d="M478 344 C480 410 470 490 478 600" stroke="#E9DFC6" stroke-width="8" fill="none"/>
+    <g fill="#E9DFC6"><ellipse cx="481" cy="390" rx="10" ry="8"/><ellipse cx="475" cy="442" rx="10" ry="8"/><ellipse cx="481" cy="494" rx="10" ry="8"/><ellipse cx="475" cy="546" rx="10" ry="8"/><ellipse cx="481" cy="598" rx="10" ry="8"/></g>
+    <path d="M478 346 C460 300 430 310 420 338" stroke="#E9DFC6" stroke-width="8" fill="none"/>
+    <g transform="translate(330 634) rotate(-67.7)">
+      <rect x="0" y="20" width="322" height="58" fill="#0B1C27" opacity=".0"/>
+      <rect x="0" y="-6" width="322" height="10" rx="4" fill="#8A5A2B"/><rect x="30" y="0" width="8" height="46" fill="#C98B4E"/><rect x="74" y="0" width="8" height="46" fill="#C98B4E"/><rect x="118" y="0" width="8" height="46" fill="#C98B4E"/><rect x="162" y="0" width="8" height="46" fill="#C98B4E"/><rect x="206" y="0" width="8" height="46" fill="#C98B4E"/><rect x="250" y="0" width="8" height="46" fill="#C98B4E"/><rect x="294" y="0" width="8" height="46" fill="#C98B4E"/><rect x="0" y="42" width="322" height="10" rx="4" fill="#C98B4E"/></g>
+    <g transform="translate(600 634) rotate(-106.7)">
+      <rect x="0" y="20" width="307" height="54" fill="#0B1C27" opacity=".0"/>
+      <rect x="0" y="-6" width="307" height="10" rx="4" fill="#5A7383"/><rect x="30" y="0" width="8" height="42" fill="#8FA9B5"/><rect x="74" y="0" width="8" height="42" fill="#8FA9B5"/><rect x="118" y="0" width="8" height="42" fill="#8FA9B5"/><rect x="162" y="0" width="8" height="42" fill="#8FA9B5"/><rect x="206" y="0" width="8" height="42" fill="#8FA9B5"/><rect x="250" y="0" width="8" height="42" fill="#8FA9B5"/><rect x="294" y="0" width="8" height="42" fill="#8FA9B5"/><rect x="0" y="38" width="307" height="10" rx="4" fill="#8FA9B5"/></g>
+    <!-- wobbly crates -->
+    <g transform="translate(222 630)">
+      <rect x="-60" y="-80" width="96" height="80" fill="#8A5A2B" transform="rotate(-2)"/><rect x="-54" y="-74" width="84" height="12" fill="#6B4423" transform="rotate(-2)"/><rect x="-54" y="-30" width="84" height="12" fill="#6B4423" transform="rotate(-2)"/>
+      <g transform="translate(6 -82) rotate(6)"><rect x="-50" y="-70" width="86" height="70" fill="#A06B3A"/><rect x="-44" y="-62" width="74" height="10" fill="#6B4423"/><rect x="-44" y="-26" width="74" height="10" fill="#6B4423"/></g>
+      <g transform="translate(-6 -150) rotate(-9)"><rect x="-38" y="-56" width="68" height="56" fill="#8A5A2B"/><rect x="-32" y="-48" width="56" height="9" fill="#6B4423"/></g>
+    </g>
+    <!-- footprints to the wall -->
+    <g fill="#3A5263"><ellipse cx="560" cy="860" rx="9" ry="5" transform="rotate(-60 560 860)"/><ellipse cx="520" cy="830" rx="9" ry="5" transform="rotate(-60 520 830)"/><ellipse cx="540" cy="800" rx="9" ry="5" transform="rotate(-60 540 800)"/><ellipse cx="500" cy="770" rx="9" ry="5" transform="rotate(-60 500 770)"/><ellipse cx="520" cy="742" rx="9" ry="5" transform="rotate(-60 520 742)"/><ellipse cx="480" cy="714" rx="9" ry="5" transform="rotate(-60 480 714)"/><ellipse cx="500" cy="688" rx="9" ry="5" transform="rotate(-60 500 688)"/><ellipse cx="466" cy="662" rx="9" ry="5" transform="rotate(-60 466 662)"/></g>
+  </g>
+  <line x1="600" y1="0" x2="1000" y2="900" stroke="#F7FBFC" stroke-width="6"/>
+  <rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

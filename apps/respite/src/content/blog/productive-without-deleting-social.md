@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Ask three questions before opening: why, do I have time, how will I feel in ten minutes.'
 section: 'Digital Wellbeing'
 tags: ['productive without deleting social media', 'mindful social media use', 'social media productivity', 'work focus', 'digital wellbeing']
-heroImage: '/blog-productivity-social.jpg'
+heroImage: '/images/blog/productive-without-deleting-social.jpg'
+heroImageAlt: 'A long train where most carriages hold quiet desks and two orange carriages are packed with chat bubbles.'
 faq:
   - question: 'Can I be productive and still use social media?'
     answer: 'Yes. The problem is rarely social media itself but mindless, reactive use that interrupts focused work. With clear boundaries, scheduled check-ins and a bit of awareness around your habits, you can keep the connections and information you value and still get deep work done. The key is intention, not abstinence.'

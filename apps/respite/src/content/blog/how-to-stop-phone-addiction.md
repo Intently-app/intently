@@ -13,7 +13,8 @@ keyTakeaways:
   - 'If it harms your work, relationships or mental health, a professional can help.'
 section: 'Digital Wellbeing'
 tags: ['phone addiction', 'screen time', 'digital wellbeing', 'productivity', 'mental health', 'behavioral science']
-heroImage: '/blog-phone-addiction-stop.jpg'
+heroImage: '/images/blog/how-to-stop-phone-addiction.jpg'
+heroImageAlt: 'A phone-shaped magnet pulls keys and coins from a small figure who stays put on three wooden wedges.'
 faq:
   - question: 'How do I know if I''m addicted to my phone?'
     answer: 'Common signs include checking within minutes of waking, feeling anxious when separated from your phone, failed attempts to cut back, phone use interfering with work or relationships, and mindless checking with no purpose. Phone addiction is not an official diagnosis, so use these as a prompt to reflect, or take our phone addiction quiz for a quick self-check.'

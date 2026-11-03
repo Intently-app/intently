@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Pair one awareness tool with one or two targeted tools rather than stacking blockers.'
 section: 'App Comparisons'
 tags: ['best chrome extensions focus 2026', 'chrome extension block social media', 'chrome extension reduce distractions', 'productivity extensions', 'focus chrome']
-heroImage: '/blog-placeholder-3.jpg'
+heroImage: '/images/blog/best-chrome-extensions-focus.jpg'
+heroImageAlt: 'Four browser windows in a rising row wearing horse blinkers, earmuffs, a sleep mask and a small bell.'
 faq:
   - question: 'What is the best Chrome extension for blocking distracting websites?'
     answer: 'It depends on your approach. For a pause that keeps the choice yours, Respite''s Chrome extension is free. For hard blocking, StayFocusd and LeechBlock are the most reliable free options. For targeted feed removal, News Feed Eradicator and Unhook YouTube remove the addictive parts and keep the useful ones.'

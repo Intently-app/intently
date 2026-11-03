@@ -12,7 +12,8 @@ keyTakeaways:
   - 'Combining free tools can cover phone and browser for $0 to around $40 once instead of around $40 every year.'
 section: 'App Comparisons'
 tags: ['freedom alternatives', 'freedom alternative free', 'freedom app alternative', 'app blockers', 'screen time', 'digital wellbeing']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/freedom-alternatives.jpg'
+heroImageAlt: 'A parking meter swallowing a looping stream of coins beside a sunny picnic blanket laid with three simple tools.'
 faq:
   - question: 'What is the best free alternative to Freedom?'
     answer: 'It depends on the job. For a mindful pause before distracting apps on iPhone, Android and Chrome, Respite is free. ScreenZen is free and adds a countdown delay on iOS and Android. Apple Screen Time and Google Digital Wellbeing are free and preinstalled, but easy to bypass. For hard desktop blocking, Cold Turkey costs around $40 once.'

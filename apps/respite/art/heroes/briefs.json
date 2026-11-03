@@ -1,0 +1,1285 @@
+[
+  {
+    "slug": "ai-screen-time-coach-apps-compared",
+    "title": "AI Screen Time Coach Apps Compared: FOMO, Zensi, Argue",
+    "family": "versus",
+    "draft": false,
+    "intent": "Understand how in-app AI coach apps differ from connecting your own AI assistant, and which suits them.",
+    "concept": "One landscape cut by a bold diagonal from top-left to bottom-right, seen side-on with the horizon at about 60% of the height. Lower left is night: a small toll booth sits on a road, and its barrier arm is a long rounded speech bubble lowered across the lane just as a pair of headlights arrives. Upper right is day: a hot-air balloon whose envelope is the same speech-bubble shape (the tail becomes the basket rope) drifts high over the same road, which winds away into the hills with a route traced along it. The two bubbles mirror each other across the split at about x=520 and x=1080, both well inside the safe area. The night half is navy and slate, the day half mist blue; the single warm accent, #E8A317, lands on the barrier arm, and the balloon is cream with one thin orange band. Second-look details: the booth window glows, the road runs unbroken across the split, and a few small cars wait patiently behind the barrier. The one-second feeling: same tool, two jobs; one stops you at the door, the other helps you plan the trip.",
+    "palette_note": "Navy night on the left, mist blue day on the right; orange for both bubbles.",
+    "alt": "A speech-bubble barrier blocks a night road while a speech-bubble hot-air balloon floats over the daylit route.",
+    "twist": "The balloon's shadow on the hillside below is itself a perfect little speech bubble.",
+    "avoid": "Robot heads, chat screens with fake message lines, sparkle 'AI' stars, brain icons, or anything resembling a coach app's mascot or an assistant's logo.",
+    "build_notes": [
+      "Draw the split as two polygons and clip each half's scene so one road path runs beneath both.",
+      "Define the speech bubble once as a <symbol> (rounded rect plus tail) and reuse it, scaled and rotated, for the barrier arm and the balloon.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "apple-screen-time-alternatives",
+    "title": "Best Apple Screen Time Alternatives 2026 for iPhone",
+    "family": "versus",
+    "draft": false,
+    "intent": "Find an iPhone tool that holds up better than built-in Screen Time, which one tap can undo.",
+    "concept": "A rain-swept hillside at eye level, horizon low at about 70%, with five open umbrellas planted handle-down like garden parasols along a diagonal rising from lower-left (x≈260) to upper-right (x≈1340). Rain drives in hard streaks against the diagonal. The first umbrella, plain silver-grey with a rounded-rectangle canopy that hints at a stock device, has flipped fully inside out in a single gust, its spokes bare. The other four hold firm in different shapes: a deep dome, a tiered pagoda, a wide beach parasol, and a sturdy navy umbrella whose lining glows #E8A317, the only warm note in a cool slate scene. Under that last one, a perfectly dry circle of green grass holds one daisy. Second-look details: each umbrella stands in a puddle that reflects it, a single splash crown bursts on the flipped canopy, and one spoke shows exactly where it gave way. The one-second feeling: the built-in shelter folds at the first push, and sturdier ones exist.",
+    "palette_note": "Cool slate rain, mist blue umbrellas, one orange canopy.",
+    "alt": "Five umbrellas on a rainy hillside; the plain first one is blown inside out while the last shelters a dry patch of grass.",
+    "twist": "The last umbrella shelters a perfectly dry circle of grass with a single daisy, while the flipped one sits in a puddle shaped exactly like its canopy.",
+    "avoid": "Apple logo, iPhone silhouette with notch or Dynamic Island, the Screen Time hourglass icon, people holding umbrellas, a lightning-bolt drama sky.",
+    "build_notes": [
+      "Build the rain as a <pattern> of thin rotated lines laid over the sky; keep it off the umbrellas with a mask.",
+      "Canopy = arc with a scalloped hem path; the inside-out one is the same path flipped vertically, with spokes as straight strokes.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "apps-that-make-you-pause-before-opening-instagram-tiktok",
+    "title": "Apps That Make You Pause Before Opening Instagram (2026)",
+    "family": "versus",
+    "draft": false,
+    "intent": "Compare apps that add a short pause before social apps open, and pick one to set up.",
+    "concept": "An empty, sunny plaza seen from slightly above eye level, horizon at about 55%, with a long pale facade across the back. Three revolving doors are set into it on a staggered diagonal, the largest at front-left (x≈420) stepping back to the smallest at right (x≈1180). Each is a different way to slow entry: the first has glass panes swirled with a pale breath cloud; the second is ringed by a curved arc like a countdown halo; the third has a small push handle shaped like an acorn in #E8A317, the single warm accent. All three sets of wings are caught mid-turn. Late-morning light throws long, crisp shadows across a tiled floor in mist blue and cream, with navy door frames. Second-look details: the floor tiles in front of each door switch to a different pattern like a threshold mat, and each door's reflection shows a sliver of sky. The one-second feeling: there are several gentle ways to make an entrance slower; pick yours.",
+    "palette_note": "Mist blue glass, navy frames, orange and green accents on the third door.",
+    "alt": "Three different revolving doors on a sunny plaza: one swirling with breath, one ringed by an arc, one with an acorn handle.",
+    "twist": "A single autumn leaf is caught circling inside the first revolving door, going round instead of through.",
+    "avoid": "Camera, music-note or vertical-video shapes on the doors, a hand pressing glass, red stop signs or no-entry symbols.",
+    "build_notes": [
+      "Revolving door = a cylinder (two ellipses plus rect) with four wing panes as rotated rects clipped to it; glass is low-opacity mist blue plus one white highlight strip.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "best-ai-app-blockers-screen-time-apps-2026",
+    "title": "Best AI App Blockers and Screen Time Apps (2026)",
+    "family": "versus",
+    "draft": false,
+    "intent": "Get an honest map of the kinds of AI screen time apps in 2026 and which kind fits them.",
+    "concept": "A giant chessboard tilted on a steep diagonal, seen from a low three-quarter angle so the pieces loom like monuments against a mist-blue sky; the board's far edge sits at about 40% of the height. Five pieces of clearly different silhouettes (rook, bishop, knight, queen and a small pawn) stand spread across the middle of the canvas from x≈300 to x≈1300. Each wears a small four-point glowing spark on its crown, one for each kind of AI. The smallest, the pawn at front-right, trails a cable from its base that coils once and ends in a plug lying ready on a square: bring your own. The board is mist blue and navy, the pieces cream with navy shading, and only the pawn's plug is #E8A317. Strong raking light from the left throws long shadows across the squares. Second-look details: the knight's spark is dimmed as if switched off, and the board runs off-frame to suggest a longer game. The one-second feeling: this is a strategic choice about where you want the AI to sit.",
+    "palette_note": "Navy and mist blue board, orange sparks, green plug.",
+    "alt": "Five large chess pieces with small glowing sparks on a tilted board; a little pawn trails a cable ending in a plug.",
+    "twist": "The humble pawn is the only piece that brings its own plug, its cable coiled neatly like a tail.",
+    "avoid": "Brain icons, circuit-board patterns, robot faces, clusters of sparkle emoji, and any assistant or blocker logo.",
+    "build_notes": [
+      "Build pieces from stacked primitives (circles, trapezoids, a notched rect for the rook); skew the board grid inside a clipPath for the tilt.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "best-app-blocker",
+    "title": "Best App Blockers 2026: Hard Blocks vs Mindful Pauses",
+    "family": "versus",
+    "draft": false,
+    "intent": "Decide between a hard app blocker and a mindful pause, and see the best of each in 2026.",
+    "concept": "A single tall arched doorway fills the centre of the canvas head-on, its threshold at about 78% of the height on a plain stone floor. A hard diagonal from top-right to bottom-left splits the doorway in two. The left half is a round bank-vault door, riveted, with a spoked wheel handle and thick bolts. The right half is a bead curtain of long strands caught swaying in a breeze, with sunlight pouring through. The vault is gunmetal and navy; the beads are mist blue with a scatter of #E8A317 beads that catch the light. Second-look details: the vault's dial has ticks but no numbers, a pair of slippers waits on the curtain side, and a few beads have swung across the split line as if reaching over. The one-second feeling: the same doorway, two philosophies, and you choose which one you live with.",
+    "palette_note": "Gunmetal and navy vault, mist blue and orange beads.",
+    "alt": "One arched doorway split diagonally: half a riveted bank-vault door, half a sunlit bead curtain swaying.",
+    "twist": "The floor shadows tell the story: the vault throws a solid black slab, while the bead curtain throws a scatter of sunny dots you could walk through.",
+    "avoid": "Red X marks, prohibition circles, padlock emoji, or any colours or shapes borrowed from a named blocker brand.",
+    "build_notes": [
+      "Clip the two halves with complementary polygon clipPaths over one arch path.",
+      "Beads are dashed strokes (stroke-linecap round, short dasharray) along gently curved paths.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "best-chrome-extensions-focus",
+    "title": "Best Chrome Extensions for Focus in 2026",
+    "family": "versus",
+    "draft": false,
+    "intent": "Choose the right Chrome extension, or pair, to stop distracting sites.",
+    "concept": "Four generic browser windows (rounded rectangles with three dots and a tab nub, no marks) float in a rising diagonal lineup against flat mist blue, like portraits in a gallery, from x≈260 to x≈1340. Each wears a different focus accessory in slight three-quarter view. The first wears horse blinkers clipped to its sides, so its viewport shows only a narrow strip of sky. The second wears fluffy earmuffs, with little sound arcs bouncing off. The third has a sleep mask pulled down over its top half. The last has a small brass bell hanging from its tab: the pause. Windows are cream with navy frames, accessories navy and sage, and the bell is the single #E8A317 accent. Second-look details: tiny stars float above the masked window, the earmuff strap crosses the tab, and the four windows are subtly different sizes, like a family. The one-second feeling: kit out your browser; pick the accessory that fits your habit.",
+    "palette_note": "Cream windows with navy frames, navy and sage accessories, one orange bell.",
+    "alt": "Four browser windows in a rising row wearing horse blinkers, earmuffs, a sleep mask and a small bell.",
+    "twist": "The window wearing horse blinkers shows only a narrow vertical strip of calm sky in its viewport.",
+    "avoid": "Chrome's four-colour circle, any browser logo, the puzzle-piece extensions icon, shields, padlocks with keyholes.",
+    "build_notes": [
+      "Make the window one <symbol> and dress each instance; blinkers are two rounded trapezoids plus a strap path.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "best-digital-wellbeing-apps-2026",
+    "title": "Best Digital Wellbeing Apps 2026: 11 Apps Compared",
+    "family": "versus",
+    "draft": false,
+    "intent": "Compare the main digital wellbeing apps of 2026 and find the right fit for their devices.",
+    "concept": "A warm wooden apothecary shelf runs on a strong diagonal from lower-left to upper-right across the middle of a mist-blue wall, horizon implied at about 65%. Eleven glass jars and bottles stand along it, each a distinct silhouette: tall and slim, squat, stoppered, corked, fluted, flask-shaped. Each holds a tiny 'remedy' instead of liquid: a curl of breath, a small padlock, a sprout, a bell, a feather, and so on. One jar near the centre (x≈800) glows softly from within, and inside it floats a small acorn. Glass is mist blue and sage, the shelf warm wood, and the glow is the single #E8A317 accent. Second-look details: the labels are blank cream rectangles, a tiny brass ladder leans at the shelf's end, and a single cork has popped and lies on the shelf. The one-second feeling: a curated cabinet of options, one quietly calling to you.",
+    "palette_note": "Warm wood, glass in mist blue and sage, one glowing jar.",
+    "alt": "Eleven differently shaped apothecary jars on a diagonal shelf; one glows softly with a small acorn inside.",
+    "twist": "Each jar holds a tiny different remedy (breath, padlock, sprout, bell), and the glowing one holds a floating acorn.",
+    "avoid": "Pills, medical crosses or clinical vibes, labels with text, app icons painted on jars, star ratings.",
+    "build_notes": [
+      "Draw jar outlines as mirrored half-paths; glass is a low-opacity fill plus a white highlight stroke; the glow is a radialGradient behind the centre jar.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "best-screen-time-apps-2026",
+    "title": "Best Screen Time Apps 2026: The Complete Roundup",
+    "family": "versus",
+    "draft": false,
+    "intent": "See every type of screen time app, from gentle pauses to hard blockers, ranked in one place.",
+    "concept": "A clean museum gallery in flat poster style, horizon at about 72%, with five plinths rising like steps on a diagonal from lower-left (x≈260) to upper-right (x≈1340). On them, softest to hardest: a feather, a plump cushion, a small garden gate, a padlock and an anvil. Each stands alone on its own step under a soft spotlight cone, so the spectrum reads at a glance. Colours grade from pale mist blue at the soft end to deep navy at the hard end; the feather is the single #E8A317 accent. Second-look details: the feather is drifting just above its plinth, never quite landing; the anvil has visibly dented its step; and the gate on the middle plinth stands slightly ajar. The one-second feeling: every tool sits somewhere between gentle and immovable; find your spot on the line.",
+    "palette_note": "Graded from pale mist blue to deep navy, orange on the feather.",
+    "alt": "Five objects on rising museum steps from soft to hard: a feather, a cushion, a gate, a padlock and an anvil.",
+    "twist": "The feather hovers just above its plinth while the anvil has dented its step.",
+    "avoid": "Star ratings, trophies, a 1-2-3 podium, numbers, checkmarks, app icons on the plinths.",
+    "build_notes": [
+      "Plinths are simple rect steps; the spotlight cones are low-opacity white polygons layered behind each object.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "forest-app-alternatives",
+    "title": "Best Forest App Alternatives 2026: Free & Paid Compared",
+    "family": "versus",
+    "draft": false,
+    "intent": "Find apps like Forest, for timed focus or for the impulsive reach the rest of the day.",
+    "concept": "A garden-shop seed rack seen straight on, standing on a terracotta-tiled floor that tilts on a gentle diagonal; the floor line sits at about 80% of the height. The wire rack holds five plump seed packets in its pockets, each printed with a different plant and no text: a cactus, a climbing bean, a sunflower, a mushroom cluster and an oak seedling with its acorn still attached. The acorn packet is half pulled out of its pocket, caught mid-choice. Packets are cream with sage, navy and brown illustrations; the pulled packet's top band is the single #E8A317 accent. Bright shop light falls from top-left onto a mist-blue wall. Second-look details: a small trowel hangs from the rack's side, the packets are slightly different sizes, and the rack's wire top curls into a vine. The one-second feeling: there is more than one way to grow focus; choose your seed.",
+    "palette_note": "Terracotta floor, mist blue wall, cream packets, orange top band on the acorn packet.",
+    "alt": "A garden-shop rack of seed packets showing a cactus, bean, sunflower, mushrooms and an acorn seedling being picked.",
+    "twist": "Seeds spilled on the floor have already sprouted in the gaps between the tiles.",
+    "avoid": "A single round-canopy cartoon tree (too close to Forest's icon), a phone with a tree on its screen, coins, timers growing trees.",
+    "build_notes": [
+      "Packets are rects with a zigzag crimped top band; each plant illustration is a 3 to 5 shape glyph centred on the packet.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "free-screen-time-app-android",
+    "title": "Best Free Screen Time Apps for Android (2026)",
+    "family": "versus",
+    "draft": false,
+    "intent": "Find the best genuinely free screen time app for Android, without ads.",
+    "concept": "A leafy street corner in flat poster style, eye level, horizon at about 70%. Centre-left (x≈640) stands a small wooden free-library box on a post, like a birdhouse for books, its glass door swung open. On its two shelves, instead of books, sits a lineup of small tools: a tiny bench, a sprout in a pot, a folded map, a magnifying glass and a little lantern. To the right (x≈1050), a lamppost is wallpapered with layers of blank stapled flyers, peeling and overlapping. The box is sage with a #E8A317 roof, the single warm accent, against mist-blue sky and navy pavement. Afternoon sun from the left. Second-look details: a water dish for dogs sits at the box's foot, one flyer is flapping loose in the breeze, and the box roof is a soft rounded rectangle. The one-second feeling: genuinely free, with nothing stuck on it.",
+    "palette_note": "Mist blue sky, sage box with orange roof, off-white flyers.",
+    "alt": "A little free library box on a post holding small tools, beside a lamppost covered in blank flyers.",
+    "twist": "The lamppost next to it is wallpapered with blank flyers, while the little box has not a single sticker on it.",
+    "avoid": "The Android robot, the Play Store triangle, price tags, dollar signs, any 'FREE' lettering.",
+    "build_notes": [
+      "Box is a rect plus triangle roof with a hinged door drawn as a skewed rect; flyers are overlapping rotated rects in three off-whites.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "freedom-alternatives",
+    "title": "Best Freedom Alternatives 2026: Free Apps Like Freedom",
+    "family": "versus",
+    "draft": false,
+    "intent": "Find free or cheaper apps like Freedom and see what a yearly fee actually buys.",
+    "concept": "A split poster cut by a diagonal from bottom-left to top-right, eye level, horizon at about 68%. Left (x≈480): a tall steel parking meter on a grey pavement swallowing a stream of coins. The coins arc up from below in a long loop and drop into its slot, year after year. Right (x≈1120): a sunny lawn with a picnic blanket on which three simple tools are laid out for free: a small padlock, a folding paper fan and a wooden door wedge. The meter side is steel grey and navy, the picnic side mist blue and sage, and the coins are the single #E8A317 accent. Second-look details: the meter's window shows an empty dial with no numbers, a single coin has rolled across the split onto the picnic blanket, and a breeze lifts one corner of the blanket. The one-second feeling: you can stop feeding the meter.",
+    "palette_note": "Steel grey meter, warm mist blue picnic, orange coins.",
+    "alt": "A parking meter swallowing a looping stream of coins beside a sunny picnic blanket laid with three simple tools.",
+    "twist": "The stream of coins makes a long loop that circles back to the top of the meter, a payment that never ends.",
+    "avoid": "Birdcages or escaping birds (too on-the-nose for the brand name), dollar signs, calendars with dates, competitor logos.",
+    "build_notes": [
+      "The coins are ellipses placed along a looping path, getting smaller toward the slot for depth.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "google-digital-wellbeing-alternatives",
+    "title": "Best Google Digital Wellbeing Alternatives 2026",
+    "family": "versus",
+    "draft": false,
+    "intent": "Find an Android app that does what Digital Wellbeing's easily dismissed timers do not.",
+    "concept": "A kitchen counter runs on a strong diagonal across the canvas, seen from slightly above, with the back wall in mist blue. Five wind-up kitchen timers stand in a row along it from x≈280 to x≈1320, each a different shape: a plain white dome, an egg, a squat drum, a tall lighthouse-like cylinder, and finally a small timer topped with an acorn cap. The first timer, plain and built-in looking, has its winding key snapped off and lying beside it, and its dial is turned to face the wall. Timers are cream and navy, the counter sage, and the acorn cap the single #E8A317 accent. Morning light from the right. Second-look details: the dials have ticks but no numbers, a tiny gear has rolled from the broken timer, and a tea towel hangs off the counter edge. The one-second feeling: the default timer is easy to ignore; there are better ones on the shelf.",
+    "palette_note": "Mist blue counter, navy timers, orange acorn cap.",
+    "alt": "Five kitchen timers on a counter; the first has its key snapped off and the last wears an acorn cap.",
+    "twist": "The built-in timer has its key snapped off and its face turned to the wall, as if it has already given up.",
+    "avoid": "The Android robot, Google's four-colour sequence, Digital Wellbeing's donut chart, numbers on dials.",
+    "build_notes": [
+      "Each timer is a basic solid (ellipse plus rect or path) with a dial circle and tick strokes; the broken key is a small T-shape rotated on the counter.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "mindful-tech-interventions-vs-blocking",
+    "title": "Mindful Interventions vs App Blocking: Which Lasts?",
+    "family": "versus",
+    "draft": false,
+    "intent": "Understand why a pause can outlast a hard block for habits, and when blocking still wins.",
+    "concept": "A garden scene cut by a diagonal from top-left to bottom-right, eye level, horizon at about 70%. Left (x≈480): a tall brick wall already scaled by everything people throw at it: two ladders, a knotted rope over the top and a wobbly stack of crates. These are the workarounds that blocking invites. Right (x≈1120): an open stone archway on the same path, nothing to climb, with a single wind chime hanging at its crown that makes you notice as you pass. The wall side is brick red and navy, the archway side mist blue and sage, and the chime is the single #E8A317 accent. Second-look details: one ladder's top rung is worn pale, footprints lead to the wall but around the arch, and a small vine has started to grow over the arch's keystone. The one-second feeling: walls invite climbing, while an open door with a sound invites a choice.",
+    "palette_note": "Brick red and navy left, mist blue and orange right.",
+    "alt": "A brick wall covered in ladders, rope and crates beside an open stone archway with a wind chime.",
+    "twist": "The wall's top edge is worn smooth exactly where all the ladders lean, while the chime is the only thing moving.",
+    "avoid": "Red X marks, prohibition signs, phones with locks, prison bars.",
+    "build_notes": [
+      "Brick pattern via a <pattern> clipped to the wall shape; chime tubes are thin rects of varied lengths hanging from a small disc.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "one-sec-alternatives",
+    "title": "Best One Sec Alternatives 2026 (Free Apps Like One Sec)",
+    "family": "versus",
+    "draft": false,
+    "intent": "Find free apps that pause them before social apps open, like One Sec.",
+    "concept": "A gentle grassy hill rises on a diagonal from lower-left to upper-right, eye level, horizon at about 62%. Five paper pinwheels on sticks are planted along its crest from x≈300 to x≈1300, each folded differently and spinning in its own breeze. Visible breeze lines curl between them and join into one long wave that rises and falls like an inhale and exhale. The first pinwheel is larger and mid-turn, and the others vary in petal count and colour. Sky is mist blue, the hill sage, and pinwheels navy, cream and green, with one #E8A317 pinwheel as the single warm accent. Second-look details: a dandelion clock is releasing seeds in the same breeze, one pinwheel's stick has a small ribbon, and the shadows of the petals blur slightly to suggest spin. The one-second feeling: calm, breathing rhythm; several ways to take one breath.",
+    "palette_note": "Mist blue sky, pinwheels in orange, green, navy.",
+    "alt": "Five paper pinwheels on a grassy hill spinning in one curling breeze that rises and falls like a breath.",
+    "twist": "The breeze lines between the pinwheels join into one continuous breath curve that rises and falls across the whole hill.",
+    "avoid": "Lungs or anatomy, the One Sec logo, 'one second' clock faces, meditation poses.",
+    "build_notes": [
+      "Pinwheel = four or six triangles rotated around a centre via transform; breeze lines are one smooth stroked path with round caps.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "opal-alternatives",
+    "title": "Best Opal Alternatives 2026: Free & Paid Apps Compared",
+    "family": "versus",
+    "draft": false,
+    "intent": "Find a free or cheaper Opal alternative, especially one that also works off iPhone.",
+    "concept": "A split poster on a diagonal from top-left to bottom-right, eye level, horizon at about 70%. Left (x≈480): a polished velvet rope between brass stanchions guards a dark, plush premium doorway with a small tip tray holding a stack of gold coins. Right (x≈1120): a wide-open park entrance with a gravel path running in between low hedges toward sunlight, with no rope at all and only a stone bird bath at the gate. The same destination, glimpsed far off in both halves as a sunny hill, is reached by very different doors. The left is deep plum and navy with brass, the right mist blue and sage, and the single #E8A317 accent is the sun on that shared hill. Second-look details: the velvet rope sags slightly under its own weight, a bird is splashing in the bath, and the gravel path continues across the split. The one-second feeling: you do not need a VIP pass to get to the same place.",
+    "palette_note": "Deep plum and gold left, mist blue and green right.",
+    "alt": "A velvet rope guards a dark premium doorway beside a wide open park entrance with a bird bath and a sunny path.",
+    "twist": "A small tip tray of gold coins waits beside the velvet rope, while the park's only fixture is a bird bath with a bird in it.",
+    "avoid": "Gems, diamonds, crystals or faceted shapes (too close to Opal's brand), iPhone silhouettes, price labels.",
+    "build_notes": [
+      "Velvet rope is a thick sagging bezier between two stanchions (rect plus circle cap); hedges are rounded-rect clusters.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "respite-vs-brick",
+    "title": "Respite vs Brick (2026): Free App or Physical Lock?",
+    "family": "versus",
+    "draft": false,
+    "intent": "Choose between a physical lock device and a free software pause.",
+    "concept": "Two phones set side by side across a diagonal split from top-right to bottom-left, viewed head-on, on a plain floor line at about 75% of the height. Left (x≈520): a phone shut inside a small steel locker with a padlocked hasp, and a physical metal key hanging on a long lanyard that trails off the edge of the frame. Right (x≈1080): the same phone resting inside a large iridescent soap bubble that floats just off the ground, clearly something you could simply reach through. Left is steel grey and navy; right is mist blue with soft pink-green bubble highlights, and the phone's screen glow inside the bubble is the single #E8A317 accent. Second-look details: the locker has rivets and a ventilation grille, the bubble reflects a tiny curved window of sky, and a second smaller bubble drifts upward. The one-second feeling: a barrier you carry everywhere versus a moment's pause that is always there.",
+    "palette_note": "Steel grey left, iridescent mist blue right.",
+    "alt": "A phone locked in a steel locker with its key on a long lanyard, beside a phone floating inside a soap bubble.",
+    "twist": "The locker key's lanyard trails right out of the frame, implying you must carry it with you wherever you go.",
+    "avoid": "Literal bricks, small square tag devices, NFC wave symbols, hands tapping devices.",
+    "build_notes": [
+      "Bubble = circle with a radialGradient (transparent centre, tinted rim) plus two white arc highlights; the phone inside sits at reduced opacity.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "respite-vs-clearspace",
+    "title": "Respite vs ClearSpace (2026): Pause or Push-Ups?",
+    "family": "versus",
+    "draft": false,
+    "intent": "Choose between doing a task or exercise to unlock apps and a simple pause.",
+    "concept": "A diagonal split from bottom-left to top-right, eye level, horizon at about 72%. Left (x≈500): a heavy cast-iron kettlebell on a gym mat whose handle is a phone, welded on and waiting to be hoisted, with a sweatband draped over it. Right (x≈1100): the same phone resting in a hammock strung between two posts in dappled shade, a cup of tea steaming on a small stool beside it. Left is iron grey and navy on a rubbery slate floor; right is mist blue sky and sage leaves, with the hammock as the single #E8A317 accent. Second-look details: chalk dust clouds the gym mat, a leaf has landed in the hammock, and the kettlebell has pressed a dent into the mat. The one-second feeling: effort versus ease, without a hint of judgement.",
+    "palette_note": "Iron grey kettlebell, mist blue and green hammock.",
+    "alt": "A phone forms the handle of a heavy kettlebell; beside it another phone rests in a shady hammock next to tea.",
+    "twist": "A sweatband is draped over the kettlebell while, on the other side, a cup of tea steams beside the hammock.",
+    "avoid": "Push-up figures, gym mirrors, straining or sweaty faces, fitness app logos.",
+    "build_notes": [
+      "Hammock is a curved path filled with a crosshatch <pattern>; leaf dapple is a group of low-opacity sage ellipses over the shade.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "respite-vs-flowbuddy",
+    "title": "Respite vs FlowBuddy (2026): Free Pause Apps for Android",
+    "family": "versus",
+    "draft": false,
+    "intent": "Choose between a minimal open-source breathing pause and a fuller pause-and-tracking app on Android.",
+    "concept": "A clean tabletop on a diagonal, seen from slightly above, with a mist-blue wall behind; tabletop edge at about 70% of the height. Left (x≈520): a small clear glass box, completely transparent, revealing one simple brass gear inside, and from it a single breath cloud puffs out like steam through a vent. Right (x≈1080): a chunky folding multitool fanned open with its blades shaped as a pause bar, a tiny bar chart, a small flame and a little acorn. Glass and sage on the left; navy and cream multitool on the right, with the flame blade as the single #E8A317 accent. Second-look details: the glass box's screws are visible through its walls, the multitool's handle shows wear, and both sit on the same tablecloth stripe. The one-second feeling: open and minimal versus full-featured; both honest choices.",
+    "palette_note": "Clear glass and sage left, mist blue and orange multitool right.",
+    "alt": "A clear glass box with one gear puffing a breath cloud, beside a multitool fanned open with pause, chart and flame blades.",
+    "twist": "Inside the glass box, the single gear puffs its own tiny breath cloud out through a vent like steam.",
+    "avoid": "GitHub's octocat, code brackets, the Android robot, Swiss flag crosses on the multitool.",
+    "build_notes": [
+      "The glass box is a cube outline with three low-opacity faces; draw the gear first, then glass on top.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "respite-vs-forest",
+    "title": "Respite vs Forest (2026): Focus Timer or Habit Pause?",
+    "family": "versus",
+    "draft": false,
+    "intent": "Decide whether they need a focus timer for sessions or a pause that catches impulsive opens.",
+    "concept": "Two front doors across a diagonal split, seen head-on at dusk, horizon at about 70%. Left (x≈500): a small stage with a stopwatch hanging under a spotlight that only switches on when someone pulls its long cord, and nobody is pulling it, so the stage is dark. Right (x≈1100): a cottage door whose porch light has a motion sensor and has clicked on by itself as a shadow approaches up the path. Left is dark navy and plum; right is mist blue dusk with the porch light's warm #E8A317 glow, the single accent. Second-look details: the stopwatch hands are frozen, the pull-cord dangles with a small tassel, and the shadow on the path belongs to someone just out of frame. The one-second feeling: one tool works when you remember to start it; the other is on whenever you arrive.",
+    "palette_note": "Dark navy stage left, warm orange porch glow right.",
+    "alt": "A dark stage with a stopwatch under an unlit spotlight, beside a porch light switching on as someone approaches.",
+    "twist": "A moth is already circling the porch light the instant it switched on, while the stage's pull-cord hangs untouched.",
+    "avoid": "Trees of any kind (too close to Forest's brand), growing saplings, coins, phones with tree screens.",
+    "build_notes": [
+      "The porch glow is a radialGradient cone; the spotlight is a dark polygon cone at low opacity to read as 'off'.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "respite-vs-freedom",
+    "title": "Respite vs Freedom (2026): Mindful Pause or Hard Block?",
+    "family": "versus",
+    "draft": false,
+    "intent": "Choose between a paid cross-device hard blocker and a free mindful pause.",
+    "concept": "A diagonal split from top-left to bottom-right, eye level, horizon at about 72%. Left (x≈500): a laptop, a tablet and a phone are threaded together on one thick steel cable, like bicycles at a rack, clamped by a single padlock bigger than the phone. Right (x≈1100): one phone stands at an open front door on a woven doormat, a small bell hanging above the frame. Left is steel and navy against slate; right is mist blue with sage, and the bell is the single #E8A317 accent. Second-look details: the cable sags under its weight, light spills from the open doorway onto the mat, and a pot plant sits by the door. The one-second feeling: one locks everything at once; the other just asks at the door.",
+    "palette_note": "Steel and navy left, mist blue and orange right.",
+    "alt": "A laptop, tablet and phone threaded on one padlocked steel cable, beside a phone at an open door with a bell.",
+    "twist": "The padlock clamping the cable is bigger than the phone it holds.",
+    "avoid": "Birds, cages or flight imagery (brand-adjacent), Freedom's logo, laptops with real brand marks.",
+    "build_notes": [
+      "The cable is a thick stroked path that passes in front of and behind each device; split it into segments and order the layers.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "respite-vs-google-digital-wellbeing",
+    "title": "Respite vs Google Digital Wellbeing (2026): Which Is Better?",
+    "family": "versus",
+    "draft": false,
+    "intent": "Decide whether Android's built-in tool is enough or a pause app is worth adding, or both.",
+    "concept": "An architectural cross-section of a long straight staircase climbing diagonally from lower-left (x≈220) to upper-right (x≈1380). Its built-in handrail runs the full length, plain and grey and part of the structure: the default tool. Halfway up (x≈800), the stair opens out into a broad landing with a tall window and a cushioned window seat, an added place where the climb levels before it continues. The handrail carries on past the landing, so both are kept. Walls are mist blue, stairs navy, and sunlight through the window falls on the cushion in a warm #E8A317 rectangle, the single accent. Second-look details: a tiny potted plant on the landing sill, a pair of slippers at the foot of the stairs, and a picture frame (blank) hung slightly crooked. The one-second feeling: you can keep what is built in and still add somewhere to pause.",
+    "palette_note": "Mist blue walls, navy stairs, orange sunlight on the cushion.",
+    "alt": "A long staircase with a plain built-in handrail and a sunlit landing halfway up with a cushioned window seat.",
+    "twist": "Sunlight through the landing window lands as one perfect warm rectangle on the cushion, the only resting spot on the whole climb.",
+    "avoid": "The Android robot, Google's colours, hourglass or timer icons, donut charts.",
+    "build_notes": [
+      "Stairs are one stepped polyline path; the window light is a skewed polygon in low-opacity orange laid over the cushion and floor.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "respite-vs-lockin-mcp",
+    "title": "Respite vs LockIn MCP (2026): Phone or Desktop AI?",
+    "family": "versus",
+    "draft": false,
+    "intent": "Understand how two MCP screen time tools differ: one blocks a computer, one reads a phone.",
+    "concept": "A dark navy field with a single glowing plug at the exact centre (x≈800, y≈450), from which two cables run out on opposite diagonals. One cable climbs to upper-left and ends at a big light switch mounted on the bezel of a desktop monitor, the switch caught mid-flick. The other runs to lower-right and ends at an open book whose cover is a phone silhouette, lying open on a small table, lit by a clip-on reading lamp powered by the same cable. The plug's glow is the single #E8A317 accent; the monitor is cream and slate, the book mist blue and sage. Second-look details: the book has a ribbon bookmark trailing out, the switch-side cable is pulled taut while the book-side cable lies relaxed, and faint sparks dot the plug's prongs. The one-second feeling: same connector, different jobs; one flips a switch, one reads the story.",
+    "palette_note": "Navy background, orange plug glow, mist blue and green ends.",
+    "alt": "One glowing plug splits into two cables: one flicks a switch on a monitor, one lights an open phone-shaped book.",
+    "twist": "On the book side the cable quietly powers a little clip-on reading lamp, while on the monitor side it is pulled taut to flick a switch.",
+    "avoid": "Lock icons, the MCP logo, terminal windows or code, brand marks on the monitor.",
+    "build_notes": [
+      "Two cubic bezier cables from the centre; the plug glow is a radialGradient beneath everything else.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "respite-vs-one-sec",
+    "title": "Respite vs One Sec (2026): Which Pause App Is Right for You?",
+    "family": "versus",
+    "draft": false,
+    "intent": "Choose between two pause apps: a research-backed paid breathing pause or a free cross-platform one.",
+    "concept": "Two hourglasses stand side by side on a low plinth that runs on a slight diagonal, viewed head-on against mist blue, plinth top at about 74% of the height. Both are paused mid-fall, with a single grain hanging in each neck. Left (x≈560): a classic, elegant two-bulb hourglass in which the upper sand curls into a soft breath-like swirl, a carefully made pause. Right (x≈1040): a surreal hourglass whose one top bulb feeds three lower bulbs on branching necks, each a slightly different silhouette: a rounded phone, another phone and a browser-window rectangle. Glass is mist blue, sand cream, frames navy, and the right hourglass's top cap is the single #E8A317 accent. Second-look details: a small coin rests under the left base, the right hourglass's shadow forks three ways, and the tiny sand heaps below are identical in both. The one-second feeling: two good pauses, and one of them reaches further.",
+    "palette_note": "Mist blue glass, cream sand, navy frames, orange top cap on the right glass.",
+    "alt": "Two hourglasses paused mid-fall; the right one branches into three lower bulbs, one shaped like a browser window.",
+    "twist": "The right hourglass branches into three lower bulbs, and one of them is shaped like a browser window.",
+    "avoid": "Lungs, breathing-app logos, stopwatches with numbers, research charts with figures.",
+    "build_notes": [
+      "Bulbs are mirrored bezier paths; fill the sand with a rect clipped to each bulb so levels are easy to adjust.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "respite-vs-opal",
+    "title": "Respite vs Opal (2026): Pause or Block? Which to Pick",
+    "family": "versus",
+    "draft": false,
+    "intent": "Choose between strong scheduled blocking at a price and a free, gentler pause.",
+    "concept": "A stream runs diagonally across the canvas, seen from a slightly raised three-quarter view with the far bank at about 45% of the height. Left (x≈480): a stone castle drawbridge is raised by a clock-tower mechanism, chains taut, leaving an impassable gap until its hour. Right (x≈1120): a line of flat stepping stones crosses the same stream, with one wider stone in the middle where you can stand and decide. Left is stone grey and navy, right is mist blue water with sage, mossy stones, and the single #E8A317 accent is the low sun glinting on the water between them. Second-look details: the clock tower has no hands, just a heavy bolt at its centre; a dragonfly hovers by the wide stone; and ripples spread from the stones but not the bridge. The one-second feeling: one way opens on a timetable; the other lets you cross when you choose.",
+    "palette_note": "Stone grey and navy left, mist blue water and green stones right.",
+    "alt": "A castle drawbridge raised by a handless clock tower beside a row of stepping stones across a sunlit stream.",
+    "twist": "The clock tower face has no hands at all, only a heavy bolt, while the stepping stones' reflections line up like a dotted trail.",
+    "avoid": "Gems, crystals or faceted shapes, iPhone silhouettes, price tags, numbered clock faces.",
+    "build_notes": [
+      "Water is a band of two blue tones with white wavy dash strokes; reflections are the stone shapes flipped vertically at 30% opacity.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "respite-vs-refocus",
+    "title": "Respite vs Refocus (2026): Pause Every Open or Time Budgets?",
+    "family": "versus",
+    "draft": false,
+    "intent": "Diagnose whether the problem is too many opens or too long per session, and pick the matching app.",
+    "concept": "A split poster on a diagonal from top-left to bottom-right, eye level, horizon at about 70%. Left (x≈500): a chrome turnstile set in a station-like gate, one arm caught mid-click, stopping each entrance one at a time; the floor around it is worn into a smooth circle. Right (x≈1100): a tall candle on a brass holder, marked with evenly spaced notches up its side, burning down toward the next notch: a budget of time. Left is navy and slate with cool light; right is mist blue with a warm #E8A317 flame, the single accent. Second-look details: the candle's wax drips have stopped exactly at a notch, the turnstile has a small bowl of pebbles beside it, one for each entry, and the candle's smoke drifts across the split. The one-second feeling: two different problems, too many entries or too long inside, and two different shapes of help.",
+    "palette_note": "Navy turnstile, warm candle glow in orange.",
+    "alt": "A turnstile that stops each entry, beside a tall notched candle burning down to its next mark.",
+    "twist": "The candle's wax drips have stopped exactly at a notch, as if the budget were obeyed to the millimetre.",
+    "avoid": "Hourglass icons, pie charts, budget spreadsheets, numbers on the notches.",
+    "build_notes": [
+      "Turnstile = a vertical post plus three arms as rotated rounded rects; the flame is two teardrop paths, outer orange and inner cream.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "respite-vs-screenzen",
+    "title": "Respite vs ScreenZen (2026): Two Free Pause Apps Compared",
+    "family": "versus",
+    "draft": false,
+    "intent": "Compare two free pause apps and see where they differ.",
+    "concept": "A quiet street running on a strong diagonal at dusk, viewed from pavement level, with the horizon at about 66%. Two traffic lights stand side by side near the centre (x≈640 and x≈960), both glowing amber, meaning pause, not stop. They are near-twins, but the right one carries an extra small lamp mounted on a short arm, shaped like a browser window, also glowing amber. Poles navy, sky mist blue going to lavender, and the amber glow is the single #E8A317 accent. Second-look details: the red and green lenses on both are dark, the amber pools on the wet road below them, and the road markings run unbroken under both. The one-second feeling: two close cousins, and one reaches the laptop too.",
+    "palette_note": "Navy poles, amber glow, mist blue sky.",
+    "alt": "Two traffic lights both glowing amber; the right one has an extra small lamp shaped like a browser window.",
+    "twist": "A single snail is crossing the road between the two lights, taking all the time it wants.",
+    "avoid": "Zen stones, ensō circles or Buddha imagery (brand-adjacent), red lights, crashes, countdown numbers.",
+    "build_notes": [
+      "Light lenses are circles with a radialGradient glow; reflections on the road are vertical streaks at 30% opacity.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "screen-time-apps-for-students",
+    "title": "Screen Time Apps for Students: Stay Focused (2026)",
+    "family": "versus",
+    "draft": false,
+    "intent": "Find the right screen time and study apps for coursework and exam weeks.",
+    "concept": "A tilted wooden study desk seen from above at an angle, its edge running on a diagonal; the desk fills most of the frame against a mist-blue floor. Centre (x≈720): an open zip-up pencil case holds a lineup of tools instead of pens: a tiny padlock, a pencil sprouting a leaf from its eraser end, a miniature bench and a cloud-shaped eraser. Far across the desk at upper-right (x≈1300), a phone sits alone on a small distant shelf, face down and out of reach. Desk is warm wood, the case navy, the tools cream and sage, and the sprouting leaf is the single #E8A317 accent. Second-look details: an open notebook (no writing) sits under the case, a lamp's circle of light covers the case, not the phone, and pencil shavings curl like tiny waves. The one-second feeling: the right kit, with the phone far enough away to forget.",
+    "palette_note": "Mist blue desk, navy case, orange and green tools.",
+    "alt": "An open pencil case holding a padlock, a sprouting pencil and a tiny bench, with a phone on a distant shelf.",
+    "twist": "The pencil in the case is sprouting a leaf from its eraser end.",
+    "avoid": "Graduation caps, books with text, grades or letters, stressed students, exam clocks with numbers.",
+    "build_notes": [
+      "Pencil case is a rounded rect with a zigzag zip line; the lamp light is a low-opacity ellipse over the case.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "screenzen-alternatives",
+    "title": "Best ScreenZen Alternatives 2026: Apps That Add Friction",
+    "family": "versus",
+    "draft": false,
+    "intent": "Find other apps that add friction before scrolling, free and paid.",
+    "concept": "A sunny playground in flat poster style, eye level, horizon at about 72%. Four slides stand in a diagonal row from x≈260 to x≈1340, each a smooth chute curling down like a scroll. At each slide's foot, or in its chute, is a different brake: a sandpit, a bumpy wave section in the chute, a shallow puddle and a big soft cushion. Slides are navy, sage, cream and one #E8A317, the single warm accent; the ground is mist blue. Midday sun from upper-left throws hard poster shadows. Second-look details: a lost sandal sits at the foot of the sandpit slide, a bucket and spade lean on its rim, and the puddle reflects the sky. The one-second feeling: the same slide, slowed down by different textures; choose your kind of friction.",
+    "palette_note": "Mist blue ground, slides in navy, sage, cream and one orange.",
+    "alt": "Four playground slides in a row, each ending in a different brake: sand, a bumpy chute, a puddle and a cushion.",
+    "twist": "The orange slide's chute has a gentle upward bump halfway, where a tiny faceless figure has naturally come to a stop and is looking at the view.",
+    "avoid": "Zen stones, ensō circles, Buddha, countdown numbers, crying children.",
+    "build_notes": [
+      "Slides are thick bezier strokes with round caps; ladders are two lines plus rungs; the cushion is a rounded rect with a seam.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "stayfocusd-alternatives",
+    "title": "Best StayFocusd Alternatives 2026: Free Chrome Blockers",
+    "family": "versus",
+    "draft": false,
+    "intent": "Find a Chrome site blocker that replaces StayFocusd, and close its loopholes.",
+    "concept": "A canal descends diagonally from upper-left to lower-right through a series of four lock gates, seen from a raised three-quarter view. Each gate is a different mechanism: one sealed shut with heavy beams, one on a timed sluice with a wheel, one opening into a calm holding basin, and one with a simple swing gate. The water flows down toward a reservoir at lower-right shaped like a blank browser window, with three dots for its lake shore. Water is mist blue, gates navy, banks sage, and the sluice wheels the single #E8A317 accent. Second-look details: reeds at the basin's edge, one gate leaking a thin trickle, and a towpath running along the bank. The one-second feeling: there are many ways to control the flow; find the gate that fits.",
+    "palette_note": "Mist blue water, navy gates, orange gate wheels.",
+    "alt": "A canal stepping down through different lock gates, a paper boat waiting, toward a reservoir shaped like a browser window.",
+    "twist": "A tiny paper boat waits patiently in the calm holding basin while the other gates are sealed or ticking.",
+    "avoid": "The radiation symbol (for the Nuclear Option), StayFocusd's logo, Chrome's colours, stopwatches.",
+    "build_notes": [
+      "Draw each canal step as a parallelogram of water, darker at the top edge; gates are thick rects with cross-beams.",
+      "Shadows: hard-edged and unblurred, offset 45 degrees down-right (about +20,+20) in navy at 25% opacity, poster style."
+    ]
+  },
+  {
+    "slug": "bring-your-own-ai-to-respite",
+    "title": "Bring Your Own AI to Respite: Connect Claude or ChatGPT",
+    "family": "product",
+    "draft": false,
+    "intent": "Learn what bringing their own AI to Respite does today and how their data is handled.",
+    "concept": "An isometric soft-3D still life on a mist-blue ground, viewed from the standard 30-degree iso angle, centred at about x=800. A rounded console block in mist blue with a small acorn emblem on its face has a cartridge slot on top. A chunky game cartridge shaped like a speech bubble is sliding into it, half inserted, and a soft glow spills out where they meet. Beside it, a spare cartridge in a different colour waits in a soft fabric pouch: you bring your own. The cartridge is #E8A317, the emblem acorn brown and green, and everything is glossy and rounded like a toy. Second-look details: the cartridge's grip ridges are tiny acorn caps, a short cable trails from the console's back, and a little power light on the console is green. The one-second feeling: plug in the assistant you already have; it just fits.",
+    "palette_note": "Mist blue base, orange cartridge, acorn green emblem.",
+    "alt": "A speech-bubble-shaped cartridge slides into a rounded blue console marked with an acorn, a spare in a pouch beside it.",
+    "twist": "The cartridge's grip ridges are tiny acorn caps, and a spare cartridge in a different colour waits in a soft pouch.",
+    "avoid": "Claude, ChatGPT or Cursor logos, robot heads, brain icons, sparkle emoji AI iconography, game-console brand shapes.",
+    "build_notes": [
+      "Iso blocks are three parallelograms per object (top light, left mid, right dark); the slot glow is a radialGradient clipped to the slot opening.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "chatgpt-claude-screen-time-prompts",
+    "title": "30 ChatGPT and Claude Prompts for Your Screen Time",
+    "family": "product",
+    "draft": false,
+    "intent": "Get ready-to-use prompts to analyse and cut screen time with Claude or ChatGPT.",
+    "concept": "An isometric soft-3D wooden recipe-card box sits centre-stage on a mist-blue ground, lid flipped open. A fan of blank index cards lifts out of it in an arc, like a magician's spread, each marked only with a small pictogram: a moon, a bar chart, a clock, a sprout, a walking figure, a coffee cup. A small wooden divider tab sticks up from the back of the box. The box is warm wood, the cards cream, and the pictograms orange and green, with one card's tab the single #E8A317 highlight. Soft light from the top-left gives the cards gentle gradients. Second-look details: one card is dog-eared from use, a pencil lies beside the box, and a few cards have drifted down to the floor. The one-second feeling: a kitchen tin of trusted recipes, ready to cook with.",
+    "palette_note": "Warm wood, cards in cream with orange and green pictograms on mist blue.",
+    "alt": "An isometric recipe-card box with blank cards fanning out, each showing a small moon, chart, clock or sprout icon.",
+    "twist": "One card sticks up higher than the rest with a little orange tab, the family favourite.",
+    "avoid": "Lines of fake text, chat UI bubbles with messages, the number thirty, assistant logos.",
+    "build_notes": [
+      "Cards are rotated rounded rects about one pivot point; give each a slight darker bottom edge for thickness.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "connect-chatgpt-to-phone-usage",
+    "title": "How to Connect ChatGPT to Your Phone Usage (Respite)",
+    "family": "product",
+    "draft": false,
+    "intent": "Set up ChatGPT to read their real phone usage through Respite.",
+    "concept": "Two small isometric soft-3D platforms float on a mist-blue ground, one at left (x≈480) holding a phone propped on a little stand, one at right (x≈1120) holding a rounded chat bubble. They are joined by a taut string with an #E8A317 tin can at each end, a tin-can telephone, one can fixed to the phone's side and one tucked into the bubble's tail. A small vibration wave travels along the string, drawn as three tiny bumps midway. The platforms are mist blue with sage grass tops, the phone navy and the bubble cream. Soft top-left light. Second-look details: a tiny sprout grows on each platform, the string casts a thin soft shadow on the ground, and the phone's screen shows only a simple bar chart. The one-second feeling: a simple, playful line between your phone and your assistant.",
+    "palette_note": "Mist blue platforms, orange cans, green string.",
+    "alt": "A phone and a chat bubble on floating platforms joined by a taut tin-can telephone string.",
+    "twist": "A little vibration wave is caught mid-string, three tiny bumps travelling from phone to bubble.",
+    "avoid": "The OpenAI knot logo, the letters GPT, wifi symbols, cloud upload icons.",
+    "build_notes": [
+      "Tin cans are short iso cylinders (ellipse plus rect plus ellipse); the string is one path with three small sine bumps.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "connect-claude-chatgpt-cursor-to-respite-mcp",
+    "title": "How to Connect Claude, ChatGPT or Cursor to Respite (MCP)",
+    "family": "product",
+    "draft": false,
+    "intent": "Follow step-by-step setup to connect any of three AI assistants to Respite.",
+    "concept": "A big soft-3D universal travel adapter floats at the centre of a mist-blue ground in isometric view. Three differently shaped prongs come in from left, top and right (round, flat and angled), each on its own short cable, and converge into one socket on the adapter. The socket face is shaped like an acorn whose cap is a little hinged cover flap. Each prong stands for a different assistant; there is one address for all. The adapter is mist blue and cream, the cables navy, and the acorn socket #E8A317 with a brown cap. Second-look details: each prong has a different colour stripe, a small green power light glows on the adapter, and the cables have gentle coils. The one-second feeling: whatever you use, it fits the same socket.",
+    "palette_note": "Mist blue adapter, orange socket, green acorn cap.",
+    "alt": "A universal travel adapter where three different plugs meet one acorn-shaped socket with a flip-up cap.",
+    "twist": "The socket is a cute acorn whose cap is the hinged cover flap, lifted open.",
+    "avoid": "Brand logos for any assistant, the USB trident, lightning-bolt icons, real-world country plug standards.",
+    "build_notes": [
+      "Prongs are iso rect pairs at different angles; the acorn socket is an ellipse body with a scalloped cap path.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "connect-claude-to-screen-time",
+    "title": "How to Connect Claude to Your Screen Time (Respite)",
+    "family": "product",
+    "draft": false,
+    "intent": "Connect Claude to their screen time and know what they can then ask.",
+    "concept": "On an isometric mist-blue plinth at the centre of the canvas, a rounded soft-3D chat bubble sits like a small character, wearing a pair of round #E8A317 reading glasses. In each lens is a tiny reflection: a bar chart in one, a crescent moon in the other, showing what it can now see. Beside it at right, a soft-3D phone rests at an angle on a little stand, its screen softly glowing, and a thin cable runs from the phone to the glasses' arm, tucking behind like an earpiece. The bubble is cream, the phone navy, the plinth mist blue with a sage edge. Soft top-left light. Second-look details: an open glasses case lies on the plinth, the bubble's tail is tucked under like feet, and a small leaf has landed on the case. The one-second feeling: now your assistant can actually see your day.",
+    "palette_note": "Cream bubble, orange glasses, navy phone, mist blue plinth with sage edge.",
+    "alt": "A soft 3D chat bubble wearing round glasses whose lenses reflect a bar chart and moon, beside a glowing phone.",
+    "twist": "The lenses reflect a tiny bar chart and a crescent moon, so the bubble is visibly reading your screen time.",
+    "avoid": "Claude's starburst or any Anthropic mark, eyes or faces behind the glasses, sci-fi HUD overlays.",
+    "build_notes": [
+      "Lenses are circles with clipPaths holding the mini chart and moon at 60% opacity; add a white curved glare stroke on top.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "focus-session-app-iphone",
+    "title": "Focus Session App for iPhone: Block Apps With a Timer",
+    "family": "product",
+    "draft": false,
+    "intent": "Learn how Respite's iPhone focus sessions close distracting apps for a set time.",
+    "concept": "A calm isometric still life centred on a mist-blue table: a soft-3D phone lies flat on a round wooden coaster under a clear glass cloche. Wrapped around the cloche's base is a thick #E8A317 ring that fills like a progress dial, about two-thirds complete. When the ring closes, the cloche will lift. Light comes softly from the top-left, with the glass catching a long white highlight. Second-look details: a small blank doorknob-style hanger dangles from the cloche's knob, a tea cup sits nearby with a thin curl of steam, and the phone's screen is dark with a single soft glow line. The one-second feeling: the phone is put away for a while, safely and on a timer.",
+    "palette_note": "Mist blue, glossy glass, orange progress ring.",
+    "alt": "A phone resting under a glass cloche wrapped by a two-thirds-full orange ring, a blank hanger on the knob.",
+    "twist": "A small blank 'do not disturb' doorknob hanger dangles from the cloche's top knob.",
+    "avoid": "Lock icons, prohibition signs, copies of Apple's Live Activity or Control Center UI, numbers on the ring.",
+    "build_notes": [
+      "The progress ring is a thick stroked ellipse with stroke-dasharray set to about two-thirds; the cloche is a half-ellipse with a low-opacity fill and a highlight stroke.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "how-acorns-streaks-streak-freezes-work",
+    "title": "How Acorns, Streaks and Streak Freezes Work in Respite",
+    "family": "product",
+    "draft": false,
+    "intent": "Understand exactly how acorns, streaks and streak freezes are earned and spent.",
+    "concept": "Centre stage on a mist-blue ground in isometric view: a soft-3D tree stump acts as a pedestal, with a coin-style slot in its top for acorns like a piggy bank. On it sits a glossy, pale-blue ice cube, and sealed safely inside the ice is a small #E8A317 flame, still burning and unharmed: a streak, frozen for a day. A few acorns are scattered around the stump's roots. Beside it is a little tray of spare ice cubes. Soft light from the top-left makes the ice glint. Second-look details: the stump's growth rings are visible on its top, a single acorn is mid-drop into the slot, and tiny frost sparkles sit on the ice edges. The one-second feeling: your streak is safe; the game is kind.",
+    "palette_note": "Icy pale blue cube, orange flame, acorn brown and green.",
+    "alt": "A small orange flame preserved inside an ice cube on an acorn-slot tree stump, with spare ice cubes in a tray.",
+    "twist": "Three spare ice cubes wait in a little orange ice tray beside the stump, ready for the month.",
+    "avoid": "Coins, dollar signs, fire-emoji styling, numbers, a melting or broken streak.",
+    "build_notes": [
+      "Ice cube is an iso cube with low-opacity faces and white edge highlights; the flame sits behind the front face at 85% opacity.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "introducing-acorns-quests-and-leagues",
+    "title": "Introducing Acorns, Quests and Leagues in Respite",
+    "family": "product",
+    "draft": false,
+    "intent": "Find out what the new free game layer in Respite adds and how to get started.",
+    "concept": "A celebratory isometric soft-3D scene centred on a mist-blue ground: a rounded treasure chest bursts open with acorns spilling over its lip. A rolled quest scroll tied with a green ribbon is tucked under the lid, and a small pennant flag is planted on top of the chest. Confetti shaped like little leaves floats above. The chest is warm #E8A317 with brown bands; the acorns are glossy brown with darker caps; the confetti is green and cream. Soft light from the top-left with a gentle glow from inside the chest. Second-look details: one acorn has rolled out and is tumbling down a short set of steps toward the viewer, the pennant is a leaf shape, and the chest's lock hangs open. The one-second feeling: launch-day joy; something new and rewarding just arrived.",
+    "palette_note": "Warm orange chest, acorn browns, green leaf confetti on mist blue.",
+    "alt": "A treasure chest bursting with acorns, a quest scroll under its lid and a pennant on top, one acorn tumbling free.",
+    "twist": "One acorn has escaped the chest and is tumbling down the front steps toward the viewer.",
+    "avoid": "Gold coins, gems, casino or loot-box vibes, numbers, mascot characters with faces.",
+    "build_notes": [
+      "Chest = iso box with a curved lid (a quarter-cylinder) rotated open; the inner glow is a radialGradient behind the acorns.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "is-it-safe-to-give-ai-your-screen-time-data",
+    "title": "Is It Safe to Give an AI Your Screen Time Data?",
+    "family": "product",
+    "draft": false,
+    "intent": "Judge what reaches an AI when they connect screen time, and whether it is safe.",
+    "concept": "An isometric soft-3D airport-style security scanner sits at the centre of a mist-blue ground, with a short conveyor belt running through it from left to right. An #E8A317 parcel rides through the tunnel, and the scanner's side window shows its X-ray: only simple bar-chart shapes and a clock inside, nothing else. Beside the belt, a small tray holds the items that never went in, a photo frame and an envelope, sitting aside untouched. The scanner is mist blue and cream, the X-ray window glowing green, and the conveyor navy. Second-look details: the belt rollers are visible, a tiny green light shows clear, and a second parcel queues at the entrance. The one-second feeling: you can see exactly what goes through, and it's less than you feared.",
+    "palette_note": "Mist blue scanner, orange parcel, green bars in the X-ray.",
+    "alt": "A parcel passes through an X-ray scanner showing only bar charts and a clock; a photo and envelope sit aside.",
+    "twist": "A tray beside the scanner holds a photo frame and an envelope that were never sent through.",
+    "avoid": "Padlock-shield clichés, hooded hackers, eyeballs, surveillance cameras, AI logos.",
+    "build_notes": [
+      "The X-ray window is a rect clipping a green-tinted copy of the parcel with simple chart bars inside.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "let-ai-change-your-limits",
+    "title": "Let Your AI Change Your Limits: Approval, Log and Undo",
+    "family": "product",
+    "draft": false,
+    "intent": "Learn how letting an AI change limits works: stricter at once, looser only with approval, with undo.",
+    "concept": "A large soft-3D ratchet knob sits on an isometric mist-blue control panel at the centre of the canvas. On the green side of the dial, arrows of tiny ridges show it turns freely toward 'tighter'; on the other side, an #E8A317 approval latch holds it back, a little lever you must press yourself. From the knob's base, a curled paper ribbon spills out like a receipt: the change log, with small tick marks along it, ending in a hook-shaped curl that reads as undo. The panel is mist blue, the knob cream with a navy pointer, and green and orange mark the two sides. Soft top-left light. Second-look details: a tiny green dot glows on the tight side, the latch has a fingerprint-sized dimple, and the ribbon drapes off the panel's edge. The one-second feeling: you stay in control; tighter is easy, looser needs you.",
+    "palette_note": "Mist blue panel, green tighten side, orange latch.",
+    "alt": "A ratchet knob that turns freely one way and is held by an orange latch the other, with a curling log ribbon.",
+    "twist": "The change-log ribbon ends in a neat hook-shaped curl, an undo you can literally pull back.",
+    "avoid": "Sliders with numbers, robot hands, red warning triangles, lock icons.",
+    "build_notes": [
+      "Knob = iso cylinder with radial ridge strokes; the ribbon is a single curving path with a thin stroked edge and small tick marks.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "one-respite-account-phone-and-browser",
+    "title": "One Respite Account Across Your Phone and Browser",
+    "family": "product",
+    "draft": false,
+    "intent": "Learn what one Respite account syncs across phone and browser and what is free.",
+    "concept": "A soft-3D key ring floats at the centre of a mist-blue ground in a gentle isometric tilt, casting a soft shadow below. On the #E8A317 ring hang three keys whose bows are shaped like an Android phone, an iPhone and a browser window, all different, all on one ring. A round acorn fob hangs among them. The keys are mist blue, navy and cream; the fob is acorn brown with a green leaf charm. Soft top-left light glints on the metal. Second-look details: the keys' teeth are all cut the same, a tiny leaf charm hangs from the fob, and the ring's split end is visible. The one-second feeling: one sign-in, every door.",
+    "palette_note": "Orange ring, acorn fob, mist blue and navy keys.",
+    "alt": "A key ring with an acorn fob holding three keys shaped like an Android phone, an iPhone and a browser window.",
+    "twist": "Each key's teeth are cut identically, even though the bows are different devices.",
+    "avoid": "Google's G, the Apple logo, chain-link 'link' icons, padlocks.",
+    "build_notes": [
+      "Keys share one teeth path via <use>; bows are separate simple shapes; the ring is a thick stroked ellipse.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "privacy-first-screen-time-tracking",
+    "title": "Privacy-First Screen Time Tracking: What to Look For",
+    "family": "product",
+    "draft": false,
+    "intent": "Learn what makes screen time tracking private and what to check before trusting an app.",
+    "concept": "A soft-3D snow globe sits at the centre of a mist-blue ground on a rounded sage-green base. Inside the glass, a tiny house with one lit #E8A317 window sits next to a small bar chart, while snowflakes drift slowly. Everything stays sealed under the dome. Light comes softly from the top-left, with a long white glare on the glass. Second-look details: the house's chimney smoke curls up but stops at the glass, a tiny fir-free garden (two rounded shrubs) flanks the door, and a few flakes have settled on the chart bars. The one-second feeling: your data stays home, cosy and contained.",
+    "palette_note": "Mist blue globe, white snow, orange house light, green base.",
+    "alt": "A snow globe containing a tiny house with one lit window and a small bar chart, sealed under glass.",
+    "twist": "Smoke from the tiny chimney curls up and spreads flat against the inside of the glass dome.",
+    "avoid": "Padlock-shields, eyeballs, keyholes, surveillance cameras, cloud icons.",
+    "build_notes": [
+      "The globe is a circle with a radialGradient rim; clip everything inside to the circle, then add the glare arc on top.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "respite-leagues-and-friends",
+    "title": "Respite Leagues and Friends: How Weekly Leagues Work",
+    "family": "product",
+    "draft": false,
+    "intent": "Understand how weekly leagues rank, promote and demote players, and how friends join.",
+    "concept": "An isometric soft-3D scene on a mist-blue ground: twin escalators, one rising and one descending, curve around a small three-step #E8A317 podium at the centre. Acorn tokens ride the up escalator toward a brighter top tier, while a few ride the down escalator back to a lower level. The steps are rounded and toy-like, the escalators mist blue with navy handrails, and the acorns glossy brown. Soft top-left light. Second-look details: small pennant flags of different colours line the top tier, a cluster of acorns waits at the bottom like friends meeting, and one acorn sits by itself on the podium's middle step. The one-second feeling: friendly movement; everyone is going somewhere this week.",
+    "palette_note": "Mist blue escalators, orange podium, acorn tokens.",
+    "alt": "Twin escalators carry acorn tokens up and down around a small orange podium, one acorn climbing the wrong way.",
+    "twist": "One determined acorn is walking up the down escalator.",
+    "avoid": "Medals with numbers, faces or avatars, trophies with text, red and green arrows.",
+    "build_notes": [
+      "Escalators are iso ribbons built from a stepped path along a bezier; acorns are a single <symbol> reused.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "respite-plus-whats-included",
+    "title": "Respite Plus: Everything That Is Included, and What Is Free",
+    "family": "product",
+    "draft": false,
+    "intent": "See exactly what Respite Plus adds over the free app and what it costs.",
+    "concept": "A soft-3D layered cake on a footed cake stand sits at the centre of a mist-blue ground in a gentle isometric view. Its generous lower tiers are mist blue and cream (the free app, already a full cake), and one smaller #E8A317 tier sits on top, decorated with a single acorn: Plus. A slice has been cut from the blue tiers and lies on a plate beside the stand, showing filling all the way through. Soft top-left light. Second-look details: a cake server rests by the plate, a few crumbs are scattered, and the top tier has a small leaf garnish. The one-second feeling: the free version is the whole cake; Plus is a lovely extra layer.",
+    "palette_note": "Mist blue tiers, orange top tier, acorn accent.",
+    "alt": "A layered cake with big blue lower tiers and a small orange acorn-topped tier, a full slice cut on a plate.",
+    "twist": "The cut slice from the blue tiers shows layers all the way through, so free is clearly a full cake.",
+    "avoid": "Price tags, crown icons, 'PRO' badges, plus-sign symbols, numbers.",
+    "build_notes": [
+      "Tiers are iso cylinders (ellipse plus rect plus ellipse) stacked; the slice is a wedge shape showing horizontal filling stripes.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "schedule-app-blocking-iphone-android",
+    "title": "How to Schedule App Blocking on iPhone and Android",
+    "family": "product",
+    "draft": false,
+    "intent": "Set up bedtime, work and morning app-blocking schedules in Respite.",
+    "concept": "A soft-3D isometric sundial sits at the centre of a mist-blue ground. Its round face is divided into three zones, each holding a tiny object: a pillow, a desk lamp and a coffee cup. The gnomon's shadow currently falls across the pillow zone, and there a small #E8A317 gate arm has lowered over it, like a level crossing. The other zones' gate arms are raised. The dial is cream stone, the gnomon navy, and the zone objects sage and cream. Soft top-left light. Second-look details: a crescent moon is carved on the pillow zone's edge, a sunrise on the coffee zone's, and a tiny snail rests on the dial rim. The one-second feeling: your day runs on its own gentle rules.",
+    "palette_note": "Mist blue dial, orange gate arm, green accents.",
+    "alt": "A sundial with pillow, lamp and coffee cup zones; a gate arm has lowered over the zone in the shadow.",
+    "twist": "The gnomon's shadow falls exactly where a little gate arm has dropped, over the pillow zone.",
+    "avoid": "Calendar grids with dates, clock numbers, lock icons, the word 'schedule'.",
+    "build_notes": [
+      "Dial is an iso ellipse cut into three sectors with arc paths; the gate arm is a thin striped rect pivoting from a post.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "sync-respite-android-iphone-chrome",
+    "title": "How to Sync Respite Between Android, iPhone and Chrome",
+    "family": "product",
+    "draft": false,
+    "intent": "Sync Respite between Android, iPhone and Chrome step by step, and fix problems.",
+    "concept": "Three soft-3D metronomes stand on a shared wooden plank that rests on two rolling cylinders, the classic physics demonstration where metronomes fall into step. Each metronome body is shaped like a device: a tall rounded phone, a second phone with slightly different proportions, and a wider browser-window shape. All three pendulums lean at exactly the same angle, frozen mid-swing in unison, each tipped with an #E8A317 acorn weight. Isometric view centred at x≈800, mist-blue ground, soft top-left light. Second-look details: faint identical motion arcs sit behind each pendulum, the plank shows wood grain, and the rollers have rolled a few millimetres, leaving faint tracks. The one-second feeling: one account, and every device moves in step.",
+    "palette_note": "Navy, sage and cream bodies, orange acorn weights, warm wood plank.",
+    "alt": "Three device-shaped metronomes on a shared plank, their acorn-weighted pendulums swinging in perfect unison.",
+    "twist": "The pendulum weights are little acorns, all leaning at precisely the same angle.",
+    "avoid": "Circular sync-arrow icons, cloud icons, wifi symbols, brand logos.",
+    "build_notes": [
+      "Metronome = trapezoid body plus a thin pendulum line rotated by the same transform on all three; motion arcs are low-opacity stroked arcs.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "use-chatgpt-claude-to-reduce-screen-time",
+    "title": "Can ChatGPT Help You Reduce Screen Time? (Yes, With Limits)",
+    "family": "product",
+    "draft": false,
+    "intent": "Know what ChatGPT or Claude can and cannot do to help reduce screen time.",
+    "concept": "A soft-3D compass shaped like a rounded speech bubble rests on a folded paper map in isometric view, centred on a mist-blue ground. Its needle points along a dotted route drawn across the map toward a hill. Just off the map's edge, the real road begins, empty and waiting: the compass gives direction, but you still have to walk. The compass is #E8A317 with a cream face, the map cream with mist-blue water and a green route, and the road navy. Soft top-left light. Second-look details: the map's folds cast soft creases, a small pencil lies across one corner, and the route ends at a tiny gate sketched just off the paper. The one-second feeling: a helpful guide, not a pair of brakes.",
+    "palette_note": "Orange compass, mist blue and cream map, green route.",
+    "alt": "A speech-bubble-shaped compass on a folded map, its needle pointing along a route that leads off the paper.",
+    "twist": "The route on the map leads off the paper's edge to a real little gate, which the compass can point to but cannot close.",
+    "avoid": "Steering wheels, robot drivers, assistant logos, lines of chat text.",
+    "build_notes": [
+      "Map is three iso panels with alternating light and dark tones for folds; the compass needle is two thin triangles.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "what-is-an-mcp-server",
+    "title": "What Is an MCP Server? A Plain-English Guide",
+    "family": "product",
+    "draft": false,
+    "intent": "Understand in plain English what an MCP server is and how an AI uses one.",
+    "concept": "An isometric two-storey cutaway building centred on a mist-blue ground, like a doll's house. On the ground floor, a tiny kitchen (the 'server') loads trays holding a bar chart, a clock and a sprout into a dumbwaiter. The rope-and-pulley lift rises through the floor to an upstairs hatch where a rounded chat bubble waits beside a small service bell. The rope and pulley are the protocol. Walls mist blue, floors warm wood, the dumbwaiter #E8A317, and the tray items green and cream. Soft top-left light. Second-look details: the pulley wheel is shaped like a tiny plug, a stack of spare trays sits in the kitchen, and a little hatch door is propped open upstairs. The one-second feeling: oh, that's all it is; something that fetches things when asked.",
+    "palette_note": "Mist blue walls, orange dumbwaiter, green tray items.",
+    "alt": "A cutaway house where a dumbwaiter lifts trays of a chart, clock and sprout up to a chat bubble upstairs.",
+    "twist": "The pulley wheel at the top of the lift is shaped like a tiny plug.",
+    "avoid": "Server racks, cloud icons, network diagrams, the MCP logo, code.",
+    "build_notes": [
+      "Cutaway walls are iso parallelograms with the front faces removed; the dumbwaiter shaft is a tall iso box with a low-opacity front.",
+      "Shadows: soft contact shadow under each object (feGaussianBlur about 12, offset 0,+14, navy 20%); shade iso faces light top, mid left, dark right at 30 degrees."
+    ]
+  },
+  {
+    "slug": "digital-detox-challenge",
+    "title": "30-Day Digital Detox Challenge: A Step-by-Step Plan",
+    "family": "guide",
+    "draft": false,
+    "intent": "Follow a step-by-step 30-day plan to cut scrolling without going cold turkey.",
+    "concept": "A single long branch stretches across the canvas from left (x≈180) to right (x≈1420), slightly rising, against a mist-blue sky with the horizon implied at 80%. Hanging from it are four phone-shaped chrysalises, evenly spaced: sealed, cracking along a seam, splitting open, and finally empty and still hanging, while a butterfly lifts away from the last. It's a surreal editorial metamorphosis, one week per chrysalis. The branch is sage with a few leaves, the chrysalises cream with navy seams, and the butterfly the single #E8A317 accent. Light from upper right. Second-look details: the cracks grow wider in sequence, a small leaf has fallen below the second, and the butterfly's wing pattern echoes rounded app tiles. The one-second feeling: change happens in stages, and you keep your phone.",
+    "palette_note": "Sage branch, mist blue background, orange butterfly.",
+    "alt": "Four phone-shaped chrysalises on a branch in stages; the last is empty as an orange butterfly flies away.",
+    "twist": "The last chrysalis, now empty, is still a phone hanging on the branch; the butterfly leaves, but the phone stays.",
+    "avoid": "Calendar grids with thirty days, crossed-out phones, meditating figures, detox juice imagery.",
+    "build_notes": [
+      "Make one chrysalis <symbol> and vary its crack path in each instance; the butterfly is four mirrored petal paths.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "digital-wellbeing-at-work",
+    "title": "Digital Wellbeing at Work: Stay Focused Without Blocking",
+    "family": "guide",
+    "draft": false,
+    "intent": "Stay focused at work despite phone and Slack distractions, without blocking everything.",
+    "concept": "A vast clean desk seen straight from above (top-down), filling the canvas in mist blue. At centre-left, an open notebook and a pen sit in the warm circle of a desk lamp. Far off in the upper-right corner (x≈1280), a phone sits neatly in its own tiny parking bay, with painted white lines and a miniature #E8A317 barrier arm lowered across its entrance. The rest of the desk is calm, empty space. Light is soft from the upper right. Second-look details: a tiny traffic cone guards the bay corner, a coffee ring stain sits by the notebook, and a paper clip lies like a small dropped key. The one-second feeling: your phone has its own place, and it isn't in your hand.",
+    "palette_note": "Mist blue desk, white bay lines, orange barrier.",
+    "alt": "A phone parked in a tiny painted parking bay with a barrier arm in the corner of a large clean desk.",
+    "twist": "A tiny traffic cone guards the corner of the phone's parking bay.",
+    "avoid": "Slack's hash logo, Teams marks, people at desks, clocks with numbers, sad office workers.",
+    "build_notes": [
+      "Parking lines are white stroked rects at low opacity on the desk; the barrier arm is a thin rect with alternating stripes.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "healthy-alternatives-scrolling",
+    "title": "20 Healthy Alternatives to Scrolling Your Phone",
+    "family": "guide",
+    "draft": false,
+    "intent": "Find specific things to do instead of scrolling, matched to the need behind the urge.",
+    "concept": "A tall vending machine shaped like a phone stands alone in an empty mist-blue room, front view, the floor at about 82% of the height and the machine centred at x≈800. Behind its glass front, the spiral coils hold real things instead of feeds: a paperback, a ball of yarn, a teacup, a kite and an old telephone handset. One item, the kite, is mid-drop into the dispensing flap, its tail dangling out. The machine is navy, the items cream and sage, and the kite the single #E8A317 accent. Light from upper right. Second-look details: a coin slot shaped like a small heart, a selection keypad with blank buttons, and a shadow of a window frame on the floor. The one-second feeling: there is a real thing to reach for instead.",
+    "palette_note": "Navy machine, mist blue room, orange and green items.",
+    "alt": "A phone-shaped vending machine dispensing a book, yarn, a teacup and a kite whose tail dangles from the flap.",
+    "twist": "The kite's tail is dangling out of the dispensing flap, already trying to fly.",
+    "avoid": "A phone screen showing a feed, people, junk food, coins with values.",
+    "build_notes": [
+      "Coils are small spiral paths repeated with <use>; the glass front is a low-opacity rect over the items with one white highlight.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "how-to-block-apps-iphone",
+    "title": "How to Block Social Media & Other Apps on iPhone (2026)",
+    "family": "guide",
+    "draft": false,
+    "intent": "Block social media and other apps on iPhone with built-in tools or a dedicated app.",
+    "concept": "A tall apartment building shaped like a phone stands at dusk in a quiet city, front view, centred at x≈800, the street at about 85% of the height. Its windows are a neat grid of app squares; roller shutters are pulled down over a chosen few, while the rest glow warmly. Neighbouring buildings are simple dark shapes. The sky shifts from mist blue to lavender, the building navy, and the lit windows #E8A317, the single warm accent. Light from upper right. Second-look details: a single small figure stands across the street holding a key (the friend with the passcode), a cat sits on one sill, and the moon rises behind the building's rounded corner. The one-second feeling: you choose which windows close, and the house stays yours.",
+    "palette_note": "Dusk navy, warm window glow, grey shutters.",
+    "alt": "A phone-shaped apartment building at dusk with roller shutters down over some windows and the rest glowing.",
+    "twist": "The top-floor bedroom window has a flower box and its shutter still up, the one 'always allowed' window.",
+    "avoid": "The Apple logo, the Screen Time hourglass, padlock icons, red X marks.",
+    "build_notes": [
+      "Window grid via a <pattern>; shutters are rects with horizontal line strokes placed over chosen cells.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "how-to-reduce-screen-time",
+    "title": "How to Reduce Screen Time: 10 Strategies That Work",
+    "family": "guide",
+    "draft": false,
+    "intent": "Cut screen time with practical steps that do not rely on willpower.",
+    "concept": "A neat garden lawn seen at eye level, horizon at about 70%, with a hedge clipped into the topiary shape of a phone at the centre (x≈800). It has been trimmed down gradually: the outline of its original larger size is still visible as a faint dashed silhouette around it, and the hedge now stands a neat size smaller. A pair of #E8A317 shears rests in the grass, and offcuts are scattered around the base. The hedge is rich green, the sky mist blue, and the lawn sage. Light from upper right. Second-look details: the offcuts are tiny phone-shaped leaf clippings, a wheelbarrow waits at the edge, and a bird perches on the hedge's top corner. The one-second feeling: cut gradually; don't uproot.",
+    "palette_note": "Rich green hedge, mist blue sky, orange shears.",
+    "alt": "A hedge clipped into a phone shape, trimmed smaller than its faint old outline, with shears and clippings.",
+    "twist": "The offcuts on the lawn are tiny phone-shaped leaf clippings.",
+    "avoid": "Graphs going down, scissors cutting a phone in half, red X marks, timers.",
+    "build_notes": [
+      "Hedge texture via a scalloped-edge path plus a leaf <pattern> clip; the old size is a dashed stroke at 30% opacity.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "how-to-stop-doomscrolling",
+    "title": "How to Stop Doomscrolling: 7 Strategies That Work",
+    "family": "guide",
+    "draft": false,
+    "intent": "Stop doomscrolling with concrete strategies, starting with the automatic open.",
+    "concept": "A surreal plumbing still life against a mist-blue tiled wall, front view, centred at x≈800. A brass tap drips dark slate drops into a phone-shaped basin that is close to overflowing. On the pipe, a small #E8A317 valve has been turned, and a branch pipe now redirects the flow into two clean cups set aside on a shelf: the all-day drip turned into timed check-ins. One cup is marked with a small sun, the other with a moon. Light from upper right. Second-look details: the dark drops make ripples in the basin, a towel hangs neatly, and the cups' water is clear blue. The one-second feeling: the drip isn't the only option; turn the valve.",
+    "palette_note": "Slate drips, mist blue basin, orange valve.",
+    "alt": "A tap dripping dark drops into a phone-shaped basin, with a valve redirecting the flow into two clean cups.",
+    "twist": "The two cups are a morning cup with a little sun and an evening cup with a little moon.",
+    "avoid": "Newspapers with headlines, anxious faces, fire, skulls, red alerts.",
+    "build_notes": [
+      "Drops are teardrop paths in slate; the valve is a small circle with a cross handle; pipes are thick stroked paths with round joins.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "how-to-stop-phone-addiction",
+    "title": "How to Stop Phone Addiction: 15 Strategies That Work",
+    "family": "guide",
+    "draft": false,
+    "intent": "Break compulsive phone use with practical strategies, starting with three changes.",
+    "concept": "An open plaza at eye level, horizon at about 72%. A giant horseshoe magnet shaped like a phone stands at the right (x≈1120), its poles glowing #E8A317, the single warm accent. At the left (x≈520), a small faceless figure stands firm on three little wooden wedges, while their long shadow stretches toward the magnet. Keys, coins and paper clips fly out of the figure's pockets toward the magnet, but the figure itself stays put. Sky mist blue, plaza cream, the magnet navy. Light from upper right. Second-look details: the wedges are clearly different sizes, the magnetic field lines are drawn as gentle arcs, and a leaf tumbling past is unaffected. The one-second feeling: the pull is real, but three small fixes hold you in place.",
+    "palette_note": "Mist blue sky, cream plaza, navy magnet with orange poles.",
+    "alt": "A phone-shaped magnet pulls keys and coins from a small figure who stays put on three wooden wedges.",
+    "twist": "The figure's keys and coins are all flying toward the magnet, while the figure stays planted on its three wedges.",
+    "avoid": "Chains, handcuffs, a phone with a red X, zombie figures, crowds.",
+    "build_notes": [
+      "Field lines are concentric low-opacity arcs; give the flying objects motion streaks made of short strokes.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "instagram-reels-addiction",
+    "title": "Instagram Reels Addiction: How to Stop the Endless Scroll",
+    "family": "guide",
+    "draft": false,
+    "intent": "Stop the endless Reels scroll while keeping the parts of Instagram they value.",
+    "concept": "A warm living-room wall seen head-on, floor at about 80% of the height. A square picture frame hangs at the centre (x≈800). Its bottom edge melts, and the picture pours down out of it as an endless vertical film strip of tall frames that pools across the floor, winds around a chair and runs out through an open door. A finite photo turned into an infinite stream. The wall is warm cream, the strip mist blue, and the frame #E8A317, the single accent. Light from upper right. Second-look details: drips of the frame's colour hang from its melted edge, a window shows the garden outside, and the strip's tall frames are blank. The one-second feeling: something with an end became something without one.",
+    "palette_note": "Warm wall, mist blue strip, orange frame.",
+    "alt": "A square picture frame melting into an endless film strip that pools on the floor and runs out the door.",
+    "twist": "The film strip runs out of the door and down the garden path outside, still going.",
+    "avoid": "Instagram's camera gradient, the Reels clapper icon, hearts, notification badges.",
+    "build_notes": [
+      "The film strip is a long path with a stroke plus dashed inner strokes for sprocket holes; melting drips are teardrop paths along the frame's bottom.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "phone-addiction-help",
+    "title": "Phone Addiction Help: How to Cut Back Without Deleting Apps",
+    "family": "guide",
+    "draft": false,
+    "intent": "Get help cutting back on phone use without deleting apps.",
+    "concept": "A park path winds diagonally from lower-left to upper-right at eye level, horizon at about 70%. A small faceless figure walks calmly along it at the centre (x≈720), and beside them trots a phone-shaped puppy on a short #E8A317 leash: tamed and trained, not given away. The puppy has stubby legs and a wagging tail that is a short charging cable. Trees and lawn are sage, the sky mist blue, and the figure navy. Light from upper right. Second-look details: the puppy is sniffing a fallen leaf, a park bench is in the background, and a duck pond glints on the side. The one-second feeling: you can live with it on your terms.",
+    "palette_note": "Mist blue sky, sage park, navy figure, orange leash.",
+    "alt": "A small figure walks a phone-shaped puppy on a short leash along a park path, its cable tail wagging.",
+    "twist": "The puppy's wagging tail is a short charging cable.",
+    "avoid": "Trash bins, uninstall icons, therapy couches, sad people, chains.",
+    "build_notes": [
+      "Puppy = phone rounded rect plus four short leg rects and a curved tail path; the leash is a single slack bezier.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "productive-without-deleting-social",
+    "title": "Be More Productive Without Deleting Social Media",
+    "family": "guide",
+    "draft": false,
+    "intent": "Be productive at work while keeping social media, by batching it into set windows.",
+    "concept": "A long train crosses a landscape from left to right on a viaduct, eye level, horizon at about 64%, spanning nearly the full width but with the key carriages inside the centre. Most carriages are quiet, each window showing an empty desk with a lamp. Just two carriages, coupled at specific points along the train, are packed with bubbly chat-bubble passengers. The workday becomes a timetable of carriages. The train is mist blue, the two social carriages #E8A317, and the hills sage. Light from upper right. Second-look details: steam puffs are cloud-shaped, the viaduct arches cast neat shadows, and a level crossing waits in the foreground. The one-second feeling: social has its place on the train; it doesn't need every carriage.",
+    "palette_note": "Mist blue carriages, two orange carriages, green hills.",
+    "alt": "A long train where most carriages hold quiet desks and two orange carriages are packed with chat bubbles.",
+    "twist": "The quiet carriages show tidy empty desks with lamps, while the two social carriages are bursting with chat bubbles.",
+    "avoid": "Clocks with numbers, people at desks, social media logos, notification badges.",
+    "build_notes": [
+      "Carriages via a <symbol> repeated with <use>; chat bubbles are small rounded shapes clustered inside clipPaths for the windows.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "reduce-instagram-usage",
+    "title": "How to Reduce Instagram Usage Without Deleting It",
+    "family": "guide",
+    "draft": false,
+    "intent": "Cut Instagram time without deleting the app, by interrupting autopilot opens.",
+    "concept": "A calm pond made of square tiles, seen from slightly above, fills the lower two-thirds of the canvas. A small navy rowboat floats at the centre (x≈800). From above, a fishing line dangles down into frame with a hook baited with a little #E8A317 heart shape, swaying just above the boat. The oars are resting crossed in the boat: the rower has paused, deciding not to bite. The tiles are mist blue and pale teal. Light from upper right. Second-look details: the heart bait is reflected upside down in the tiles, a single fish is visible beneath, and a lily pad sits at the pond's edge. The one-second feeling: notice the pull, then choose to stay in the boat.",
+    "palette_note": "Mist blue tiles, orange heart bait, navy boat.",
+    "alt": "A rowboat on a pond of square tiles, its oars at rest, as a heart-baited hook dangles just above.",
+    "twist": "The rower's oars are crossed and resting, while the heart bait's reflection hangs upside down in the square tiles.",
+    "avoid": "The camera gradient, heart notification bubbles, red badges, the Instagram glyph.",
+    "build_notes": [
+      "Tile pond is a <pattern> of squares with slight colour variation; the reflection is the heart flipped and set to 40% opacity.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "screen-time-for-parents",
+    "title": "Screen Time for Parents: Age Guidelines and Family Rules",
+    "family": "guide",
+    "draft": false,
+    "intent": "Set age-appropriate screen time rules for the family that adults follow too.",
+    "concept": "A family dining table seen at eye level, horizon at about 70%, with a large chair and a small chair on either side. In the middle of the table, instead of a vase, sits a bird's nest holding a clutch of phones resting face-down like eggs. Plates and a bread basket are set for dinner. The table is warm wood, the nest sage and brown twigs, the room mist blue, and the bread basket #E8A317. Light from upper right. Second-look details: one small phone in the nest wears a tiny knitted cosy, a cat is curled under the small chair, and the light over the table is a simple pendant. The one-second feeling: meals belong to the people, and the adults follow the rule too.",
+    "palette_note": "Warm wood, mist blue room, green nest twigs.",
+    "alt": "A dining table with a big and small chair and a bird's nest holding face-down phones like eggs at its centre.",
+    "twist": "One small phone in the nest wears a tiny knitted cosy, the child's.",
+    "avoid": "Stern parent figures, kids glued to tablets, parental-control padlocks, numbers by age.",
+    "build_notes": [
+      "Nest is overlapping curved strokes in browns; phones are rounded rects tilted slightly, layered behind the nest's front twigs.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "stop-checking-phone-morning",
+    "title": "Stop Checking Your Phone First Thing in the Morning",
+    "family": "guide",
+    "draft": false,
+    "intent": "Stop reaching for the phone first thing and start the morning calmly.",
+    "concept": "A bedroom at dawn, seen at eye level with the nightstand in the foreground at the centre (x≈800). On the nightstand, the morning sun rises out of a glass of water, as if the water's surface were the horizon. Next to it is a book and an old twin-bell alarm clock. Through an open doorway in the background, a tiny phone is charging on a shelf in another room. The sun is the single #E8A317 accent, the room mist blue and cream, and the water pale. Light from the sun itself. Second-look details: the alarm clock has ticks but no numbers and a slightly sleepy tilt, a bird flies past the sun-in-the-glass, and the phone's charging cable is visible through the doorway. The one-second feeling: a calm, bright start.",
+    "palette_note": "Dawn orange sun, mist blue room, pale water.",
+    "alt": "A sun rising out of a glass of water on a nightstand, with a phone charging in the next room through a doorway.",
+    "twist": "The old twin-bell alarm clock sits with a slightly sleepy tilt next to the glass.",
+    "avoid": "Phones lit up in bed, groggy faces, clocks with numbers, notification badges.",
+    "build_notes": [
+      "The sun is a circle clipped to the glass interior above a horizontal water line; the glow is a radialGradient behind the glass.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "stop-reddit-scrolling",
+    "title": "How to Stop Reddit Scrolling (Without Quitting Reddit)",
+    "family": "guide",
+    "draft": false,
+    "intent": "Keep Reddit's useful communities while ending the mindless front-page scroll.",
+    "concept": "A lawn seen from slightly above, with a rabbit hole at the centre (x≈800) spiralling down into infinite depth: layered rings shrinking to a point. Halfway down the spiral, a small lantern-lit side door opens into one cosy room with a chair and a lamp, a single room with an end. The lawn is sage, the spiral deep navy, and the door's light #E8A317. Light from upper right. Second-look details: a pair of rabbit ears pokes out of the side door, a few leaves are falling into the hole, and a tiny ladder hangs down to the door. The one-second feeling: avoid the bottomless hole, and choose the room that ends.",
+    "palette_note": "Green lawn, deep navy spiral, warm orange door light.",
+    "alt": "A rabbit hole spiralling endlessly down, with a small lit door opening onto a cosy room partway down.",
+    "twist": "A pair of rabbit ears pokes out of the cosy side door, as if the rabbit itself chose the room with an end.",
+    "avoid": "Reddit's alien, the orange-red circle, upvote arrows, text bubbles.",
+    "build_notes": [
+      "The spiral is concentric ellipses of graduated darkness with a slight offset to suggest a twist; the door is a rect clipped into one ring.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "stop-scrolling-at-night",
+    "title": "How to Stop Scrolling at Night: A Sleep-Saving Guide",
+    "family": "guide",
+    "draft": false,
+    "intent": "Stop scrolling in bed and protect their sleep.",
+    "concept": "A bedroom at dusk, with the bed's duvet forming rolling hills across the lower third of the canvas, horizon at about 64%. A glowing phone sets like the sun behind the duvet hills, half below the horizon, its light fading into a starry ceiling. It's a literal digital sunset. The duvet is dusky navy and lavender, the ceiling deep blue with stars, and the phone glow #E8A317, the single warm accent. Second-look details: the phone-sun's rays are short charging-cable squiggles fading into stars, a book rests on the pillow, and a small moon peeks from one corner. The one-second feeling: sleepy, calm, the day closing down.",
+    "palette_note": "Dusky navy and lavender, orange phone glow fading.",
+    "alt": "A glowing phone sets like the sun behind duvet hills under a starry bedroom ceiling.",
+    "twist": "The phone-sun's rays are short charging-cable squiggles that fade into stars.",
+    "avoid": "Blue-light warning icons, insomniac eyes, a figure in bed lit by a screen.",
+    "build_notes": [
+      "Duvet hills are soft overlapping bezier shapes; the phone-sun is clipped below the hill line, with a radialGradient glow behind.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "stop-tiktok-scrolling",
+    "title": "Stop Scrolling TikTok Without Deleting: 5 Strategies",
+    "family": "guide",
+    "draft": false,
+    "intent": "Stop endless short-video scrolling without deleting the app.",
+    "concept": "An endless paper feed of vertical video panels unrolls across a green meadow from the left, running toward a cliff edge at the right (x≈1140). It spills over the edge into soft mist below. Right at the brink, a single small wooden bench sits where a pause would be. The sky is wide open mist blue, the paper cream with faint blank panel divisions, and the bench the single #E8A317 accent. Light from upper right throws the bench's shadow toward the meadow. Second-look details: the paper curls at its edges in the breeze, a few panels have torn and fluttered away as birds, and the mist hides how far down the paper falls. The one-second feeling: there's no natural stop, so make one.",
+    "palette_note": "Mist blue sky, cream paper, orange bench.",
+    "alt": "An endless paper strip of vertical panels unrolls off a cliff edge, with a small bench at the brink facing back.",
+    "twist": "The bench at the brink faces away from the cliff, toward the meadow and the way back.",
+    "avoid": "TikTok's music note, cyan and magenta glitch offsets, dancing figures, phones.",
+    "build_notes": [
+      "The paper is one long path with a stroked edge and evenly spaced panel lines; the drop over the cliff is a gradient fading into mist.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "stop-twitter-doomscrolling",
+    "title": "Stop Twitter/X Doomscrolling: 7 Strategies That Work",
+    "family": "guide",
+    "draft": false,
+    "intent": "Stop doomscrolling on Twitter/X while keeping the good parts.",
+    "concept": "A night-navy field, viewed straight on, with a single long wire strung across the canvas from x≈160 to x≈1300 at about 35% of the height, sagging gently in the middle. The wire is crowded with tiny brass bells, every one ringing, with short sound arcs bursting from each like a chorus of pings. At the right end (x≈1300), a pair of #E8A317 scissors, the single warm accent, has just snipped the wire. From the cut back toward the centre, the bells are falling away in a gentle arc toward the lower edge, and the falling ones have gone quiet, their sound arcs fading to nothing. The left third of the wire still rings; the contrast between noisy left and silent right carries the whole image. Light from upper right puts a crisp highlight on each bell's shoulder. Second-look details: a single small feather drifts among the falling bells (the only bird reference, and deliberately not a bird), the snipped wire ends curl like springs, and one bell has landed upright on the ground below. The one-second feeling: one small cut, and the noise drops away.",
+    "palette_note": "Night navy, brass bells, orange scissors.",
+    "alt": "A wire of ringing bells has just been snipped with orange scissors; the bells fall silent in a gentle arc.",
+    "twist": "One last little bell is still mid-fall, its ring lines just fading out.",
+    "avoid": "Birds, the X letter, blue-bird colours, speech bubbles with text, megaphones.",
+    "build_notes": [
+      "Make the bell one <symbol> and place copies along the wire path; sound lines are 2 to 3 short concentric arc strokes that drop in opacity for the falling bells.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "stop-youtube-binge",
+    "title": "How to Stop YouTube Binge Watching: What Actually Works",
+    "family": "guide",
+    "draft": false,
+    "intent": "Stop losing evenings to YouTube by ending autoplay and watching with a plan.",
+    "concept": "A domino run of small widescreen TV sets snakes in a long S-curve across a mist-blue living-room floor, seen from a raised three-quarter view, with the floor filling the canvas and a skirting board at about 18% of the height. The run starts at lower-left already toppling, each TV falling onto the next like autoplay. At the centre (x≈800), one domino has been lifted out, leaving a clean gap marked by a single #E8A317 floor tile, the only warm accent; every TV after the gap still stands upright and dark. The TVs are navy with cream screens; fallen ones show small motion arcs. Light from upper right throws neat parallelogram shadows down-left. Second-look details: a sofa cushion lies near the start of the run, a remote control rests on the floor with no buttons drawn, and the standing TVs' screens reflect a window. The one-second feeling: remove one piece and the chain simply stops.",
+    "palette_note": "Mist blue floor, navy TVs, one orange floor tile.",
+    "alt": "A curving run of toppling TV dominoes stops at a gap where one TV was lifted out and now shows a sunset.",
+    "twist": "The lifted-out TV stands upright off to the side, its screen now showing a calm sunset.",
+    "avoid": "The red play button, red rectangles, couch-potato figures, popcorn, progress bars.",
+    "build_notes": [
+      "Lay the dominoes along an S-shaped bezier and rotate each by its tangent; tilt fallen ones with skewX so they lean onto the next.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "youtube-shorts-addiction",
+    "title": "YouTube Shorts Addiction: How to Stop the Endless Loop",
+    "family": "guide",
+    "draft": false,
+    "intent": "Cut out short-video loops while keeping the rest of YouTube.",
+    "concept": "A theme-park scene at eye level, horizon at about 72%. At the centre (x≈800), a wide, landscape-format screen frame stands like a park entrance gate, 900 pixels wide. Inside its frame, a rollercoaster track of tall vertical cards loops round and round in an endless figure-eight, the cards forming the track's carriages. Outside the frame, a calm gravel footpath leads around the side of the ride to a quiet bench beneath a small tree. The frame is navy, the vertical cards #E8A317 as the single warm accent, the sky mist blue and the path sage. Light from upper right. Second-look details: a blank ticket booth stands by the entrance, a tiny faceless figure strolls along the outside path, and a lost balloon drifts above the loop. The one-second feeling: the loop lives inside the big screen; you can walk around it.",
+    "palette_note": "Mist blue sky, navy track, orange cards.",
+    "alt": "A wide screen frame holds a looping rollercoaster of vertical cards; its rider strolls a calm path outside.",
+    "twist": "The rollercoaster car is empty, and its rider is strolling along the footpath outside the frame.",
+    "avoid": "YouTube red, the Shorts logo, play triangles, screaming riders, vertical phones.",
+    "build_notes": [
+      "The loop track is a figure-eight bezier clipped to the frame's interior; cards are rounded rects placed along it via <use> with rotation.",
+      "Shadows: crisp flat shapes falling down-left (light from upper right), no blur, navy at 20%."
+    ]
+  },
+  {
+    "slug": "attention-span-rebuild-focus",
+    "title": "Is Your Attention Span Shrinking? How to Rebuild Focus",
+    "family": "mind",
+    "draft": false,
+    "intent": "Learn whether attention spans really are shrinking and how to rebuild focus.",
+    "concept": "A layered paper-cut seascape seen side-on, with the water surface at about 30% of the height and five or six layers of deepening blue below. On a rock at upper-left (x≈320), just above the surface, sits an empty round goldfish bowl. The goldfish has left it: a single #E8A317 fish, the only warm accent, swims at the centre (x≈880) in one long, unbroken line that loops gently down into deep, calm water, its path traced behind it as a fine thread. The layers move from pale mist blue at the surface to deep teal at the bottom, and kelp rises in sage paper strips. Soft light from above makes each layer's edge glow. Second-look details: the empty bowl still holds its tiny castle ornament, a few bubbles rise from the fish, and a small snail rests on the rock. The one-second feeling: the myth is left on the shelf; real attention is deep and continuous.",
+    "palette_note": "Teal and mist blue layers, one orange fish.",
+    "alt": "A paper-cut sea where a goldfish leaves its empty bowl and swims in one long unbroken line into the calm deep.",
+    "twist": "The empty bowl still has its tiny castle ornament, and the goldfish's path behind it is one unbroken orange thread.",
+    "avoid": "Brain icons, timers, the 'eight seconds' myth spelled out, distracted figures, notification dots.",
+    "build_notes": [
+      "Each water layer is a wavy band path; the fish's trail is one stroked bezier with a fine dasharray.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  },
+  {
+    "slug": "digital-detox-benefits",
+    "title": "Digital Detox Benefits: What Changes When You Unplug",
+    "family": "mind",
+    "draft": false,
+    "intent": "Learn what actually changes, in sleep, mood and focus, when they cut back on screens.",
+    "concept": "A calm night landscape of layered paper-cut hills, seen side-on with the horizon at about 60%, under a large pale cream moon at upper-right. Across the nearest hill, a cable lies unplugged; its plug rests at the centre (x≈780). From the plug's two prongs, a vine of leaves and small flowers grows upward in a lazy S-curve toward the moon, as if the prongs had become roots. The hills step back in sage, moss and mist blue, the sky deep blue, and the flowers soft #E8A317, the single warm accent. Light comes from above, with a moonlit rim on each layer. Second-look details: the cable's far end disappears behind a hill, an open book lies on the middle hill, and a small owl sits on the vine. The one-second feeling: calm and restored; something good grows when you disconnect.",
+    "palette_note": "Sage and mist blue layers, soft orange flowers.",
+    "alt": "An unplugged cable on paper-cut hills, its prongs rooting a flowering vine that climbs toward the moon.",
+    "twist": "The plug's two prongs have become the vine's twin roots, gripping the soil.",
+    "avoid": "Battery icons, crossed wires, meditating figures, 'unplugged' lettering, phones.",
+    "build_notes": [
+      "The vine is one stroked bezier with leaf shapes placed by <use> along it; the prong roots are two short tapering paths into the hill layer.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  },
+  {
+    "slug": "do-app-blockers-work",
+    "title": "Do App Blockers Actually Work? What the Evidence Says",
+    "family": "mind",
+    "draft": false,
+    "intent": "Find out whether app blockers work long term and why habits often return.",
+    "concept": "A quiet paper-cut landscape of rolling hills, side-on, horizon at about 66%, in mist blue and sage layers. At the centre (x≈800), on the nearest hill, a heavy rough-edged stone slab lies flat. Beneath it, a coiled #E8A317 spring is pressed nearly flat, the single warm accent, its coils bulging out at both sides and clearly ready to leap the instant the stone lifts. The slab is stone grey with darker cracks. Light from above casts a deep shadow under the slab. Second-look details: a tiny sprout pokes out from under the slab's edge, a small bird sits on the slab watching, and the grass around the slab is flattened. The one-second feeling: holding something down is not the same as changing it.",
+    "palette_note": "Stone grey slab, orange spring, mist blue hills.",
+    "alt": "A coiled orange spring pressed under a heavy stone slab, bulging at the edges, with a sprout escaping beneath.",
+    "twist": "A tiny sprout pokes out from under the slab's edge; the habit finds a way.",
+    "avoid": "Padlocks, red X marks, chains, prison bars, phones.",
+    "build_notes": [
+      "The spring is a zigzag path with a thick round-capped stroke; the bulge comes from wider zigzags at the ends than the middle.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  },
+  {
+    "slug": "gamified-screen-time-apps",
+    "title": "Gamified Screen Time Apps: Do Streaks and Rewards Help?",
+    "family": "mind",
+    "draft": false,
+    "intent": "Learn whether streaks and rewards help phone habits or create a new compulsion.",
+    "concept": "A warm paper-cut hillside, side-on, horizon at about 70%, layered in sage, moss and mist blue. At the left-centre (x≈560), a paper hamster wheel stands on its stand on the lower slope. Its rim doesn't close: it unrolls from the bottom into a ribbon path that winds up the hill to a sunny hilltop at upper-right (x≈1200). The wheel is mist blue, the path #E8A317 as the single warm accent, and the sun cream. Light from above. Second-look details: tiny flowers line the path, a small faceless figure walks partway up it, and a little flag sits on the summit. The one-second feeling: a good game takes you somewhere instead of round and round.",
+    "palette_note": "Mist blue and sage layers, orange path.",
+    "alt": "A paper-cut hamster wheel whose rim unrolls into an orange path winding up a sunny hill.",
+    "twist": "The wheel's last rung has become the first step of the path.",
+    "avoid": "Trophies, coins, game controllers, slot machines, hamsters with faces.",
+    "build_notes": [
+      "The wheel is a circle with radial spokes; the path is a stroked bezier leaving from the rim tangent, with rungs drawn across its start.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  },
+  {
+    "slug": "how-much-screen-time-is-too-much",
+    "title": "How Much Screen Time Is Too Much? Guidelines by Age",
+    "family": "mind",
+    "draft": false,
+    "intent": "Learn what guidelines say about screen time by age and how to find their own limit.",
+    "concept": "A soft paper-cut tabletop scene, side-on, the table edge at about 75% of the height, against a mist-blue wall. Three graduated measuring cups stand in a row at the centre, from small (x≈520) to large (x≈1080). Instead of liquid, each holds a tiny layered landscape: the smallest has a single pebble and sprout, the middle a little pond with a reed, the largest a tiny grove with an #E8A317 sun rising behind it, the single warm accent. The cups are cream paper with layered rims; the scenes are sage, teal and mist blue. Light from above. Second-look details: a small bird perches on the large cup's rim, a stray leaf lies on the table, and the cups' handles all point the same way. The one-second feeling: it's what fills the time that matters, not the measure.",
+    "palette_note": "Cream cups, mist blue and green scenes.",
+    "alt": "Three measuring cups of rising size, each holding a tiny landscape instead of liquid, with no markings.",
+    "twist": "The cups have no measurement markings, only small notches of grass where the lines should be.",
+    "avoid": "Numbers, children with tablets, clocks, red warning zones.",
+    "build_notes": [
+      "Each cup is a trapezoid plus handle path; clip each landscape to its cup interior so it reads as contents.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  },
+  {
+    "slug": "phone-addiction-adhd",
+    "title": "Phone Addiction and ADHD: Why It's Hard and What Helps",
+    "family": "mind",
+    "draft": false,
+    "intent": "Understand why phones are especially hard with ADHD and which strategies help.",
+    "concept": "A deep night in layered indigo paper, horizon at about 75%, with silhouetted grasses along the bottom. At the centre-upper (x≈800, y≈330), a cream paper clock face without hands floats in the sky. Its right edge dissolves into a swirl of fireflies drifting off into the dark. Below it (x≈820, y≈680), a small glass lantern sits in the grass with its door open, gently gathering some of them. The fireflies are #E8A317 dots, the single warm accent; everything else is indigo and mist blue. Light comes from the fireflies and lantern. Second-look details: the clock still has its ticks, but no numbers; the fireflies drift in a loose spiral; and a moth rests on the lantern's handle. The one-second feeling: scattered time, met with a gentle container.",
+    "palette_note": "Deep indigo layers, warm orange fireflies.",
+    "alt": "A handless paper-cut clock dissolving into fireflies at night, with a small lantern below gathering some.",
+    "twist": "The clock's two hands have become two fireflies flying off in different directions.",
+    "avoid": "Brains with lightning, scattered children, the ADHD ribbon, chaos scribbles.",
+    "build_notes": [
+      "Fireflies are small circles with an feGaussianBlur glow; dissolve the clock edge with a mask of scattered circles.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  },
+  {
+    "slug": "phone-addiction-anxiety",
+    "title": "Phone Addiction and Anxiety: Understanding the Cycle",
+    "family": "mind",
+    "draft": false,
+    "intent": "Understand the loop between phone use and anxiety and how to break it.",
+    "concept": "Calm open space in pale mist-blue paper layers, with low hills along the bottom third. At the centre (x≈760, y≈400), a broad paper Möbius strip floats. A small slate storm cloud rides around it endlessly, raining on its own path. At the lower-right of the strip, a section has been cut open, and from the cut a calm sage path leads away down into soft hills toward an #E8A317 sunrise, the single warm accent. Light from above, with soft shadows under the strip. Second-look details: the rain has darkened the strip along the cloud's route, a little gate stands where the path begins, and a bird flies out through the gap. The one-second feeling: the loop is real, and there is a way out of it.",
+    "palette_note": "Slate cloud, mist blue strip, sage exit path.",
+    "alt": "A paper Möbius strip with a storm cloud circling it, cut open where a calm path leads off toward a sunrise.",
+    "twist": "The storm cloud is chasing its own rain around the loop.",
+    "avoid": "Crying faces, heart-rate lines, panic emoji, clutching hands.",
+    "build_notes": [
+      "Draw the Möbius as two overlapping ribbon paths with front and back colours; leave a gap for the cut and start the path from it.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  },
+  {
+    "slug": "psychology-of-app-addiction",
+    "title": "The Psychology of App Addiction: Why You Keep Scrolling",
+    "family": "mind",
+    "draft": false,
+    "intent": "Understand the psychology that keeps them scrolling: variable rewards, endless feeds, habit loops.",
+    "concept": "A paper-cut gumball machine stands at the centre (x≈800) on a simple layered floor line at about 80% of the height, against soft mist-blue paper hills. Its glass globe is shaped like a phone, tall and rounded, filled with gumballs of unpredictable colours: some bright and glossy, some pale and hollow like empty shells. A gumball is mid-drop from the chute. The machine is mist blue and cream; the gumballs are sage, cream and navy with a few #E8A317 bright ones as the warm accent. Light from above. Second-look details: the coin slot is a simple round hole, the crank handle is turned, and a hollow gumball has rolled to the front. The one-second feeling: the pull of not knowing what you'll get.",
+    "palette_note": "Mist blue machine, multicolour gumballs, orange highlight.",
+    "alt": "A gumball machine with a phone-shaped globe releasing random gumballs through a chute that loops back to the top.",
+    "twist": "The dispensing chute curls round like a feedback loop back into the top of the globe.",
+    "avoid": "Slot-machine casino neon, brains, dopamine molecules, cash.",
+    "build_notes": [
+      "The globe is a rounded rect with a low-opacity fill plus a highlight; gumballs are circles of varied fills, hollow ones as stroked rings.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  },
+  {
+    "slug": "science-of-friction",
+    "title": "The Science of Friction: Why a Short Pause Works",
+    "family": "mind",
+    "draft": false,
+    "intent": "Learn why a few seconds of friction changes behaviour, per behavioural science.",
+    "concept": "A layered paper-cut hillside, side-on, with the slope running from upper-left to lower-right and hills behind in sage and moss. A waterfall tumbles down the slope in mist-blue paper ribbons, but at the centre (x≈800) one small terraced basin interrupts the fall. There, the water pools, flattens and stills before spilling on down. Rocks frame the terrace, and a low #E8A317 sun at upper-right is the single warm accent. Light from above. Second-look details: fine mist rises from the lower fall, a fern hangs over the terrace, and the pool shows a soft reflection of the sky. The one-second feeling: a pause built into the slope.",
+    "palette_note": "Mist blue water, sage and moss layers.",
+    "alt": "A paper-cut waterfall pausing in one calm terraced pool where a single leaf slowly spins.",
+    "twist": "A single leaf spins slowly in the terraced pool, the only thing on the canvas not moving downhill.",
+    "avoid": "Speed bumps, stop signs, phones, brain diagrams.",
+    "build_notes": [
+      "Build the fall as stepped ribbon paths; the pool is a flat ellipse with two faint concentric ripples.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  },
+  {
+    "slug": "screen-time-and-mental-health",
+    "title": "Screen Time and Mental Health: What the Research Shows",
+    "family": "mind",
+    "draft": false,
+    "intent": "Learn what the research says about screen time, mood and sleep.",
+    "concept": "A large faceless head in profile, facing right, cut from layered indigo and mist-blue paper, fills the centre of the canvas (x≈620 to x≈1120). Inside its silhouette is a calm night landscape: rolling hills, a still lake and a pale cream moon. Outside the head, at right (x≈1280), a soft glowing #E8A317 rectangle, the single warm accent, hangs in the dark, joined to the head by a few fine paper threads that run both ways. Light from above, with each internal layer casting soft shadows. Second-look details: one thread is tangled, a tiny bird flies across the moon, and the lake's ripples spread. The one-second feeling: the connection is real, but quiet and two-way, not a simple cause.",
+    "palette_note": "Indigo and mist blue layers, pale moon.",
+    "alt": "A paper-cut head in profile holding a moonlit lake whose reflection of the moon is a glowing rectangle.",
+    "twist": "In the head's still lake, the moon's reflection is a soft glowing rectangle; which is the screen, which is the moon?",
+    "avoid": "Brain anatomy, cracked heads, sad faces, rain clouds over heads, pills.",
+    "build_notes": [
+      "The profile is one silhouette path used as a clipPath for the landscape layers; the threads are thin bezier strokes at 50% opacity.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  },
+  {
+    "slug": "social-media-addiction-signs",
+    "title": "Social Media Addiction Signs: 10 Signs to Watch For",
+    "family": "mind",
+    "draft": false,
+    "intent": "Recognise the signs of compulsive social media use and take a self-check.",
+    "concept": "A winding cliff-top trail runs from lower-left toward a narrowing point at right-centre (x≈1200), seen side-on with the horizon at about 60%, in layered paper of warm stone greys and moss green. Along the trail stands a series of stone cairns, each a slightly different stack, growing taller as the path narrows toward the cliff edge. Beyond the edge, a mist-blue sea and a low #E8A317 sun, the single warm accent. Light from above. Second-look details: one cairn has toppled into a heap, a small bird sits on another, and footprints in the path grow closer together. The one-second feeling: the signs are there if you look.",
+    "palette_note": "Warm stone greys, mist blue sky, green moss.",
+    "alt": "A cliff-top path marked by stone cairns that grow taller as it narrows; the last one balances on a corner.",
+    "twist": "The last cairn's top stone is balanced impossibly on one corner, the clearest warning of all.",
+    "avoid": "Warning triangles, red flags, numbers one to ten, checklist ticks.",
+    "build_notes": [
+      "Cairns are stacked ellipses of varied widths; the trail is a stroked curve that narrows via decreasing stroke-width.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  },
+  {
+    "slug": "what-is-digital-wellbeing",
+    "title": "What Is Digital Wellbeing? A Practical Guide",
+    "family": "mind",
+    "draft": false,
+    "intent": "Understand what digital wellbeing means and how to start practising it.",
+    "concept": "A zen garden of raked sand seen from above at a slight angle, filling the canvas in layered cream and mist-blue paper. At the centre (x≈800), a phone lies face-down, smooth and dark like one of the garden's stones; around it, raked ripples flow calmly in concentric lines. Two natural stones sit nearby, one larger to the left and one smaller to the right, and a patch of moss sits at one corner. A single #E8A317 maple leaf rests on the phone's back, the only warm accent. Light from above. Second-look details: the ripples around the phone are as neat as those around the stones, a small rake leans at the edge, and a second leaf floats in from the corner. The one-second feeling: technology included, in balance.",
+    "palette_note": "Sand and mist blue layers, moss green.",
+    "alt": "A raked zen garden with a phone lying face-down among its stones, a maple leaf resting on it.",
+    "twist": "A single maple leaf has landed on the phone's back, as if it had always been one of the stones.",
+    "avoid": "Lotus flowers, meditating figures, Buddha, incense.",
+    "build_notes": [
+      "Ripples are concentric stroked paths offset around each stone; layer them in order so the phone sits on top.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  },
+  {
+    "slug": "what-is-doomscrolling",
+    "title": "What Is Doomscrolling? Meaning, Causes and How to Stop",
+    "family": "mind",
+    "draft": false,
+    "intent": "Learn what doomscrolling is, why it hooks the brain, and how to stop.",
+    "concept": "A layered paper-cut whirlpool seen from slightly above, centred at x≈800, fills most of the canvas in charcoal and navy spirals. Dark clouds and torn paper strips swirl inward toward its centre. At the outer rim at lower-right (x≈1180), a tiny pale paper boat has turned its bow away, its sail the single #E8A317 accent. Beyond the rim, flat calm water in mist blue reaches to the canvas edge. Light from above. Second-look details: tiny flashes of lightning sit in the clouds, the torn strips are blank, and the boat's wake curves away from the spiral. The one-second feeling: moody, but there is a way out.",
+    "palette_note": "Charcoal and navy spirals, one pale boat.",
+    "alt": "A dark paper-cut whirlpool of clouds and torn strips, with a small paper boat turning away at its edge.",
+    "twist": "The torn paper strips swirling in the whirlpool are shaped like tiny blank headline strips.",
+    "avoid": "Newspapers with words, skulls, fire, doom imagery, phones.",
+    "build_notes": [
+      "The whirlpool is concentric spiral paths of graduated darkness; the boat is a simple folded paper shape.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  },
+  {
+    "slug": "why-willpower-fails-phone-addiction",
+    "title": "Why Willpower Fails Against Phone Addiction (and What Works)",
+    "family": "mind",
+    "draft": false,
+    "intent": "Understand why willpower fails against the phone and what works better.",
+    "concept": "A steep paper-cut hill rises from lower-left to a summit at upper-centre (x≈820, y≈220), in navy and indigo layers against a dusk sky graded from #E8A317 near the horizon to mist blue above. On the steep face, a faceless figure strains to push a large boulder uphill. Beside the hill, a gentle spiral ramp in sage winds around the same summit with ease. Light from the setting sun at right. Second-look details: the boulder is cracked, flowers grow along the ramp, and a bird sits at the summit. The one-second feeling: design the slope, don't push harder.",
+    "palette_note": "Dusk orange and navy layers, sage ramp.",
+    "alt": "A figure pushes a boulder up a steep hill at dusk while someone who took the easy spiral ramp sips tea at the top.",
+    "twist": "Someone who took the easy ramp has already reached the summit and is sitting there with a cup of tea.",
+    "avoid": "Muscle arms, gritted teeth, battery icons, motivational poster tone.",
+    "build_notes": [
+      "The hill is a steep path; the ramp is a spiral stroke wrapping the hill with partial clipping behind it.",
+      "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
+    ]
+  }
+]

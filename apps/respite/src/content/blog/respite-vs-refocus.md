@@ -12,7 +12,8 @@ keyTakeaways:
   - 'Pick by diagnosis: too many opens points to a pause, too long per session points to budgets.'
 section: 'App Comparisons'
 tags: ['respite', 'refocus', 'screen time app', 'app comparison', 'digital wellbeing', 'refocus alternatives']
-heroImage: '/blog-app-comparison.jpg'
+heroImage: '/images/blog/respite-vs-refocus.jpg'
+heroImageAlt: 'A turnstile that stops each entry, beside a tall notched candle burning down to its next mark.'
 faq:
   - question: 'Which is better: Respite or Refocus?'
     answer: 'It depends on your habit. Respite is better if you open apps without thinking, because it pauses you at the moment you open them. Refocus is better if you open apps on purpose but lose track of time, because it works with daily budgets and reminders. Many people have both habits; try the free one first.'

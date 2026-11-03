@@ -11,7 +11,8 @@ keyTakeaways:
   - 'Ask the AI to show the numbers it used, and treat "why" answers as hypotheses.'
   - 'A prompt plans; a limit or pause acts. Put the plan into the app the same day.'
 tags: ['chatgpt', 'claude', 'prompts', 'screen time', 'chatgpt screen time prompts', 'claude screen time analysis', 'bring your own ai']
-heroImage: '/blog-phone-addiction-stop.jpg'
+heroImage: '/images/blog/chatgpt-claude-screen-time-prompts.jpg'
+heroImageAlt: 'An isometric recipe-card box with blank cards fanning out, each showing a small moon, chart, clock or sprout icon.'
 faq:
   - question: 'What is the best ChatGPT prompt to reduce screen time?'
     answer: 'Give it a goal, your numbers and a constraint, then ask for one output. For example: here are my top three apps with daily minutes and the hours I scroll most; I want my evenings back; suggest a limit per app about 25 percent below my average and a fallback for bad days. Specific inputs and one request beat a vague "help me use my phone less".'

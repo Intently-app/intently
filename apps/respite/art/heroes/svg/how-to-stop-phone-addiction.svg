@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="648" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5E8FA6"/><stop offset="0.55" stop-color="#A9D0DF"/><stop offset="1" stop-color="#E6F0F2"/></linearGradient>
+<radialGradient id="sunG" cx="1450" cy="140" r="600" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F7FBFC" stop-opacity="0.7"/><stop offset="1" stop-color="#F7FBFC" stop-opacity="0"/></radialGradient>
+<linearGradient id="plaza" x1="0" y1="648" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#EEEBE0"/><stop offset="1" stop-color="#D9D3C2"/></linearGradient>
+<radialGradient id="pole" cx="0" cy="0" r="90" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#E8A317" stop-opacity="0.4"/><stop offset="1" stop-color="#E8A317" stop-opacity="0"/></radialGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+    <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+  </filter>
+</defs>
+
+<rect width="1600" height="648" fill="url(#sky)"/>
+<rect width="1600" height="648" fill="url(#sunG)"/>
+<!-- distant colonnade -->
+<g fill="#BDE1EC">
+  <rect x="-10" y="560" width="1620" height="88"/>
+  <rect x="-10" y="548" width="1620" height="16"/>
+</g>
+<g fill="#A9D0DF"><rect x="10" y="572" width="22" height="76"/><rect x="66" y="572" width="22" height="76"/><rect x="122" y="572" width="22" height="76"/><rect x="178" y="572" width="22" height="76"/><rect x="234" y="572" width="22" height="76"/><rect x="290" y="572" width="22" height="76"/><rect x="346" y="572" width="22" height="76"/><rect x="402" y="572" width="22" height="76"/><rect x="458" y="572" width="22" height="76"/><rect x="514" y="572" width="22" height="76"/><rect x="570" y="572" width="22" height="76"/><rect x="626" y="572" width="22" height="76"/><rect x="682" y="572" width="22" height="76"/><rect x="738" y="572" width="22" height="76"/><rect x="794" y="572" width="22" height="76"/><rect x="850" y="572" width="22" height="76"/><rect x="906" y="572" width="22" height="76"/><rect x="962" y="572" width="22" height="76"/><rect x="1018" y="572" width="22" height="76"/><rect x="1074" y="572" width="22" height="76"/><rect x="1130" y="572" width="22" height="76"/><rect x="1186" y="572" width="22" height="76"/><rect x="1242" y="572" width="22" height="76"/><rect x="1298" y="572" width="22" height="76"/><rect x="1354" y="572" width="22" height="76"/><rect x="1410" y="572" width="22" height="76"/><rect x="1466" y="572" width="22" height="76"/><rect x="1522" y="572" width="22" height="76"/><rect x="1578" y="572" width="22" height="76"/><rect x="1634" y="572" width="22" height="76"/></g>
+<rect x="0" y="648" width="1600" height="252" fill="url(#plaza)"/>
+<path d="M320,648 L-2800,900M360,648 L-2500,900M400,648 L-2200,900M440,648 L-1900,900M480,648 L-1600,900M520,648 L-1300,900M560,648 L-1000,900M600,648 L-700,900M640,648 L-400,900M680,648 L-100,900M720,648 L200,900M760,648 L500,900M800,648 L800,900M840,648 L1100,900M880,648 L1400,900M920,648 L1700,900M960,648 L2000,900M1000,648 L2300,900M1040,648 L2600,900M1080,648 L2900,900M1120,648 L3200,900M1160,648 L3500,900M1200,648 L3800,900M1240,648 L4100,900M1280,648 L4400,900M0,668 H1600M0,700 H1600M0,745 H1600M0,810 H1600M0,890 H1600" stroke="#C9C2AE" stroke-width="2" opacity=".7"/>
+
+<!-- the figure's shadow, pulled toward the magnet against the light -->
+<path d="M500,712 L560,712 L990,698 L980,678Z" fill="#0B1C27" opacity=".2"/>
+<!-- the magnet's own shadow obeys the light: down-left -->
+<path d="M990,690 L1260,690 L1100,760 L790,760Z" fill="#0B1C27" opacity=".2"/>
+<circle r="90" fill="url(#pole)" transform="translate(986 287)"/><circle r="90" fill="url(#pole)" transform="translate(986 653)"/>
+<path d="M986,287 C920,267 920,673 986,653M986,287 C850,247 850,693 986,653M986,287 C780,227 780,713 986,653M986,287 C710,207 710,733 986,653" stroke="#24465A" stroke-width="2.5" fill="none" opacity=".18"/>
+<!-- the magnet -->
+<path d="M990,250 H1174 Q1260,250 1260,336 V604 Q1260,690 1174,690 H990 V616 H1174 Q1186,616 1186,604 V336 Q1186,324 1174,324 H990Z" fill="#24465A"/>
+<path d="M1242,336 V604" stroke="#5E8FA6" stroke-width="8" stroke-linecap="round" opacity=".7"/>
+<rect x="1090" y="276" width="80" height="12" rx="6" fill="#0B1C27"/>
+<rect x="984" y="250" width="62" height="74" rx="6" fill="#E8A317"/>
+<rect x="984" y="616" width="62" height="74" rx="6" fill="#E8A317"/>
+<rect x="984" y="250" width="62" height="14" rx="6" fill="#F6BE4A"/>
+<rect x="984" y="616" width="62" height="14" rx="6" fill="#F6BE4A"/>
+<rect x="1030" y="250" width="16" height="74" fill="#B97F0C"/>
+<rect x="1030" y="616" width="16" height="74" fill="#B97F0C"/>
+
+<g transform="translate(800 560) scale(1.35) translate(-800 -560)">
+<path d="M570,542 h56 M580,552 h50" stroke="#5E8FA6" stroke-width="3" stroke-linecap="round" opacity=".55"/><g transform="translate(640 548) rotate(-20)"><circle r="12" fill="none" stroke="#24465A" stroke-width="4"/><path d="M10,0 h34 v8 m-10,-8 v6" stroke="#24465A" stroke-width="5" fill="none"/></g>
+<path d="M680,594 h66 M690,604 h60" stroke="#5E8FA6" stroke-width="3" stroke-linecap="round" opacity=".55"/><circle cx="760" cy="600" r="14" fill="#BDE1EC" stroke="#5E8FA6" stroke-width="3"/>
+<path d="M760,514 h76 M770,524 h70" stroke="#5E8FA6" stroke-width="3" stroke-linecap="round" opacity=".55"/><circle cx="850" cy="520" r="12" fill="#BDE1EC" stroke="#5E8FA6" stroke-width="3"/>
+<path d="M835,634 h56 M845,644 h50" stroke="#5E8FA6" stroke-width="3" stroke-linecap="round" opacity=".55"/><path d="M890,640 h30 a7,7 0 0 0 0,-14 h-34 a10,10 0 0 0 0,20 h26" fill="none" stroke="#24465A" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M650,494 h46 M660,504 h40" stroke="#5E8FA6" stroke-width="3" stroke-linecap="round" opacity=".55"/><path d="M698,500 h24 a6,6 0 0 0 0,-12 h-28 a8,8 0 0 0 0,16 h22" fill="none" stroke="#24465A" stroke-width="3" stroke-linecap="round"/>
+<path d="M860,464 h66 M870,474 h60" stroke="#5E8FA6" stroke-width="3" stroke-linecap="round" opacity=".55"/><g transform="translate(940 470) rotate(10)"><circle r="10" fill="none" stroke="#24465A" stroke-width="4"/><path d="M8,0 h28 v7 m-8,-7 v5" stroke="#24465A" stroke-width="4" fill="none"/></g></g>
+<!-- a leaf tumbling straight down, unaffected -->
+<path d="M0,0 C8,-6 24,-6 32,0 C24,6 8,6 0,0Z" fill="#7FA88E" transform="translate(760 420) rotate(60)"/>
+<path d="M776,380 q-10,14 0,28" stroke="#7FA88E" stroke-width="2" fill="none" stroke-dasharray="3 6" opacity=".7"/>
+
+<!-- the figure, planted on three wedges, leaning back -->
+<g transform="translate(520 716) scale(1.25)">
+  <path d="M-34,0 L4,0 L-34,-26Z" fill="#B89A78"/><path d="M-34,0 L-24,0 L-34,-26Z" fill="#8F7558"/>
+  <path d="M10,0 L50,0 L10,-18Z" fill="#B89A78"/><path d="M10,0 L18,0 L10,-18Z" fill="#8F7558"/>
+  <path d="M-60,0 L-38,0 L-60,-11Z" fill="#B89A78"/><path d="M-60,0 L-54,0 L-60,-11Z" fill="#8F7558"/>
+  <g fill="#24465A" transform="rotate(-8 0 0)">
+    <path d="M-30,-22 L-14,-22 L-6,-74 L4,-74 L14,-18 L30,-14 L32,-6 L10,-6 L0,-60 L-10,-14 L-26,-12Z"/>
+    <path d="M-16,-72 L16,-72 L18,-126 Q0,-136 -18,-126Z"/>
+    <path d="M-16,-122 L-40,-96 L-46,-80 L-38,-78 L-30,-94 L-12,-108Z"/>
+    <path d="M16,-120 L34,-100 L46,-104 L48,-96 L32,-88 L14,-104Z"/>
+    <circle cx="0" cy="-148" r="16"/>
+  </g>
+</g>
+
+<rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

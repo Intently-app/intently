@@ -3,7 +3,8 @@ title: 'How to Reduce Screen Time: 10 Strategies That Work'
 description: 'How to reduce screen time without willpower: track it, set realistic limits, go grayscale, add pauses and build phone-free zones. 10 practical steps.'
 pubDate: 'Jan 12 2026'
 updatedDate: 2026-11-01
-heroImage: '/blog-placeholder-5.jpg'
+heroImage: '/images/blog/how-to-reduce-screen-time.jpg'
+heroImageAlt: 'A hedge clipped into a phone shape, trimmed smaller than its faint old outline, with shears and clippings.'
 author: 'Respite Team'
 answer: 'To reduce screen time, track your real usage for a week, then cut your worst app by about 10 to 15 percent each week with a limit in iPhone Screen Time or Android Digital Wellbeing. Turn off non-essential notifications, keep the phone out of the bedroom, and add a short pause before the apps you open on autopilot. Replace the freed time with something specific.'
 keyTakeaways:

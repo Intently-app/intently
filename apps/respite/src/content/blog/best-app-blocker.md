@@ -12,7 +12,8 @@ keyTakeaways:
   - 'Many people use a hard block for exam or deadline windows and a pause for everyday use.'
 section: "App Comparisons"
 tags: ["best app blocker", "app blocker 2026", "block apps phone", "app blocker comparison", "digital wellbeing", "screen time app"]
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/best-app-blocker.jpg'
+heroImageAlt: 'One arched doorway split diagonally: half a riveted bank-vault door, half a sunlit bead curtain swaying.'
 faq:
   - question: 'What is the best app blocker in 2026?'
     answer: 'It depends on the job. Freedom is the best-known cross-device blocker, Cold Turkey is the hardest to bypass on a computer, and Opal is a polished blocker for iPhone. If you want something gentler, Respite adds a free pause before the apps you pick instead of blocking them.'

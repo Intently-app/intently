@@ -12,7 +12,8 @@ keyTakeaways:
   - 'FlowBuddy is the free, open-source breathing pause, Android only.'
 section: 'App Comparisons'
 tags: ['screenzen alternative', 'screenzen alternatives 2026', 'apps like screenzen', 'screen time', 'mindful pause', 'digital wellbeing']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/screenzen-alternatives.jpg'
+heroImageAlt: 'Four playground slides in a row, each ending in a different brake: sand, a bumpy chute, a puddle and a cushion.'
 faq:
   - question: 'What is the best free alternative to ScreenZen?'
     answer: 'Respite is a strong free ScreenZen alternative: a mindful pause before the apps you pick, usage tracking and streaks, on iPhone, Android and Chrome, with no ads. Sign-in is optional and only needed for sync. FlowBuddy is a free open-source breathing pause on Android. One Sec has a limited free tier, but most features are paid.'

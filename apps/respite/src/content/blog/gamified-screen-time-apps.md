@@ -12,7 +12,8 @@ keyTakeaways:
   - 'Leaderboards help some people and stress others, so they should always be optional.'
   - 'Respite adds acorns, quests and weekly leagues on top of a pause and daily limits, free.'
 tags: ['gamified screen time app', 'screen time app with rewards', 'streaks', 'digital wellbeing', 'habit change', 'respite']
-heroImage: '/blog-productivity-social.jpg'
+heroImage: '/images/blog/gamified-screen-time-apps.jpg'
+heroImageAlt: 'A paper-cut hamster wheel whose rim unrolls into an orange path winding up a sunny hill.'
 faq:
   - question: 'Do gamified screen time apps actually work?'
     answer: 'They can, for some people. Streaks, points and rewards make a new routine feel satisfying in the first weeks, which is when most habits fail. They work best on top of a real intervention, like a pause before an app or a daily limit. On their own, a game with no real friction rarely changes how much you scroll.'

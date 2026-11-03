@@ -12,7 +12,8 @@ keyTakeaways:
   - 'Treat advice as a draft: you are the judge of what fits your life.'
   - 'Connect Respite Plus to Claude or ChatGPT and the AI reads your real usage itself, and can make limits stricter if you opt in.'
 tags: ['chatgpt', 'claude', 'ai', 'reduce screen time', 'prompts', 'habit change', 'bring your own ai']
-heroImage: '/blog-phone-addiction-stop.jpg'
+heroImage: '/images/blog/use-chatgpt-claude-to-reduce-screen-time.jpg'
+heroImageAlt: 'A speech-bubble-shaped compass on a folded map, its needle pointing along a route that leads off the paper.'
 faq:
   - question: 'Can ChatGPT help me reduce screen time?'
     answer: 'Yes, as a planning partner. ChatGPT can turn your screen time numbers into patterns, suggest realistic limits, draft replacement routines and write reminders in your own voice. It cannot stop you opening an app. For that you need friction in the moment, such as a pause or a limit in an app like Respite.'

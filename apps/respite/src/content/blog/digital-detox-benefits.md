@@ -13,7 +13,8 @@ keyTakeaways:
   - 'You do not need to go phone-free: cutting mindless use gets most of the gains.'
 section: 'Digital Wellbeing'
 tags: ['digital detox benefits', 'digital detox results', 'what happens when you stop using phone', 'screen time reduction', 'digital wellbeing']
-heroImage: '/blog-placeholder-5.jpg'
+heroImage: '/images/blog/digital-detox-benefits.jpg'
+heroImageAlt: 'An unplugged cable on paper-cut hills, its prongs rooting a flowering vine that climbs toward the moon.'
 faq:
   - question: 'What are the benefits of a digital detox?'
     answer: 'People commonly report better sleep, a calmer mood, easier focus, more time for hobbies and richer conversations. Some research backs parts of this, such as a small University of Pennsylvania study where limiting social media reduced loneliness and low mood. Results vary and are often modest, and a detox is not a treatment for any health condition.'

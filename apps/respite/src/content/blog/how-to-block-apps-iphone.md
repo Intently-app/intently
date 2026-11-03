@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Use hard blocks for sleep and exams, and a pause for everyday scrolling.'
 section: "Digital Wellbeing"
 tags: ["block apps iphone", "how to block apps on iphone", "restrict apps ios", "screen time iphone", "app blocker iphone", "digital wellbeing"]
-heroImage: "/blog-placeholder-3.jpg"
+heroImage: '/images/blog/how-to-block-apps-iphone.jpg'
+heroImageAlt: 'A phone-shaped apartment building at dusk with roller shutters down over some windows and the rest glowing.'
 howToSteps:
   - name: "Open Screen Time Settings"
     text: "Go to Settings > Screen Time on your iPhone. If Screen Time isn't enabled, tap 'Turn On Screen Time' and follow the setup prompts."

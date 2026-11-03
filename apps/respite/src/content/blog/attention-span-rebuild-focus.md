@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Attention is a skill you can practise; setbacks are normal.'
 section: 'Digital Wellbeing'
 tags: ['attention span shrinking', 'rebuild focus', 'phone ruined attention span', 'deep work', 'focus', 'digital wellbeing']
-heroImage: '/blog-placeholder-4.jpg'
+heroImage: '/images/blog/attention-span-rebuild-focus.jpg'
+heroImageAlt: 'A paper-cut sea where a goldfish leaves its empty bowl and swims in one long unbroken line into the calm deep.'
 faq:
   - question: 'Is the average attention span really shrinking?'
     answer: 'Not in the way headlines claim. The popular line that attention spans are shorter than a goldfish''s has no scientific basis. Some research does suggest we switch between screens and tasks more often than we used to, and that public attention to topics turns over faster. The more accurate picture is that we have trained ourselves for switching, and we can train for focus too.'

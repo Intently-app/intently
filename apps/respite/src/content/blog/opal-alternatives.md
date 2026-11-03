@@ -12,7 +12,8 @@ keyTakeaways:
   - 'Opal still wins on polished iPhone blocking and team focus features.'
 section: 'App Comparisons'
 tags: ['opal alternatives', 'opal alternative free', 'best opal alternative', 'screen time', 'app blockers', 'digital wellbeing']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/opal-alternatives.jpg'
+heroImageAlt: 'A velvet rope guards a dark premium doorway beside a wide open park entrance with a bird bath and a sunny path.'
 faq:
   - question: 'What are the best alternatives to Opal?'
     answer: 'Respite (free pause before the apps you pick, iPhone, Android, Chrome), ScreenZen (free countdown delay, iOS and Android), One Sec (free for one app, Pro around $20 a year, breathing pause), Cold Turkey (around $40 one-time desktop blocking) and Apple Screen Time (free, built in). Choose by whether you want to block apps or build awareness.'

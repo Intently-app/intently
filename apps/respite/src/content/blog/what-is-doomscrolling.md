@@ -13,7 +13,8 @@ keyTakeaways:
   - 'If news is affecting your sleep or mood for weeks, talk to a professional.'
 section: 'Digital Wellbeing'
 tags: ['what is doomscrolling', 'doomscrolling meaning', 'doomscrolling definition', 'stop doomscrolling', 'digital wellbeing']
-heroImage: '/blog-placeholder-5.jpg'
+heroImage: '/images/blog/what-is-doomscrolling.jpg'
+heroImageAlt: 'A dark paper-cut whirlpool of clouds and torn strips, with a small paper boat turning away at its edge.'
 faq:
   - question: 'What does doomscrolling mean?'
     answer: 'Doomscrolling (also written doom scrolling) is the habit of compulsively scrolling through negative, distressing or anxiety-provoking content on social media and news sites, even though it makes you feel worse. The word combines "doom", a sense of impending disaster, with "scrolling", moving endlessly through a feed.'

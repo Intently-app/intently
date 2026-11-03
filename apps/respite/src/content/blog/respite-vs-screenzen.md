@@ -12,7 +12,8 @@ keyTakeaways:
   - 'ScreenZen is the lighter choice if you only want a timed delay.'
 section: 'App Comparisons'
 tags: ['respite', 'screenzen', 'screenzen review', 'free screen time app comparison', 'digital wellbeing', 'mindful screen time']
-heroImage: '/blog-app-comparison.jpg'
+heroImage: '/images/blog/respite-vs-screenzen.jpg'
+heroImageAlt: 'Two traffic lights both glowing amber; the right one has an extra small lamp shaped like a browser window.'
 faq:
   - question: 'Which is better: Respite or ScreenZen?'
     answer: 'Both are good free pause-based apps. ScreenZen is better if you want a simple countdown delay and minimal setup. Respite is better if you want usage tracking, limits, streaks and a Chrome extension alongside the pause. Neither requires a subscription to get started, so the easiest test is to try each for a week.'

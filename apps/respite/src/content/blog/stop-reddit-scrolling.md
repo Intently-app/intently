@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Name your trigger (boredom, avoidance, curiosity) and pick a replacement for each.'
 section: 'Digital Wellbeing'
 tags: ['stop reddit scrolling', 'reddit addiction', 'reduce reddit usage', 'mindful reddit', 'digital wellbeing', 'stop scrolling']
-heroImage: '/blog-placeholder-5.jpg'
+heroImage: '/images/blog/stop-reddit-scrolling.jpg'
+heroImageAlt: 'A rabbit hole spiralling endlessly down, with a small lit door opening onto a cosy room partway down.'
 faq:
   - question: 'Why is Reddit so addictive?'
     answer: 'Reddit combines an endless feed, variable rewards (you never know what interesting post is next), community belonging through subreddits, huge content variety and the social validation of upvotes. Unlike platforms built around one content type, it offers news, humour, advice, stories and debates in one place, so there is rarely a natural point at which to stop.'

@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCEEF4"/><stop offset="1" stop-color="#F7FBFC"/></linearGradient>
+    <path id="tb" d="M-96 -424 C-96 -320 -14 -290 -8 -230 L8 -230 C14 -290 96 -320 96 -424 Z"/>
+    <path id="bb" d="M-8 -230 C-14 -170 -96 -140 -96 -26 L96 -26 C96 -140 14 -170 8 -230 Z"/>
+    <clipPath id="tbc"><use href="#tb"/></clipPath>
+    <clipPath id="bbc"><use href="#bb"/></clipPath>
+    <clipPath id="pa"><rect x="-165" y="-172" width="110" height="146" rx="30"/></clipPath>
+    <clipPath id="pb"><rect x="-38" y="-160" width="78" height="134" rx="20"/></clipPath>
+    <clipPath id="pc"><rect x="62" y="-130" width="130" height="104" rx="8"/></clipPath>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1030" cy="420" r="285" fill="#BDE1EC"/>
+  <g fill="#BDE1EC"><rect x="120" y="180" width="150" height="4"/><rect x="200" y="360" width="90" height="4"/><rect x="1380" y="150" width="120" height="4"/></g>
+  <!-- floor field -->
+  <rect y="706" width="1600" height="194" fill="#8FBBCD"/>
+  <rect y="706" width="1600" height="5" fill="#BDE1EC"/>
+  <g fill="#5E8FA6" opacity=".45"><rect x="140" y="800" width="200" height="4"/><rect x="760" y="850" width="260" height="4"/><rect x="1300" y="790" width="150" height="4"/></g>
+
+  <!-- plinth on a slight diagonal -->
+  <g transform="rotate(-2 800 670)">
+    <rect x="260" y="660" width="1080" height="100" fill="#0B1C27" opacity=".25" transform="translate(20 20)"/>
+    <rect x="260" y="684" width="1080" height="76" fill="#5E8FA6"/>
+    <rect x="260" y="684" width="14" height="76" fill="#2F6079"/>
+    <rect x="260" y="660" width="1080" height="26" fill="#F7FBFC"/>
+    <rect x="260" y="682" width="1080" height="4" fill="#BDE1EC"/>
+  </g>
+
+  <!-- LEFT: the careful classic pause -->
+  <g transform="translate(540 669)">
+    <!-- hard shadow -->
+    <g fill="#0B1C27" opacity=".25" transform="translate(20 20)">
+      <rect x="-122" y="-452" width="244" height="28"/><use href="#tb"/><use href="#bb"/><rect x="-122" y="-26" width="244" height="26"/>
+    </g>
+    <!-- coin under the base -->
+    <ellipse cx="-118" cy="-2" rx="30" ry="8" fill="#7C93A1"/>
+    <ellipse cx="-118" cy="-5" rx="30" ry="8" fill="#C9D4DA"/>
+    <!-- glass -->
+    <use href="#tb" fill="#F7FBFC" opacity=".75"/>
+    <use href="#bb" fill="#F7FBFC" opacity=".75"/>
+    <g clip-path="url(#tbc)">
+      <rect x="-110" y="-330" width="220" height="110" fill="#E6D8B8"/>
+      <rect x="40" y="-330" width="80" height="110" fill="#CDBB94"/>
+    </g>
+    <!-- the breath-like swirl rising off the sand -->
+    <path d="M-66 -330 C-60 -380 20 -400 40 -362 C56 -332 18 -312 -4 -330 C-22 -346 -4 -372 18 -358" stroke="#E6D8B8" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <path d="M-66 -330 C-60 -380 20 -400 40 -362" stroke="#F3EAD6" stroke-width="4" fill="none" stroke-linecap="round" transform="translate(-2 -4)"/>
+    <g clip-path="url(#bbc)">
+      <path d="M-60 -26 Q0 -78 60 -26 Z" fill="#E6D8B8"/>
+      <path d="M20 -44 Q44 -36 60 -26 H28 Z" fill="#CDBB94"/>
+    </g>
+    <circle cx="0" cy="-212" r="6" fill="#CDBB94"/>
+    <use href="#tb" fill="none" stroke="#5E8FA6" stroke-width="4"/>
+    <use href="#bb" fill="none" stroke="#5E8FA6" stroke-width="4"/>
+    <path d="M-80 -410 C-80 -350 -50 -320 -30 -300" stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round" opacity=".9"/>
+    <path d="M-30 -160 C-60 -130 -78 -100 -80 -50" stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round" opacity=".9"/>
+    <!-- frame -->
+    <rect x="-116" y="-424" width="12" height="398" fill="#24465A"/>
+    <rect x="104" y="-424" width="12" height="398" fill="#24465A"/>
+    <rect x="110" y="-424" width="4" height="398" fill="#5E8FA6"/>
+    <rect x="-122" y="-452" width="244" height="28" rx="4" fill="#24465A"/>
+    <rect x="-122" y="-452" width="244" height="8" rx="3" fill="#2F6079"/>
+    <rect x="-122" y="-26" width="244" height="26" rx="4" fill="#24465A"/>
+    <rect x="-122" y="-26" width="244" height="7" rx="3" fill="#2F6079"/>
+  </g>
+
+  <!-- RIGHT: one top bulb, three lower bulbs -->
+  <g transform="translate(1030 652)">
+    <!-- forked hard shadow -->
+    <g fill="#0B1C27" opacity=".25" transform="translate(20 20)">
+      <rect x="-122" y="-452" width="244" height="28"/><use href="#tb"/>
+      <rect x="-165" y="-172" width="110" height="146" rx="30"/>
+      <rect x="-38" y="-160" width="78" height="134" rx="20"/>
+      <rect x="62" y="-130" width="130" height="104" rx="8"/>
+      <rect x="-186" y="-26" width="398" height="26"/>
+    </g>
+    <!-- branching necks -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M0 -232 C0 -200 -110 -206 -110 -168" stroke="#5E8FA6" stroke-width="20"/>
+      <path d="M0 -232 V-158" stroke="#5E8FA6" stroke-width="20"/>
+      <path d="M0 -232 C0 -196 126 -200 126 -128" stroke="#5E8FA6" stroke-width="20"/>
+      <path d="M0 -232 C0 -200 -110 -206 -110 -168" stroke="#F7FBFC" stroke-width="12"/>
+      <path d="M0 -232 V-158" stroke="#F7FBFC" stroke-width="12"/>
+      <path d="M0 -232 C0 -196 126 -200 126 -128" stroke="#F7FBFC" stroke-width="12"/>
+    </g>
+    <use href="#tb" fill="#F7FBFC" opacity=".75"/>
+    <g clip-path="url(#tbc)">
+      <rect x="-110" y="-340" width="220" height="120" fill="#E6D8B8"/>
+      <rect x="40" y="-340" width="80" height="120" fill="#CDBB94"/>
+    </g>
+    <use href="#tb" fill="none" stroke="#5E8FA6" stroke-width="4"/>
+    <path d="M-80 -410 C-80 -350 -50 -320 -30 -300" stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round" opacity=".9"/>
+    <circle cx="0" cy="-212" r="6" fill="#CDBB94"/>
+    <!-- lower bulb A: rounded phone -->
+    <rect x="-165" y="-172" width="110" height="146" rx="30" fill="#F7FBFC" opacity=".8"/>
+    <g clip-path="url(#pa)"><path d="M-150 -26 Q-110 -62 -70 -26 Z" fill="#E6D8B8"/></g>
+    <rect x="-165" y="-172" width="110" height="146" rx="30" fill="none" stroke="#5E8FA6" stroke-width="4"/>
+    <rect x="-128" y="-162" width="36" height="7" rx="3.5" fill="#5E8FA6"/>
+    <rect x="-152" y="-140" width="6" height="64" rx="3" fill="#FFFFFF"/>
+    <!-- lower bulb B: another phone -->
+    <rect x="-38" y="-160" width="78" height="134" rx="20" fill="#F7FBFC" opacity=".8"/>
+    <g clip-path="url(#pb)"><path d="M-36 -26 Q2 -62 40 -26 Z" fill="#E6D8B8"/></g>
+    <rect x="-38" y="-160" width="78" height="134" rx="20" fill="none" stroke="#5E8FA6" stroke-width="4"/>
+    <circle cx="2" cy="-148" r="4" fill="#5E8FA6"/>
+    <rect x="-26" y="-132" width="6" height="56" rx="3" fill="#FFFFFF"/>
+    <!-- lower bulb C: a browser window -->
+    <rect x="62" y="-130" width="130" height="104" rx="8" fill="#F7FBFC" opacity=".8"/>
+    <g clip-path="url(#pc)">
+      <rect x="62" y="-130" width="130" height="22" fill="#BDE1EC"/>
+      <path d="M88 -26 Q127 -62 166 -26 Z" fill="#E6D8B8"/>
+    </g>
+    <rect x="62" y="-130" width="130" height="104" rx="8" fill="none" stroke="#5E8FA6" stroke-width="4"/>
+    <g fill="#5E8FA6"><circle cx="78" cy="-119" r="4"/><circle cx="92" cy="-119" r="4"/><circle cx="106" cy="-119" r="4"/></g>
+    <!-- frame -->
+    <polygon points="-116,-424 -104,-424 -172,-26 -184,-26" fill="#24465A"/>
+    <polygon points="104,-424 116,-424 210,-26 198,-26" fill="#24465A"/>
+    <rect x="-186" y="-26" width="398" height="26" rx="4" fill="#24465A"/>
+    <rect x="-186" y="-26" width="398" height="7" rx="3" fill="#2F6079"/>
+    <!-- the orange top cap (the accent) -->
+    <rect x="-122" y="-452" width="244" height="28" rx="4" fill="#E8A317"/>
+    <rect x="76" y="-452" width="46" height="28" rx="4" fill="#B97F0C"/>
+    <rect x="-112" y="-450" width="170" height="6" rx="3" fill="#FCEBC4"/>
+    <rect x="-24" y="-470" width="48" height="20" rx="6" fill="#E8A317"/>
+    <rect x="10" y="-470" width="14" height="20" rx="4" fill="#B97F0C"/>
+  </g>
+
+  <rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

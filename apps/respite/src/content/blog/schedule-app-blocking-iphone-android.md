@@ -10,7 +10,8 @@ keyTakeaways:
   - 'Free includes 1 schedule; Plus has no limit, with up to 8 running at once.'
   - 'If Plus ends, your first schedule keeps running and the rest are paused, never deleted.'
 tags: ['schedule app blocking', 'app blocker', 'iphone', 'android', 'schedules', 'respite plus', 'how to']
-heroImage: '/blog-night-scrolling.jpg'
+heroImage: '/images/blog/schedule-app-blocking-iphone-android.jpg'
+heroImageAlt: 'A sundial with pillow, lamp and coffee cup zones; a gate arm has lowered over the zone in the shadow.'
 howToSteps:
   - name: 'Add the apps you want to control'
     text: 'Schedules block the apps you already track, so add them first in Limits and pauses.'

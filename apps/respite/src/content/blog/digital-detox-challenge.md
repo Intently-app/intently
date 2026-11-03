@@ -13,7 +13,8 @@ keyTakeaways:
   - 'You keep your phone; the aim is choosing when and why you use it.'
 section: "Digital Wellbeing"
 tags: ["digital detox challenge", "30 day digital detox", "digital detox guide", "screen time challenge", "digital wellbeing"]
-heroImage: "/blog-placeholder-4.jpg"
+heroImage: '/images/blog/digital-detox-challenge.jpg'
+heroImageAlt: 'Four phone-shaped chrysalises on a branch in stages; the last is empty as an orange butterfly flies away.'
 howToSteps:
   - name: "Week 1: Awareness - Track and Understand Your Habits"
     text: "Install Respite and track your screen time without trying to change anything. Record which apps you use most, when you reach for your phone, and what triggers drive your usage. Complete daily awareness exercises like noting each phone pickup and journaling about your screen time patterns."

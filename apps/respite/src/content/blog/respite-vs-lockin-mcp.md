@@ -11,7 +11,8 @@ keyTakeaways:
   - 'They are complementary: one guards your computer, the other helps you understand your phone.'
   - 'Respite makes no claim to be the only screen time product with MCP, only, to our knowledge, the first mobile one.'
 tags: ['lockin mcp', 'comparison', 'mcp', 'rescuetime mcp', 'activitywatch mcp', 'ai', 'respite vs lockin']
-heroImage: '/blog-app-comparison.jpg'
+heroImage: '/images/blog/respite-vs-lockin-mcp.jpg'
+heroImageAlt: 'One glowing plug splits into two cables: one flicks a switch on a monitor, one lights an open phone-shaped book.'
 faq:
   - question: 'What is LockIn MCP?'
     answer: 'LockIn MCP is a website blocker built around the Model Context Protocol. Your own assistant, such as Claude, ChatGPT or Cursor, can call tools like block_domains, enter_focus_mode, temporarily_unblock_domains and get_block_status. Blocking works at the hosts-file level, fully on macOS and via the hosts file on Linux and Windows, with a Chrome extension add-on.'

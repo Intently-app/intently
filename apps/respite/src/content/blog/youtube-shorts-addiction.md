@@ -13,7 +13,8 @@ keyTakeaways:
   - 'A pause before YouTube opens catches the autopilot tap on your phone.'
 section: 'Digital Wellbeing'
 tags: ['youtube shorts addiction', 'stop youtube shorts', 'youtube shorts addictive', 'short form video addiction', 'digital wellbeing', 'reduce youtube usage']
-heroImage: '/blog-placeholder-2.jpg'
+heroImage: '/images/blog/youtube-shorts-addiction.jpg'
+heroImageAlt: 'A wide screen frame holds a looping rollercoaster of vertical cards; its rider strolls a calm path outside.'
 faq:
   - question: 'Why is YouTube Shorts so addictive?'
     answer: 'Shorts combines very short clips that offer rapid, varied rewards, a recommendation system that learns from your viewing history, an infinite vertical feed with no stopping cues, and autoplay that removes the need for any decision. Because you never know if the next clip will be boring or brilliant, it is easy to keep swiping.'

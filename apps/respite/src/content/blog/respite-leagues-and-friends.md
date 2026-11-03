@@ -10,7 +10,8 @@ keyTakeaways:
   - 'Friends join with an invite link or a 6-character code; you each get 50 acorns when they accept.'
   - 'You choose a display name, others see rounded time saved, and you can hide from leagues at any time.'
 tags: ['respite', 'how to', 'leagues', 'friends', 'invite', 'gamification', 'privacy']
-heroImage: '/blog-productivity-social.jpg'
+heroImage: '/images/blog/respite-leagues-and-friends.jpg'
+heroImageAlt: 'Twin escalators carry acorn tokens up and down around a small orange podium, one acorn climbing the wrong way.'
 howToSteps:
   - name: 'Open the League screen'
     text: 'In Respite on iPhone or Android, open the Journey tab and tap the league card, then pick League or Friends at the top.'

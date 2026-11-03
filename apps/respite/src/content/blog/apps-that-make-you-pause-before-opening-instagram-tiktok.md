@@ -11,7 +11,8 @@ keyTakeaways:
   - 'Start with the one or two apps you open on autopilot, not everything.'
   - 'Judge the result by your opens and minutes after a week, not by how the pause feels.'
 tags: ['pause before opening apps', 'mindful phone use', 'one sec', 'screenzen', 'instagram', 'tiktok', 'friction', 'comparison']
-heroImage: '/blog-instagram-usage.jpg'
+heroImage: '/images/blog/apps-that-make-you-pause-before-opening-instagram-tiktok.jpg'
+heroImageAlt: 'Three different revolving doors on a sunny plaza: one swirling with breath, one ringed by an arc, one with an acorn handle.'
 faq:
   - question: 'Is there an app that makes you pause before opening Instagram?'
     answer: 'Yes. one sec, ScreenZen and Respite all put a short pause in front of Instagram or any app you choose. one sec uses a breathing or reflection step, ScreenZen uses delay timers, and Respite shows a short check-in with options to leave or continue. Newer indie apps do similar things, mostly on iPhone. Pick by platform and price.'

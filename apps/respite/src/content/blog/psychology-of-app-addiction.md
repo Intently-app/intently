@@ -11,7 +11,8 @@ keyTakeaways:
   - 'Willpower alone struggles against constant cues; friction and awareness work better.'
   - 'Phone or app addiction is not an official diagnosis, but compulsive use can still harm your life.'
   - 'If cutting back does not work, a therapist can help; this is a habit, not a character flaw.'
-heroImage: "/blog-placeholder-5.jpg"
+heroImage: '/images/blog/psychology-of-app-addiction.jpg'
+heroImageAlt: 'A gumball machine with a phone-shaped globe releasing random gumballs through a chute that loops back to the top.'
 tags: ["phone addiction", "psychology", "dopamine", "social media addiction", "behavior change"]
 faq:
   - question: 'Is phone addiction real?'

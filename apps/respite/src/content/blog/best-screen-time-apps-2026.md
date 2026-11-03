@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Most people do best combining a pause tool with a blocker for specific windows.'
 section: 'App Comparisons'
 tags: ['best screen time app 2026', 'best screen time app android', 'best free screen time app', 'screen time app', 'app blocker', 'digital wellbeing']
-heroImage: '/blog-placeholder-3.jpg'
+heroImage: '/images/blog/best-screen-time-apps-2026.jpg'
+heroImageAlt: 'Five objects on rising museum steps from soft to hard: a feather, a cushion, a gate, a padlock and an anvil.'
 faq:
   - question: 'What is the best screen time app in 2026?'
     answer: 'It depends on your approach. For a mindful pause without hard blocking, Respite is the top free option on iPhone, Android and Chrome. For hard blocking, Freedom and Cold Turkey are the most reliable paid options. Apple Screen Time and Google Digital Wellbeing are decent built-in starting points.'

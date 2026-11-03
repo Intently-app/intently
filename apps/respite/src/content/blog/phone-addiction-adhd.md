@@ -13,7 +13,8 @@ keyTakeaways:
   - 'This is general information, not a diagnosis; only a qualified clinician can diagnose ADHD.'
 section: "Digital Wellbeing"
 tags: ["phone addiction adhd", "screen time adhd", "adhd phone addiction", "adhd dopamine", "digital wellbeing adhd", "adhd screen time tips"]
-heroImage: "/blog-placeholder-4.jpg"
+heroImage: '/images/blog/phone-addiction-adhd.jpg'
+heroImageAlt: 'A handless paper-cut clock dissolving into fireflies at night, with a small lantern below gathering some.'
 faq:
   - question: 'Why are people with ADHD more prone to phone overuse?'
     answer: 'Research suggests ADHD involves differences in reward processing and self-regulation, and phones offer instant novelty and reward on demand. That makes them very appealing, while impulse control, time awareness and task switching can be harder. Studies link ADHD with more problematic phone use on average, though not every person with ADHD struggles. This is not a failing of character.'

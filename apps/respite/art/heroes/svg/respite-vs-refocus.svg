@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <clipPath id="L"><polygon points="0,0 600,0 870,900 0,900"/></clipPath>
+    <clipPath id="R"><polygon points="600,0 1600,0 1600,900 870,900"/></clipPath>
+    <linearGradient id="ls" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1C27"/><stop offset="1" stop-color="#24465A"/></linearGradient>
+    <linearGradient id="rs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCEEF4"/><stop offset="1" stop-color="#F7FBFC"/></linearGradient>
+    <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#46606F"/><stop offset=".3" stop-color="#9FB0BA"/><stop offset=".55" stop-color="#C9D4DA"/><stop offset="1" stop-color="#5A7383"/></linearGradient>
+    <linearGradient id="wax" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FBF7EE"/><stop offset=".6" stop-color="#F1E9D8"/><stop offset="1" stop-color="#D9CDB4"/></linearGradient>
+    <linearGradient id="coolcone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BDE1EC" stop-opacity=".22"/><stop offset="1" stop-color="#BDE1EC" stop-opacity="0"/></linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#E8A317" stop-opacity=".5"/><stop offset=".4" stop-color="#E8A317" stop-opacity=".14"/><stop offset="1" stop-color="#E8A317" stop-opacity="0"/></radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+    </filter>
+  </defs>
+
+  <!-- RIGHT: a notched candle, a budget of time -->
+  <g clip-path="url(#R)">
+    <rect width="1600" height="900" fill="url(#rs)"/>
+    <circle cx="1110" cy="400" r="270" fill="#BDE1EC"/>
+    <circle cx="1110" cy="170" r="160" fill="url(#glow)"/>
+    <rect y="630" width="1600" height="270" fill="#8FBBCD"/>
+    <rect y="630" width="1600" height="6" fill="#DCEEF4"/>
+    <g fill="#5E8FA6" opacity=".4"><rect x="900" y="720" width="180" height="4"/><rect x="1260" y="800" width="220" height="4"/><rect x="1000" y="860" width="120" height="4"/></g>
+    <!-- holder shadow + candle shadow -->
+    <g fill="#0B1C27" opacity=".25" transform="translate(20 20)">
+      <rect x="1068" y="240" width="84" height="342" rx="6"/>
+      <ellipse cx="1110" cy="586" rx="110" ry="16"/>
+      <rect x="1080" y="586" width="60" height="30"/>
+      <ellipse cx="1110" cy="622" rx="120" ry="14"/>
+    </g>
+    <!-- brass holder, pushed dark -->
+    <ellipse cx="1110" cy="624" rx="120" ry="14" fill="#5E3E22"/>
+    <rect x="990" y="610" width="240" height="14" fill="#6E4A2C"/>
+    <ellipse cx="1110" cy="610" rx="120" ry="12" fill="#8A6A44"/>
+    <rect x="1082" y="584" width="56" height="28" fill="#6E4A2C"/>
+    <rect x="1082" y="584" width="14" height="28" fill="#8A6A44"/>
+    <ellipse cx="1110" cy="584" rx="110" ry="16" fill="#5E3E22"/>
+    <ellipse cx="1110" cy="580" rx="110" ry="14" fill="#8A6A44"/>
+    <path d="M1220 580 C1260 576 1268 540 1240 534 C1222 530 1214 548 1226 556" stroke="#6E4A2C" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <!-- the candle -->
+    <rect x="1068" y="240" width="84" height="342" rx="6" fill="url(#wax)"/>
+    <ellipse cx="1110" cy="242" rx="42" ry="8" fill="#E7DCC4"/>
+    <!-- evenly spaced notches -->
+    <g fill="#C9B994">
+      <rect x="1068" y="306" width="84" height="3"/><rect x="1068" y="374" width="84" height="3"/><rect x="1068" y="442" width="84" height="3"/><rect x="1068" y="510" width="84" height="3"/>
+    </g>
+    <g fill="#A8956A">
+      <polygon points="1152,298 1138,307 1152,316"/><polygon points="1152,366 1138,375 1152,384"/><polygon points="1152,434 1138,443 1152,452"/><polygon points="1152,502 1138,511 1152,520"/>
+    </g>
+    <!-- drips that stop exactly at the notch -->
+    <path d="M1078 240 h20 v56 a10 10 0 0 1 -20 0 Z" fill="#FBF7EE"/>
+    <path d="M1078 240 h20 v56 a10 10 0 0 1 -20 0 Z" fill="none" stroke="#E7DCC4" stroke-width="2"/>
+    <path d="M1118 240 h14 v56 a7 7 0 0 1 -14 0 Z" fill="#F4EDDF"/>
+    <path d="M1118 240 h14 v56 a7 7 0 0 1 -14 0 Z" fill="none" stroke="#DCD0B6" stroke-width="2"/>
+    <rect x="1082" y="256" width="5" height="34" rx="2.5" fill="#FFFFFF"/>
+    <!-- wick and flame (the accent) -->
+    <rect x="1107" y="212" width="6" height="32" rx="2" fill="#24465A"/>
+    <path d="M1110 106 C1134 152 1146 180 1140 200 C1134 222 1086 222 1080 200 C1074 180 1090 150 1110 106 Z" fill="#E8A317"/>
+    <path d="M1110 106 C1134 152 1146 180 1140 200 C1137 212 1124 218 1116 218 C1128 196 1126 156 1110 106 Z" fill="#B97F0C"/>
+    <path d="M1110 152 C1122 176 1126 192 1122 202 C1118 212 1102 212 1098 202 C1094 192 1100 176 1110 152 Z" fill="#FCEBC4"/>
+  </g>
+
+  <!-- LEFT: a turnstile, one entry at a time -->
+  <g clip-path="url(#L)">
+    <rect width="1600" height="900" fill="url(#ls)"/>
+    <circle cx="400" cy="420" r="260" fill="#2F5468"/>
+    <rect y="630" width="1600" height="270" fill="#142C3A"/>
+    <rect y="630" width="1600" height="6" fill="#3A5263"/>
+    <!-- floor worn smooth in a circle -->
+    <ellipse cx="380" cy="690" rx="230" ry="40" fill="#1E3B4C"/>
+    <ellipse cx="380" cy="690" rx="190" ry="30" fill="#24465A"/>
+    <ellipse cx="380" cy="690" rx="190" ry="30" fill="none" stroke="#3A5263" stroke-width="3"/>
+    <!-- station gate frame -->
+    <rect x="236" y="246" width="34" height="384" fill="#0B1C27" opacity=".45" transform="translate(20 20)"/>
+    <rect x="236" y="246" width="34" height="384" fill="#2F4A5A"/>
+    <rect x="236" y="246" width="10" height="384" fill="#3A5263"/>
+    <rect x="560" y="246" width="34" height="384" fill="#2F4A5A"/>
+    <rect x="560" y="246" width="10" height="384" fill="#3A5263"/>
+    <rect x="214" y="220" width="402" height="34" fill="#3A5263"/>
+    <rect x="214" y="220" width="402" height="6" fill="#5A7383"/>
+    <!-- cool overhead light -->
+    <rect x="392" y="254" width="50" height="10" fill="#9FB0BA"/>
+    <polygon points="392,264 442,264 560,630 270,630" fill="url(#coolcone)"/>
+    <!-- turnstile shadow -->
+    <g fill="#0B1C27" opacity=".45" transform="translate(20 20)">
+      <rect x="320" y="468" width="122" height="162" rx="8"/>
+      <rect x="440" y="508" width="160" height="18" rx="9"/>
+    </g>
+    <!-- arms behind the cabinet -->
+    <rect x="426" y="520" width="18" height="110" rx="9" fill="#5A7383" transform="rotate(-38 435 520)"/>
+    <!-- cabinet -->
+    <rect x="320" y="468" width="122" height="162" rx="8" fill="url(#chrome)"/>
+    <rect x="316" y="460" width="130" height="18" rx="6" fill="#C9D4DA"/>
+    <rect x="320" y="520" width="122" height="5" fill="#46606F" opacity=".7"/>
+    <rect x="336" y="548" width="22" height="34" rx="4" fill="#24465A"/>
+    <circle cx="347" cy="560" r="5" fill="#9FB0BA"/>
+    <!-- hub and the arm caught mid-click -->
+    <rect x="438" y="510" width="16" height="96" rx="8" fill="#7C93A1" transform="rotate(40 444 516)"/>
+    <circle cx="444" cy="516" r="24" fill="#9FB0BA"/>
+    <circle cx="444" cy="516" r="12" fill="#C9D4DA"/>
+    <g transform="rotate(-8 444 516)">
+      <rect x="444" y="506" width="164" height="20" rx="10" fill="#C9D4DA"/>
+      <rect x="444" y="518" width="164" height="8" rx="4" fill="#7C93A1"/>
+      <circle cx="600" cy="516" r="11" fill="#9FB0BA"/>
+    </g>
+    <g fill="none" stroke="#BDE1EC" stroke-width="4" stroke-linecap="round" opacity=".6">
+      <path d="M624 474 Q644 500 638 530"/><path d="M642 460 Q666 496 658 536" opacity=".5"/>
+    </g>
+    <!-- bowl of pebbles, one per entry -->
+    <g transform="translate(170 640)">
+      <path d="M-56 -20 H56 Q50 18 0 18 Q-50 18 -56 -20 Z" fill="#0B1C27" opacity=".45" transform="translate(14 14)"/>
+      <g fill="#7C93A1"><circle cx="-30" cy="-24" r="12"/><circle cx="-6" cy="-30" r="13"/><circle cx="20" cy="-26" r="12"/><circle cx="38" cy="-20" r="9"/><circle cx="6" cy="-42" r="10"/></g>
+      <g fill="#9FB0BA"><circle cx="-10" cy="-34" r="5"/><circle cx="16" cy="-30" r="4"/></g>
+      <path d="M-56 -20 H56 Q50 18 0 18 Q-50 18 -56 -20 Z" fill="#46606F"/>
+      <rect x="-56" y="-22" width="112" height="6" rx="3" fill="#7C93A1"/>
+    </g>
+  </g>
+
+  <line x1="600" y1="0" x2="870" y2="900" stroke="#F7FBFC" stroke-width="6"/>
+  <!-- candle smoke drifting across the split -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M1110 100 C1104 70 1080 58 1040 62" stroke="#F7FBFC" stroke-width="10" opacity=".85"/>
+    <path d="M1040 62 C990 66 960 34 900 38 C840 42 820 76 760 70" stroke="#F7FBFC" stroke-width="8" opacity=".6"/>
+    <path d="M760 70 C710 66 690 44 640 50 C600 54 580 70 540 64" stroke="#DCEEF4" stroke-width="6" opacity=".45"/>
+    <path d="M540 64 C510 60 490 44 460 48" stroke="#BDE1EC" stroke-width="4" opacity=".3"/>
+  </g>
+  <rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

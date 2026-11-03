@@ -12,7 +12,8 @@ keyTakeaways:
   - 'At the time of writing: $4.99 a month, $29.99 a year (one-week free trial) or $59.99 lifetime.'
   - 'You buy Plus in the iPhone or Android app; no account is needed to buy.'
 tags: ['respite', 'respite plus', 'announcement', 'pricing', 'sync', 'focus sessions', 'schedules']
-heroImage: '/blog-app-comparison.jpg'
+heroImage: '/images/blog/respite-plus-whats-included.jpg'
+heroImageAlt: 'A layered cake with big blue lower tiers and a small orange acorn-topped tier, a full slice cut on a plate.'
 faq:
   - question: 'What is Respite Plus?'
     answer: 'Respite Plus is the optional paid upgrade for Respite. It adds sync across all your devices, unlimited schedules, focus sessions longer than 25 minutes and richer insights, plus a Live Activity and Control Center control on iPhone. Everything else in Respite, including the pause, limits and the game, is free.'

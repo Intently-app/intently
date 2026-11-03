@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Pick one app and stay with it for 30 days rather than stacking several.'
 section: 'App Comparisons'
 tags: ['digital wellbeing', 'Android', 'screen time', 'privacy', 'app alternatives', 'Google Digital Wellbeing']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/google-digital-wellbeing-alternatives.jpg'
+heroImageAlt: 'Five kitchen timers on a counter; the first has its key snapped off and the last wears an acorn cap.'
 faq:
   - question: 'What is the best alternative to Google Digital Wellbeing?'
     answer: 'Respite is a strong free alternative: it adds a mindful pause before the apps you pick, tracks daily, weekly and monthly usage, and keeps history on your device unless you sync. ActionDash suits data fans, StayFree is a free tracker with ads, and Freedom is the pick for hard blocking.'

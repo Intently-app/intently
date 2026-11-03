@@ -13,7 +13,8 @@ keyTakeaways:
   - 'A layered approach works for many people: track, pause, then block only when you must.'
 section: 'Digital Wellbeing'
 tags: ['do app blockers actually work', 'are screen time apps worth it', 'app blocker effectiveness', 'screen time apps', 'digital wellbeing']
-heroImage: '/blog-placeholder-3.jpg'
+heroImage: '/images/blog/do-app-blockers-work.jpg'
+heroImageAlt: 'A coiled orange spring pressed under a heavy stone slab, bulging at the edges, with a sprout escaping beneath.'
 faq:
   - question: 'Do app blockers actually work?'
     answer: 'Yes, while they are on: a blocked app cannot be opened, so use drops in that window. The open question is what happens afterwards. Because a blocker does not build the habit of choosing, usage often drifts back once the block ends or you disable it. That makes blockers a good short-term tool and a weaker long-term strategy.'

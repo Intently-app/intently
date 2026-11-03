@@ -13,7 +13,8 @@ keyTakeaways:
   - 'If it affects sleep, work or mood for weeks, talk to a professional.'
 section: "Digital Wellbeing"
 tags: ["social media addiction signs", "am I addicted to social media", "social media addiction symptoms", "phone addiction signs", "digital wellbeing", "social media habits"]
-heroImage: "/blog-placeholder-5.jpg"
+heroImage: '/images/blog/social-media-addiction-signs.jpg'
+heroImageAlt: 'A cliff-top path marked by stone cairns that grow taller as it narrows; the last one balances on a corner.'
 faq:
   - question: 'Is social media addiction a real condition?'
     answer: '"Social media addiction" is not a formal diagnosis in the DSM-5, and researchers still debate how best to describe it. Many clinicians do recognise problematic social media use: compulsive use that continues despite harm to sleep, work or relationships. If your use feels out of your control, the label matters less than getting support.'

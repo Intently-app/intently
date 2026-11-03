@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <clipPath id="L"><polygon points="0,0 960,0 640,900 0,900"/></clipPath>
+    <clipPath id="R"><polygon points="960,0 1600,0 1600,900 640,900"/></clipPath>
+    <linearGradient id="ls" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140F1C"/><stop offset="1" stop-color="#2D2036"/></linearGradient>
+    <linearGradient id="rs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E7F9E"/><stop offset=".6" stop-color="#9DB8CC"/><stop offset="1" stop-color="#C9CFE0"/></linearGradient>
+    <radialGradient id="porch" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FCEBC4" stop-opacity=".95"/><stop offset=".25" stop-color="#E8A317" stop-opacity=".55"/><stop offset="1" stop-color="#E8A317" stop-opacity="0"/></radialGradient>
+    <linearGradient id="cone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E8A317" stop-opacity=".45"/><stop offset="1" stop-color="#E8A317" stop-opacity="0"/></linearGradient>
+    <linearGradient id="velvet" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3A2238"/><stop offset=".5" stop-color="#5A3552"/><stop offset="1" stop-color="#2E1A2D"/></linearGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+    </filter>
+  </defs>
+  <g clip-path="url(#R)">
+    <rect width="1600" height="900" fill="url(#rs)"/>
+    <g fill="#F7FBFC"><circle cx="1400" cy="110" r="2.5"/><circle cx="1180" cy="80" r="2"/><circle cx="1500" cy="200" r="2"/></g>
+    <!-- cottage -->
+    <polygon points="880,340 1150,170 1460,340" fill="#24465A"/>
+    <polygon points="880,340 1150,170 1150,340" fill="#1A3646"/>
+    <rect x="900" y="330" width="540" height="350" fill="#5E7F94"/>
+    <rect x="900" y="330" width="540" height="18" fill="#46606F"/>
+    <rect x="1290" y="420" width="100" height="110" fill="#2F4A5A"/><rect x="1290" y="420" width="100" height="110" fill="none" stroke="#DCEEF4" stroke-width="8"/><path d="M1340 420 V530 M1290 475 H1390" stroke="#DCEEF4" stroke-width="5"/>
+    <!-- glow on wall -->
+    <circle cx="1220" cy="400" r="230" fill="url(#porch)" opacity=".7"/>
+    <polygon points="1196,410 1244,410 1360,680 1060,680" fill="url(#cone)"/>
+    <!-- door -->
+    <rect x="1060" y="430" width="150" height="270" fill="#0B1C27" opacity=".25"/>
+    <path d="M1030 680 V420 A75 75 0 0 1 1180 420 V680 Z" fill="#DCEEF4"/>
+    <path d="M1042 680 V424 A63 63 0 0 1 1168 424 V680 Z" fill="#2F6079"/>
+    <rect x="1060" y="460" width="90" height="70" rx="6" fill="#24465A"/><rect x="1060" y="550" width="90" height="110" rx="6" fill="#24465A"/>
+    <circle cx="1150" cy="560" r="7" fill="#DCEEF4"/>
+    <!-- porch light -->
+    <rect x="1212" y="366" width="16" height="24" fill="#0B1C27"/>
+    <path d="M1196 390 H1244 L1236 430 H1204 Z" fill="#FCEBC4"/>
+    <path d="M1196 390 H1244 L1240 398 H1200 Z" fill="#24465A"/>
+    <circle cx="1252" cy="372" r="7" fill="#24465A"/><circle cx="1252" cy="372" r="3" fill="#E8664F" opacity="0"/>
+    <!-- moth circling -->
+    <ellipse cx="1220" cy="412" rx="70" ry="34" fill="none" stroke="#F7FBFC" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round" opacity=".9"/>
+    <g transform="translate(1286 398) rotate(20)"><ellipse cx="-8" cy="-4" rx="10" ry="7" fill="#F7FBFC" transform="rotate(-30 -8 -4)"/><ellipse cx="8" cy="-4" rx="10" ry="7" fill="#DCEEF4" transform="rotate(30 8 -4)"/><ellipse cx="0" cy="0" rx="3" ry="9" fill="#24465A"/></g>
+    <!-- ground, path and approaching shadow -->
+    <rect y="680" width="1600" height="220" fill="#46606F"/>
+    <rect x="1030" y="680" width="160" height="16" fill="#BDE1EC"/>
+    <polygon points="1050,696 1170,696 1420,900 1060,900" fill="#7C93A1"/>
+    <polygon points="1100,696 1160,696 1260,900 1140,900" fill="url(#cone)" opacity=".8"/>
+    <path d="M1150 736 C1166 726 1186 732 1190 750 L1214 790 L1300 900 L1196 900 L1170 800 Z" fill="#24465A" opacity=".75"/>
+    <ellipse cx="1150" cy="722" rx="14" ry="10" fill="#24465A" opacity=".75"/>
+    <path d="M1180 770 L1240 820 L1236 830 L1180 784 Z" fill="#24465A" opacity=".75"/>
+  </g>
+  <g clip-path="url(#L)">
+    <rect width="1600" height="900" fill="url(#ls)"/>
+    <!-- stage -->
+    <rect x="160" y="150" width="640" height="40" fill="#3A2238"/>
+    <path d="M160 190 C240 260 230 520 260 600 H160 Z" fill="url(#velvet)"/>
+    <path d="M800 190 C720 260 730 520 700 600 H800 Z" fill="url(#velvet)"/>
+    <rect x="140" y="600" width="680" height="24" fill="#5A4250"/>
+    <rect x="150" y="624" width="660" height="80" fill="#24182C"/>
+    <g fill="#3A2238"><rect x="200" y="630" width="4" height="70"/><rect x="280" y="630" width="4" height="70"/><rect x="360" y="630" width="4" height="70"/><rect x="440" y="630" width="4" height="70"/><rect x="520" y="630" width="4" height="70"/><rect x="600" y="630" width="4" height="70"/><rect x="680" y="630" width="4" height="70"/><rect x="760" y="630" width="4" height="70"/></g>
+    <!-- spotlight (off) -->
+    <rect x="460" y="190" width="10" height="30" fill="#0B1C27"/>
+    <path d="M440 220 H490 L500 270 H430 Z" fill="#46606F"/><ellipse cx="465" cy="270" rx="35" ry="8" fill="#24182C"/>
+    <polygon points="430,272 500,272 640,600 290,600" fill="#0B1C27" opacity=".35"/>
+    <!-- pull cord with tassel, untouched -->
+    <path d="M495 250 Q520 260 520 300 V470" stroke="#C9B9C4" stroke-width="3" fill="none"/>
+    <g transform="translate(520 470)"><circle r="8" fill="#7A5E70"/><path d="M-10 6 L10 6 L14 40 L-14 40 Z" fill="#7A5E70"/><g stroke="#5A4250" stroke-width="2"><path d="M-6 10 V38 M0 10 V38 M6 10 V38"/></g></g>
+    <!-- stopwatch hanging, frozen -->
+    <path d="M380 190 V360" stroke="#7A5E70" stroke-width="3"/>
+    <g transform="translate(380 430)">
+      <rect x="-10" y="-80" width="20" height="16" rx="3" fill="#7C93A1"/>
+      <rect x="20" y="-70" width="14" height="12" rx="3" fill="#7C93A1" transform="rotate(40)"/>
+      <circle r="62" fill="#5A7383"/><circle r="52" fill="#9FB0BA"/>
+      <rect x="-2" y="-46" width="4" height="16" fill="#24465A" transform="rotate(0)"/><rect x="-2" y="-46" width="4" height="10" fill="#24465A" transform="rotate(30)"/><rect x="-2" y="-46" width="4" height="10" fill="#24465A" transform="rotate(60)"/><rect x="-2" y="-46" width="4" height="16" fill="#24465A" transform="rotate(90)"/><rect x="-2" y="-46" width="4" height="10" fill="#24465A" transform="rotate(120)"/><rect x="-2" y="-46" width="4" height="10" fill="#24465A" transform="rotate(150)"/><rect x="-2" y="-46" width="4" height="16" fill="#24465A" transform="rotate(180)"/><rect x="-2" y="-46" width="4" height="10" fill="#24465A" transform="rotate(210)"/><rect x="-2" y="-46" width="4" height="10" fill="#24465A" transform="rotate(240)"/><rect x="-2" y="-46" width="4" height="16" fill="#24465A" transform="rotate(270)"/><rect x="-2" y="-46" width="4" height="10" fill="#24465A" transform="rotate(300)"/><rect x="-2" y="-46" width="4" height="10" fill="#24465A" transform="rotate(330)"/>
+      <rect x="-2.5" y="-40" width="5" height="40" fill="#24465A" transform="rotate(-20)"/><rect x="-2" y="-28" width="4" height="28" fill="#24465A" transform="rotate(110)"/>
+      <circle r="6" fill="#24465A"/>
+    </g>
+    <rect y="704" width="1600" height="200" fill="#1A1424"/>
+  </g>
+  <line x1="960" y1="0" x2="640" y2="900" stroke="#F7FBFC" stroke-width="6"/>
+  <rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

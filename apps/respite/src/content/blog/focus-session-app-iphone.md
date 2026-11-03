@@ -10,7 +10,8 @@ keyTakeaways:
   - 'Plus adds longer sessions, a Lock Screen Live Activity and a Control Center control.'
   - 'You can end a session early; for firm hours, use a schedule instead.'
 tags: ['focus session app iphone', 'focus timer', 'app blocker', 'iphone', 'live activity', 'control center', 'respite plus']
-heroImage: '/blog-phone-addiction-help.jpg'
+heroImage: '/images/blog/focus-session-app-iphone.jpg'
+heroImageAlt: 'A phone resting under a glass cloche wrapped by a two-thirds-full orange ring, a blank hanger on the knob.'
 howToSteps:
   - name: 'Add your apps in Respite'
     text: 'Add the apps and sites that pull you away. A session blocks everything you track unless you choose specific ones.'

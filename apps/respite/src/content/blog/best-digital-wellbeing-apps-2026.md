@@ -3,7 +3,8 @@ title: 'Best Digital Wellbeing Apps 2026: 11 Apps Compared'
 description: 'The best digital wellbeing apps of 2026, reviewed. Compare 11 apps for Android, iPhone and Chrome on features, price and privacy to find your fit.'
 pubDate: "Jan 12 2026"
 updatedDate: 2026-11-01
-heroImage: "/blog-placeholder-2.jpg"
+heroImage: '/images/blog/best-digital-wellbeing-apps-2026.jpg'
+heroImageAlt: 'Eleven differently shaped apothecary jars on a diagonal shelf; one glows softly with a small acorn inside.'
 author: "Respite Team"
 answer: 'The best digital wellbeing apps in 2026 are Respite (free, a mindful pause before the apps you pick, on iPhone, Android and Chrome), Google Digital Wellbeing (built into Android), Apple Screen Time (built into iPhone), Freedom and Opal for hard blocking, One Sec for a breathing pause and Forest for focus sessions. The right one depends on whether you want awareness or enforcement.'
 keyTakeaways:

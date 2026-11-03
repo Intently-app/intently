@@ -11,7 +11,8 @@ keyTakeaways:
   - 'Start by tracking your usage for a week before you change anything.'
   - 'Friction and environment changes beat willpower: pauses, phone-free zones, charging outside the bedroom.'
   - 'It is an ongoing practice, unlike a one-off digital detox.'
-heroImage: "/blog-placeholder-4.jpg"
+heroImage: '/images/blog/what-is-digital-wellbeing.jpg'
+heroImageAlt: 'A raked zen garden with a phone lying face-down among its stones, a maple leaf resting on it.'
 section: "Digital Wellbeing"
 tags: ["digital wellbeing", "screen time", "healthy tech habits", "mindfulness", "self-care"]
 faq:

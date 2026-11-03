@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+
+<linearGradient id="wall" x1="0" y1="0" x2="0" y2="790" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#7FAABD"/><stop offset="0.6" stop-color="#BDE1EC"/><stop offset="1" stop-color="#DCEEF4"/></linearGradient>
+<radialGradient id="light" cx="1350" cy="80" r="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F7FBFC" stop-opacity="0.6"/><stop offset="1" stop-color="#F7FBFC" stop-opacity="0"/></radialGradient>
+<pattern id="tiles" width="90" height="90" patternUnits="userSpaceOnUse"><path d="M0,0.5 H90 M0.5,0 V90" stroke="#F7FBFC" stroke-width="3" opacity=".55"/></pattern>
+<linearGradient id="counter" x1="0" y1="790" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#EEF5F8"/><stop offset="1" stop-color="#BDE1EC"/></linearGradient>
+<linearGradient id="slate" x1="0" y1="380" x2="0" y2="780" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4A6577"/><stop offset="1" stop-color="#2A4556"/></linearGradient>
+<linearGradient id="clear" x1="0" y1="520" x2="0" y2="600" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9CC3D3"/><stop offset="1" stop-color="#5E8FA6"/></linearGradient>
+<path id="drop" d="M0,-16 C6,-6 9,0 9,5 A9,9 0 0 1 -9,5 C-9,0 -6,-6 0,-16Z"/>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+    <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+  </filter>
+</defs>
+
+<rect width="1600" height="790" fill="url(#wall)"/>
+<rect width="1600" height="790" fill="url(#tiles)"/>
+<rect width="1600" height="790" fill="url(#light)"/>
+
+<!-- towel rail + towel -->
+<rect x="150" y="380" width="210" height="10" rx="5" fill="#7F96A4"/>
+<path d="M176,388 L334,388 L334,600 L176,600Z" fill="#0B1C27" opacity=".2" transform="translate(-14 16)"/>
+<path d="M176,388 L334,388 L334,600 L176,600Z" fill="#F7FBFC"/>
+<path d="M176,388 L214,388 L214,600 L176,600Z" fill="#DCEEF4"/>
+<rect x="176" y="560" width="158" height="14" fill="#9CC3D3"/>
+
+<!-- shelf for the cups -->
+<rect x="1040" y="630" width="320" height="16" rx="3" fill="#0B1C27" opacity=".2" transform="translate(-12 14)"/>
+<rect x="1040" y="630" width="320" height="16" rx="3" fill="#F7FBFC"/>
+<path d="M1070,646 v34 h14 M1330,646 v34 h-14" stroke="#7F96A4" stroke-width="6" fill="none"/>
+
+<!-- main pipe to the tap -->
+<path d="M-20,170 L700,170 L700,206 Q700,238 740,238 L790,238" stroke="#0B1C27" stroke-width="26" fill="none" stroke-linejoin="round" stroke-linecap="round" opacity=".2" transform="translate(-12 14)"/>
+<path d="M-20,170 L700,170 L700,206 Q700,238 740,238 L790,238" stroke="#7F96A4" stroke-width="26" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M-20,170 L700,170 L700,206 Q700,238 740,238 L790,238" stroke="#C9D8DF" stroke-width="6.5" fill="none" stroke-linejoin="round" stroke-linecap="round" transform="translate(3.9 -5.2)" opacity=".8"/>
+<!-- tap spout end + handle -->
+<rect x="782" y="222" width="30" height="40" rx="6" fill="#7F96A4"/>
+<rect x="800" y="222" width="8" height="40" rx="4" fill="#C9D8DF" opacity=".8"/>
+<rect x="676" y="128" width="48" height="16" rx="8" fill="#7F96A4"/>
+<rect x="694" y="140" width="12" height="24" fill="#7F96A4"/>
+
+<!-- branch pipe from the valve over to the cups -->
+<path d="M470,170 L470,96 L1190,96 L1190,470" stroke="#0B1C27" stroke-width="20" fill="none" stroke-linejoin="round" stroke-linecap="round" opacity=".2" transform="translate(-12 14)"/>
+<path d="M470,170 L470,96 L1190,96 L1190,470" stroke="#7F96A4" stroke-width="20" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M470,170 L470,96 L1190,96 L1190,470" stroke="#C9D8DF" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round" transform="translate(3 -4)" opacity=".8"/>
+<path d="M1130,500 L1130,470 L1250,470 L1250,500" stroke="#0B1C27" stroke-width="16" fill="none" stroke-linejoin="round" stroke-linecap="round" opacity=".2" transform="translate(-12 14)"/>
+<path d="M1130,500 L1130,470 L1250,470 L1250,500" stroke="#7F96A4" stroke-width="16" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1130,500 L1130,470 L1250,470 L1250,500" stroke="#C9D8DF" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round" transform="translate(2.4 -3.2)" opacity=".8"/>
+<!-- clean drops into the cups -->
+<use href="#drop" x="1130" y="530" fill="#5E8FA6"/>
+<use href="#drop" x="1250" y="526" fill="#5E8FA6"/>
+
+<path d="M1086,560 L1174,560 L1166,630 Q1130,640 1094,630Z" fill="#0B1C27" opacity=".2" transform="translate(-10 10)"/>
+  <path d="M1086,560 L1174,560 L1166,630 Q1130,640 1094,630Z" fill="#F7FBFC"/>
+  <path d="M1086,560 L1104,560 L1110,634 Q1100,632 1094,630Z" fill="#DCEEF4"/>
+  <ellipse cx="1130" cy="560" rx="44" ry="8" fill="url(#clear)"/>
+  <ellipse cx="1130" cy="560" rx="44" ry="8" fill="none" stroke="#EEF5F8" stroke-width="3"/>
+  <circle cx="1130" cy="598" r="9" fill="#9CC3D3"/><path d="M0,-13 V-17" stroke="#9CC3D3" stroke-width="3" stroke-linecap="round" transform="translate(1130 598) rotate(0)"/><path d="M0,-13 V-17" stroke="#9CC3D3" stroke-width="3" stroke-linecap="round" transform="translate(1130 598) rotate(45)"/><path d="M0,-13 V-17" stroke="#9CC3D3" stroke-width="3" stroke-linecap="round" transform="translate(1130 598) rotate(90)"/><path d="M0,-13 V-17" stroke="#9CC3D3" stroke-width="3" stroke-linecap="round" transform="translate(1130 598) rotate(135)"/><path d="M0,-13 V-17" stroke="#9CC3D3" stroke-width="3" stroke-linecap="round" transform="translate(1130 598) rotate(180)"/><path d="M0,-13 V-17" stroke="#9CC3D3" stroke-width="3" stroke-linecap="round" transform="translate(1130 598) rotate(225)"/><path d="M0,-13 V-17" stroke="#9CC3D3" stroke-width="3" stroke-linecap="round" transform="translate(1130 598) rotate(270)"/><path d="M0,-13 V-17" stroke="#9CC3D3" stroke-width="3" stroke-linecap="round" transform="translate(1130 598) rotate(315)"/>
+<path d="M1206,560 L1294,560 L1286,630 Q1250,640 1214,630Z" fill="#0B1C27" opacity=".2" transform="translate(-10 10)"/>
+  <path d="M1206,560 L1294,560 L1286,630 Q1250,640 1214,630Z" fill="#F7FBFC"/>
+  <path d="M1206,560 L1224,560 L1230,634 Q1220,632 1214,630Z" fill="#DCEEF4"/>
+  <ellipse cx="1250" cy="560" rx="44" ry="8" fill="url(#clear)"/>
+  <ellipse cx="1250" cy="560" rx="44" ry="8" fill="none" stroke="#EEF5F8" stroke-width="3"/>
+  <path d="M1254,586 a12,12 0 1 0 6,22 a10,10 0 1 1 -6,-22Z" fill="#9CC3D3"/>
+
+<!-- the orange valve, turned -->
+<circle cx="470" cy="170" r="22" fill="#5E7888"/>
+<g transform="translate(470 170) rotate(28)">
+  <circle r="46" fill="#0B1C27" opacity=".2" transform="translate(-12 14)"/>
+  <circle r="46" fill="none" stroke="#E8A317" stroke-width="12"/>
+  <path d="M-46,0 H46 M0,-46 V46" stroke="#E8A317" stroke-width="9"/>
+  <circle r="12" fill="#B97F0C"/>
+  <path d="M-30,-34 A46,46 0 0 1 30,-34" stroke="#F6BE4A" stroke-width="4" fill="none"/>
+</g>
+
+<!-- counter -->
+<rect x="0" y="790" width="1600" height="110" fill="url(#counter)"/>
+<rect x="0" y="790" width="1600" height="6" fill="#F7FBFC"/>
+
+<!-- phone-shaped basin, close to overflowing -->
+<path d="M664,790 L916,790 L796,860 L524,860Z" fill="#0B1C27" opacity=".2"/>
+<rect x="650" y="380" width="22" height="80" rx="6" fill="#0B1C27" opacity=".2" transform="translate(-12 0)"/>
+<rect x="644" y="390" width="14" height="44" rx="5" fill="#2F6079"/>
+<rect x="644" y="450" width="14" height="60" rx="5" fill="#2F6079"/>
+<rect x="654" y="350" width="272" height="446" rx="50" fill="#24465A"/>
+<rect x="670" y="366" width="240" height="414" rx="38" fill="#DCEEF4"/>
+<path d="M670,382 H910 V740 Q910,786 866,786 H714 Q670,786 670,740Z" fill="url(#slate)"/>
+<path d="M850,382 L900,382 L760,784 L710,784Z" fill="#F7FBFC" opacity=".08"/>
+<rect x="760" y="760" width="60" height="7" rx="3.5" fill="#9CC3D3" opacity=".5"/>
+<!-- ripples where the drops land -->
+<ellipse cx="797" cy="384" rx="40" ry="6" fill="none" stroke="#BDE1EC" stroke-width="3" opacity=".8"/>
+<ellipse cx="797" cy="384" rx="78" ry="10" fill="none" stroke="#BDE1EC" stroke-width="2" opacity=".45"/>
+<ellipse cx="797" cy="384" rx="112" ry="13" fill="none" stroke="#BDE1EC" stroke-width="1.5" opacity=".25"/>
+<!-- overflow trickles on the rim -->
+<path d="M906,362 q16,4 14,30 l-3,140 q-3,12 -7,0Z" fill="#3D5566"/>
+<path d="M668,362 q-16,4 -14,26 l2,70 q3,12 7,0Z" fill="#3D5566"/>
+<!-- dark drips falling -->
+<use href="#drop" fill="#3D5566" transform="translate(797 300) scale(1.5)"/>
+<use href="#drop" fill="#3D5566" transform="translate(797 348) scale(1.2)"/>
+<path d="M786,262 a11,11 0 0 0 22,0Z" fill="#3D5566"/>
+
+<rect width="1600" height="900" filter="url(#grain)"/>
+</svg>
