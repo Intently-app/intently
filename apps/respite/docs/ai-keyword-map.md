@@ -55,7 +55,7 @@ Comparison and alternatives pages (an "AI features" section added; facts and sou
 | `/blog/respite-vs-clearspace/` | EXTEND | clearspace alternative | |
 | `/blog/respite-vs-refocus/` | EXTEND | (brand comparison) | |
 | `/blog/respite-vs-google-digital-wellbeing/` | EXTEND | digital wellbeing app android | |
-| `/blog/google-digital-wellbeing-alternatives/` | KEEP | digital wellbeing alternatives | |
+| `/blog/google-digital-wellbeing-alternatives/` | EXTEND (AI features section) | digital wellbeing alternatives | |
 | `/blog/apple-screen-time-alternatives/` | EXTEND | screen time alternatives ios; ios 27 screen time changes; ios screen time not working; screen time ignore limit workaround | (see "Not written" for iOS 27) |
 | `/blog/stayfocusd-alternatives/` | KEEP | stayfocusd alternative; leechblock alternative; blocksite alternative | |
 
