@@ -42,13 +42,12 @@ export const changelog: ChangelogEntry[] = [
 		link: '/blog/bring-your-own-ai-to-respite/',
 	},
 	{
-		date: '2026-11-10',
+		date: '2026-11-03',
 		title: 'Sign-in and sync in the browser extension',
 		summary:
 			'One account across Android, iPhone and the browser. Sign in with Google or Apple, sync your limits and history, and use Respite Plus in the extension. A free account syncs one device; Plus syncs them all.',
 		platforms: ['Chrome'],
 		link: '/blog/one-respite-account-phone-and-browser/',
-		draft: true,
 	},
 	{
 		date: '2026-11-03',

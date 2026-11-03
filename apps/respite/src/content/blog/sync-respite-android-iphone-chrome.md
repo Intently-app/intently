@@ -1,8 +1,7 @@
 ---
 title: 'How to Sync Respite Between Android, iPhone and Chrome'
 description: 'Step-by-step: sync Respite between Android, iPhone and Chrome with one account. Sign in, add devices, match apps, and fix common sync problems.'
-pubDate: 2026-11-10
-draft: true
+pubDate: 2026-11-03
 author: 'Respite Team'
 answer: 'To sync Respite across Android, iPhone and Chrome, update all three, open You, then Account and devices (in the extension, its sign-in page), and sign in with the same Google or Apple account on each. A free account syncs one device; Respite Plus syncs every device. On iPhone, match your apps to their counterparts.'
 keyTakeaways:

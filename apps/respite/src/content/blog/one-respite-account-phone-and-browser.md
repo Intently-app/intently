@@ -1,8 +1,7 @@
 ---
 title: 'One Respite Account Across Your Phone and Browser'
 description: 'Respite now syncs your limits, streaks and history across Android, iPhone and Chrome with one free sign-in. What syncs, what is free, and what Plus adds.'
-pubDate: 2026-11-10
-draft: true
+pubDate: 2026-11-03
 author: 'Respite Team'
 answer: 'Respite now works as one account across Android, iPhone and your browser. Sign in with Google or Apple and your limits, settings and usage history follow you, and limits can count your time on all devices together. A free account syncs one device; Respite Plus syncs all of them. The browser extension now includes sign-in.'
 keyTakeaways:
