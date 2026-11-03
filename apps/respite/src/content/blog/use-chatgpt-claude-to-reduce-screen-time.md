@@ -1,15 +1,16 @@
 ---
-title: 'How to Use ChatGPT or Claude to Reduce Screen Time'
-description: 'Practical ways to use ChatGPT or Claude to reduce screen time: prompts for auditing your habits, setting limits and writing pause messages that work.'
+title: 'Can ChatGPT Help You Reduce Screen Time? (Yes, With Limits)'
+description: 'Can ChatGPT or Claude help you reduce screen time? Yes for planning, no for stopping a scroll. What they can do, what they cannot, and prompts to try.'
 pubDate: 2026-11-03
+updatedDate: 2026-11-03
 author: 'Respite Team'
-answer: 'You can use ChatGPT or Claude to reduce screen time by giving them your real numbers and asking for a plan: audit which apps and times cause most of your use, turn goals into realistic limits, draft personal reminders for the moment you reach for an app, and review your week. An AI helps you plan; an app like Respite adds friction at the moment you scroll.'
+answer: 'Yes, ChatGPT and Claude can help you reduce screen time as planners, not blockers. Given your real numbers they can spot patterns, turn goals into realistic limits, write reminders in your voice and review your week. They cannot stop you opening an app or see your phone unless you connect one. An app like Respite adds friction at the moment you scroll.'
 keyTakeaways:
   - 'Paste real numbers from your phone, not guesses, and an AI can spot patterns you miss.'
   - 'Ask for realistic limits you can keep, a bedtime plan and replacement activities.'
   - 'An AI cannot stop you scrolling; pair it with a pause or limit that acts in the moment.'
   - 'Treat advice as a draft: you are the judge of what fits your life.'
-  - 'Respite Plus can connect your own AI directly as a staged rollout; today it reports your account.'
+  - 'Connect Respite Plus to Claude or ChatGPT and the AI reads your real usage itself; today it is read-only.'
 tags: ['chatgpt', 'claude', 'ai', 'reduce screen time', 'prompts', 'habit change', 'bring your own ai']
 heroImage: '/blog-phone-addiction-stop.jpg'
 faq:
@@ -22,10 +23,10 @@ faq:
   - question: 'What is the best prompt to cut my phone use?'
     answer: 'Give it a goal, your numbers and your constraints: your top three apps with daily minutes, when you scroll, what you want instead, and what has failed before. Then ask for a one-week plan with limits you could realistically keep and a fallback for bad days. Review it, and change it after a week.'
   - question: 'Can an AI connect to my Respite data?'
-    answer: 'It is rolling out to Respite Plus members through MCP. Today you can connect Claude, ChatGPT or Cursor and the assistant can see your account details. Reading usage, managing limits and writing your own pause messages are planned next. See our bring-your-own-AI guide for what works now.'
+    answer: 'Yes, with Respite Plus. Connect Claude, ChatGPT or Cursor over MCP and the assistant can read your usage, insights, limits, interruptions and progress. It is read-only today; changing limits and writing your own pause messages are planned. See our connect guides for Claude and ChatGPT, and the AI hub for what works now.'
 ---
 
-A chatbot cannot take your phone away. But it is a patient, nonjudgmental planner that has read a great deal about habits, and many people find it useful for the thinking part of cutting back: looking honestly at their use, choosing limits, and finding something else to do. Here is how to use ChatGPT or Claude well for that, with prompts you can paste today.
+Short answer: yes, a chatbot can help, within limits. It cannot take your phone away. But it is a patient, nonjudgmental planner that has read a great deal about habits, and many people find it useful for the thinking part of cutting back: looking honestly at their use, choosing limits, and finding something else to do. Here is how to use ChatGPT or Claude well for that, with prompts you can paste today.
 
 ## What can an AI actually do for screen time?
 
@@ -80,7 +81,9 @@ Weekly beats daily: it is enough to learn from and not enough to become another 
 
 ## What if I connect my AI to Respite?
 
-Respite is rolling out a way to connect your own AI, via MCP, to your account on Respite Plus. The goal is that your assistant reads your real usage, tailors your limits and writes your pause messages, without you pasting numbers. Be aware of where it is: today a connected assistant can only see your account details, such as your plan and devices; reading usage, managing limits and writing messages are planned next. Read [bring your own AI to Respite](/blog/bring-your-own-ai-to-respite/) for what works now, and [how to connect Claude, ChatGPT or Cursor](/blog/connect-claude-chatgpt-cursor-to-respite-mcp/) to try it. Respite does not run an AI on your data; it only goes to the assistant you choose.
+This is the version where you stop pasting numbers. Respite Plus lets you connect your own AI, via MCP, to your account, so Claude or ChatGPT reads your real usage, limits and interruptions itself. Ask "which of my limits do I break most often?" or "when I get paused, do I walk away?" and it answers from your data. Respite is, to our knowledge, the first mobile screen time app with a built-in MCP server (November 2026).
+
+Be aware of where it is: today every tool is read-only, so the assistant can analyse and advise but cannot change a limit; you do that in the app. Tools for an AI to change limits (tightening at once, loosening only with your approval on the phone, with a change log and undo) are planned and not live. Start at [AI and screen time](/ai/), then follow [connect Claude to your screen time](/blog/connect-claude-to-screen-time/) or [connect ChatGPT to your phone usage](/blog/connect-chatgpt-to-phone-usage/). The [30-prompt library](/blog/chatgpt-claude-screen-time-prompts/) has wording for both the connected and the paste-in way. Respite does not run an AI on your data; it goes only to the assistant you choose, and [here is what that means for privacy](/blog/is-it-safe-to-give-ai-your-screen-time-data/).
 
 ## Cautions
 
@@ -95,6 +98,8 @@ Do steps 1 to 3 today, then put the limits in an app that acts in the moment. [D
 
 ## Related articles
 
+- [AI and screen time: the hub](/ai/)
+- [30 prompts to ask Claude or ChatGPT about your screen time](/blog/chatgpt-claude-screen-time-prompts/)
 - [Bring your own AI to Respite](/blog/bring-your-own-ai-to-respite/)
 - [How to reduce screen time](/blog/how-to-reduce-screen-time/)
 - [The science of friction](/blog/science-of-friction/)
