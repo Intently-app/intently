@@ -3,7 +3,7 @@ title: Privacy Policy for Respite for Chrome
 updated: 2026-11-03
 ---
 
-> **Updated 3 November 2026.** This version adds connecting an AI app that you choose (optional, Respite Plus) and corrects and completes earlier wording, including analytics and crash reports, sign-in options, sync across devices, purchases, and rewards, friends and leagues. The changes are also listed on [What's new](/whats-new/).
+> **Updated 3 November 2026.** This version adds connecting an AI app that you choose (optional, Respite Plus), including letting it make your limits stricter, and corrects and completes earlier wording, including analytics and crash reports, sign-in options, sync across devices, purchases, and rewards, friends and leagues. The changes are also listed on [What's new](/whats-new/).
 
 Respite: Screen Time Control is the browser extension of Respite, for Chrome and other
 Chromium browsers. The [iPhone app](/privacy/) and the [Android app](/privacy/android/) have
@@ -25,7 +25,8 @@ usage statistics.
   site, journey progress and, if you join them, leagues and friends to our server.
   What syncs is listed below.
 - Optional, with Respite Plus: you can connect an AI app that you choose so it can read your
-  Respite data, including the daily totals this browser has synced. Nothing is shared until you
+  Respite data, including the daily totals this browser has synced, and, if you allow it, make your limits
+  stricter. Nothing is shared until you
   approve it, and the AI provider's own privacy policy then applies to what it receives. See
   [Connecting an AI app](#connecting-an-ai-app-optional-respite-plus).
 - Usage statistics are off until you switch on "Share anonymous usage statistics"
@@ -182,10 +183,17 @@ Allow.** If you tap Deny, nothing is shared.
 - **Your game progress:** acorns, level, streak, streak freezes, today's quests, items you
   own, recent acorn entries, and your own weekly league tier and rank. Never other people.
 
-**Today the AI can only read.** Respite's tools can't change your limits, schedules, pause
-messages or rules, and can't earn or spend acorns for you. Respite's approval page may list
-permissions to see and change limits, pause messages and rules; no tool uses them yet. Before
-we add tools that make changes, we'll update this policy.
+**What the AI can change, if you allow it.** On the approval page you choose whether the AI may
+also manage your limits. With that permission it can add a daily limit for an app, lower a
+limit, or add a blocking schedule. These take effect at once and sync to your devices like a
+change you made yourself. **It can't loosen anything on its own:** raising or removing a limit,
+or removing a schedule, becomes a request that waits for you to approve it in Respite and
+expires after 7 days. An AI can undo changes it made, and you can approve, reject or undo AI
+changes in Respite's Connected AI screen as it arrives in app updates; until then you can change
+any limit yourself. A connection can make at most 30 changes an hour. An AI can't change pause
+messages or rules, write your usage history, or earn or spend acorns. The approval page may list
+permissions for pause messages and rules; no tool uses them yet, and we'll update this policy
+before that changes.
 
 **Where the data goes.** When your AI app uses Respite's tools, the answers are sent to that AI
 provider so it can read them and reply to you. From then on the provider handles that data
@@ -202,6 +210,11 @@ below.
 **What we store about a connection:**
 
 - the AI app's name and the web addresses it registered to receive your approval;
+- a log of each change an AI made or asked for: which connection, the app or schedule affected
+  (including the app's name), the value before and after, the short reason the AI gave (up to
+  280 characters, written by the AI), and when it was made, approved, rejected or undone.
+  Entries are deleted 90 days after they were made, and all of them when you delete your
+  account;
 - which permissions you allowed, when you connected, when it was last used, and when it was
   disconnected;
 - the access and refresh tokens it uses, saved only as one-way hashes. Access tokens last one
@@ -214,8 +227,7 @@ below.
 when you remove it, access ends at once and its tokens are deleted. Otherwise its access
 token expires within an hour and its refresh token stops working 30 days after it was last used. Respite doesn't yet list your connections
 in the extension or the phone apps. If you can't disconnect from your AI app, email us and
-we'll end the connection. A disconnected connection leaves a record of its name, permissions
-and dates until you delete your account. **Deleting your account removes all your AI
+we'll end the connection. A disconnected connection leaves a record of its name, permissions and dates (and its change log entries until they are 90 days old) until you delete your account. **Deleting your account removes all your AI
 connections.**
 
 ## Usage statistics (off unless you switch them on)
