@@ -33,29 +33,31 @@ const platformNames = {
 const commonFeatures = [
   "Mindful pause before distracting apps",
   "Daily limits and streak tracking",
-  "No account required",
+  "Account optional (sign in only for sync)",
   "No ads"
 ];
 
 // Only claim what each platform's app does.
 const platformFeatures = {
   android: ["Usage analytics and insights", "Optional Reels and Shorts blocking", "Home screen widgets"],
-  ios: ["Built on Apple's Screen Time", "App lock that refreshes at midnight", "App names never leave the iPhone"],
+  ios: ["Built on Apple's Screen Time", "App lock that refreshes at midnight", "App names stay on the iPhone by default"],
   chrome: ["Website time tracking", "Focus mode", "Usage insights"]
 };
 
 const productSchema = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": `Respite - ${platformNames[platform]}`,
+  "@type": platform === 'chrome' ? "SoftwareApplication" : "MobileApplication",
+  "name": `Respite: Screen Time Control - ${platformNames[platform]}`,
+  "alternateName": "Respite",
   "description": description,
   "applicationCategory": "HealthApplication",
   "url": downloadUrl,
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
+  "offers": [
+    { "@type": "Offer", "name": "Respite (free)", "price": "0", "priceCurrency": "USD" },
+    { "@type": "Offer", "name": "Respite Plus, monthly", "price": "4.99", "priceCurrency": "USD", "description": "Sync across devices and bring your own AI. Store prices vary by country." },
+    { "@type": "Offer", "name": "Respite Plus, yearly", "price": "29.99", "priceCurrency": "USD", "description": "One-week free trial. Store prices vary by country." },
+    { "@type": "Offer", "name": "Respite Plus, lifetime", "price": "59.99", "priceCurrency": "USD", "description": "One-time purchase. Store prices vary by country." }
+  ],
   ...(ratingValue && ratingCount ? {
     "aggregateRating": {
       "@type": "AggregateRating",
