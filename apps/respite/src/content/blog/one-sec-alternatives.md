@@ -2,7 +2,7 @@
 title: 'Best One Sec Alternatives 2026 (Free Apps Like One Sec)'
 description: 'Free apps like One Sec that pause you before Instagram, TikTok or YouTube opens. Respite, ScreenZen and ClearSpace compared for Android and iPhone.'
 pubDate: 2026-02-01
-updatedDate: 2026-02-26
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'The best free One Sec alternatives are Respite (a mindful pause before the apps you pick, on iPhone, Android and Chrome), ScreenZen (free countdown delays on iOS and Android) and ClearSpace (a pause plus exercises on iOS). All three keep One Sec''s core idea, a moment of friction before you open a distracting app, without One Sec Pro, around $20 a year.'
 keyTakeaways:
@@ -156,6 +156,12 @@ If your issue is more about sustained focus than impulsive app-checking, Forest 
 And if you want the broadest set of tools around the pause concept — tracking, gamification, desktop coverage — Respite covers the most ground, with the caveat that iOS support isn't here yet.
 
 ---
+
+## Does One Sec have AI features?
+
+Per its App Store version notes, One Sec has added a "conversational reflection" step that uses an on-device language model. If you are weighing AI features, in-app coaches such as FOMO and Zensi are iPhone-only and cost around $9 to $10 a month, while Respite lets your own AI read your usage. Jomo, another name you will see, is an iPhone scheduled-focus app; we found no AI feature for it.
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Getting Started
 

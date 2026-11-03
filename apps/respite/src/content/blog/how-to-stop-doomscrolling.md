@@ -2,7 +2,7 @@
 title: 'How to Stop Doomscrolling: 7 Strategies That Work'
 description: 'How to stop doomscrolling: why bad news hooks your brain, plus 7 practical strategies, from a pause before news apps to a screen-free hour before bed.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'To stop doomscrolling, interrupt the autopilot open with a pause, then replace the all-day drip with two or three timed news check-ins. Clean up your feeds by unfollowing outrage accounts and muting trigger words, ground yourself with a quick sensory exercise when you catch a spiral, and keep screens out of the hour before bed.'
 keyTakeaways:
@@ -155,6 +155,10 @@ Here's what it looks like in practice:
 - Free on iPhone, Android and Chrome; your usage history stays on your device unless you turn on sync, and no account is needed
 
 It's not a blocker. It doesn't punish you. It builds self-awareness so you learn to catch yourself before the spiral starts.
+
+## Can an AI help me stop doomscrolling?
+
+It can help you plan: ask it to find which hours and apps your doomscrolling lives in, then set a limit and a bedtime schedule around them. It cannot interrupt the scroll itself, so pair the plan with a pause. If you connect Claude or ChatGPT to Respite Plus, it can read your own usage and how often you walked away from a limit; see [30 prompts to ask Claude or ChatGPT about your screen time](/blog/chatgpt-claude-screen-time-prompts/).
 
 ## When should I get professional support?
 

@@ -2,7 +2,7 @@
 title: 'Respite vs ScreenZen (2026): Two Free Pause Apps Compared'
 description: 'Respite vs ScreenZen compared: two free apps that pause you before distracting apps. See platforms, privacy and approach, and which to pick.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'Pick ScreenZen if you want a simple, free countdown delay before apps open on iOS or Android with almost no setup. Pick Respite if you also want usage tracking, daily limits, streaks and the same pause on Chrome, on iPhone, Android and the web. Both are free to use and both leave the final decision to you.'
 keyTakeaways:
@@ -106,6 +106,12 @@ A bare countdown is easy to get used to, and some people stop noticing it after 
 ## Switching between ScreenZen and Respite
 
 Running both on the same app is not worth it; you end up with two pauses back to back. Instead, put each on different apps for a week, or just replace one with the other. ScreenZen alternatives are listed in our [ScreenZen alternatives guide](/blog/screenzen-alternatives/).
+
+## Does ScreenZen have AI features?
+
+We found no AI feature and no MCP connector for ScreenZen in November 2026; it focuses on delay timers and stats about how often the delay turned you away.
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Next step
 

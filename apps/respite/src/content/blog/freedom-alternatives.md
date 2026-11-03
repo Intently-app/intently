@@ -2,7 +2,7 @@
 title: 'Best Freedom Alternatives 2026: Free Apps Like Freedom'
 description: 'Apps like Freedom, including free ones. Respite, Cold Turkey, Opal and more compared on blocking style, price and privacy, with Freedom vs Cold Turkey.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'The best apps like Freedom are Respite (free, a mindful pause before the apps you pick, on iPhone, Android and Chrome), Cold Turkey (around $40 one-time, unbypassable desktop blocking) and ScreenZen (free countdown delays on iOS and Android). Freedom vs Cold Turkey comes down to devices: Freedom syncs blocks everywhere, Cold Turkey is Windows and Mac only.'
 keyTakeaways:
@@ -237,6 +237,12 @@ If you're not sure whether you need blocking or awareness, try a free awareness 
 Next step: if blocking hasn't stuck for you, [download Respite](/download/) and try a pause on your two most-opened apps for a week. For the wider picture on whether blockers help at all, read [do app blockers work?](/blog/do-app-blockers-work/) and our [best app blockers](/blog/best-app-blocker/) roundup.
 
 ---
+
+## Does Freedom have AI features?
+
+We found no AI feature and no MCP connector for Freedom in November 2026. If you want your own AI in the loop, LockIn MCP is a desktop blocker your AI can control, and Respite lets your AI read your phone and browser usage; see [Respite vs LockIn MCP](/blog/respite-vs-lockin-mcp/).
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Related Articles
 

@@ -2,7 +2,7 @@
 title: 'Respite vs Forest (2026): Focus Timer or Habit Pause?'
 description: 'Respite vs Forest compared: a gamified focus timer versus a pause before distracting apps. See price, platforms and which one fits your problem.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'Pick Forest if you want a gamified focus timer for study or work sessions, where a virtual tree grows while you stay off your phone. Pick Respite if your problem is the impulsive reach for Instagram or TikTok all day; it adds a free pause before the apps you choose, on iPhone, Android and Chrome. They solve different problems, and many people use both.'
 keyTakeaways:
@@ -109,6 +109,12 @@ Forest gives you meaning and fun but depends on you starting each session. Respi
 ## Switching, or using both
 
 You rarely need to switch. A typical setup is Forest for the two hours a day you study and Respite for everything else. If you find Forest's rules too rigid, try Respite's timers and daily limits as a lighter alternative. For other options in Forest's style, read our [Forest alternatives](/blog/forest-app-alternatives/).
+
+## Does Forest have AI features?
+
+We found no AI feature and no MCP connector for Forest in November 2026; its approach is a growing tree that rewards staying off your phone.
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Next step
 

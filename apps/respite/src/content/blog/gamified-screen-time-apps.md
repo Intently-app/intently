@@ -2,6 +2,7 @@
 title: 'Gamified Screen Time Apps: Do Streaks and Rewards Help?'
 description: 'Do gamified screen time apps work? What streaks, points and rewards can and cannot do for phone habits, and how to pick one that does not backfire.'
 pubDate: 2026-11-03
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'Gamified screen time apps can help, but only when the game rewards the behavior you actually want and does not become a second thing to be addicted to. Streaks and small rewards make a new habit easier to repeat; they work best as a thin layer over a real intervention such as a pause or a daily limit, not as the whole strategy.'
 keyTakeaways:
@@ -71,6 +72,22 @@ Four tests worth applying to any app:
 - **Weekly leagues and friends** rank people on days kept within limits, in small groups, with an option to hide.
 
 Nothing in it pays you for using your phone more. The exact numbers are in [how acorns, streaks and streak freezes work](/blog/how-acorns-streaks-streak-freezes-work/), and we explain the thinking in [introducing acorns, quests and leagues](/blog/introducing-acorns-quests-and-leagues/).
+
+## How do gamified screen time apps compare?
+
+From their store listings and review pages, checked November 2026. We have not tested most of them and found no independent studies of any, so treat the descriptions as the makers' own.
+
+| App | The game mechanic | Social? |
+|---|---|---|
+| Respite | Acorns, daily quests, streak milestones, streak freezes, a shop, weekly leagues; free | Optional friends and leagues |
+| Forest | A virtual tree grows while you stay off the phone and dies if you leave | No |
+| Opal | Gems, streaks and a focus score | Friends leaderboard |
+| BePresent | Daily quests and streaks | Not confirmed |
+| Zenera | Focus-session tokens and leaderboards | Leaderboards |
+| TouchGrass | A plant thrives or withers with your daily screen time | Not confirmed |
+| FitScreen | Earn screen time by walking | Not confirmed |
+
+The pattern to look for is what the game rewards. Rewards for staying off your phone or keeping to your limits fit the goal; rewards that pay you to use an app more do not. Our view is in the section above, and the AI angle, if you want an assistant to review how your streaks are going, is in [AI and screen time](/ai/).
 
 ## Who should skip the game?
 

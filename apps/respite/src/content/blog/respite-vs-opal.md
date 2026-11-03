@@ -2,7 +2,7 @@
 title: 'Respite vs Opal (2026): Pause or Block? Which to Pick'
 description: 'Respite vs Opal compared: a free mindful pause versus a paid app blocker. See price, platforms, privacy and who should pick which in 2026.'
 pubDate: 2026-01-16
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'Pick Opal if you are on iPhone, want strong scheduled blocking for a deadline or exam period, and are happy to pay around $100 a year. Pick Respite if you want a free, gentler pause before the apps you choose, with usage tracking and streaks, on iPhone, Android and Chrome. Respite nudges you; Opal locks apps.'
 keyTakeaways:
@@ -109,6 +109,12 @@ Opal gives you firmness; the price is cost, planning and the chance that you swi
 ## Switching from Opal to Respite
 
 Keep Opal for the hours where you genuinely need a hard lock, and use Respite outside them. If you decide to cancel Opal, do so through the platform you subscribed on, then give Respite two weeks before judging it, because a pause feels weak compared with a block until you notice it working. See [Opal alternatives](/blog/opal-alternatives/) if you want to compare more options first.
+
+## Does Opal have AI features?
+
+As far as we could find in November 2026, Opal has no AI coach and no MCP connector: it is built on rules, focus sessions, limits and scores. (Searches for "Opal MCP" return Opal Security, an unrelated company.) That is not a flaw for a blocker; rules are more predictable than a conversation.
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Next step
 

@@ -2,6 +2,7 @@
 title: 'Respite Plus: Everything That Is Included, and What Is Free'
 description: 'What Respite Plus includes and costs: sync across all devices, unlimited schedules, longer focus sessions and richer insights. Free vs Plus compared.'
 pubDate: 2026-11-03
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'Respite Plus is the optional upgrade for Respite. It adds sync across all your devices, unlimited schedules, focus sessions longer than 25 minutes, richer insights, and on iPhone a Live Activity and Control Center control. At the time of writing it costs $4.99 a month, $29.99 a year with a one-week free trial, or $59.99 once for lifetime. Respite itself stays free.'
 keyTakeaways:
@@ -37,6 +38,7 @@ Respite is free: the pause, your limits, your usage and the whole game layer cos
 - **Richer insights.** Free shows today with your apps and limits. Plus adds the weekly and monthly views, trends, and per-app and per-site detail.
 - **On iPhone: a Live Activity and a Control Center control** for focus sessions, so you can see the time left on your Lock Screen and start or end a session without opening Respite. See [the best way to run a focus session on iPhone](/blog/focus-session-app-iphone/).
 - **On Android: a focus countdown and a Quick Settings tile** to start and end a session without opening the app.
+- **Bring your own AI.** Connect Claude, ChatGPT or Cursor to your Respite account over MCP and ask about your real usage, limits and progress. Read-only today, and Respite runs no AI of its own. See [AI and screen time](/ai/).
 
 ## What stays free?
 
@@ -62,6 +64,7 @@ Respite is useful before you pay a cent. Free keeps:
 | Sync across devices | One device | All your devices |
 | iPhone Live Activity and Control Center control | No | Yes |
 | Android focus countdown and Quick Settings tile | No | Yes |
+| Connect your own AI (Claude, ChatGPT, Cursor), read-only | No | Yes |
 
 ## How much does Respite Plus cost?
 

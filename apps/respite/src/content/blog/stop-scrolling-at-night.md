@@ -2,7 +2,7 @@
 title: 'How to Stop Scrolling at Night: A Sleep-Saving Guide'
 description: 'Stop scrolling at night and protect your sleep: why bedtime scrolling wrecks rest, plus a digital sunset, a charging spot and a pause to break the habit.'
 pubDate: 2026-01-23
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'To stop scrolling at night, charge your phone outside the bedroom (and buy a cheap alarm clock), set a digital sunset 60 to 90 minutes before bed, and have one screen-free wind-down activity ready. If the phone has to stay close, add a pause before your usual apps so the late-night tap becomes a choice, and use Sleep Focus or Bedtime mode to help.'
 keyTakeaways:
@@ -178,6 +178,14 @@ You're not alone on that one. Willpower by itself tends to fail because it doesn
 You probably won't notice dramatic changes overnight. Many people find that falling asleep gets easier and mornings feel better within a couple of weeks of a consistent routine, though everyone differs. Over time the benefits tend to compound: more consistent sleep, steadier mood and less of that wired-but-tired feeling, until it stops feeling like effort and just becomes how your evenings work.
 
 If you have persistent trouble sleeping, or it's affecting your health, talk to a doctor; this guide isn't medical advice. Wondering how your overall screen time compares? See [how much screen time is too much](/blog/how-much-screen-time-is-too-much/).
+
+## Can an AI help me plan a wind-down?
+
+A chatbot is a decent planner for the thinking part of this. Try:
+
+> I wake at [time] and usually scroll [app] in bed until about [time]. Design a 45-minute wind-down that takes my phone off the bed. Make it realistic: I will not meditate for an hour. Then suggest a bedtime schedule for the apps I scroll most.
+
+If you have connected Claude or ChatGPT to Respite Plus, add "use my Respite data to find the hours I scroll most after 9 pm" and it will work from your real numbers instead of your guess. The AI plans; a bedtime schedule that blocks the apps does the work. More prompts: [30 prompts to ask Claude or ChatGPT about your screen time](/blog/chatgpt-claude-screen-time-prompts/), and the overview at [AI and screen time](/ai/).
 
 ## Next step: start tonight
 

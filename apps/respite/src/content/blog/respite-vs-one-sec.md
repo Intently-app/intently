@@ -2,7 +2,7 @@
 title: 'Respite vs One Sec (2026): Which Pause App Is Right for You?'
 description: 'Respite vs One Sec compared: price, platforms, privacy and approach. Find out which mindful pause app fits you, and where One Sec still wins.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'Pick One Sec if you want a research-backed breathing exercise and are happy to pay for it (a Max Planck study found 57% fewer app opens). Pick Respite if you want a free pause before your chosen apps on iPhone, Android and Chrome, plus usage tracking and streaks. Both put a moment of friction between the urge and the scroll.'
 keyTakeaways:
@@ -113,6 +113,12 @@ One Sec asks you to pay for the full version, but it gives you a focused tool wi
 ## Switching from One Sec to Respite
 
 You do not have to uninstall One Sec first. Run both for a few days on different apps so you can compare how each pause feels, then settle on one. Running two pauses on the same app tends to feel like a pile-up and is best avoided. If you move over completely, recreate your list of apps in Respite and consider turning on a daily limit, since that is something a breathing pause alone does not give you.
+
+## Does One Sec have AI features?
+
+Per its App Store version notes, One Sec has added a "conversational reflection" step that uses an on-device language model, so the AI part stays on the phone. We found no MCP connector for it in November 2026.
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Next step
 

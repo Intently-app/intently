@@ -2,7 +2,7 @@
 title: 'Privacy-First Screen Time Tracking: What to Look For'
 description: 'What privacy-first screen time tracking means, why your usage data is sensitive, and the questions to ask before you trust an app with it.'
 pubDate: 2026-01-12
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 heroImage: '/blog-placeholder-3.jpg'
 author: 'Respite Team'
 answer: 'Privacy-first screen time tracking means your usage history stays on your own device by default, the app works without an account, and anything that leaves your phone, such as sync, is optional and clearly disclosed. Check four things before you install: whether it needs an account, where your data lives, what permissions it asks for, and whether its privacy policy is plain.'
@@ -106,6 +106,10 @@ Sync is a convenience that needs a server, so it cannot be zero-data. The best c
 ## What should you do if you already use a screen time app?
 
 Open its settings and look for analytics or sharing toggles and switch off what you do not need. Check the permissions in your phone's settings and revoke anything unrelated to tracking. If you rely on a built-in tool such as Apple's Screen Time or Android's Digital Wellbeing, review the account and sharing settings that apply on your device. If the answer to "who benefits from my data?" is unclear, consider moving.
+
+## What about connecting an AI?
+
+An AI connection is a data decision too. With Respite Plus you can connect your own Claude, ChatGPT or Cursor: it reads only synced data, only after you allow it, and only through read-only tools today. What the tools return goes into your chat, so your AI provider's policy applies, and Respite runs no AI and trains nothing on your data. Read [is it safe to give an AI your screen time data?](/blog/is-it-safe-to-give-ai-your-screen-time-data/) before you connect.
 
 ## Next step
 

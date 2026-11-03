@@ -2,7 +2,7 @@
 title: 'Respite vs Google Digital Wellbeing (2026): Which Is Better?'
 description: 'Respite vs Google Digital Wellbeing compared: built-in Android timers versus a mindful pause. See privacy, price and who should switch or keep both.'
 pubDate: 2026-01-12
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 heroImage: '/blog-placeholder-2.jpg'
 author: 'Respite Team'
 answer: 'Stay with Google Digital Wellbeing if you are on Android and want free, built-in usage stats and app timers with zero setup. Add Respite if timers keep getting dismissed and you want a gentle pause before the apps you choose, plus streaks and richer tracking, on iPhone, Android and Chrome. They do not conflict, so you can run both.'
@@ -112,6 +112,12 @@ There is no conflict. Keep Digital Wellbeing's focus mode for work hours and let
 ## What should I look at after two weeks?
 
 Compare three things: your total screen time, the number of times you open your top app, and how you feel about your phone use. Digital Wellbeing can show you the first two. Respite's history shows how often you closed an app after the pause. If the numbers have barely changed but you feel more in control, that still counts. If neither has moved, adjust which apps carry the pause before concluding anything.
+
+## Does Google Digital Wellbeing have AI features?
+
+We did not research Google's AI plans for Digital Wellbeing, so we make no claim about them, but we found no MCP connector that lets Claude or ChatGPT read its data.
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Next step
 
