@@ -10,8 +10,12 @@ into installs (conversion). Never trade truth for any of them.
   them on purpose. It also tracks usage, keeps streaks, and has daily limits and timers.
 - Platforms: **iPhone, Android and Chrome** (the Chrome extension also works in other Chromium browsers).
   The iPhone app is built on Apple's Screen Time API; it adds an app lock that refreshes at midnight.
-- Price: **free**. An optional **Respite Plus** upgrade adds sync across devices and extras (more
-  schedules, longer focus sessions, richer insights). Don't quote Plus prices; they change.
+- Price: **free**. An optional **Respite Plus** upgrade adds sync across all devices, unlimited schedules,
+  focus sessions longer than 25 minutes, richer insights, and on iPhone a Live Activity and Control Center
+  control. Prices (checked 2026-11-03, set by the stores, vary by country): $4.99 a month, $29.99 a year with a
+  one-week free trial, $59.99 lifetime. Always add "at the time of writing". Free keeps the pause, app, website
+  and category limits, 1 schedule, focus sessions up to 25 minutes and the game layer. Plus is bought in the
+  iPhone or Android app; the extension only uses the account's Plus.
 - Account: **optional**. Everything core works without signing in. An account (Google or Apple sign-in)
   is only needed for sync / Plus on several devices. Say "no account needed" only with that nuance,
   e.g. "no account needed (sign in only if you want sync)". Never say "works fully offline forever" or
@@ -23,8 +27,13 @@ into installs (conversion). Never trade truth for any of them.
   ("a short, gentle pause"). There is no journaling and no intention-setting feature.
 - You **cannot** write your own pause messages or customize prompts per app. Don't promise custom
   messages, custom prompts or per-app prompt text.
-- A game layer (acorns, streak freezes, the mascot Biscuit) exists in newer versions. Mention it lightly at
-  most; don't promise leagues, friends or social features.
+- The game layer is **free** and live on **iPhone and Android** (Journey tab): acorns, daily quests, streak
+  milestones, a weekly chest, streak freezes, a shop (garden, Biscuit outfits), friends and weekly leagues. It needs a
+  free sign-in (Google or Apple) because the server keeps the ledger. Numbers: see
+  `src/content/blog/how-acorns-streaks-streak-freezes-work.md`. The browser extension does not show it until the
+  extension release with sign-in ships. Never reward-more-use framing.
+- Bring your own AI (MCP) is a staged rollout, Respite Plus only. Only the account tool exists; never describe
+  usage, limits, message or rules tools as available until they are.
 - Former names: Intently, Pawse. Don't use them in new copy, except "formerly Intently" when a post
   targets the query "intently app".
 
@@ -71,6 +80,13 @@ alternatives post says honestly where the competitor is better.
 - Keep the voice: warm, direct, a little wry, never preachy or clinical. No "In today's fast-paced world".
 - Health topics (ADHD, anxiety, mental health): no diagnosis or medical claims. Point to professionals
   where appropriate. Cite only well-known findings already in the post.
+
+## Drafts
+
+Set `draft: true` in the frontmatter to keep a post out of production: it is not built, listed, in the RSS feed,
+the sitemap or related posts (all through `getPublishedPosts()` in `src/lib/posts.ts`). `astro dev` still shows
+drafts. Published posts must not link to draft posts (the link check fails). To go live: remove `draft: true`,
+set `pubDate`, flip the matching entry in `src/data/changelog.ts`.
 
 ## Done means
 
