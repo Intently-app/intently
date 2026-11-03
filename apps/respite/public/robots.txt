@@ -1,4 +1,41 @@
+# Respite: everything is crawlable, including AI search and assistant crawlers.
+# The explicit groups below make that deliberate (and keep it deliberate if the
+# default group ever changes). Blocking model-training crawlers is not done here.
+
 User-agent: *
 Disallow:
+
+# OpenAI: search index (ChatGPT search), user-initiated fetches
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic: training/crawl bot and the search bot
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+# Google AI (Gemini / Vertex grounding) opt-in token
+User-agent: Google-Extended
+Allow: /
+
+# Bing (feeds Copilot and, indirectly, other assistants)
+User-agent: Bingbot
+Allow: /
+
+# Apple (Apple Intelligence / Siri features)
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
 
 Sitemap: https://respite.liveintently.app/sitemap-index.xml
