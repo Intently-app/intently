@@ -1,8 +1,7 @@
 ---
 title: 'Bring Your Own AI to Respite: Connect Claude or ChatGPT'
 description: 'Respite can now connect to your own AI, such as Claude or ChatGPT, using MCP. What works today, what is coming, and how your data and privacy are handled.'
-pubDate: 2026-11-10
-draft: true
+pubDate: 2026-11-03
 author: 'Respite Team'
 answer: 'Bring your own AI lets Respite Plus members connect an assistant such as Claude or ChatGPT to their Respite account through an open standard called MCP. It is rolling out in stages: connecting and checking your account works today, and reading usage, managing limits and writing your own messages are planned next. Your data only goes to the AI you choose.'
 keyTakeaways:

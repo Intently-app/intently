@@ -18,13 +18,12 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
 	{
-		date: '2026-11-10',
+		date: '2026-11-03',
 		title: 'Bring your own AI',
 		summary:
 			'Connect Claude, ChatGPT or Cursor to your Respite account with MCP, in the stages described in the post. Respite Plus. Rolling out: connecting and your account details work first; usage, limits and rules tools come next.',
 		platforms: ['iPhone', 'Android', 'Chrome'],
 		link: '/blog/bring-your-own-ai-to-respite/',
-		draft: true,
 	},
 	{
 		date: '2026-11-10',

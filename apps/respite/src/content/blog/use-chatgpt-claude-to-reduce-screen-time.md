@@ -1,8 +1,7 @@
 ---
 title: 'How to Use ChatGPT or Claude to Reduce Screen Time'
 description: 'Practical ways to use ChatGPT or Claude to reduce screen time: prompts for auditing your habits, setting limits and writing pause messages that work.'
-pubDate: 2026-11-10
-draft: true
+pubDate: 2026-11-03
 author: 'Respite Team'
 answer: 'You can use ChatGPT or Claude to reduce screen time by giving them your real numbers and asking for a plan: audit which apps and times cause most of your use, turn goals into realistic limits, draft personal reminders for the moment you reach for an app, and review your week. An AI helps you plan; an app like Respite adds friction at the moment you scroll.'
 keyTakeaways:

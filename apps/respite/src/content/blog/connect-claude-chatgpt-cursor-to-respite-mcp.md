@@ -1,8 +1,7 @@
 ---
 title: 'How to Connect Claude, ChatGPT or Cursor to Respite (MCP)'
 description: 'Step-by-step MCP setup: connect Claude.ai, Claude Code, ChatGPT or Cursor to your Respite account, sign in, allow permissions and disconnect.'
-pubDate: 2026-11-10
-draft: true
+pubDate: 2026-11-03
 author: 'Respite Team'
 answer: 'To connect an AI to Respite, add a custom MCP connector with the address https://respite-api.liveintently.app/mcp. In Claude.ai use Settings, Connectors, Add custom connector; in Claude Code run claude mcp add --transport http respite followed by that address; ChatGPT and Cursor have their own custom connector settings. Then sign in with Google or Apple and allow.'
 keyTakeaways:
