@@ -2,7 +2,7 @@
 title: 'Best Opal Alternatives 2026: Free & Paid Apps Compared'
 description: 'Looking for an Opal alternative? Respite, One Sec, ScreenZen and more compared on price, privacy and how they cut screen time. Free options included.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'The best Opal alternatives are Respite (free, a mindful pause before the apps you pick, on iPhone, Android and Chrome), ScreenZen (free countdown delays on iOS and Android), One Sec (free for one app, Pro around $20 a year, a breathing pause) and Cold Turkey (around $40 one-time desktop blocking). Opal Pro costs around $100 a year and is iPhone-only, so most of these are cheaper or free.'
 keyTakeaways:
@@ -217,6 +217,12 @@ Care about privacy? Respite needs no account (sign in only for sync) and keeps y
 Want research backing? One Sec has a published Max Planck Institute study behind it. Respite's approach is grounded in behavioral science research on habit interruption.
 
 ---
+
+## Does Opal have AI features?
+
+As far as we could find in November 2026, Opal has no AI coach and no MCP connector; it is rules-based. If AI is why you are looking around, apps such as FOMO and Zensi put a coach inside the app (mostly on iPhone), and Respite lets your own AI read your usage.
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Getting Started
 

@@ -2,7 +2,7 @@
 title: 'Best Google Digital Wellbeing Alternatives 2026'
 description: 'Best Google Digital Wellbeing alternatives for Android: Respite, ActionDash, StayFree, One Sec and more compared on privacy, price and features.'
 pubDate: 2026-01-16
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'The best Google Digital Wellbeing alternative for most Android users is Respite: it adds a mindful pause before the apps you pick, tracks usage with streaks, and is free with no ads and no account needed. ActionDash is best for detailed stats, StayFree is the budget tracker, One Sec is a breathing pause (free for one app) and Freedom blocks across every device.'
 keyTakeaways:
@@ -265,6 +265,12 @@ Respite keeps your usage history on your device, needs no account, and only sync
 **Best Value: Forest** -- Free to start (with a paid Plus subscription), genuinely fun gamification, and it supports real tree planting.
 
 ---
+
+## Does Google Digital Wellbeing have AI features?
+
+We found no MCP connector that lets Claude or ChatGPT read Digital Wellbeing data. Among alternatives, Respite offers one on Android with Respite Plus.
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Getting Started
 

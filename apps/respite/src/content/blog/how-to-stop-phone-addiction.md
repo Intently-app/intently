@@ -2,7 +2,7 @@
 title: 'How to Stop Phone Addiction: 15 Strategies That Work'
 description: 'How to stop phone addiction: 15 practical strategies, from a pause before apps and tracking your usage to phone-free zones and grayscale. Start with three.'
 pubDate: 2026-01-16
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'To stop phone addiction, start with three changes: add a pause before the apps you open on autopilot, turn off non-essential notifications, and track your usage for a week. Then charge the phone outside the bedroom, set realistic limits and replace scrolling with a specific alternative. If it harms your work or mental health, talk to a professional.'
 keyTakeaways:
@@ -168,6 +168,10 @@ Don't try all 15 of these at once. Pick three or four that feel realistic and st
 If you're just getting started, we'd suggest: mindful interventions (#1), usage tracking (#2), and turning off notifications (#8). Those three changes together create a strong foundation without requiring a complete lifestyle overhaul.
 
 Set a specific, measurable goal -- "reduce Instagram to 30 minutes a day" is better than "use my phone less." Track your progress weekly. Adjust as you go. And when you slip up (you will), don't spiral into self-criticism. Just start again the next day.
+
+## Can an AI help me stop?
+
+As a planner, yes. Give ChatGPT or Claude your real numbers and it can spot patterns, suggest limits you can keep and write reminders for the moments you reach for your phone. It cannot stop a scroll in the moment, and it is not a substitute for professional support if your phone use feels out of your control. Our guide, [can ChatGPT help you reduce screen time?](/blog/use-chatgpt-claude-to-reduce-screen-time/), covers what to ask, and [AI and screen time](/ai/) shows how Respite Plus can connect your own AI to your real usage.
 
 ## How can Respite help?
 

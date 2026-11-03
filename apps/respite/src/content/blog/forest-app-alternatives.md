@@ -2,7 +2,7 @@
 title: 'Best Forest App Alternatives 2026: Free & Paid Compared'
 description: 'Apps like Forest for focus and screen time: Flora, One Sec, Respite, Opal and ScreenZen compared, with where Forest still wins and what each costs.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'The best Forest app alternatives are Flora (the same tree-growing timer with group sessions), Respite (free, an always-on mindful pause with streaks, on iPhone, Android and Chrome), One Sec (a breathing pause, free for one app) and ScreenZen (free countdown delays). Forest only helps during timed sessions, so the alternatives mostly cover the rest of your day.'
 keyTakeaways:
@@ -181,6 +181,12 @@ Some combinations that work well together:
 If Forest is working for you, keep using it. The goal isn't to replace it -- it's to cover the parts of your day it can't reach.
 
 ---
+
+## Does Forest have AI features?
+
+We found no AI feature and no MCP connector for Forest in November 2026. Among the alternatives, only a few use AI at all; the landscape is in [best AI app blockers and screen time apps](/blog/best-ai-app-blockers-screen-time-apps-2026/).
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Getting Started
 

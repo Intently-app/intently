@@ -2,7 +2,7 @@
 title: 'Best App Blockers 2026: Hard Blocks vs Mindful Pauses'
 description: 'The best app blockers for Android and iPhone in 2026. Hard blockers like Freedom and Cold Turkey vs mindful pauses like Respite: which works for you?'
 pubDate: 2026-02-28
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: "Respite Team"
 answer: 'The best app blockers in 2026 are Freedom (blocks across all your devices, subscription), Cold Turkey (unbypassable desktop blocking, around $40 one-time), Opal (polished iPhone blocking) and the free built-ins, Apple Screen Time and Google Digital Wellbeing. If blocking has never stuck for you, a free pause app like Respite (iPhone, Android, Chrome) is the gentler alternative.'
 keyTakeaways:
@@ -185,6 +185,10 @@ ScreenZen uses a "take a breath" countdown before app launches. Simple, consiste
 
 - You use a hard blocker for specific high-stakes windows (exam prep, deep work) and a mindful app for general daily use
 - You're transitioning away from blocking and want a softer landing
+
+## What about AI screen time apps?
+
+A new group of apps uses AI, and they work differently from the blockers above. Some, such as FOMO, Zensi and Argue, put an AI coach inside the app that talks to you when you open a blocked app (mostly iPhone, around $9 to $10 a month for the ones with listed prices). Respite runs no AI of its own and instead lets your own Claude or ChatGPT read your usage over MCP with Respite Plus; it is read-only today. None of the mainstream blockers in this list had an AI feature when we checked in November 2026. The honest side-by-side is in [best AI app blockers and screen time apps](/blog/best-ai-app-blockers-screen-time-apps-2026/), and the overview is at [AI and screen time](/ai/).
 
 ## Getting Started
 

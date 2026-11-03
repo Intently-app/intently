@@ -2,7 +2,7 @@
 title: 'Respite vs Refocus (2026): Pause Every Open or Time Budgets?'
 description: 'Respite vs Refocus compared: a pause before every app open versus daily time budgets with reminders. See price, platforms and which fits your habit.'
 pubDate: 2026-02-28
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'Pick Refocus if your problem is losing track of time inside apps and you like daily time budgets with gentle reminders on iOS or Android. Pick Respite if your problem is opening apps on autopilot; it adds a free pause before the apps you choose, plus daily limits and streaks, on iPhone, Android and Chrome. Respite acts before the scroll, Refocus as the budget runs low.'
 keyTakeaways:
@@ -108,6 +108,12 @@ Rebuild your budgets as daily limits for the same apps, then add the pause only 
 ## How long should I try each?
 
 Give each approach two weeks. For a budget app, note whether the reminders change what you do or you simply dismiss them. For a pause, note how often you close an app after it appears. Because Respite supports both pauses and daily limits, a sensible experiment is to start with the pause alone, then add a limit only if one app keeps eating time. Changing one thing at a time makes it much easier to see what actually helped.
+
+## Does Refocus have AI features?
+
+We found no AI feature and no MCP connector for Refocus in November 2026; it is rules-based.
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Next step
 

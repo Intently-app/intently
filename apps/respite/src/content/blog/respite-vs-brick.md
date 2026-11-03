@@ -2,7 +2,7 @@
 title: 'Respite vs Brick (2026): Free App or Physical Lock?'
 description: 'Respite vs Brick compared: a free mindful pause app versus a physical NFC device that locks your apps. See price, privacy and who should pick which.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'Pick Brick if software pauses are too easy for you to tap through and you want a physical barrier: you tap an NFC device to unlock apps (a one-time hardware purchase). Pick Respite if you want a free app that adds a gentle pause before the apps you choose, on iPhone, Android and Chrome, with no hardware to carry.'
 keyTakeaways:
@@ -106,6 +106,12 @@ Brick costs money and you carry or place a device, but it makes unlocking harder
 ## Switching from Brick to Respite, or adding it
 
 If you already own Brick, there is no need to stop using it. Add Respite for the hours when Brick is unlocked and see whether the combination lets you relax the lock. If you do not yet own Brick, start free and decide later whether a physical barrier is something you need.
+
+## Does Brick have AI features?
+
+We found no AI feature and no MCP connector for Brick in November 2026; its friction is physical, a device you tap to lock and unlock.
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Next step
 

@@ -29,7 +29,7 @@ export const changelog: ChangelogEntry[] = [
 		date: '2026-11-03',
 		title: 'Bring your own AI',
 		summary:
-			'Connect Claude, ChatGPT or Cursor to your Respite account with MCP, in the stages described in the post. Respite Plus. Rolling out: connecting and your account details work first; usage, limits and rules tools come next.',
+			'Connect Claude, ChatGPT or Cursor to your Respite account with MCP and ask about your real usage, insights, limits, interruptions and progress. Read-only for now, Respite Plus. Next: letting your AI change limits, with approval on your phone for anything looser, plus a change log with undo.',
 		platforms: ['iPhone', 'Android', 'Chrome'],
 		link: '/blog/bring-your-own-ai-to-respite/',
 	},

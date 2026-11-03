@@ -1,0 +1,51 @@
+# Respite: Screen Time Control
+
+> Respite: Screen Time Control is a free screen time app for Android, iPhone and Chrome by Intently. It puts a short pause before the apps and sites you pick, with limits, streaks and a free game layer. Respite Plus adds sync and lets you connect your own AI (Claude, ChatGPT, Cursor) over MCP.
+
+Respite runs no AI of its own and does not train models on your data. To our knowledge it is the first mobile screen time app with a built-in MCP server (November 2026); it is not the only screen time product with MCP (LockIn MCP is a desktop website blocker). Prices (at the time of writing, set by the stores, vary by country): free; Respite Plus $4.99 a month, $29.99 a year with a one-week trial, $59.99 lifetime.
+
+## AI and MCP
+
+- [AI and screen time (hub)](https://respite.liveintently.app/ai/): what you can ask your AI, how it works, what is live and what is coming, privacy, setup, comparison with in-app AI coaches
+- MCP server address: https://respite-api.liveintently.app/mcp (remote, streamable HTTP, OAuth sign-in with Google or Apple, Respite Plus)
+- Live tools (all read-only, scope respite:read): get_account (works on the free plan), get_usage, get_insights, list_limits, list_events, get_progress; resources respite://today and respite://week
+- Not live yet: AI changing limits and schedules (tightening applies immediately, loosening needs approval on the phone), a change log with undo, an in-app Connected AI screen
+- [How to connect Claude](https://respite.liveintently.app/blog/connect-claude-to-screen-time/)
+- [How to connect ChatGPT](https://respite.liveintently.app/blog/connect-chatgpt-to-phone-usage/)
+- [Connect Claude, ChatGPT or Cursor (all clients, permissions, troubleshooting)](https://respite.liveintently.app/blog/connect-claude-chatgpt-cursor-to-respite-mcp/)
+- [30 prompts to ask Claude or ChatGPT about your screen time](https://respite.liveintently.app/blog/chatgpt-claude-screen-time-prompts/)
+- [Is it safe to give an AI your screen time data?](https://respite.liveintently.app/blog/is-it-safe-to-give-ai-your-screen-time-data/)
+- [What is an MCP server?](https://respite.liveintently.app/blog/what-is-an-mcp-server/)
+- [Bring your own AI to Respite (announcement)](https://respite.liveintently.app/blog/bring-your-own-ai-to-respite/)
+- [Can ChatGPT help you reduce screen time?](https://respite.liveintently.app/blog/use-chatgpt-claude-to-reduce-screen-time/)
+
+## Comparisons
+
+- [Best AI app blockers and screen time apps (2026)](https://respite.liveintently.app/blog/best-ai-app-blockers-screen-time-apps-2026/)
+- [AI screen time coach apps compared (FOMO, Zensi, Argue)](https://respite.liveintently.app/blog/ai-screen-time-coach-apps-compared/)
+- [Respite vs LockIn MCP](https://respite.liveintently.app/blog/respite-vs-lockin-mcp/)
+- [Compare screen time apps](https://respite.liveintently.app/compare/)
+- [Best screen time apps 2026](https://respite.liveintently.app/blog/best-screen-time-apps-2026/)
+- [Best app blockers 2026](https://respite.liveintently.app/blog/best-app-blocker/)
+- [Apps that make you pause before opening Instagram or TikTok](https://respite.liveintently.app/blog/apps-that-make-you-pause-before-opening-instagram-tiktok/)
+
+## Product
+
+- [Features](https://respite.liveintently.app/features/)
+- [Download (App Store, Google Play, Chrome Web Store)](https://respite.liveintently.app/download/)
+- [Respite Plus: what is included](https://respite.liveintently.app/blog/respite-plus-whats-included/)
+- [What's new](https://respite.liveintently.app/whats-new/)
+- [Support](https://respite.liveintently.app/support/)
+
+## Privacy
+
+- [Privacy policy, iPhone](https://respite.liveintently.app/privacy/)
+- [Privacy policy, Android](https://respite.liveintently.app/privacy/android/)
+- [Privacy policy, Chrome](https://respite.liveintently.app/privacy/chrome/)
+- [Delete your account](https://respite.liveintently.app/delete-account/)
+
+## Optional
+
+- [Full text version of this file](https://respite.liveintently.app/llms-full.txt)
+- [Blog](https://respite.liveintently.app/blog/)
+- [Sitemap](https://respite.liveintently.app/sitemap-index.xml)

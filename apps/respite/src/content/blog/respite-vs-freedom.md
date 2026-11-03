@@ -2,7 +2,7 @@
 title: 'Respite vs Freedom (2026): Mindful Pause or Hard Block?'
 description: 'Respite vs Freedom compared: a free mindful pause versus a paid cross-device blocker. See price, platforms and privacy to pick the right one.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'Pick Freedom if you need apps and websites blocked on every device, including Windows and Mac, during work hours; it is a paid subscription. Pick Respite if you want a free pause before the apps you choose, plus usage tracking and streaks, on iPhone, Android and Chrome. Freedom enforces focus; Respite helps you notice autopilot.'
 keyTakeaways:
@@ -103,6 +103,12 @@ Freedom is the stronger enforcer and covers more platforms, but you pay for it a
 ## Switching from Freedom to Respite
 
 You do not need to cancel to try it. Keep Freedom for your work block and run Respite everywhere else for two weeks. If you find you no longer need the lock because the pause is enough, let the subscription lapse. If you do, you have a clear answer. For more blocking options, see [Freedom alternatives](/blog/freedom-alternatives/).
+
+## Does Freedom have AI features?
+
+We found no AI feature and no MCP connector for Freedom in November 2026; it is a cross-device blocker built on schedules and locked sessions.
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Next step
 

@@ -2,7 +2,7 @@
 title: 'Best ScreenZen Alternatives 2026: Apps That Add Friction'
 description: 'Apps like ScreenZen that slow you down before scrolling. Respite, One Sec, FlowBuddy, Opal and Freedom compared, free and paid, Android and iPhone.'
 pubDate: 2026-02-28
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'The best ScreenZen alternatives are Respite (free, a mindful pause plus tracking on iPhone, Android and Chrome), One Sec (free for one app, Pro around $20 a year, a breathing pause with published research) and FlowBuddy (free, open-source breathing pause on Android). ScreenZen stays the simplest free countdown; the alternatives add awareness, tracking or desktop coverage.'
 keyTakeaways:
@@ -158,6 +158,12 @@ The reasons to explore alternatives come down to: wanting more depth (tracking, 
 **Wanting open-source**: FlowBuddy on Android is the only fully open-source option in this space.
 
 ---
+
+## Does ScreenZen have AI features?
+
+We found no AI feature and no MCP connector for ScreenZen in November 2026. If AI matters to you, see [AI screen time coach apps compared](/blog/ai-screen-time-coach-apps-compared/) for the in-app kind.
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Getting Started
 

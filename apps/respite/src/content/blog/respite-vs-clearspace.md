@@ -2,7 +2,7 @@
 title: 'Respite vs ClearSpace (2026): Pause or Push-Ups?'
 description: 'Respite vs ClearSpace compared: a free mindful pause versus an iPhone app that makes you exercise to unlock apps. See price, privacy and who fits which.'
 pubDate: 2026-02-28
-updatedDate: 2026-11-01
+updatedDate: 2026-11-03
 author: 'Respite Team'
 answer: 'Pick ClearSpace if you are on iPhone and want friction that is stronger than a pause, such as exercises or other tasks before an app opens; some features are paid. Pick Respite if you want a free, gentler pause before the apps you choose that works anywhere, on iPhone, Android and Chrome. Respite asks you to think; ClearSpace asks for effort.'
 keyTakeaways:
@@ -108,6 +108,12 @@ Trying Respite for a week alongside ClearSpace is fine if you put them on differ
 ## How long should I try each?
 
 Give whichever you choose at least two weeks before judging. The first few days are a novelty; the useful signal is week two or three, when you see whether you still notice the friction or have started to dodge it. Keep a simple note of how many times a day you reach for your top app, and compare it at the end. If the number has barely moved, change something: fewer apps, a daily limit, or a different style of friction. Neither approach is a verdict on your willpower; both are experiments in redesigning your phone.
+
+## Does ClearSpace have AI features?
+
+We found no AI feature and no MCP connector for ClearSpace in November 2026.
+
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Next step
 

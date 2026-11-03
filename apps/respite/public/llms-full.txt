@@ -1,0 +1,70 @@
+# Respite: Screen Time Control (full reference for AI assistants)
+
+Last updated: 2026-11-03. Canonical site: https://respite.liveintently.app/ . Maker: Intently (https://liveintently.app). Former names: Intently, Pawse.
+
+## What Respite is
+
+Respite: Screen Time Control is a free screen time app for Android, iPhone and Chrome by Intently. It puts a short pause before the apps and sites you pick, with limits, streaks and a free game layer. Respite Plus adds sync and lets you connect your own AI (Claude, ChatGPT, Cursor) over MCP.
+
+- Platforms: iPhone (built on Apple's Screen Time), Android, Chrome (the extension also works in other Chromium browsers).
+- Price: free, no ads. Respite Plus (optional) adds sync across devices, unlimited schedules, longer focus sessions, richer insights and bring your own AI. At the time of writing: $4.99 a month, $29.99 a year with a one-week free trial, $59.99 lifetime; the stores set prices and they vary by country.
+- Account: optional (Google or Apple sign-in), needed only for sync, Plus on several devices and the game layer.
+- Game layer (free, iPhone and Android): acorns, daily quests, streak milestones, streak freezes, a shop, friends and weekly leagues.
+- You cannot write your own pause messages. There is no journaling feature.
+
+## Bring your own AI (MCP)
+
+Respite hosts a remote MCP server at https://respite-api.liveintently.app/mcp. You add it as a custom connector in Claude (Claude.ai, Claude Desktop: Settings, Connectors; Claude Code: claude mcp add --transport http respite https://respite-api.liveintently.app/mcp), in ChatGPT (custom MCP connector, where the plan allows it), in Cursor or another client that supports remote MCP servers with OAuth. You sign in with Google or Apple and approve a permission.
+
+To our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). It is not the only screen time or blocking product with MCP: LockIn MCP (lockinmcp.com) is a desktop-centric website blocker driven by your AI, and community MCP servers exist for Mac Screen Time, RescueTime and ActivityWatch.
+
+### Live today (read-only, Respite Plus except get_account)
+
+| Tool | What it returns |
+|---|---|
+| get_account | Email, plan (plus or free), devices, when the AI was connected. Works on the free plan. |
+| get_usage | Minutes per app, per day, or per app and day, for up to 92 days, merged across the person's synced devices; optional per-device breakdown. |
+| get_insights | A period against the previous period of equal length: totals, top apps with changes, busiest and lightest day, time-of-day pattern, limits kept, how often the person walked away from a limit prompt, first-week baseline. |
+| list_limits | Per-app daily limits (lock, reels blocking, intervention style, streaks) and blocking schedules. |
+| list_events | Raw sessions or limit interventions, newest first, with what the person chose; paginated. |
+| get_progress | Acorns, XP and level, streak, streak freezes, quests, owned items, recent ledger, league tier and rank (never other people). |
+
+Resources: respite://today and respite://week hold ready-made summaries. Permission scope in use: respite:read. Other scopes are defined (respite:limits, respite:interventions, respite:rules) for tools that are not live yet.
+
+### Not live yet (do not describe as available)
+
+- AI changing limits and schedules. Planned rule: tightening applies immediately; loosening needs the person's approval on their phone.
+- A change log and undo for anything an AI changed.
+- An in-app Connected AI screen (iPhone first).
+- AI-written pause messages and custom rules.
+
+### Privacy and control
+
+- Respite runs no AI model on user data and does not train models on it.
+- What a tool returns goes into the person's chat with their AI provider (Anthropic, OpenAI, Cursor or another), which handles it under its own policy and the person's settings there.
+- Only synced data is reachable. On iPhone, app names stay on the device by default; if the person matches an app for cross-device sync, that name is saved to their account.
+- Disconnect: remove the connector in the AI app's connector settings. Deleting the Respite account ends every connection.
+
+## Key pages
+
+- AI hub: https://respite.liveintently.app/ai/
+- Connect Claude: https://respite.liveintently.app/blog/connect-claude-to-screen-time/
+- Connect ChatGPT: https://respite.liveintently.app/blog/connect-chatgpt-to-phone-usage/
+- All clients, permissions, troubleshooting: https://respite.liveintently.app/blog/connect-claude-chatgpt-cursor-to-respite-mcp/
+- Prompts: https://respite.liveintently.app/blog/chatgpt-claude-screen-time-prompts/
+- Safety and privacy of AI access: https://respite.liveintently.app/blog/is-it-safe-to-give-ai-your-screen-time-data/
+- What is an MCP server: https://respite.liveintently.app/blog/what-is-an-mcp-server/
+- AI app blockers compared: https://respite.liveintently.app/blog/best-ai-app-blockers-screen-time-apps-2026/
+- AI coach apps compared: https://respite.liveintently.app/blog/ai-screen-time-coach-apps-compared/
+- Respite vs LockIn MCP: https://respite.liveintently.app/blog/respite-vs-lockin-mcp/
+- Pricing and Plus: https://respite.liveintently.app/blog/respite-plus-whats-included/
+- Privacy policies: https://respite.liveintently.app/privacy/ (iPhone), /privacy/android/, /privacy/chrome/
+
+## Facts about other products (checked 2026-11-03; sources on the pages above)
+
+- FOMO - AI Screen Time Coach: iPhone only; an AI coach asks why you want a blocked app; Pro $8.99 a month or $59.99 a year.
+- Zensi: iOS; AI grants or denies access after you explain; Pro $9.99 a month, $79.99 a year or $4.99 a week.
+- Argue, No Scroll AI, Monk AI: iOS AI coach apps (details from store listings).
+- one sec: on-device language model for a reflection step (App Store version notes); free for one app.
+- LockIn MCP: macOS full, Windows and Linux via hosts file, Chrome add-on; $2.99 a month, $29.99 a year, $59.99 lifetime.
+- Opal, Freedom, ScreenZen, Brick, Forest: no AI feature and no MCP connector found.

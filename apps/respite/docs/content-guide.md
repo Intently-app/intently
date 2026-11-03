@@ -32,8 +32,23 @@ into installs (conversion). Never trade truth for any of them.
   free sign-in (Google or Apple) because the server keeps the ledger. Numbers: see
   `src/content/blog/how-acorns-streaks-streak-freezes-work.md`. The browser extension does not show it until the
   extension release with sign-in ships. Never reward-more-use framing.
-- Bring your own AI (MCP) is a staged rollout, Respite Plus only. Only the account tool exists; never describe
-  usage, limits, message or rules tools as available until they are.
+- Bring your own AI (MCP) is a staged rollout, Respite Plus only. **Live (read-only):** get_account (free plan too),
+  get_usage, get_insights, list_limits, list_events, get_progress, and the resources respite://today and
+  respite://week. **Not live, write as "coming":** an AI changing limits or schedules (tightening applies at once,
+  loosening needs approval on the phone), a change log with undo, the in-app Connected AI screen (iPhone first),
+  AI-written pause messages and rules. Disconnect today = the AI app's connector settings; deleting the Respite
+  account ends every connection. Never describe a coming tool as available. The draft post
+  `let-ai-change-your-limits` goes live only when the write tools ship (checklist inside the file).
+- **The "first" claim, exact wording only:** "to our knowledge, the first mobile screen time app with a built-in MCP
+  server (November 2026)". Never "only", never "the first screen time MCP": LockIn MCP (a desktop blocker) exists, and
+  community MCP servers read Mac Screen Time, RescueTime and ActivityWatch. Re-check the registries monthly.
+- **Entity name and description (use verbatim wherever the product is described, incl. schema and llms.txt):**
+  "Respite: Screen Time Control" by Intently (short name Respite). "Respite: Screen Time Control is a free screen time
+  app for Android, iPhone and Chrome by Intently. It puts a short pause before the apps and sites you pick, with
+  limits, streaks and a free game layer. Respite Plus adds sync and lets you connect your own AI (Claude, ChatGPT,
+  Cursor) over MCP." Firefox is not mentioned on the site yet; add it everywhere at once when the listing is public.
+- iPhone app names: "by default app names stay on your iPhone; if you match an app for cross-device sync, its name
+  is saved to your account". Do not write "app names never leave your iPhone".
 - Former names: Intently, Pawse. Don't use them in new copy, except "formerly Intently" when a post
   targets the query "intently app".
 
@@ -91,3 +106,30 @@ set `pubDate`, flip the matching entry in `src/data/changelog.ts`.
 ## Done means
 
 `npm run build -w @intently/respite-site` passes (including the link check) and the post reads well.
+
+
+## AI + screen time content (added 2026-11-03)
+
+- **Hub:** `/ai/` (`src/pages/ai.astro`) owns "ai screen time (app)", "screen time mcp" and "bring your own ai". It is in
+  the header nav, the footer and the features page. Every AI post links to it; keep that true for new AI posts.
+  When a tool ships, flip its row in the `live` list in `ai.astro` and the `tools` table, and update llms.txt.
+- **Keyword map:** `docs/ai-keyword-map.md` assigns every keyword in `docs/ai-screen-time-research.md` to exactly one
+  primary URL. Check it before writing a post: if the intent matches an existing URL, extend that post (update
+  the body and `updatedDate`), never create a competing page. Update the map in the same commit as any new post.
+- **Competitor AI facts:** only those in `docs/competitor-facts.md` (section "AI features"), each with a source URL and
+  date. Add a row there before using a new fact. Say "as far as we could find" for absences, and never imply a
+  competitor "sends your data" except by quoting its own privacy label.
+- **Sources on comparison posts:** posts that state competitor AI facts end with a "Sources (accessed ...)" list of
+  links, above "Next step" / "Related articles".
+- **Structured data:** posts get BlogPosting, BreadcrumbList, FAQPage and (with `howToSteps`) HowTo from the
+  layout. `/ai/` adds SoftwareApplication (with the free and Plus offers), WebPage, BreadcrumbList and FAQPage.
+  Product schema for the three apps is `components/SEO/ProductSchema.astro`; Organization is site-wide in BaseHead.
+- **Crawlers:** `public/robots.txt` allows OAI-SearchBot, ChatGPT-User, PerplexityBot, ClaudeBot, Claude-SearchBot,
+  Google-Extended, Bingbot and Applebot(-Extended) explicitly. `public/llms.txt` and `llms-full.txt` are concise
+  site maps for AI tools (measurable effect is unproven; keep them accurate, not long). Check Cloudflare's AI bot
+  blocking setting is off for this zone after deploys.
+- **IndexNow (Bing, and engines that share it):** the key file is `public/<32 hex>.txt` (content = the same 32 hex).
+  After a deploy, from `apps/respite`: `node scripts/indexnow.mjs --sitemap` submits URLs that are new or whose
+  lastmod changed since the last run (state in `scripts/.indexnow-seen.json`; commit it afterwards), or pass URLs:
+  `node scripts/indexnow.mjs https://respite.liveintently.app/ai/ ...`. Add `--dry-run` to preview. Never run it
+  before the key file is live, and never on every build.
