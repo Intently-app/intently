@@ -1,10 +1,11 @@
 ---
 title: Privacy Policy for Respite for Chrome
-updated: 2026-10-19
+updated: 2026-11-03
 ---
 
 Respite: Screen Time Control is the browser extension of Respite, for Chrome and other
-Chromium browsers. The iPhone app has [its own policy](/privacy/).
+Chromium browsers. The [iPhone app](/privacy/) and the [Android app](/privacy/android/) have
+their own policies.
 
 **Developer:** MD Sadakat Hussain Fahad, publishing as Intently ·
 **Contact:** [support@liveintently.app](mailto:support@liveintently.app)
@@ -21,6 +22,10 @@ usage statistics.
 - Signing in, with Google or Apple, is optional. It syncs your goals, daily totals per
   site, journey progress and, if you join them, leagues and friends to our server.
   What syncs is listed below.
+- Optional, with Respite Plus: you can connect an AI app that you choose so it can read your
+  Respite data, including the daily totals this browser has synced. Nothing is shared until you
+  approve it, and the AI provider's own privacy policy then applies to what it receives. See
+  [Connecting an AI app](#connecting-an-ai-app-optional-respite-plus).
 - Usage statistics are off until you switch on "Share anonymous usage statistics"
   (You → More settings).
 - It records time only for the sites you add to it.
@@ -90,24 +95,31 @@ the same on your phone and your other browsers.
 Apple that Respite opens through the browser. We receive your email address (with Apple
 it can be a private relay address if you choose "Hide My Email") and an account id from
 that provider, and your name and profile photo if the provider shares them. Respite
-never sees your password.
+never sees your password. We keep the sign-in sessions of your devices as one-way hashed
+tokens and, for Apple, a token we keep only so we can revoke Respite's access to your Apple ID
+when you delete your account.
 
 **What syncs to our server while you are signed in:**
 
-- Your sites and their goals: each site's address (for example `example.com`), or the
-  matching phone app's id when Respite knows it, the daily limit, how it is held to it
-  (pause, lock, Shorts/Reels limit), and your streaks.
+- Your sites and their goals: each site's address (for example `example.com`) and the name
+  shown for it, or the matching phone app's id when Respite knows it, the daily limit, how
+  it is held to it (pause, lock, Shorts/Reels limit), and your streaks. To find the matching
+  phone app, Respite sends the site's address to our app catalogue.
 - Settings that are shared between your devices.
 - A daily total for each of your sites for the last 14 days: minutes, number of visits,
   pauses shown and the longest visit. Not individual visits, not pages, and nothing about
   sites you haven't added.
+- Your blocking schedules, if you make any: a schedule's name, days, times and which sites
+  it covers.
 - This browser as a device on your account: a name ("Chrome on macOS" unless you rename
   it), the platform and when it last synced.
 
-**What comes back.** Your goals from your other devices, and, if you have the sync
-subscription (bought in the phone app; there is no purchase in the extension), your
-other devices' daily totals so you can see them together and, if you choose, count them
-toward your limits.
+**What comes back.** Your goals from your other devices, and, if you have Respite Plus
+(bought in the phone app; there is no purchase in the extension), your other devices'
+daily totals so you can see them together and, if you choose, count them toward your
+limits. Without Plus, one device syncs. Our server learns whether you have Plus from
+RevenueCat, which manages purchases for the phone apps, and keeps only when Plus ends and
+which store and product it came from.
 
 **Journey.** While you are signed in, the acorns you earn for days kept, quests, shop
 items, streak freezes and badges are kept on our server, so they are the same on every
@@ -122,12 +134,86 @@ remove a friend or report a name. Friends are added only with a code you share.
 
 **Where it is kept.** On our server, run on Cloudflare (Cloudflare, Inc.), reached over
 HTTPS. Google and Apple handle sign-in only. We don't sell this data, use it for
-advertising, or share it with anyone else unless the law requires it.
+advertising, or share it with anyone else unless the law requires it, apart from the
+two cases below: other Respite users, for the league and friends details above, and an AI
+provider that you choose to connect.
+
+**Emails.** We email the address on your account only about your account: a link to confirm
+a deletion you asked for on our website, a notice when a new sign-in method is added, and a
+notice when two accounts of yours are merged. We send no marketing.
 
 **Signing out** (You → Account and devices, or Delete everything) leaves your synced data on
 the account so you can sign in again. **Delete account** (You → Account and devices)
-removes your account and everything synced to it, from every device. It doesn't cancel a
-subscription; do that in the App Store or Google Play.
+removes your account and everything synced to it, from every device, including game
+progress, friends, league seats and AI connections. It doesn't cancel a subscription; do
+that in the App Store or Google Play. Things you delete while signed in are kept on our
+server as a marker for 90 days, so your other devices learn about it, and then removed.
+
+## Connecting an AI app (optional, Respite Plus)
+
+You can let an AI assistant that you choose, such as Claude, ChatGPT or Cursor, read your
+Respite data, so you can ask it things like "which site took most of my week?". This uses an
+open standard called MCP. It is **off until you set it up**, you do it from the AI app (not
+from the extension), and it needs **Respite Plus** and a Respite account.
+
+**How it works.** You add Respite's address in your AI app. The AI app opens a Respite page in
+your browser, where you sign in to your Respite account (with Google or Apple). The page shows
+which AI app is asking and what it will be able to do. **Nothing is connected until you tap
+Allow.** If you tap Deny, nothing is shared.
+
+**What the AI can read** once you allow it, and only while you have Respite Plus:
+
+- Your account email, whether you have Plus, and your devices (name, platform, last seen).
+  This also works without Plus.
+- **Time in apps and websites**, in minutes, by app or site, by day and by device, across all
+  the devices you sync, with the names of the apps and sites, how often you opened them and
+  how often your limit alert showed. For this browser that is the daily totals listed above
+  for the sites you added.
+- **Insights** that Respite calculates from that: totals, averages, top sites and apps, your
+  busiest day, time-of-day patterns, days within your limits, how often you walked away from
+  a pause, and your first-week baseline.
+- **Your limits and schedules:** per-site and per-app limits, locks, how each pause is shown,
+  streaks, blocking schedules (name, days, times and sites or apps) and your other synced
+  settings.
+- **Sessions and pauses** that your phones synced: when you used an app and what Respite
+  showed you at a limit and what you chose. This browser doesn't sync individual visits.
+- **Your game progress:** acorns, level, streak, streak freezes, today's quests, items you
+  own, recent acorn entries, and your own weekly league tier and rank. Never other people.
+
+**Today the AI can only read.** Respite's tools can't change your limits, schedules, pause
+messages or rules, and can't earn or spend acorns for you. Respite's approval page may list
+permissions to see and change limits, pause messages and rules; no tool uses them yet. Before
+we add tools that make changes, we'll update this policy.
+
+**Where the data goes.** When your AI app uses Respite's tools, the answers are sent to that AI
+provider so it can read them and reply to you. From then on the provider handles that data
+under **its own privacy policy and terms**, for example how long it keeps your chats and
+whether it uses them to train models. **We don't control that. We don't choose which AI you
+connect, and no AI provider pays us.** Read your AI provider's policy and settings before you
+connect.
+
+**What Respite does not do.** Respite doesn't run an AI of its own on your data, doesn't send
+your data to an AI provider on its own, and doesn't use your data to train AI models. We don't
+keep a copy of what your AI asked or was told; we keep only the facts about the connection
+below.
+
+**What we store about a connection:**
+
+- the AI app's name and the web addresses it registered to receive your approval;
+- which permissions you allowed, when you connected, when it was last used, and when it was
+  disconnected;
+- the access and refresh tokens it uses, saved only as one-way hashes. Access tokens last one
+  hour. Refresh tokens last 30 days and are replaced each time they are used;
+- short-lived set-up records: a one-time code (60 seconds) and a record of your pending
+  approval (10 minutes), tied to your browser with a short-lived cookie. The cookie only makes
+  sure that the person who started the request is the person who approves it.
+
+**Disconnecting.** Remove Respite from your AI app's connections. Most AI apps also tell us,
+which ends access at once and deletes the tokens. Respite doesn't yet list your connections
+in the extension or the phone apps. If you can't disconnect from your AI app, email us and
+we'll end the connection. A disconnected connection leaves a record of its name, permissions
+and dates until you delete your account. **Deleting your account removes all your AI
+connections.**
 
 ## Usage statistics (off unless you switch them on)
 
@@ -180,6 +266,8 @@ The full list of events and their fields is in the extension's source code.
 - It does not record sites you have not added.
 - It does not read page content, forms, passwords or messages.
 - It does not sell data, show ads or build a profile of you.
+- It does not run an AI on your data. An AI app sees your data only if you connect it, as
+  described above.
 
 ## Permissions
 
@@ -191,7 +279,7 @@ The full list of events and their fields is in the extension's source code.
 | Block content on pages (declarativeNetRequestWithHostAccess) | Refusing to load a site you have locked once its daily limit is used up. Used for nothing else, and only on sites Respite already has access to |
 | Idle | Not counting time when you are away |
 | Alarms | Timekeeping while the browser is open, and the midnight rollover |
-| Storage | Keeping your data on this device |
+| Storage, unlimited storage | Keeping your data on this device |
 | Identity | Opening the Google or Apple sign-in window when you choose to sign in. Not used otherwise, and it gives Respite no access to your browser's own Google account |
 | History (optional) | The one-time seven-day estimate during setup |
 | Notifications (optional) | Reminders, asked for only when you switch them on in Settings and handed back when you switch them off |
