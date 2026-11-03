@@ -19,6 +19,14 @@ export interface ChangelogEntry {
 export const changelog: ChangelogEntry[] = [
 	{
 		date: '2026-11-03',
+		title: 'Privacy policies updated',
+		summary:
+			'Our iPhone, Android and browser privacy policies now cover connecting an AI app you choose, and correct earlier wording on analytics and crash reports, sign-in, sync, purchases, and rewards, friends and leagues.',
+		platforms: ['iPhone', 'Android', 'Chrome'],
+		link: '/privacy/',
+	},
+	{
+		date: '2026-11-03',
 		title: 'Bring your own AI',
 		summary:
 			'Connect Claude, ChatGPT or Cursor to your Respite account with MCP, in the stages described in the post. Respite Plus. Rolling out: connecting and your account details work first; usage, limits and rules tools come next.',

@@ -3,6 +3,8 @@ title: Privacy Policy for Respite
 updated: 2026-11-03
 ---
 
+> **Updated 3 November 2026.** This version adds connecting an AI app that you choose (optional, Respite Plus) and corrects and completes earlier wording, including analytics and crash reports, sign-in options, sync across devices, purchases, and rewards, friends and leagues. The changes are also listed on [What's new](/whats-new/).
+
 Respite helps you notice and cut back on compulsive app use by
 showing a short pause before the apps you choose. This policy explains what the iPhone and iPad
 app collects, why, and where it goes. The [Android app](/privacy/android/) and the
@@ -209,8 +211,9 @@ copy of what your AI asked or was told; we keep only the facts about the connect
   (10 minutes), tied to your browser with a short-lived cookie. The cookie only makes sure that
   the person who started the request is the person who approves it.
 
-**Disconnecting.** Remove Respite from your AI app's connections. Most AI apps also tell us,
-which ends access at once and deletes the tokens. Respite doesn't yet list your connections in
+**Disconnecting.** Remove Respite from your AI app's connections. If your AI app tells us
+when you remove it, access ends at once and its tokens are deleted. Otherwise its access
+token expires within an hour and its refresh token stops working 30 days after it was last used. Respite doesn't yet list your connections in
 the app. If you can't disconnect from your AI app, email us and we'll end the connection. A
 disconnected connection leaves a record of its name, permissions and dates until you delete your
 account. **Deleting your account removes all your AI connections.**
@@ -265,5 +268,4 @@ believe a child has given us data, contact us and we'll delete it.
 
 ## Changes
 
-We'll post any change here with a new date, and tell you in the app when the change is
-significant.
+We'll post any change here with a new date and a short note at the top, and list significant changes on [What's new](/whats-new/). Where the app can show it, we'll also tell you in the app.

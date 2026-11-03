@@ -3,6 +3,8 @@ title: Privacy Policy for Respite for Chrome
 updated: 2026-11-03
 ---
 
+> **Updated 3 November 2026.** This version adds connecting an AI app that you choose (optional, Respite Plus) and corrects and completes earlier wording, including analytics and crash reports, sign-in options, sync across devices, purchases, and rewards, friends and leagues. The changes are also listed on [What's new](/whats-new/).
+
 Respite: Screen Time Control is the browser extension of Respite, for Chrome and other
 Chromium browsers. The [iPhone app](/privacy/) and the [Android app](/privacy/android/) have
 their own policies.
@@ -208,8 +210,9 @@ below.
   approval (10 minutes), tied to your browser with a short-lived cookie. The cookie only makes
   sure that the person who started the request is the person who approves it.
 
-**Disconnecting.** Remove Respite from your AI app's connections. Most AI apps also tell us,
-which ends access at once and deletes the tokens. Respite doesn't yet list your connections
+**Disconnecting.** Remove Respite from your AI app's connections. If your AI app tells us
+when you remove it, access ends at once and its tokens are deleted. Otherwise its access
+token expires within an hour and its refresh token stops working 30 days after it was last used. Respite doesn't yet list your connections
 in the extension or the phone apps. If you can't disconnect from your AI app, email us and
 we'll end the connection. A disconnected connection leaves a record of its name, permissions
 and dates until you delete your account. **Deleting your account removes all your AI
