@@ -242,7 +242,7 @@ Next step: if blocking hasn't stuck for you, [download Respite](/download/) and 
 
 We found no AI feature and no MCP connector for Freedom in November 2026. If you want your own AI in the loop, LockIn MCP is a desktop blocker your AI can control, and Respite lets your AI read your phone and browser usage; see [Respite vs LockIn MCP](/blog/respite-vs-lockin-mcp/).
 
-Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. Opt in and it can also make your limits stricter. To our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Related Articles
 

@@ -117,7 +117,7 @@ Compare three things: your total screen time, the number of times you open your 
 
 We did not research Google's AI plans for Digital Wellbeing, so we make no claim about them, but we found no MCP connector that lets Claude or ChatGPT read its data.
 
-Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. Opt in and it can also make your limits stricter. To our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Next step
 

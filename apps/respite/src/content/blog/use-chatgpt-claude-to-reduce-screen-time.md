@@ -10,7 +10,7 @@ keyTakeaways:
   - 'Ask for realistic limits you can keep, a bedtime plan and replacement activities.'
   - 'An AI cannot stop you scrolling; pair it with a pause or limit that acts in the moment.'
   - 'Treat advice as a draft: you are the judge of what fits your life.'
-  - 'Connect Respite Plus to Claude or ChatGPT and the AI reads your real usage itself; today it is read-only.'
+  - 'Connect Respite Plus to Claude or ChatGPT and the AI reads your real usage itself, and can make limits stricter if you opt in.'
 tags: ['chatgpt', 'claude', 'ai', 'reduce screen time', 'prompts', 'habit change', 'bring your own ai']
 heroImage: '/blog-phone-addiction-stop.jpg'
 faq:
@@ -23,7 +23,7 @@ faq:
   - question: 'What is the best prompt to cut my phone use?'
     answer: 'Give it a goal, your numbers and your constraints: your top three apps with daily minutes, when you scroll, what you want instead, and what has failed before. Then ask for a one-week plan with limits you could realistically keep and a fallback for bad days. Review it, and change it after a week.'
   - question: 'Can an AI connect to my Respite data?'
-    answer: 'Yes, with Respite Plus. Connect Claude, ChatGPT or Cursor over MCP and the assistant can read your usage, insights, limits, interruptions and progress. It is read-only today; changing limits and writing your own pause messages are planned. See our connect guides for Claude and ChatGPT, and the AI hub for what works now.'
+    answer: 'Yes, with Respite Plus. Connect Claude, ChatGPT or Cursor over MCP and the assistant can read your usage, insights, limits, interruptions and progress. If you opt in it can also make limits stricter; writing your own pause messages is planned. See our connect guides for Claude and ChatGPT, and the AI hub for what works now.'
 ---
 
 Short answer: yes, a chatbot can help, within limits. It cannot take your phone away. But it is a patient, nonjudgmental planner that has read a great deal about habits, and many people find it useful for the thinking part of cutting back: looking honestly at their use, choosing limits, and finding something else to do. Here is how to use ChatGPT or Claude well for that, with prompts you can paste today.
@@ -83,7 +83,7 @@ Weekly beats daily: it is enough to learn from and not enough to become another 
 
 This is the version where you stop pasting numbers. Respite Plus lets you connect your own AI, via MCP, to your account, so Claude or ChatGPT reads your real usage, limits and interruptions itself. Ask "which of my limits do I break most often?" or "when I get paused, do I walk away?" and it answers from your data. Respite is, to our knowledge, the first mobile screen time app with a built-in MCP server (November 2026).
 
-Be aware of where it is: today every tool is read-only, so the assistant can analyse and advise but cannot change a limit; you do that in the app. Tools for an AI to change limits (tightening at once, loosening only with your approval on the phone, with a change log and undo) are planned and not live. Start at [AI and screen time](/ai/), then follow [connect Claude to your screen time](/blog/connect-claude-to-screen-time/) or [connect ChatGPT to your phone usage](/blog/connect-chatgpt-to-phone-usage/). The [30-prompt library](/blog/chatgpt-claude-screen-time-prompts/) has wording for both the connected and the paste-in way. Respite does not run an AI on your data; it goes only to the assistant you choose, and [here is what that means for privacy](/blog/is-it-safe-to-give-ai-your-screen-time-data/).
+Be aware of where it is: by default the assistant can analyse and advise but cannot change a limit. If you opt in, it can lower limits and add schedules; loosening only happens with your approval in the app, and every change is logged with undo. Start at [AI and screen time](/ai/), then follow [connect Claude to your screen time](/blog/connect-claude-to-screen-time/) or [connect ChatGPT to your phone usage](/blog/connect-chatgpt-to-phone-usage/). The [30-prompt library](/blog/chatgpt-claude-screen-time-prompts/) has wording for both the connected and the paste-in way. Respite does not run an AI on your data; it goes only to the assistant you choose, and [here is what that means for privacy](/blog/is-it-safe-to-give-ai-your-screen-time-data/).
 
 ## Cautions
 

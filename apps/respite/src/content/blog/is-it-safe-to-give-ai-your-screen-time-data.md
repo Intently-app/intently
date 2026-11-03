@@ -3,10 +3,10 @@ title: 'Is It Safe to Give an AI Your Screen Time Data?'
 description: 'What actually reaches Claude or ChatGPT when you connect screen time, who handles it, how permissions and disconnecting work, and what to check first.'
 pubDate: 2026-11-03
 author: 'Respite Team'
-answer: 'It is low-risk compared with messages or photos, but not nothing. When you connect screen time to an AI, whatever the tools return becomes part of your chat, so the AI provider handles it under its own policy. With Respite, the AI sees only synced data, only after you allow it, can only read, and loses access when you disconnect. Respite runs no AI and trains nothing.'
+answer: 'It is low-risk compared with messages or photos, but not nothing. When you connect screen time to an AI, whatever the tools return becomes part of your chat, so the AI provider handles it under its own policy. With Respite, the AI sees only synced data, only after you allow it, can only read unless you opt in to letting it make your limits stricter, and loses access when you disconnect. Respite runs no AI and trains nothing.'
 keyTakeaways:
   - 'Anything a tool returns goes into your chat, so your AI provider''s policy and your settings there apply.'
-  - 'Respite''s connection is read-only, scoped by permission, and needs Respite Plus and your sign-in.'
+  - 'Respite''s connection reads by default; changing limits is opt-in, and only stricter changes apply on their own. It needs Respite Plus and your sign-in.'
   - 'Respite runs no AI on your data and does not train models on it.'
   - 'Disconnect in your AI app''s connector settings; deleting your Respite account ends every connection.'
   - 'Check your chatbot''s history and training settings before you connect, not after.'
@@ -16,13 +16,13 @@ faq:
   - question: 'Is it safe to give an AI my screen time data?'
     answer: 'For most people the risk is modest: usage minutes and app names reveal habits, not messages or photos. But habits are personal. Once data enters a chat, the AI provider processes it under its own terms. Connect only to an assistant whose privacy settings you have checked, share the minimum, and know how to disconnect.'
   - question: 'What data does Respite send to Claude or ChatGPT?'
-    answer: 'Only what the AI asks for through Respite''s read-only tools, and only for the permission you allowed: your account details (plan, devices), usage minutes per app or day, insights, limits and schedules, sessions and limit interruptions, and game progress. Data that never synced from a device is not available. Nothing is sent until the AI makes a call.'
+    answer: 'Only what the AI asks for through Respite''s read tools, and only for the permission you allowed: your account details (plan, devices), usage minutes per app or day, insights, limits and schedules, sessions and limit interruptions, and game progress. Data that never synced from a device is not available. Nothing is sent until the AI makes a call.'
   - question: 'Does Respite train AI on my data?'
     answer: 'No. Respite runs no AI model on your data and does not use it to train models. The thinking happens in the assistant you chose, on its provider''s systems, under its policy. Respite only answers the calls your connected assistant makes. You can disconnect any time, which ends the assistant''s access.'
   - question: 'Can the AI change my limits or settings?'
-    answer: 'Not today. Every Respite tool is read-only, so a connected AI can read your usage, limits and progress but cannot change them. We are building tools that let an AI change limits, where tightening applies at once and loosening needs your approval on the phone, with a change log and undo. Until they ship, they are not available.'
+    answer: 'Only if you opt in. By default a connected AI can only read. On the approval page you can tick "Also let it make my limits stricter"; then it can lower a limit or add a schedule, and that applies at once. Raising or removing a limit, or removing a schedule, never applies on its own: it becomes a request you approve in the Respite app, and until the Connected AI screen reaches your app you change limits yourself. Every change is logged, and the AI can undo its own.'
   - question: 'How do I stop an AI seeing my screen time?'
-    answer: 'Disconnect or remove the Respite connector in your AI app''s connector settings. That ends its access immediately. Deleting your Respite account also ends every connection. You can also turn off sync on your devices to stop new data reaching the account. A Connected AI screen inside the Respite app is planned for iPhone first.'
+    answer: 'Disconnect or remove the Respite connector in your AI app''s connector settings. That ends its access immediately. Deleting your Respite account also ends every connection. You can also turn off sync on your devices to stop new data reaching the account. A Connected AI screen inside the Respite app is arriving in app updates.'
   - question: 'Do ChatGPT and Claude store my screen time data?'
     answer: 'Conversations are stored according to each provider''s policy and your settings, such as chat history, memory and training options. Because tool results are part of the conversation, they are stored the same way. Check those settings before connecting, and delete the chat or turn history off if you do not want the data kept.'
 ---
@@ -56,23 +56,23 @@ Respite runs no AI of its own on your data and does not train models on it. The 
 
 ## How are permissions handled?
 
-Connection uses OAuth, the same pattern as "Sign in with Google" for apps. The AI never sees your password. It receives a limited pass tied to your account and to the permissions you approved on a consent screen. Respite defines separate permissions (read; limits; the messages shown at a limit; custom rules). Today only the read permission is used, because only read tools exist.
+Connection uses OAuth, the same pattern as "Sign in with Google" for apps. The AI never sees your password. It receives a limited pass tied to your account and to the permissions you approved on a consent screen. Respite defines separate permissions (read; limits; the messages shown at a limit; custom rules). Reading is always part of a connection. Changing limits is a separate, unticked-by-default choice ("Also let it make my limits stricter") that only allows making them stricter. Connections made before that option existed stay read-only until you reconnect and tick it.
 
 If a tool needs a permission you did not grant, it returns an error that tells the AI to ask you to reconnect, instead of returning data. If you are not on Respite Plus, every tool except the account check returns an upgrade message. The consent screen is the moment to decide: if you do not like what it asks for, deny.
 
 ## Can the AI change anything?
 
-Not today. Every tool is read-only, so the worst case of a mistaken or manipulated assistant is that it reads and repeats your usage. It cannot raise a limit, delete a schedule or touch your streak.
+Only if you opt in. By default every tool reads, so the worst case of a mistaken or manipulated assistant is that it reads and repeats your usage. If you tick "Also let it make my limits stricter", it can also lower a limit or add a schedule, and nothing else: it cannot change pause messages or rules, write usage history, earn or spend acorns, or block apps outside your limits and schedules.
 
-That will change, and we want the safeguards in place before it does. The design for tools that change settings is: **tightening** (a lower limit, a longer schedule) applies immediately, because it can only make your phone stricter; **loosening** needs your approval on your phone; and a change log with undo records what an AI did. These are not live yet, so [the guide to letting your AI change your limits](/ai/) says "coming", and so will we until they are.
+The safeguards are: **tightening** (a lower limit, a new schedule) applies immediately, because it can only make your phone stricter; **loosening** (raising or removing a limit, removing a schedule) never applies on its own and becomes a request you approve in the app, expiring after 7 days; every change is logged for 90 days with which AI did it, what changed and the reason it gave; and an AI is limited to 30 changes per connection per hour. The approval screen is arriving in app updates, so until then you change limits yourself. See [the guide to letting your AI change your limits](/blog/let-ai-change-your-limits/).
 
 ## What are the real risks?
 
 Being concrete, in rough order of likelihood:
 
 1. **Provider retention.** Your usage sits in a chat that your provider stores. If you would not paste a week of your habits into a chatbot, do not connect. Delete the conversation, or switch history off, if you want it gone.
-2. **Over-sharing by default.** A connected assistant can call tools on any question, including ones you did not mean to be about your phone. Switch the connector off in chats where you do not want it, and keep the permission to read only.
-3. **Prompt injection.** Text in a web page or a document that your assistant reads can try to make it call tools. Respite's tools are read-only, which limits the damage to disclosure inside your own chat, but it is another reason to keep unrelated browsing out of a chat where Respite is on.
+2. **Over-sharing by default.** A connected assistant can call tools on any question, including ones you did not mean to be about your phone. Switch the connector off in chats where you do not want it, and leave the stricter-limits option unticked unless you want it.
+3. **Prompt injection.** Text in a web page or a document that your assistant reads can try to make it call tools. Respite's tools read by default and can only make limits stricter if you opt in, which limits the damage to disclosure inside your own chat and a stricter limit you can reverse, but it is another reason to keep unrelated browsing out of a chat where Respite is on.
 4. **An old connection forgotten.** Connectors linger. Review your connectors every few months.
 5. **Wrong conclusions.** Not a privacy risk, but a real one: an AI can explain your habits confidently and wrongly. Treat explanations as hypotheses.
 
@@ -87,7 +87,7 @@ Whatever the app, do the same four things:
 
 ## How do I disconnect?
 
-In your AI app, open the connector settings and disconnect or delete Respite: in Claude.ai or Claude Desktop that is Settings, Connectors; in ChatGPT it is the connector or app you created; in Claude Code it is `claude mcp remove respite`. That ends access. Deleting your Respite account ends every connection at once. A Connected AI screen in the Respite app, iPhone first, is planned and not yet available.
+In your AI app, open the connector settings and disconnect or delete Respite: in Claude.ai or Claude Desktop that is Settings, Connectors; in ChatGPT it is the connector or app you created; in Claude Code it is `claude mcp remove respite`. That ends access. Deleting your Respite account ends every connection at once. A Connected AI screen in the Respite app, iPhone first, is arriving in app updates.
 
 ## A sensible checklist before you connect
 

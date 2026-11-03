@@ -42,7 +42,7 @@ And one habit: ask the AI to show the figures it used. If it cannot, it guessed.
 
 ## Prompts for when Respite is connected (1 to 12)
 
-These use Respite's read-only tools (`get_usage`, `get_insights`, `list_limits`, `list_events`, `get_progress`). They need Respite Plus. Say "use my Respite data" if the assistant does not reach for the connector on its own.
+These use Respite's read tools (`get_usage`, `get_insights`, `list_limits`, `list_events`, `get_progress`). They need Respite Plus. Say "use my Respite data" if the assistant does not reach for the connector on its own.
 
 **1. The weekly review**
 > Use my Respite data. Compare this week with last week: total minutes, daily average, and the three apps that changed most. End with one thing that went well and one change to try.

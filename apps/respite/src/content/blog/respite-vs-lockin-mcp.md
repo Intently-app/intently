@@ -3,11 +3,11 @@ title: 'Respite vs LockIn MCP (2026): Phone or Desktop AI?'
 description: 'Both let Claude or ChatGPT connect over MCP. LockIn blocks sites on your computer; Respite reads your phone and browser usage. A fair comparison.'
 pubDate: 2026-11-03
 author: 'Respite Team'
-answer: 'LockIn MCP and Respite both let your own AI, such as Claude or ChatGPT, connect over MCP, but they do different jobs. LockIn is a desktop website blocker your AI can switch on and off. Respite is a mobile screen time app whose connector lets your AI read your usage, limits and progress on Android, iPhone and Chrome. Today Respite is read-only; LockIn can block.'
+answer: 'LockIn MCP and Respite both let your own AI, such as Claude or ChatGPT, connect over MCP, but they do different jobs. LockIn is a desktop website blocker your AI can switch on and off. Respite is a mobile screen time app whose connector lets your AI read your usage, limits and progress on Android, iPhone and Chrome. Respite reads by default and, if you opt in, can make limits and schedules stricter; LockIn can switch blocking on and off.'
 keyTakeaways:
   - 'LockIn MCP: desktop-centric blocking that your AI controls (block, focus mode, temporary unblock).'
   - 'Respite: mobile and browser usage that your AI reads (usage, insights, limits, events, progress).'
-  - 'LockIn can change things today; Respite''s connector is read-only, with change tools planned.'
+  - 'LockIn switches blocking on and off; Respite''s connector reads by default and, if you opt in, can only make limits stricter.'
   - 'They are complementary: one guards your computer, the other helps you understand your phone.'
   - 'Respite makes no claim to be the only screen time product with MCP, only, to our knowledge, the first mobile one.'
 tags: ['lockin mcp', 'comparison', 'mcp', 'rescuetime mcp', 'activitywatch mcp', 'ai', 'respite vs lockin']
@@ -16,7 +16,7 @@ faq:
   - question: 'What is LockIn MCP?'
     answer: 'LockIn MCP is a website blocker built around the Model Context Protocol. Your own assistant, such as Claude, ChatGPT or Cursor, can call tools like block_domains, enter_focus_mode, temporarily_unblock_domains and get_block_status. Blocking works at the hosts-file level, fully on macOS and via the hosts file on Linux and Windows, with a Chrome extension add-on.'
   - question: 'Is there a LockIn MCP alternative for iPhone or Android?'
-    answer: 'Respite is a mobile option, with a different job. Its MCP connector lets your own AI read your usage, limits and progress across Android, iPhone and Chrome, but today it cannot block or change anything. Tools for an AI to change limits are planned. If you need your AI to block things now, LockIn does that on desktop.'
+    answer: 'Respite is a mobile option, with a different job. Its MCP connector lets your own AI read your usage, limits and progress across Android, iPhone and Chrome, and, if you opt in, make limits stricter by lowering a limit or adding a schedule. Anything looser needs your approval in the app. It does not do ad hoc website blocking; if you need your AI to block things on request, LockIn does that on desktop.'
   - question: 'Is Respite the first screen time app with MCP?'
     answer: 'To our knowledge, Respite is the first mobile screen time app with a built-in MCP server, as of November 2026. It is not the first screen time or blocking product with MCP: LockIn MCP, a desktop blocker, came earlier, and community MCP servers read Mac Screen Time, RescueTime or ActivityWatch data.'
   - question: 'Is there an official RescueTime MCP server?'
@@ -39,17 +39,17 @@ In short: **your AI becomes the person who flips the blocker on and off**, mostl
 
 ## What is Respite's MCP connector?
 
-Respite is a screen time app for Android, iPhone and Chrome. With Respite Plus you can connect Claude, ChatGPT or Cursor over MCP, sign in with Google or Apple, and let the assistant call six read-only tools: `get_account`, `get_usage`, `get_insights`, `list_limits`, `list_events` and `get_progress`. It can tell you which apps grew this week, which limits you break, whether you walk away when paused at a limit, and how your streak is going. Respite is, to our knowledge, the first mobile screen time app with a built-in MCP server (November 2026). The [hub](/ai/) has the details.
+Respite is a screen time app for Android, iPhone and Chrome. With Respite Plus you can connect Claude, ChatGPT or Cursor over MCP, sign in with Google or Apple, and let the assistant call read tools (`get_account`, `get_usage`, `get_insights`, `list_limits`, `list_events` and `get_progress`) and, if you opt in, tools that make limits stricter (`set_limit`, `add_schedule`) plus `list_changes`, `undo_change`, `remove_limit` and `remove_schedule`. It can tell you which apps grew this week, which limits you break, whether you walk away when paused at a limit, and how your streak is going. Respite is, to our knowledge, the first mobile screen time app with a built-in MCP server (November 2026). The [hub](/ai/) has the details.
 
-In short: **your AI becomes your analyst**, for the phone and browser. It cannot change anything today. Tools that can, where tightening a limit applies at once and loosening needs your approval on the phone, with a log and undo, are planned and not live.
+In short: **your AI becomes your analyst**, for the phone and browser. It changes nothing unless you opt in. If you do, tightening a limit applies at once, loosening needs your approval in the Respite app (arriving in app updates), and every change is logged and can be undone. See [letting your AI change your limits](/blog/let-ai-change-your-limits/).
 
 ## How do they compare?
 
 | | LockIn MCP | Respite |
 |---|---|---|
 | Main job | Block websites on a computer | Pause, limit and track apps and sites; AI reads your usage |
-| What your AI can do | Block, start focus mode, temporarily unblock, check status | Read usage, insights, limits, events and progress |
-| Can the AI change things today? | Yes | No (read-only) |
+| What your AI can do | Block, start focus mode, temporarily unblock, check status | Read usage, insights, limits, events and progress; with opt-in, lower limits and add schedules |
+| Can the AI change things today? | Yes | Only to make limits stricter, and only if you opt in |
 | Platforms | macOS full; Windows and Linux via hosts file; Chrome add-on | Android, iPhone, Chrome |
 | Strength | Strong blocking that survives restarts | Mobile usage across devices, pause and game layer |
 | MCP sign-in | OAuth for Claude web, ChatGPT, Cursor, Poke | OAuth with Google or Apple; Claude, ChatGPT, Cursor |
@@ -58,7 +58,7 @@ In short: **your AI becomes your analyst**, for the phone and browser. It cannot
 
 ## Where does LockIn MCP win?
 
-- **It can act.** Asking Claude to block a list of sites for two hours and having it happen is a real capability, and Respite cannot do that today.
+- **It can act.** Asking Claude to block a list of sites for two hours and having it happen is a real capability, and Respite does not do that: its AI can only make limits and schedules stricter.
 - **Desktop strength.** Hosts-file blocking is much harder to wander around than a browser extension alone.
 - **Price.** It costs less than Respite Plus.
 - **Task-aware focus.** Letting the AI decide what is relevant to your task is a neat use of an LLM, with the trade-off noted above.

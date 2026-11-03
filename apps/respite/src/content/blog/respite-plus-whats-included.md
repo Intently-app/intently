@@ -38,7 +38,7 @@ Respite is free: the pause, your limits, your usage and the whole game layer cos
 - **Richer insights.** Free shows today with your apps and limits. Plus adds the weekly and monthly views, trends, and per-app and per-site detail.
 - **On iPhone: a Live Activity and a Control Center control** for focus sessions, so you can see the time left on your Lock Screen and start or end a session without opening Respite. See [the best way to run a focus session on iPhone](/blog/focus-session-app-iphone/).
 - **On Android: a focus countdown and a Quick Settings tile** to start and end a session without opening the app.
-- **Bring your own AI.** Connect Claude, ChatGPT or Cursor to your Respite account over MCP and ask about your real usage, limits and progress. Read-only today, and Respite runs no AI of its own. See [AI and screen time](/ai/).
+- **Bring your own AI.** Connect Claude, ChatGPT or Cursor to your Respite account over MCP and ask about your real usage, limits and progress. Reading by default, with an opt-in to let it make limits stricter; Respite runs no AI of its own. See [AI and screen time](/ai/).
 
 ## What stays free?
 
@@ -64,7 +64,7 @@ Respite is useful before you pay a cent. Free keeps:
 | Sync across devices | One device | All your devices |
 | iPhone Live Activity and Control Center control | No | Yes |
 | Android focus countdown and Quick Settings tile | No | Yes |
-| Connect your own AI (Claude, ChatGPT, Cursor), read-only | No | Yes |
+| Connect your own AI (Claude, ChatGPT, Cursor); it can make limits stricter if you opt in | No | Yes |
 
 ## How much does Respite Plus cost?
 

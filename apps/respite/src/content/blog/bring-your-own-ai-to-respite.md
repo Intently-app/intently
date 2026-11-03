@@ -4,20 +4,20 @@ description: 'Respite can now connect to your own AI, such as Claude or ChatGPT,
 pubDate: 2026-11-03
 updatedDate: 2026-11-03
 author: 'Respite Team'
-answer: 'Bring your own AI lets Respite Plus members connect an assistant such as Claude, ChatGPT or Cursor to their Respite account through an open standard called MCP. Today your AI can read your usage, insights, limits, interruptions and progress; it cannot change anything yet. Respite runs no AI of its own, and your data goes only to the assistant you choose.'
+answer: 'Bring your own AI lets Respite Plus members connect an assistant such as Claude, ChatGPT or Cursor to their Respite account through an open standard called MCP. Your AI can read your usage, insights, limits, interruptions and progress, and, if you opt in, make your limits stricter; anything looser needs your approval. Respite runs no AI of its own, and your data goes only to the assistant you choose.'
 keyTakeaways:
   - 'Connect Claude, ChatGPT, Cursor or any remote-MCP assistant to your Respite account.'
-  - 'Live today: your AI can read usage, insights, limits, interruptions and progress. It is read-only.'
-  - 'Coming: AI changing limits (tighten at once, loosen with your approval), a change log with undo.'
+  - 'Live today: your AI can read usage, insights, limits, interruptions and progress.'
+  - 'Opt-in: it can lower limits and add schedules, which apply at once; loosening needs your approval in the app, and every change is logged with undo.'
   - 'It is a Respite Plus feature, and Respite never runs or pays for an AI on your data.'
-  - 'You sign in with Google or Apple, allow the permission, and can disconnect from your AI app.'
+  - 'You sign in with Google or Apple, allow the permission (and optionally let it make limits stricter), and can disconnect from your AI app.'
 tags: ['respite', 'announcement', 'bring your own ai', 'mcp', 'claude', 'chatgpt', 'respite plus', 'ai']
 heroImage: '/blog-digital-wellbeing-alternatives.jpg'
 faq:
   - question: 'What is bring your own AI in Respite?'
     answer: 'It lets you connect an AI assistant you already use, such as Claude or ChatGPT, to your Respite account via MCP, an open standard for connecting AI to apps. The assistant can then work with your Respite data. Respite does not run an AI of its own on your data, and you choose which assistant, if any, to connect.'
   - question: 'What can a connected AI do today?'
-    answer: 'Today it can read: your account details, usage minutes per app or day across your synced devices, insights comparing this period with the last, your limits and schedules, sessions and limit interruptions, and your game progress. It cannot change anything. Next come tools to change limits and schedules, a change log with undo, and later your own pause messages and rules.'
+    answer: 'It can read: your account details, usage minutes per app or day across your synced devices, insights comparing this period with the last, your limits and schedules, sessions and limit interruptions, and your game progress. If you opt in by ticking "Also let it make my limits stricter", it can also lower limits and add schedules, with a change log and undo; raising or removing limits needs your approval in the app. Your own pause messages and rules are planned.'
   - question: 'Is bring your own AI free?'
     answer: 'It is part of Respite Plus. Reading your data through an AI needs Plus; only the account tool works on a free account, so the connection can tell you what is needed. Respite itself stays free, and you pay for your AI assistant separately, if your plan requires it.'
   - question: 'Is my data sent to Respite''s AI?'
@@ -43,20 +43,21 @@ This is a staged rollout, and we want to be straight about where it is.
 | Connect Claude, ChatGPT or Cursor and sign in | Works today |
 | Check your account: plan, devices, when connected | Works today |
 | Read your usage, insights, limits, interruptions and progress | Works today (Plus) |
-| Change limits and schedules: tightening applies at once, loosening needs your approval on the phone | Coming |
-| A change log with undo for anything an AI changed | Coming |
-| A Connected AI screen in the app (iPhone first) | Coming |
+| Make limits stricter: lower a limit or add a schedule, applied at once (opt-in) | Works today (Plus) |
+| Loosening (raise or remove a limit, remove a schedule) becomes a request you approve | Works today; the approval screen is coming in app updates |
+| A change log with undo for anything an AI changed | Works today |
+| A Connected AI screen in the app | Coming in app updates |
 | Write your own pause messages | Planned |
 | Custom if-this-then-that rules | Planned |
 
-The first three rows are live and read-only. Everything marked coming or planned is what we are building toward, and we will not describe a tool as available until it is. The [What's new](/whats-new/) page will say when each one arrives, and [the AI hub](/ai/) keeps the current list.
+Everything marked coming or planned is what we are building toward, and we will not describe a tool as available until it is. Details of the write tools are in [letting your AI change your limits](/blog/let-ai-change-your-limits/). The [What's new](/whats-new/) page will say when each one arrives, and [the AI hub](/ai/) keeps the current list.
 
 ## How does it work, and what about privacy?
 
 - **We do not run an AI on your data.** Respite has no AI of its own here and pays for none. The model is the one you chose, on the plan you already have.
 - **Your data only goes to the AI you connect,** for the permissions you allow. There is no other recipient.
-- **You choose the permissions.** Access is split into separate permissions: reading usage and history, managing limits and schedules, managing the messages that appear at the pause, and managing custom rules. Only the read permission is used by tools that exist today. The consent screen shows what the assistant is asking for, and you can allow or deny it.
-- **You can revoke access any time** by disconnecting Respite in your AI app's connector settings. Deleting your Respite account ends every connection. A Connected AI screen inside the app, iPhone first, is coming.
+- **You choose the permissions.** Access is split into separate permissions: reading usage and history, managing limits and schedules, managing the messages that appear at the pause, and managing custom rules. Changing limits is a separate, unticked-by-default checkbox on the approval page, and it only allows making them stricter. The consent screen shows what the assistant is asking for, and you can allow or deny it.
+- **You can revoke access any time** by disconnecting Respite in your AI app's connector settings. Deleting your Respite account ends every connection. A Connected AI screen inside the app is arriving in app updates.
 - **Your AI provider handles what it receives.** What a tool returns goes into your chat with Claude, ChatGPT or Cursor, under that provider's policy. See [is it safe to give an AI your screen time data?](/blog/is-it-safe-to-give-ai-your-screen-time-data/)
 - **Sign in is the same as the app:** Google or Apple.
 
@@ -64,11 +65,11 @@ Our broader approach to data is in [privacy-first screen time tracking](/blog/pr
 
 ## Why connect an AI to a screen time app?
 
-A few things people can do with a general assistant and their own numbers, and which the live read tools now make direct:
+A few things people can do with a general assistant and their own numbers, and which the live tools now make direct:
 
 - Spot patterns, such as which days and times your use spikes ([prompt ideas](/blog/chatgpt-claude-screen-time-prompts/)).
 - Check which limits you actually keep, and which you break.
-- Turn a vague goal into limits that fit your life, which you then set in the app.
+- Turn a vague goal into limits that fit your life, and let the AI set the stricter ones if you opted in.
 - Next: draft honest, personal messages for the moment you reach for an app, once those tools exist.
 
 Our practical guide, [how to use ChatGPT or Claude to reduce screen time](/blog/use-chatgpt-claude-to-reduce-screen-time/), shows prompts you can use right now, with or without Respite connected.

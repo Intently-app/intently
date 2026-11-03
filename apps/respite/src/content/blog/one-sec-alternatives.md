@@ -161,7 +161,7 @@ And if you want the broadest set of tools around the pause concept — tracking,
 
 Per its App Store version notes, One Sec has added a "conversational reflection" step that uses an on-device language model. If you are weighing AI features, in-app coaches such as FOMO and Zensi are iPhone-only and cost around $9 to $10 a month, while Respite lets your own AI read your usage. Jomo, another name you will see, is an iPhone scheduled-focus app; we found no AI feature for it.
 
-Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. Opt in and it can also make your limits stricter. To our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Getting Started
 

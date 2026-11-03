@@ -109,7 +109,7 @@ Open its settings and look for analytics or sharing toggles and switch off what 
 
 ## What about connecting an AI?
 
-An AI connection is a data decision too. With Respite Plus you can connect your own Claude, ChatGPT or Cursor: it reads only synced data, only after you allow it, and only through read-only tools today. What the tools return goes into your chat, so your AI provider's policy applies, and Respite runs no AI and trains nothing on your data. Read [is it safe to give an AI your screen time data?](/blog/is-it-safe-to-give-ai-your-screen-time-data/) before you connect.
+An AI connection is a data decision too. With Respite Plus you can connect your own Claude, ChatGPT or Cursor: it reads only synced data, only after you allow it, and it reads by default; changing limits is an opt-in, and only stricter changes apply on their own. What the tools return goes into your chat, so your AI provider's policy applies, and Respite runs no AI and trains nothing on your data. Read [is it safe to give an AI your screen time data?](/blog/is-it-safe-to-give-ai-your-screen-time-data/) before you connect.
 
 ## Next step
 

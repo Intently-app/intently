@@ -215,7 +215,7 @@ This layered approach can work well. Just watch out for "tool fatigue" -- if you
 
 As far as we could find in November 2026, Apple's Screen Time has no AI coach for adults and no MCP connector. Third-party apps fill that gap in two ways: coaches inside the app (FOMO, Zensi, Argue, mostly iPhone), and bring your own AI, where Claude or ChatGPT reads your usage. Respite does the second.
 
-Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. Opt in and it can also make your limits stricter. To our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Getting Started
 

@@ -222,7 +222,7 @@ Want research backing? One Sec has a published Max Planck Institute study behind
 
 As far as we could find in November 2026, Opal has no AI coach and no MCP connector; it is rules-based. If AI is why you are looking around, apps such as FOMO and Zensi put a coach inside the app (mostly on iPhone), and Respite lets your own AI read your usage.
 
-Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. It is read-only today, and to our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
+Respite runs no AI of its own; with Respite Plus you can connect your own Claude, ChatGPT or Cursor over MCP and ask about your real usage, limits and progress. Opt in and it can also make your limits stricter. To our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). See [AI and screen time](/ai/).
 
 ## Getting Started
 

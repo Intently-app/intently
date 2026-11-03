@@ -8,7 +8,7 @@ keyTakeaways:
   - 'ChatGPT can read your screen time only after you add Respite as a custom MCP connector.'
   - 'The address is https://respite-api.liveintently.app/mcp, with OAuth sign-in using Google or Apple.'
   - 'ChatGPT''s menus for custom connectors change often and depend on plan and workspace settings.'
-  - 'Respite''s tools are read-only today, and reading your data needs Respite Plus.'
+  - 'Respite reads by default; changing limits is opt-in and only stricter changes apply on their own. It needs Respite Plus.'
   - 'Asking ChatGPT to block AI websites is a different thing: that is not what this connector does.'
 tags: ['chatgpt', 'mcp', 'connect chatgpt to screen time', 'phone usage', 'how to', 'respite plus', 'bring your own ai']
 heroImage: '/blog-digital-wellbeing-alternatives.jpg'
@@ -20,7 +20,7 @@ howToSteps:
   - name: 'Enter the Respite details'
     text: 'Name it Respite, enter the MCP server URL https://respite-api.liveintently.app/mcp, and choose OAuth as the authentication method if asked.'
   - name: 'Sign in and allow'
-    text: 'ChatGPT opens a Respite sign-in page. Choose Google or Apple, the same account as in the app, and allow read access.'
+    text: 'ChatGPT opens a Respite sign-in page. Choose Google or Apple, the same account as in the app, and decide whether to let it make your limits stricter.'
   - name: 'Enable it in a chat and ask'
     text: 'Start a chat, switch the Respite connector on, and ask: How did my screen time this week compare with last week?'
 faq:
@@ -31,11 +31,11 @@ faq:
   - question: 'Why can''t I find custom connectors in ChatGPT?'
     answer: 'Custom MCP connectors are not offered on every plan or in every workspace, and OpenAI has renamed and moved the settings more than once. Look for developer mode under the connectors or apps settings, and on a team plan ask an admin to allow it. If it still is not there, Claude or Cursor can connect to Respite today.'
   - question: 'Is there a ChatGPT app blocker that stops me opening apps?'
-    answer: 'ChatGPT itself cannot block apps on your phone. Searches for a ChatGPT app blocker usually mean either blocking ChatGPT, which an ordinary app blocker can do, or letting an AI control blocking. Respite''s connector lets ChatGPT read your usage and limits; tools that let an AI change limits are planned but not live.'
+    answer: 'ChatGPT itself cannot block apps on your phone. Searches for a ChatGPT app blocker usually mean either blocking ChatGPT, which an ordinary app blocker can do, or letting an AI control blocking. Respite''s connector lets ChatGPT read your usage and limits and, if you opt in, make limits stricter; anything looser needs your approval in the Respite app.'
   - question: 'Does ChatGPT keep my Respite data?'
     answer: 'Whatever a tool returns becomes part of your ChatGPT conversation, so OpenAI handles it under its own terms and your data-controls settings, such as chat history and training options. Respite runs no AI on your data and only responds to the calls ChatGPT makes. You can turn off history, delete the chat or disconnect the connector.'
   - question: 'How do I disconnect ChatGPT from Respite?'
-    answer: 'Open the connector in ChatGPT''s settings and disconnect or delete it, which ends its access. Deleting your Respite account also ends every connection. A Connected AI screen inside the Respite app, iPhone first, is planned but is not available yet.'
+    answer: 'Open the connector in ChatGPT''s settings and disconnect or delete it, which ends its access. Deleting your Respite account also ends every connection. A Connected AI screen inside the Respite app is arriving in app updates.'
 ---
 
 ChatGPT can talk about screen time all day, but it has never seen yours. Ask it how much you scroll and it will say it cannot know. Give it a bridge to your real numbers and the conversation changes from generic advice to "your Thursdays are the problem, and it is Instagram after 10 pm". This guide is that bridge, for ChatGPT.
@@ -76,7 +76,7 @@ Read. ChatGPT can call these tools, and picks which for each question:
 | `list_events` | Sessions, or the moments Respite interrupted you at a limit and what you chose. |
 | `get_progress` | Acorns, XP, streak, freezes, quests and league tier. |
 
-Everything is read-only. ChatGPT cannot change a limit, schedule or setting today. If it says it has, check the app: it has not.
+By default everything is read-only. If you ticked "Also let it make my limits stricter", ChatGPT can lower a limit or add a schedule; raising or removing a limit needs your approval in the app. If it says it changed something you did not allow, check the app.
 
 ## What should I ask first?
 
@@ -97,7 +97,7 @@ ChatGPT tends to answer in confident paragraphs. Ask it to show the numbers it u
 No, and it is worth being clear because the search results blur it. People who type "ChatGPT app blocker" want one of two things:
 
 - **To block ChatGPT itself** (or other AI sites) because they use it too much. Any app blocker or website blocker can do that, including Respite's pause on a chosen app or site.
-- **To have an AI manage their blocking.** That is the idea behind letting an AI change your limits. Respite's connector does not do this yet: tightening a limit applying at once while loosening needs your approval on your phone is the planned design, and it is not live. The status is tracked on [the AI hub](/ai/).
+- **To have an AI manage their blocking.** That is the idea behind letting an AI change your limits. Respite's connector does this in one direction: if you opt in, tightening a limit applies at once, while loosening needs your approval in the Respite app. See [letting your AI change your limits](/blog/let-ai-change-your-limits/) and [the AI hub](/ai/).
 
 What the connector does today is the part that comes first anyway: letting an assistant understand your real habits.
 
@@ -115,7 +115,7 @@ Whatever a Respite tool returns is placed in your conversation, so it is process
 
 ## How do I disconnect?
 
-Open the connector in ChatGPT's settings and disconnect or delete it. That ends its access. Deleting your Respite account ends every connection. A Connected AI screen in the app is planned for iPhone first and does not exist yet.
+Open the connector in ChatGPT's settings and disconnect or delete it. That ends its access. Deleting your Respite account ends every connection. A Connected AI screen in the app is arriving in app updates.
 
 ## Next step
 

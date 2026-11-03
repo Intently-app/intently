@@ -8,7 +8,7 @@ keyTakeaways:
   - 'AI coach apps intervene at the moment you open an app; a chat assistant connected to your data cannot.'
   - 'The coach apps we found are iPhone-only; those with listed prices charge roughly $9 to $10 a month.'
   - 'Their AI is the maker''s, so read the privacy label to see what is linked to you.'
-  - 'Respite is not a coach: it runs no AI, and its connector is read-only today.'
+  - 'Respite is not a coach: it runs no AI, and its connector reads by default and can make limits stricter if you opt in.'
   - 'Pick a coach for in-the-moment friction, bring your own AI for analysis and planning.'
 tags: ['ai screen time coach', 'zensi alternative', 'fomo alternative', 'ai coach', 'phone addiction', 'comparison', 'bring your own ai']
 heroImage: '/blog-app-comparison.jpg'
@@ -78,7 +78,7 @@ If those are what you want, a coach is the right tool and Respite is not a subst
 
 Respite's approach is the opposite way round. Rather than shipping a coach, it exposes your data over MCP so the assistant you already use can read it. To our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). With Respite Plus, you connect [Claude](/blog/connect-claude-to-screen-time/), [ChatGPT](/blog/connect-chatgpt-to-phone-usage/) or Cursor, and ask things like "which limit do I break most?" or "when I get paused at a limit, do I walk away?". [The hub](/ai/) has the full list of what it can read.
 
-What that buys you: no second AI to pay for, no second company holding the conversation (your data goes to the provider you already chose), and coverage of Android, iPhone and Chrome. What it costs you: the AI does not speak up when you open an app, it needs you to ask, and today it is read-only. Tools for an AI to change limits, with approval on your phone for anything looser and an undo log, are planned and are not live.
+What that buys you: no second AI to pay for, no second company holding the conversation (your data goes to the provider you already chose), and coverage of Android, iPhone and Chrome. What it costs you: the AI does not speak up when you open an app, it needs you to ask, and it only makes limits stricter, if you opt in. Anything looser needs your approval in the Respite app, and every change is logged with undo.
 
 ## Which should you pick?
 

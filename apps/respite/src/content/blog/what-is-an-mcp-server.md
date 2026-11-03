@@ -9,7 +9,7 @@ keyTakeaways:
   - 'A server offers tools; the assistant (the client) decides when to call them, and you approve the connection.'
   - 'Remote servers use a web address and OAuth sign-in, so there is nothing to install on your computer.'
   - 'Connecting only makes sense if you trust both the server and your assistant''s provider with the data.'
-  - 'Respite runs one for screen time: read-only today, Respite Plus.'
+  - 'Respite runs one for screen time: reads by default, optional stricter-limits access, Respite Plus.'
 tags: ['mcp', 'what is an mcp server', 'model context protocol', 'ai', 'claude', 'chatgpt', 'explainer', 'bring your own ai']
 heroImage: '/blog-digital-wellbeing-alternatives.jpg'
 faq:
@@ -24,7 +24,7 @@ faq:
   - question: 'Which AI assistants support MCP?'
     answer: 'Claude (Claude.ai, Claude Desktop and Claude Code), ChatGPT on plans with custom connectors, Cursor and a growing list of other tools support it, though plan availability and menu names change often. Remote servers with OAuth sign-in are the most widely supported kind. Check your assistant''s documentation for the current steps.'
   - question: 'What can an MCP server do for screen time?'
-    answer: 'It can let your AI read your real usage, limits and progress, so it can answer questions such as which apps changed most this week or which limit you break most. Respite''s server does this read-only today, with Respite Plus. Letting an AI change limits is planned, with changes you can approve and undo.'
+    answer: 'It can let your AI read your real usage, limits and progress, so it can answer questions such as which apps changed most this week or which limit you break most. Respite''s server does this with Respite Plus. If you opt in, it can also make limits stricter; anything looser needs your approval, and every change is logged and can be undone.'
 ---
 
 If you have seen "MCP" in an AI app's settings and moved on, you are in good company. The name sounds like plumbing, and it is, but it is plumbing that decides whether your AI assistant can only talk or can also look at your actual things. Here is what it means without any of the jargon, with one example you can try.
@@ -60,7 +60,7 @@ Respite's is remote: `https://respite-api.liveintently.app/mcp`. You add that ad
 
 ## What does an MCP server look like for screen time?
 
-Take Respite, the app this site is about. Respite is, to our knowledge, the first mobile screen time app with a built-in MCP server (November 2026). It offers six tools today:
+Take Respite, the app this site is about. Respite is, to our knowledge, the first mobile screen time app with a built-in MCP server (November 2026). It offers read tools and, if you opt in, tools that make limits stricter:
 
 - `get_account`: your plan, devices and when the AI connected
 - `get_usage`: minutes per app or day, merged across devices
@@ -69,7 +69,7 @@ Take Respite, the app this site is about. Respite is, to our knowledge, the firs
 - `list_events`: individual sessions and interruptions
 - `get_progress`: streak, acorns, quests
 
-You ask Claude, "Which app grew most this week, and what day was my worst?" Claude calls `get_insights`, gets back structured numbers, and writes a plain answer. All the tools are read-only: the AI can look but not change anything. The [AI hub](/ai/) lists what is live and what is coming, and the connect guides cover [Claude](/blog/connect-claude-to-screen-time/) and [ChatGPT](/blog/connect-chatgpt-to-phone-usage/).
+You ask Claude, "Which app grew most this week, and what day was my worst?" Claude calls `get_insights`, gets back structured numbers, and writes a plain answer. The read tools only look. If you opted in to stricter limits, the write tools can lower a limit or add a schedule, but never loosen one without your approval. The [AI hub](/ai/) lists what is live and what is coming, and the connect guides cover [Claude](/blog/connect-claude-to-screen-time/) and [ChatGPT](/blog/connect-chatgpt-to-phone-usage/).
 
 ## Why would an app offer MCP rather than its own AI?
 
@@ -81,7 +81,7 @@ MCP gives an AI a reach it did not have, so it deserves the same care as any per
 
 - **Data leaves the app.** What a tool returns lands in your conversation, and your assistant's provider handles it under its own policy. Treat it as you would pasting the same data in.
 - **Trust the server.** A server's descriptions and results are read by the AI, and a malicious one can try to steer it (this is called prompt injection). Add servers from providers you know.
-- **Prefer read-only.** A server that only reads cannot damage anything. If one can change things, look for approvals and a log of changes.
+- **Prefer read-only.** A server that only reads cannot damage anything. If one can change things, look for approvals and a log of changes. Respite's connection reads by default; changing limits is an unticked option, and it only applies stricter changes on its own.
 - **Know how to leave.** Find out how to disconnect before you connect.
 
 [Is it safe to give an AI your screen time data?](/blog/is-it-safe-to-give-ai-your-screen-time-data/) applies this checklist to Respite specifically.

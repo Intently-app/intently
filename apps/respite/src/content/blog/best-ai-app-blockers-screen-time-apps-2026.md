@@ -7,7 +7,7 @@ answer: 'The best AI app blocker depends on where you want the AI. FOMO, Zensi a
 keyTakeaways:
   - 'There are five kinds of AI in this category: in-app coach, on-device reflection, AI insights, LLM web filter and bring-your-own-AI.'
   - 'Most in-app AI coaches are iPhone-only and cost about $9 to $10 a month.'
-  - 'Respite makes this list, so we disclose bias: it runs no AI and connects yours; today it is read-only.'
+  - 'Respite makes this list, so we disclose bias: it runs no AI and connects yours; it reads by default and can make limits stricter if you opt in.'
   - 'Opal, Freedom, ScreenZen, Brick and Forest had no AI feature or MCP connector when we checked.'
   - 'An AI cannot stop a scroll by itself: pair advice with a pause, limit or block.'
 tags: ['ai app blocker', 'ai screen time', 'best app blocker', 'screen time apps', 'comparison', '2026', 'mcp', 'bring your own ai']
@@ -45,7 +45,7 @@ faq:
 
 | App | AI type | Platforms | Price (at the time of writing) | AI connectors (MCP) |
 |---|---|---|---|---|
-| Respite | Bring your own AI; runs none itself | Android, iPhone, Chrome | Free; Plus $4.99 a month | Yes, read-only today |
+| Respite | Bring your own AI; runs none itself | Android, iPhone, Chrome | Free; Plus $4.99 a month | Yes; reads, and can make limits stricter if you opt in |
 | FOMO | In-app coach | iPhone | Free with a daily message cap; Pro $8.99 a month or $59.99 a year | None found |
 | Zensi | In-app coach | iOS | Pro $9.99 a month, $79.99 a year or $4.99 a week | None found |
 | Argue | In-app coach | iOS | Not confirmed | None found |
@@ -77,9 +77,9 @@ faq:
 
 ## What does bring-your-own-AI on a phone look like?
 
-[Respite](/ai/) is, to our knowledge, the first mobile screen time app with a built-in MCP server (November 2026). It runs no AI of its own. With Respite Plus you connect Claude, ChatGPT or Cursor, and the assistant can read your usage, insights, limits, interruptions and progress across Android, iPhone and Chrome, then explain and plan. It is read-only today; tools that let an AI change limits (tighten at once, loosen with your approval, with a log and undo) are planned. See [the hub](/ai/), or set it up with [Claude](/blog/connect-claude-to-screen-time/) or [ChatGPT](/blog/connect-chatgpt-to-phone-usage/).
+[Respite](/ai/) is, to our knowledge, the first mobile screen time app with a built-in MCP server (November 2026). It runs no AI of its own. With Respite Plus you connect Claude, ChatGPT or Cursor, and the assistant can read your usage, insights, limits, interruptions and progress across Android, iPhone and Chrome, then explain and plan. It reads by default; if you opt in, it can also make limits stricter (tightening applies at once, loosening needs your approval in the app, and every change is logged with undo). See [the hub](/ai/), or set it up with [Claude](/blog/connect-claude-to-screen-time/) or [ChatGPT](/blog/connect-chatgpt-to-phone-usage/).
 
-**Where Respite is weaker:** it cannot intervene by conversation when you open an app, today it only reads, and you need a separate AI account for the AI part. If you want an AI to talk you out of an app at the moment you tap it, an in-app coach does that and Respite does not.
+**Where Respite is weaker:** it cannot intervene by conversation when you open an app, its AI can only read or make limits stricter, and you need a separate AI account for the AI part. If you want an AI to talk you out of an app at the moment you tap it, an in-app coach does that and Respite does not.
 
 ## Do the mainstream blockers have AI?
 
