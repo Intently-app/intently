@@ -1,5 +1,5 @@
 import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '../lib/posts';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import MarkdownIt from 'markdown-it';
 import sanitizeHtml from 'sanitize-html';
@@ -7,7 +7,7 @@ import sanitizeHtml from 'sanitize-html';
 const parser = new MarkdownIt();
 
 export async function GET(context) {
-	const posts = await getCollection('blog');
+	const posts = await getPublishedPosts();
 	return rss({
 		title: SITE_TITLE,
 		description: SITE_DESCRIPTION,

@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '../../lib/posts';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
 import {
@@ -9,7 +9,7 @@ import {
 } from '../../data/blogMeta';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
+	const posts = await getPublishedPosts();
 	return posts.map((post) => ({
 		params: { slug: post.id },
 		props: post,
@@ -43,7 +43,7 @@ const categoryId = getBlogCategoryId(post.id);
 const categoryLabel = getBlogCategoryMeta(post.id).label;
 const normalizedHeroImage = getNormalizedHeroImage(post.data.heroImage);
 
-const allPosts = (await getCollection('blog')).sort(
+const allPosts = (await getPublishedPosts()).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 

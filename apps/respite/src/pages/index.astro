@@ -15,7 +15,7 @@ const r = app('respite');
 const storeFor = { ios: ['appstore', r.stores.appStore], android: ['playstore', r.stores.play], chrome: ['chromestore', r.stores.chrome] } as const;
 import WebSiteSchema from '../components/SEO/WebSiteSchema.astro';
 import ProductSchema from '../components/SEO/ProductSchema.astro';
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '../lib/posts';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
 
 const homeFaqs = [
@@ -28,7 +28,7 @@ const homeFaqs = [
 
 
 // Get latest 3 blog posts
-const allPosts = await getCollection('blog');
+const allPosts = await getPublishedPosts();
 const latestPosts = allPosts
 	.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
 	.slice(0, 3);
