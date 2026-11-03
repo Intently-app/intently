@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Avoid X first thing in the morning, before bed and when already stressed.'
 section: 'Digital Wellbeing'
 tags: ['twitter doomscrolling', 'break twitter addiction', 'stop doomscrolling', 'twitter mental health', 'digital wellbeing']
-heroImage: '/blog-twitter-doomscroll.jpg'
+heroImage: '/images/blog/stop-twitter-doomscrolling.jpg'
+heroImageAlt: 'A wire of ringing bells has just been snipped with orange scissors; the bells fall silent in a gentle arc.'
 faq:
   - question: 'What is doomscrolling and why does Twitter cause it?'
     answer: 'Doomscrolling is the compulsive urge to keep scrolling through negative news and content even though it makes you feel worse. Twitter/X is especially prone to it because it is real time, has no end of feed, and tends to surface emotionally charged posts that attract replies and shares. Something always seems to be happening, so there is always a reason to refresh.'

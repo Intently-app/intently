@@ -11,7 +11,8 @@ keyTakeaways:
   - 'Respite is not a coach: it runs no AI, and its connector reads by default and can make limits stricter if you opt in.'
   - 'Pick a coach for in-the-moment friction, bring your own AI for analysis and planning.'
 tags: ['ai screen time coach', 'zensi alternative', 'fomo alternative', 'ai coach', 'phone addiction', 'comparison', 'bring your own ai']
-heroImage: '/blog-app-comparison.jpg'
+heroImage: '/images/blog/ai-screen-time-coach-apps-compared.jpg'
+heroImageAlt: 'A speech-bubble barrier blocks a night road while a speech-bubble hot-air balloon floats over the daylit route.'
 faq:
   - question: 'What is an AI screen time coach?'
     answer: 'It is an app that puts an AI conversation between you and a blocked app. When you try to open it, the coach asks why, whether it is worth it, or what you could do instead, and some grant or deny access based on your answer. FOMO, Zensi, Argue, No Scroll AI and Monk AI are examples, mostly on iPhone.'

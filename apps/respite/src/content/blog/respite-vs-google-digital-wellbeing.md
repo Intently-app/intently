@@ -3,7 +3,8 @@ title: 'Respite vs Google Digital Wellbeing (2026): Which Is Better?'
 description: 'Respite vs Google Digital Wellbeing compared: built-in Android timers versus a mindful pause. See privacy, price and who should switch or keep both.'
 pubDate: 2026-01-12
 updatedDate: 2026-11-03
-heroImage: '/blog-placeholder-2.jpg'
+heroImage: '/images/blog/respite-vs-google-digital-wellbeing.jpg'
+heroImageAlt: 'A long staircase with a plain built-in handrail and a sunlit landing halfway up with a cushioned window seat.'
 author: 'Respite Team'
 answer: 'Stay with Google Digital Wellbeing if you are on Android and want free, built-in usage stats and app timers with zero setup. Add Respite if timers keep getting dismissed and you want a gentle pause before the apps you choose, plus streaks and richer tracking, on iPhone, Android and Chrome. They do not conflict, so you can run both.'
 keyTakeaways:

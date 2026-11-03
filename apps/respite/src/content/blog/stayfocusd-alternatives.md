@@ -13,7 +13,8 @@ keyTakeaways:
   - 'News Feed Eradicator and Unhook YouTube remove feeds rather than whole sites.'
 section: 'App Comparisons'
 tags: ['stayfocusd alternative', 'stayfocusd alternatives 2026', 'chrome blocker alternative', 'focus chrome extension', 'block distracting websites']
-heroImage: '/blog-placeholder-3.jpg'
+heroImage: '/images/blog/stayfocusd-alternatives.jpg'
+heroImageAlt: 'A canal stepping down through different lock gates, a paper boat waiting, toward a reservoir shaped like a browser window.'
 faq:
   - question: 'What is the best free alternative to StayFocusd?'
     answer: 'LeechBlock is the closest free alternative for blocking, with more flexible rules and schedules. For a different approach, Respite''s Chrome extension is free and adds a mindful pause before the sites you pick instead of blocking them. News Feed Eradicator is a free option that removes feeds rather than sites.'

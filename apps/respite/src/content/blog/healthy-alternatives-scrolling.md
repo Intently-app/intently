@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Make the alternative the easiest thing to reach, and add a pause before your usual apps.'
 section: 'Digital Wellbeing'
 tags: ['healthy alternatives social media', 'what to do instead of scrolling', 'things to do instead of phone', 'stop scrolling', 'digital wellbeing']
-heroImage: '/blog-placeholder-4.jpg'
+heroImage: '/images/blog/healthy-alternatives-scrolling.jpg'
+heroImageAlt: 'A phone-shaped vending machine dispensing a book, yarn, a teacup and a kite whose tail dangles from the flap.'
 faq:
   - question: 'What can I do instead of scrolling on my phone?'
     answer: 'It depends on what you are craving. If you are bored, try reading, sketching or a puzzle. If you want connection, text or call one specific person. If you need to relax, try a short walk, breathing exercises or music. If you want stimulation, pick up a hobby or a strategy game. Matching the replacement to the need works better than white-knuckling through the urge.'

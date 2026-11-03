@@ -12,7 +12,8 @@ keyTakeaways:
   - 'Opal is deeper on focus sessions and scheduled blocking; Respite is lighter and needs no account.'
 section: 'App Comparisons'
 tags: ['respite', 'opal', 'screen time app', 'app comparison', 'digital wellbeing', 'productivity']
-heroImage: '/blog-app-comparison.jpg'
+heroImage: '/images/blog/respite-vs-opal.jpg'
+heroImageAlt: 'A castle drawbridge raised by a handless clock tower beside a row of stepping stones across a sunlit stream.'
 faq:
   - question: 'Which is better: Respite or Opal?'
     answer: 'Neither is better for everyone. Opal is better if you want firm scheduled blocking and focus sessions on iPhone and accept a paid subscription. Respite is better if you want a free, gentler pause before the apps you pick, usage tracking and streaks, and coverage across iPhone, Android and Chrome. Many people prefer a pause; some need a lock.'

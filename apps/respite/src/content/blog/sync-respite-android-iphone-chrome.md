@@ -10,7 +10,8 @@ keyTakeaways:
   - 'On iPhone, app names are private, so you match your apps to your other devices'' apps.'
   - 'Turn on Count all devices toward limits to make one limit cover your total time.'
 tags: ['respite', 'how to', 'sync', 'android', 'iphone', 'chrome extension', 'account', 'respite plus']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/sync-respite-android-iphone-chrome.jpg'
+heroImageAlt: 'Three device-shaped metronomes on a shared plank, their acorn-weighted pendulums swinging in perfect unison.'
 howToSteps:
   - name: 'Update Respite everywhere'
     text: 'Install the latest Respite on Android and iPhone, and update the browser extension to the version that includes sign-in.'

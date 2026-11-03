@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#7FAABD"/>
+    <stop offset=".5" stop-color="#BDE1EC"/>
+    <stop offset="1" stop-color="#DCEEF4"/>
+  </linearGradient>
+  <radialGradient id="dawn" cx="700" cy="450" r="620" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#FCEBC4" stop-opacity=".95"/>
+    <stop offset=".25" stop-color="#FCEBC4" stop-opacity=".55"/>
+    <stop offset=".6" stop-color="#F7FBFC" stop-opacity=".15"/>
+    <stop offset="1" stop-color="#F7FBFC" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="floor" x1="0" y1="740" x2="0" y2="900" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#9CC3D3"/>
+    <stop offset="1" stop-color="#6E9DB2"/>
+  </linearGradient>
+  <linearGradient id="beyond" x1="0" y1="250" x2="0" y2="770" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#24465A"/>
+    <stop offset="1" stop-color="#2F6079"/>
+  </linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#EEF5F8"/>
+    <stop offset="1" stop-color="#C9E2EB"/>
+  </linearGradient>
+  <linearGradient id="water" x1="0" y1="452" x2="0" y2="600" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#BDE1EC" stop-opacity=".75"/>
+    <stop offset="1" stop-color="#5E8FA6" stop-opacity=".55"/>
+  </linearGradient>
+  <radialGradient id="sunG" cx=".45" cy=".4" r=".7">
+    <stop offset="0" stop-color="#F6BE4A"/>
+    <stop offset="1" stop-color="#E8A317"/>
+  </radialGradient>
+  <radialGradient id="halo" cx="700" cy="452" r="190" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#E8A317" stop-opacity=".55"/>
+    <stop offset=".45" stop-color="#FCEBC4" stop-opacity=".45"/>
+    <stop offset="1" stop-color="#FCEBC4" stop-opacity="0"/>
+  </radialGradient>
+  <clipPath id="glass"><path d="M607,292 L793,292 L776,578 Q775,590 762,590 L638,590 Q625,590 624,578Z"/></clipPath>
+  <clipPath id="above"><rect x="560" y="200" width="280" height="252"/></clipPath>
+  <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
+  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+  <filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+    <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+  </filter>
+</defs>
+
+<!-- back wall, graded like a dawn sky -->
+<rect width="1600" height="900" fill="url(#wall)"/>
+<rect width="1600" height="900" fill="url(#dawn)"/>
+<!-- soft rays thrown across the wall from the glass -->
+<g fill="#FCEBC4" opacity=".22" filter="url(#blur)">
+  <path d="M700,440 L180,0 L330,0Z"/>
+  <path d="M700,440 L640,0 L760,0Z"/>
+  <path d="M700,440 L1040,0 L1150,0Z"/>
+</g>
+
+<!-- doorway into the next room -->
+<rect x="1108" y="232" width="248" height="530" fill="#DCEEF4"/>
+<rect x="1124" y="248" width="216" height="514" fill="url(#beyond)"/>
+<!-- inner jamb (depth) -->
+<path d="M1124,248 L1148,266 L1148,744 L1124,762Z" fill="#5E8FA6"/>
+<!-- next room: far wall, floor -->
+<path d="M1148,266 L1340,266 L1340,690 L1148,690Z" fill="#2F6079"/>
+<path d="M1148,690 L1340,690 L1340,762 L1124,762Z" fill="#24465A"/>
+<!-- open door leaf -->
+<path d="M1340,248 L1300,276 L1300,742 L1340,762Z" fill="#4D7D94"/>
+<circle cx="1308" cy="510" r="3.5" fill="#BDE1EC"/>
+<!-- tiny phone charging on a low stool -->
+<g transform="translate(1213 692) scale(1.35) translate(-1213 -692)">
+<rect x="1180" y="652" width="66" height="8" rx="2" fill="#5E8FA6"/>
+<rect x="1186" y="660" width="5" height="32" fill="#4D7D94"/>
+<rect x="1235" y="660" width="5" height="32" fill="#4D7D94"/>
+<rect x="1204" y="622" width="18" height="30" rx="3.5" fill="#0B1C27"/>
+<rect x="1206.5" y="625" width="13" height="23" rx="2" fill="#5E8FA6"/>
+<path d="M1213,652 C1213,672 1176,664 1176,640 L1176,604" stroke="#0B1C27" stroke-width="2" fill="none"/>
+<rect x="1170" y="592" width="12" height="14" rx="2" fill="#5E8FA6"/>
+<ellipse cx="1213" cy="637" rx="22" ry="22" fill="#BDE1EC" opacity=".22" filter="url(#soft)"/>
+</g>
+
+<!-- skirting + floor -->
+<rect x="0" y="740" width="1108" height="22" fill="#EEF5F8" opacity=".55"/>
+<rect x="1356" y="740" width="244" height="22" fill="#EEF5F8" opacity=".55"/>
+<rect x="0" y="762" width="1600" height="138" fill="url(#floor)"/>
+<!-- warm spill of light on the floor -->
+<ellipse cx="720" cy="830" rx="520" ry="54" fill="#FCEBC4" opacity=".35" filter="url(#blur)"/>
+
+<!-- corner of the bed, left -->
+<path d="M-10,598 L262,598 Q300,598 304,640 L318,900 L-10,900Z" fill="#DCEEF4"/>
+<path d="M-10,598 L262,598 Q300,598 304,640 L306,660 Q200,676 -10,664Z" fill="#F7FBFC"/>
+<path d="M28,566 Q40,540 120,540 Q210,540 226,562 Q236,590 210,598 L52,600 Q20,596 28,566Z" fill="#EEF5F8"/>
+<path d="M60,600 Q140,592 218,600" stroke="#BDE1EC" stroke-width="3" fill="none"/>
+<path d="M120,680 Q200,700 300,690" stroke="#BDE1EC" stroke-width="3" fill="none"/>
+<path d="M304,640 L318,900" stroke="#9CC3D3" stroke-width="2"/>
+<g transform="translate(700 850) scale(1.12) translate(-700 -850)">
+<!-- nightstand -->
+<ellipse cx="700" cy="842" rx="270" ry="16" fill="#0B1C27" opacity=".12" filter="url(#soft)"/>
+<rect x="468" y="606" width="464" height="214" fill="#9CC3D3"/>
+<rect x="468" y="606" width="464" height="214" fill="url(#wood)" opacity=".35"/>
+<rect x="492" y="630" width="416" height="78" rx="4" fill="#BDE1EC"/>
+<rect x="492" y="724" width="416" height="78" rx="4" fill="#BDE1EC"/>
+<rect x="676" y="664" width="48" height="8" rx="4" fill="#5E8FA6"/>
+<rect x="676" y="758" width="48" height="8" rx="4" fill="#5E8FA6"/>
+<rect x="484" y="820" width="16" height="30" fill="#5E8FA6"/>
+<rect x="900" y="820" width="16" height="30" fill="#5E8FA6"/>
+<!-- top slab -->
+<rect x="448" y="584" width="504" height="24" rx="3" fill="#F7FBFC"/>
+<rect x="448" y="600" width="504" height="8" fill="#BDE1EC"/>
+<!-- light pooled on the top, caustic -->
+<ellipse cx="760" cy="592" rx="150" ry="9" fill="#FCEBC4" filter="url(#soft)"/>
+<ellipse cx="720" cy="593" rx="46" ry="5" fill="#E8A317" opacity=".55" filter="url(#soft)"/>
+
+<!-- halo behind the glass -->
+<circle cx="700" cy="452" r="190" fill="url(#halo)"/>
+
+<!-- the glass -->
+<g clip-path="url(#glass)">
+  <rect x="600" y="280" width="200" height="320" fill="#F7FBFC" opacity=".25"/>
+  <!-- sun, risen above the water line -->
+  <g clip-path="url(#above)">
+    <circle cx="700" cy="452" r="66" fill="url(#sunG)"/>
+  </g>
+  <!-- water -->
+  <rect x="600" y="452" width="200" height="150" fill="url(#water)"/>
+  <!-- submerged half of the sun, refracted: shifted and magnified -->
+  <path d="M624,454 A78,78 0 0 0 780,454Z" fill="#F6BE4A" opacity=".5"/>
+  <g fill="#E8A317">
+    <rect x="632" y="462" width="70" height="5" rx="2.5" opacity=".75"/><rect x="712" y="462" width="54" height="5" rx="2.5" opacity=".75"/>
+    <rect x="648" y="478" width="40" height="4" rx="2" opacity=".6"/><rect x="698" y="478" width="70" height="4" rx="2" opacity=".6"/>
+    <rect x="660" y="494" width="88" height="4" rx="2" opacity=".5"/>
+    <rect x="676" y="510" width="30" height="3" rx="1.5" opacity=".4"/><rect x="714" y="510" width="26" height="3" rx="1.5" opacity=".4"/>
+  </g>
+  <!-- water surface -->
+  <ellipse cx="700" cy="452" rx="92" ry="9" fill="#F7FBFC" opacity=".55"/>
+  <!-- glass highlights -->
+  <path d="M622,300 L634,300 L640,580 L630,580Z" fill="#F7FBFC" opacity=".6"/>
+  <path d="M770,300 L782,300 L768,580 L760,580Z" fill="#5E8FA6" opacity=".35"/>
+</g>
+<!-- glass rim and base -->
+<ellipse cx="700" cy="292" rx="93" ry="11" fill="none" stroke="#F7FBFC" stroke-width="3" opacity=".9"/>
+<path d="M607,292 L624,578 Q625,590 638,590 L762,590 Q775,590 776,578 L793,292" fill="none" stroke="#F7FBFC" stroke-width="3" opacity=".7"/>
+<path d="M630,586 Q700,596 770,586" stroke="#5E8FA6" stroke-width="3" fill="none" opacity=".5"/>
+
+</g>
+<rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

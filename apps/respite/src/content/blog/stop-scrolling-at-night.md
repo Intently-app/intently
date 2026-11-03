@@ -13,7 +13,8 @@ keyTakeaways:
   - 'A pause before your usual apps, plus Sleep Focus or Bedtime mode, helps when the phone must stay close.'
 section: 'Digital Wellbeing'
 tags: ['stop scrolling at night', 'phone addiction before bed', 'sleep hygiene', 'digital wellbeing', 'screen time at night']
-heroImage: '/blog-night-scrolling.jpg'
+heroImage: '/images/blog/stop-scrolling-at-night.jpg'
+heroImageAlt: 'A glowing phone sets like the sun behind duvet hills under a starry bedroom ceiling.'
 faq:
   - question: 'Why is scrolling on my phone before bed so bad for sleep?'
     answer: 'Screens emit blue-enriched light that can suppress melatonin, the hormone that signals sleep, and engaging content keeps your mind alert when it should be winding down. Add the absence of a stopping point and it is easy to scroll far longer than you meant to, which pushes bedtime later and can leave you tired the next day.'

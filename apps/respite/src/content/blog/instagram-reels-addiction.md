@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Ask what Reels is filling: boredom, loneliness or anxiety, and meet that need directly.'
 section: 'Digital Wellbeing'
 tags: ['instagram reels addiction', 'stop watching reels', 'instagram reels addictive', 'instagram addiction', 'digital wellbeing', 'reduce instagram usage']
-heroImage: '/blog-placeholder-1.jpg'
+heroImage: '/images/blog/instagram-reels-addiction.jpg'
+heroImageAlt: 'A square picture frame melting into an endless film strip that pools on the floor and runs out the door.'
 faq:
   - question: 'Why are Instagram Reels so addictive?'
     answer: 'Reels combine full-screen video, a personalised algorithm that learns your tastes quickly, an infinite vertical feed with autoplay, unpredictable rewards and the social layer of likes and comments. Unlike standalone video apps, Reels sit inside your social identity, with your followers and friends, which adds comparison and social pressure on top of the usual pull of short video.'

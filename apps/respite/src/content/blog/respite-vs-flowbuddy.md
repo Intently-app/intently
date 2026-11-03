@@ -12,7 +12,8 @@ keyTakeaways:
   - 'FlowBuddy wins on transparency and minimalism, Respite on features and platforms.'
 section: 'App Comparisons'
 tags: ['respite', 'flowbuddy', 'free screen time app', 'app comparison', 'digital wellbeing', 'one sec alternative android']
-heroImage: '/blog-app-comparison.jpg'
+heroImage: '/images/blog/respite-vs-flowbuddy.jpg'
+heroImageAlt: 'A clear glass box with one gear puffing a breath cloud, beside a multitool fanned open with pause, chart and flame blades.'
 faq:
   - question: 'Which is better: Respite or FlowBuddy?'
     answer: 'FlowBuddy is better if you want only a breathing pause on Android, with open-source code. Respite is better if you want more: usage tracking, limits, streaks, and support for iPhone and Chrome. Both are free to use, so the cheapest test is to install each for a week and see which pause you actually notice.'

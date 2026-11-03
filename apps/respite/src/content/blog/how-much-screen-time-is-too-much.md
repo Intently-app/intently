@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Track for a week, trim about a quarter, and see how you feel.'
 section: "Digital Wellbeing"
 tags: ["how much screen time is too much", "screen time recommendations", "healthy screen time", "screen time limits", "digital wellbeing"]
-heroImage: "/blog-placeholder-3.jpg"
+heroImage: '/images/blog/how-much-screen-time-is-too-much.jpg'
+heroImageAlt: 'Three measuring cups of rising size, each holding a tiny landscape instead of liquid, with no markings.'
 faq:
   - question: 'How much screen time per day is healthy for adults?'
     answer: 'There is no official limit for adults. Studies tend to find that heavy recreational use is linked with poorer wellbeing, but they are mostly correlational and vary by what people do on screen. A practical approach is to track your use for a week, notice how you feel, and trim time that leaves you drained rather than satisfied.'

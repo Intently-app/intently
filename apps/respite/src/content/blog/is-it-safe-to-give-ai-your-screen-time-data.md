@@ -11,7 +11,8 @@ keyTakeaways:
   - 'Disconnect in your AI app''s connector settings; deleting your Respite account ends every connection.'
   - 'Check your chatbot''s history and training settings before you connect, not after.'
 tags: ['privacy', 'ai', 'mcp', 'screen time data', 'claude', 'chatgpt', 'is it safe', 'bring your own ai']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/is-it-safe-to-give-ai-your-screen-time-data.jpg'
+heroImageAlt: 'A parcel passes through an X-ray scanner showing only bar charts and a clock; a photo and envelope sit aside.'
 faq:
   - question: 'Is it safe to give an AI my screen time data?'
     answer: 'For most people the risk is modest: usage minutes and app names reveal habits, not messages or photos. But habits are personal. Once data enters a chat, the AI provider processes it under its own terms. Connect only to an assistant whose privacy settings you have checked, share the minimum, and know how to disconnect.'

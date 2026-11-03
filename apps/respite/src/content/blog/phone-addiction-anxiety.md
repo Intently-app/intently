@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Persistent or intense anxiety needs a doctor or therapist, not just app settings.'
 section: 'Digital Wellbeing'
 tags: ['phone addiction anxiety', 'screen time anxiety', 'phone causing anxiety', 'FOMO', 'notification stress', 'digital wellbeing']
-heroImage: '/blog-placeholder-4.jpg'
+heroImage: '/images/blog/phone-addiction-anxiety.jpg'
+heroImageAlt: 'A paper Möbius strip with a storm cloud circling it, cut open where a calm path leads off toward a sunrise.'
 faq:
   - question: 'Can phone addiction cause anxiety?'
     answer: 'Research links heavy phone use with higher anxiety, but the link is an association rather than proof of cause, and it likely runs both ways: anxious people reach for their phones more, and notifications, comparison and lost sleep can add to anxiety. Reducing notifications and late-night use helps many people. If anxiety is persistent, speak to a doctor or therapist.'

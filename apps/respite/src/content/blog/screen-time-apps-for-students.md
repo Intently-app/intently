@@ -13,7 +13,8 @@ keyTakeaways:
   - 'With ADHD, a gentle pause often works better than hard blocking; talk to a professional if it is hard.'
 section: "Digital Wellbeing"
 tags: ["screen time app for students", "focus app for studying", "student phone addiction", "study focus app", "digital wellbeing students", "reduce phone use studying"]
-heroImage: "/blog-placeholder-2.jpg"
+heroImage: '/images/blog/screen-time-apps-for-students.jpg'
+heroImageAlt: 'An open pencil case holding a padlock, a sprouting pencil and a tiny bench, with a phone on a distant shelf.'
 faq:
   - question: 'What is the best free screen time app for students?'
     answer: 'Respite is a strong free pick for students: it adds a short pause before the apps you choose, tracks usage automatically and has a Chrome extension for laptops. No account is needed (sign in only for sync), and there are no ads. ScreenZen is another free option with countdown delays.'

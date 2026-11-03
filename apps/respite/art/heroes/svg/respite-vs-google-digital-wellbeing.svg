@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCEEF4"/><stop offset="1" stop-color="#EEF5F8"/></linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BDE1EC"/><stop offset="1" stop-color="#F7FBFC"/></linearGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FCEBC4" stop-opacity=".1"/><stop offset="1" stop-color="#FCEBC4" stop-opacity=".75"/></linearGradient>
+    <clipPath id="win"><rect x="716" y="162" width="188" height="206"/></clipPath>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#wall)"/>
+  <!-- halo disc behind the window -->
+  <circle cx="810" cy="330" r="270" fill="#BDE1EC"/>
+  <!-- ceiling slab, cut -->
+  <rect width="1600" height="40" fill="#8FBBCD"/>
+  <rect y="40" width="1600" height="6" fill="#5E8FA6" opacity=".5"/>
+  <!-- sparse wall coursing -->
+  <g fill="#BDE1EC"><rect x="80" y="160" width="140" height="4"/><rect x="1180" y="120" width="160" height="4"/><rect x="430" y="520" width="110" height="4"/><rect x="1240" y="520" width="120" height="4"/><rect x="1420" y="420" width="100" height="4"/></g>
+
+  <!-- blank picture frame, a little crooked -->
+  <g transform="rotate(5 340 360)">
+    <rect x="290" y="306" width="110" height="130" fill="#0B1C27" opacity=".25" transform="translate(20 20)"/>
+    <rect x="290" y="306" width="110" height="130" fill="#2F6079"/>
+    <rect x="304" y="320" width="82" height="102" fill="#F7FBFC"/>
+    <polygon points="304,422 340,370 362,396 386,366 386,422" fill="#BDE1EC"/>
+    <path d="M345 306 L345 284 M345 284 L300 306 M345 284 L390 306" stroke="#5E8FA6" stroke-width="2" opacity=".8"/>
+  </g>
+
+  <!-- window -->
+  <rect x="722" y="168" width="196" height="216" fill="#0B1C27" opacity=".2" transform="translate(8 8)"/>
+  <rect x="702" y="148" width="216" height="232" fill="#F7FBFC"/>
+  <rect x="716" y="162" width="188" height="206" fill="url(#sky)"/>
+  <g clip-path="url(#win)">
+    <circle cx="862" cy="214" r="36" fill="#F7FBFC"/>
+    <path d="M716 314 Q790 284 904 304 V368 H716 Z" fill="#A8CDB2"/>
+    <path d="M716 340 Q830 316 904 334 V368 H716 Z" fill="#6E9E7E"/>
+  </g>
+  <rect x="806" y="162" width="8" height="206" fill="#F7FBFC"/>
+  <rect x="716" y="262" width="188" height="8" fill="#F7FBFC"/>
+  <rect x="690" y="368" width="240" height="14" fill="#BDE1EC"/>
+  <rect x="690" y="368" width="240" height="4" fill="#F7FBFC"/>
+
+  <!-- sun shaft from the window onto the seat -->
+  <polygon points="720,382 902,382 888,424 752,424" fill="url(#beam)"/>
+
+  <!-- the stair: one stepped cross-section -->
+  <path id="stair" d="M180 790 v-27 h44 v-27 h44 v-27 h44 v-27 h44 v-27 h44 v-27 h44 v-27 h44 v-27 h44 v-27 h44 v-27 h44 H1000 v-27 h42 v-27 h42 v-27 h42 v-27 h42 v-27 h42 v-27 h42 v-27 h42 v-27 h42 v-27 h42 v-27 h42 H1600 V312 H1440 L1020 580 H640 V790 Z" fill="#0B1C27" opacity=".25" transform="translate(20 20)"/>
+  <rect x="990" y="580" width="22" height="210" fill="#0B1C27" opacity=".25" transform="translate(20 20)"/>
+  <rect x="990" y="580" width="22" height="210" fill="#2F6079"/>
+  <rect x="990" y="580" width="6" height="210" fill="#24465A"/>
+  <path d="M180 790 v-27 h44 v-27 h44 v-27 h44 v-27 h44 v-27 h44 v-27 h44 v-27 h44 v-27 h44 v-27 h44 v-27 h44 H1000 v-27 h42 v-27 h42 v-27 h42 v-27 h42 v-27 h42 v-27 h42 v-27 h42 v-27 h42 v-27 h42 v-27 h42 H1600 V312 H1440 L1020 580 H640 V790 Z" fill="#24465A"/>
+  <!-- tread glints (nosings) -->
+  <g fill="#5E8FA6">
+    <rect x="180" y="763" width="44" height="5"/><rect x="224" y="736" width="44" height="5"/><rect x="268" y="709" width="44" height="5"/><rect x="312" y="682" width="44" height="5"/><rect x="356" y="655" width="44" height="5"/><rect x="400" y="628" width="44" height="5"/><rect x="444" y="601" width="44" height="5"/><rect x="488" y="574" width="44" height="5"/><rect x="532" y="547" width="44" height="5"/>
+    <rect x="1000" y="493" width="42" height="5"/><rect x="1042" y="466" width="42" height="5"/><rect x="1084" y="439" width="42" height="5"/><rect x="1126" y="412" width="42" height="5"/><rect x="1168" y="385" width="42" height="5"/><rect x="1210" y="358" width="42" height="5"/><rect x="1252" y="331" width="42" height="5"/><rect x="1294" y="304" width="42" height="5"/><rect x="1336" y="277" width="42" height="5"/><rect x="1378" y="250" width="222" height="5"/>
+  </g>
+  <!-- landing floor (broad, pale top) -->
+  <rect x="576" y="520" width="424" height="8" fill="#5E8FA6"/>
+  <rect x="640" y="540" width="350" height="4" fill="#2F6079"/>
+  <!-- cut-section hatch on the slab edge -->
+  <g fill="#2F6079"><rect x="700" y="556" width="40" height="4"/><rect x="800" y="556" width="60" height="4"/><rect x="920" y="556" width="30" height="4"/><rect x="1480" y="290" width="70" height="4"/></g>
+
+  <!-- window seat on the landing -->
+  <rect x="680" y="466" width="260" height="54" fill="#0B1C27" opacity=".25" transform="translate(20 20)"/>
+  <rect x="680" y="466" width="260" height="54" fill="#5E8FA6"/>
+  <rect x="680" y="466" width="260" height="7" fill="#8FBBCD"/>
+  <rect x="680" y="466" width="12" height="54" fill="#2F6079"/>
+  <rect x="740" y="484" width="60" height="4" rx="2" fill="#2F6079" opacity=".6"/><rect x="820" y="484" width="60" height="4" rx="2" fill="#2F6079" opacity=".6"/>
+  <rect x="684" y="420" width="252" height="50" rx="16" fill="#0B1C27" opacity=".18" transform="translate(12 10)"/>
+  <rect x="684" y="420" width="252" height="50" rx="16" fill="#F7FBFC"/>
+  <rect x="684" y="452" width="252" height="18" rx="9" fill="#BDE1EC"/>
+  <path d="M810 424 V468" stroke="#BDE1EC" stroke-width="3"/>
+  <!-- the one warm rectangle of sun -->
+  <polygon points="752,422 888,422 884,468 756,468" fill="#E8A317"/>
+  <polygon points="752,422 888,422 887,431 753,431" fill="#FCEBC4"/>
+  <polygon points="866,431 887,431 884,468 864,468" fill="#B97F0C" opacity=".55"/>
+  <!-- plant on the landing -->
+  <g transform="translate(984 520)">
+    <polygon points="-18,-36 18,-36 13,0 -13,0" fill="#0B1C27" opacity=".25" transform="translate(14 0)"/>
+    <path d="M0 -36 C-6 -70 -36 -86 -42 -80 C-36 -60 -18 -46 -4 -36 Z" fill="#6E9E7E"/>
+    <path d="M0 -36 C6 -76 30 -98 40 -92 C34 -68 18 -48 4 -36 Z" fill="#3E9B4F"/>
+    <polygon points="-18,-36 18,-36 13,0 -13,0" fill="#5E8FA6"/>
+    <polygon points="4,-36 18,-36 13,0 4,0" fill="#2F6079"/>
+  </g>
+
+  <!-- the built-in handrail, all the way up -->
+  <g fill="#9FB0BA">
+    <rect x="240" y="638" width="6" height="22"/><rect x="440" y="512" width="6" height="22"/><rect x="640" y="414" width="6" height="22"/><rect x="1060" y="382" width="6" height="22"/><rect x="1260" y="254" width="6" height="22"/>
+  </g>
+  <path d="M150 684 L612 400 H1006 L1430 130 H1600" stroke="#0B1C27" stroke-width="12" fill="none" opacity=".2" stroke-linejoin="round" transform="translate(12 12)"/>
+  <path d="M150 684 L612 400 H1006 L1430 130 H1600" stroke="#7C93A1" stroke-width="12" fill="none" stroke-linejoin="round"/>
+  <path d="M150 680 L612 396 H1006 L1430 126 H1600" stroke="#C9D4DA" stroke-width="3" fill="none" stroke-linejoin="round"/>
+  <rect x="140" y="668" width="16" height="122" fill="#7C93A1"/>
+  <rect x="140" y="668" width="5" height="122" fill="#5A7383"/>
+
+  <!-- floor -->
+  <rect y="790" width="1600" height="110" fill="#5E8FA6"/>
+  <rect y="790" width="1600" height="6" fill="#8FBBCD"/>
+  <g fill="#2F6079" opacity=".5"><rect x="300" y="840" width="160" height="4"/><rect x="900" y="860" width="220" height="4"/><rect x="1300" y="830" width="120" height="4"/></g>
+  <!-- slippers at the foot of the stairs -->
+  <g transform="translate(70 790)">
+    <ellipse cx="34" cy="-8" rx="30" ry="9" fill="#2F6079"/><path d="M22 -14 Q34 -26 50 -14 Z" fill="#A8CDB2"/>
+    <ellipse cx="84" cy="-6" rx="30" ry="9" fill="#2F6079" transform="rotate(8 84 -6)"/><path d="M72 -12 Q84 -24 100 -10 Z" fill="#A8CDB2"/>
+  </g>
+
+  <rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

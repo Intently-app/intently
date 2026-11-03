@@ -3,7 +3,8 @@ title: 'Mindful Interventions vs App Blocking: Which Lasts?'
 description: 'Mindful interventions vs app blocking: why a pause before you open an app can beat a hard block for lasting habits, and when blocking still wins.'
 pubDate: 2026-01-12
 updatedDate: 2026-11-01
-heroImage: '/blog-placeholder-about.jpg'
+heroImage: '/images/blog/mindful-tech-interventions-vs-blocking.jpg'
+heroImageAlt: 'A brick wall covered in ladders, rope and crates beside an open stone archway with a wind chime.'
 author: 'Respite Team'
 answer: 'A mindful intervention adds a short pause before an app opens and lets you decide; blocking removes the choice. Blocking works while it is on, but it can trigger reactance and workarounds and does not build the habit of choosing. A pause keeps you in control and trains awareness. Use blocking for short, high-stakes windows and pauses for everyday habits.'
 keyTakeaways:

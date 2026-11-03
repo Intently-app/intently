@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BDE1EC"/><stop offset=".72" stop-color="#EEF5F8"/></linearGradient>
+    <!-- slide frame shared by all four -->
+    <g id="frame">
+      <rect x="0" y="-322" width="9" height="322" fill="#2F6079"/>
+      <rect x="40" y="-322" width="9" height="322" fill="#24465A"/>
+      <rect x="0" y="-280" width="49" height="6" fill="#2F6079"/><rect x="0" y="-236" width="49" height="6" fill="#2F6079"/><rect x="0" y="-192" width="49" height="6" fill="#2F6079"/><rect x="0" y="-148" width="49" height="6" fill="#2F6079"/><rect x="0" y="-104" width="49" height="6" fill="#2F6079"/><rect x="0" y="-60" width="49" height="6" fill="#2F6079"/>
+      <rect x="-4" y="-326" width="92" height="16" rx="3" fill="#24465A"/>
+      <rect x="0" y="-372" width="7" height="48" fill="#2F6079"/><rect x="78" y="-372" width="7" height="48" fill="#2F6079"/>
+      <rect x="0" y="-376" width="85" height="7" rx="3" fill="#2F6079"/>
+    </g>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <!-- sun, upper left -->
+  <circle cx="190" cy="150" r="64" fill="#F7FBFC"/>
+  <circle cx="190" cy="150" r="96" fill="#F7FBFC" opacity=".35"/>
+  <!-- halo disc behind the orange slide -->
+  <circle cx="985" cy="470" r="270" fill="#DCEEF4"/>
+  <g fill="#F7FBFC"><rect x="420" y="120" width="140" height="22" rx="11"/><rect x="460" y="104" width="70" height="22" rx="11"/><rect x="1260" y="170" width="160" height="22" rx="11"/><rect x="1300" y="154" width="80" height="22" rx="11"/></g>
+  <!-- hedges on the horizon -->
+  <path d="M0 648 V610 Q60 580 120 606 Q170 576 230 604 Q290 584 340 612 L360 648 Z" fill="#A8CDB2"/>
+  <path d="M1180 648 L1200 606 Q1260 578 1320 602 Q1380 572 1440 600 Q1520 580 1600 604 V648 Z" fill="#A8CDB2"/>
+  <!-- ground -->
+  <rect y="648" width="1600" height="252" fill="#A9CFDC"/>
+  <rect y="648" width="1600" height="6" fill="#DCEEF4"/>
+  <path d="M0 700 Q400 660 800 690 T1600 680 V720 Q1200 730 800 716 T0 744 Z" fill="#BDE1EC" opacity=".7"/>
+  <g fill="#6E9E7E">
+    <path d="M120 790 l6 -18 l4 14 l5 -20 l4 24 Z"/><path d="M700 850 l6 -16 l4 12 l5 -18 l4 22 Z"/><path d="M1180 760 l6 -16 l4 12 l5 -18 l4 22 Z"/><path d="M1460 840 l6 -18 l4 14 l5 -20 l4 24 Z"/><path d="M960 820 l5 -14 l4 10 l4 -16 l4 20 Z"/>
+  </g>
+  <g fill="#8FBBCD" opacity=".7"><rect x="80" y="720" width="160" height="4"/><rect x="600" y="860" width="260" height="4"/><rect x="1240" y="800" width="200" height="4"/><rect x="1380" y="740" width="120" height="4"/></g>
+
+  <!-- 4: cream slide, ends in a shallow puddle (farthest) -->
+  <g transform="translate(1070 665) scale(.9)">
+    <ellipse cx="380" cy="10" rx="96" ry="16" fill="#8FBBCD"/>
+    <ellipse cx="380" cy="8" rx="80" ry="11" fill="#DCEEF4"/>
+    <rect x="340" y="4" width="40" height="3" rx="1.5" fill="#F7FBFC"/>
+    <path d="M70 -312 C150 -300 190 -130 260 -50 C292 -16 330 -8 352 -30" stroke="#0B1C27" stroke-width="34" fill="none" stroke-linecap="round" opacity=".18" transform="translate(20 20)"/>
+    <use href="#frame"/>
+    <rect x="226" y="-96" width="10" height="96" fill="#24465A"/>
+    <path d="M70 -312 C150 -300 190 -130 260 -50 C292 -16 330 -8 352 -30" stroke="#CDBB94" stroke-width="34" fill="none" stroke-linecap="round" transform="translate(0 9)"/>
+    <path d="M70 -312 C150 -300 190 -130 260 -50 C292 -16 330 -8 352 -30" stroke="#EFE6D2" stroke-width="30" fill="none" stroke-linecap="round"/>
+    <path d="M78 -318 C150 -306 186 -140 254 -60" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>
+  </g>
+
+  <!-- 3: ORANGE slide with a gentle upward bump, a figure stopped to look; cushion at its foot -->
+  <g transform="translate(790 710) scale(.9)">
+    <path d="M70 -312 C130 -306 150 -250 172 -204 C188 -172 206 -166 222 -180 C238 -194 250 -184 262 -150 C282 -90 306 -20 352 -30" stroke="#0B1C27" stroke-width="34" fill="none" stroke-linecap="round" opacity=".18" transform="translate(20 20)"/>
+    <path d="M300 -20 C300 -50 320 -54 385 -50 C450 -54 470 -50 470 -20 C470 8 450 10 385 8 C320 10 300 8 300 -20 Z" fill="#0B1C27" opacity=".18" transform="translate(16 14)"/>
+    <use href="#frame"/>
+    <rect x="206" y="-170" width="10" height="170" fill="#24465A"/>
+    <path d="M70 -312 C130 -306 150 -250 172 -204 C188 -172 206 -166 222 -180 C238 -194 250 -184 262 -150 C282 -90 306 -20 352 -30" stroke="#B97F0C" stroke-width="34" fill="none" stroke-linecap="round" transform="translate(0 9)"/>
+    <path d="M70 -312 C130 -306 150 -250 172 -204 C188 -172 206 -166 222 -180 C238 -194 250 -184 262 -150 C282 -90 306 -20 352 -30" stroke="#E8A317" stroke-width="30" fill="none" stroke-linecap="round"/>
+    <path d="M78 -318 C130 -312 148 -260 168 -216" stroke="#FCEBC4" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- tiny faceless figure, sat in the dip, looking out -->
+    <g transform="translate(200 -184)">
+      <path d="M-14 4 C-16 -18 -10 -38 2 -40 C14 -40 18 -20 16 4 Z" fill="#24465A"/>
+      <path d="M8 -4 L36 2 L36 10 L6 6 Z" fill="#24465A"/>
+      <circle cx="3" cy="-52" r="12" fill="#24465A"/>
+    </g>
+    <!-- big soft cushion -->
+    <path d="M300 -20 C300 -50 320 -54 385 -50 C450 -54 470 -50 470 -20 C470 8 450 10 385 8 C320 10 300 8 300 -20 Z" fill="#BDE1EC"/>
+    <path d="M304 -26 C306 -48 326 -50 385 -46 C444 -50 464 -48 466 -26 C440 -16 330 -16 304 -26 Z" fill="#F7FBFC"/>
+    <g fill="#8FBBCD"><circle cx="345" cy="-14" r="4"/><circle cx="385" cy="-12" r="4"/><circle cx="425" cy="-14" r="4"/></g>
+  </g>
+
+  <!-- 2: sage slide with a bumpy wave section in the chute -->
+  <g transform="translate(510 755) scale(.9)">
+    <path d="M70 -312 C130 -306 150 -270 170 -236 Q184 -206 196 -222 Q208 -238 220 -200 Q232 -164 244 -180 Q256 -196 268 -150 C284 -90 306 -20 352 -30" stroke="#0B1C27" stroke-width="34" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".18" transform="translate(20 20)"/>
+    <use href="#frame"/>
+    <rect x="226" y="-186" width="10" height="186" fill="#24465A"/>
+    <path d="M70 -312 C130 -306 150 -270 170 -236 Q184 -206 196 -222 Q208 -238 220 -200 Q232 -164 244 -180 Q256 -196 268 -150 C284 -90 306 -20 352 -30" stroke="#4F7D5E" stroke-width="34" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 9)"/>
+    <path d="M70 -312 C130 -306 150 -270 170 -236 Q184 -206 196 -222 Q208 -238 220 -200 Q232 -164 244 -180 Q256 -196 268 -150 C284 -90 306 -20 352 -30" stroke="#6E9E7E" stroke-width="30" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M78 -318 C130 -312 150 -276 166 -246" stroke="#D6EFD9" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- 1: navy slide, ends in a sandpit (nearest) -->
+  <g transform="translate(240 800) scale(.9)">
+    <path d="M70 -312 C150 -300 190 -130 260 -50 C292 -16 330 -8 352 -30" stroke="#0B1C27" stroke-width="34" fill="none" stroke-linecap="round" opacity=".18" transform="translate(20 20)"/>
+    <use href="#frame"/>
+    <rect x="226" y="-96" width="10" height="96" fill="#24465A"/>
+    <!-- sandpit -->
+    <polygon points="260,-8 520,-8 540,40 240,40" fill="#0B1C27" opacity=".18" transform="translate(20 20)"/>
+    <polygon points="260,-8 520,-8 540,40 240,40" fill="#5E3E22"/>
+    <polygon points="272,-2 508,-2 522,32 258,32" fill="#EDE3CC"/>
+    <path d="M300 30 Q360 10 420 30 Z" fill="#DDD0B0"/>
+    <path d="M70 -312 C150 -300 190 -130 260 -50 C292 -16 330 -8 352 -30" stroke="#0B1C27" stroke-width="34" fill="none" stroke-linecap="round" transform="translate(0 9)"/>
+    <path d="M70 -312 C150 -300 190 -130 260 -50 C292 -16 330 -8 352 -30" stroke="#24465A" stroke-width="30" fill="none" stroke-linecap="round"/>
+    <path d="M78 -318 C150 -306 186 -140 254 -60" stroke="#5E8FA6" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- bucket and spade leaning on the rim -->
+    <path d="M470 -46 L506 -46 L500 -8 L476 -8 Z" fill="#6E9E7E"/>
+    <path d="M470 -46 L506 -46 L505 -40 L471 -40 Z" fill="#A8CDB2"/>
+    <path d="M474 -46 Q488 -66 502 -46" stroke="#4F7D5E" stroke-width="3" fill="none"/>
+    <rect x="520" y="-70" width="6" height="64" fill="#2F6079" transform="rotate(14 523 -6)"/>
+    <path d="M520 -8 L534 -8 L536 12 L518 12 Z" fill="#2F6079" transform="rotate(14 523 -6)"/>
+    <!-- lost sandal -->
+    <ellipse cx="238" cy="56" rx="26" ry="9" fill="#2F6079"/>
+    <path d="M226 52 Q238 40 252 52" stroke="#A8CDB2" stroke-width="5" fill="none"/>
+  </g>
+
+  <rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

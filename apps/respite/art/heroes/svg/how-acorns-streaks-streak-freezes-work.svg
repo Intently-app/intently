@@ -1,0 +1,269 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <!-- backdrop + stage (product family) -->
+    <radialGradient id="bg" cx="800" cy="360" r="980" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E4F2F7"/>
+      <stop offset="0.4" stop-color="#C9E5EF"/>
+      <stop offset="0.8" stop-color="#A6CCDC"/>
+      <stop offset="1" stop-color="#7FAEC3"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#F7FBFC" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#F7FBFC" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="discTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EEF5F8"/>
+      <stop offset="1" stop-color="#BDE1EC"/>
+    </linearGradient>
+    <linearGradient id="discSide" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8DB8CB"/>
+      <stop offset="0.45" stop-color="#5E8FA6"/>
+      <stop offset="1" stop-color="#2F6079"/>
+    </linearGradient>
+    <!-- stump -->
+    <linearGradient id="bark" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#B07A45"/>
+      <stop offset="0.35" stop-color="#8A5A2B"/>
+      <stop offset="1" stop-color="#4E2F15"/>
+    </linearGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F0D3A4"/>
+      <stop offset="0.6" stop-color="#DDB27A"/>
+      <stop offset="1" stop-color="#C98B4E"/>
+    </linearGradient>
+    <!-- ice -->
+    <linearGradient id="iceFront" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.6"/>
+      <stop offset="0.45" stop-color="#BDE1EC" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#5E8FA6" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="iceTop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#DCEEF4" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="iceSide" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#C9E5EF" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#7FAEC3" stop-opacity="0.8"/>
+    </linearGradient>
+    <linearGradient id="iceBack" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#BDE1EC"/>
+      <stop offset="1" stop-color="#8DB8CB"/>
+    </linearGradient>
+    <!-- flame -->
+    <radialGradient id="flameGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FCEBC4" stop-opacity="1"/>
+      <stop offset="0.45" stop-color="#F5C766" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#E8A317" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="flameOuter" x1="0" y1="1" x2="0.3" y2="0">
+      <stop offset="0" stop-color="#D98A0E"/>
+      <stop offset="0.4" stop-color="#EE9F14"/>
+      <stop offset="1" stop-color="#F7BC45"/>
+    </linearGradient>
+    <linearGradient id="flameInner" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#FFF7E2"/>
+      <stop offset="0.6" stop-color="#FCEBC4"/>
+      <stop offset="1" stop-color="#F7CF73"/>
+    </linearGradient>
+    <!-- acorn parts -->
+    <linearGradient id="nut" x1="0.1" y1="0" x2="0.9" y2="0.8">
+      <stop offset="0" stop-color="#EBBC85"/>
+      <stop offset="0.45" stop-color="#C98B4E"/>
+      <stop offset="1" stop-color="#8A5A2B"/>
+    </linearGradient>
+    <linearGradient id="cap" x1="0.1" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#A9764A"/>
+      <stop offset="0.5" stop-color="#7A4E25"/>
+      <stop offset="1" stop-color="#4E2F15"/>
+    </linearGradient>
+    <g id="acorn">
+      <path d="M-24,-6 C-25,16 -12,36 0,45 C12,36 25,16 24,-6 Z" fill="url(#nut)"/>
+      <path d="M-15,2 C-15,14 -10,24 -3,31 C-7,21 -9,11 -8,2 Z" fill="#FFF7E2" opacity="0.45"/>
+      <circle cx="0" cy="44" r="2.6" fill="#5A3818"/>
+      <path d="M-30,-3 C-32,-22 -16,-32 0,-32 C16,-32 32,-22 30,-3 C20,4 -20,4 -30,-3 Z" fill="url(#cap)"/>
+      <path d="M-22,-12 q5,5 10,0 q5,5 10,0 q5,5 10,0 q5,5 10,0 M-16,-21 q5,5 10,0 q5,5 10,0 q5,5 10,0" fill="none" stroke="#3E250F" stroke-width="2" stroke-linecap="round" opacity="0.45"/>
+      <path d="M-24,-14 C-22,-24 -12,-29 -2,-29" fill="none" stroke="#D9A877" stroke-width="3.5" stroke-linecap="round" opacity="0.7"/>
+      <path d="M-1,-31 C-2,-38 2,-44 8,-46" fill="none" stroke="#5A3818" stroke-width="5.5" stroke-linecap="round"/>
+    </g>
+    <path id="spark" d="M0,-14 C2,-3 3,-2 14,0 C3,2 2,3 0,14 C-2,3 -3,2 -14,0 C-3,-2 -2,-3 0,-14 Z"/>
+    <g id="flake" fill="none" stroke-linecap="round">
+      <path d="M0,-16 L0,16 M-14,-8 L14,8 M-14,8 L14,-8"/>
+      <path d="M-4,-12 L0,-8 L4,-12 M-4,12 L0,8 L4,12"/>
+    </g>
+    <clipPath id="slotClip"><rect x="0" y="0" width="1600" height="607"/></clipPath>
+    <linearGradient id="cloud" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="0.7" stop-color="#FFFFFF" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#F7FBFC" stop-opacity="0.55"/>
+    </linearGradient>
+    <radialGradient id="warmCast" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#F5C766" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#FCEBC4" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="cubeClip"><path d="M642.0,322.0 Q642,300 661.1,289.0 L702.9,265.0 Q722,254 744.0,254.0 L960.0,254.0 Q982,254 982.0,276.0 L982.0,492.0 Q982,514 962.9,525.0 L921.1,549.0 Q902,560 880.0,560.0 L664.0,560.0 Q642,560 642.0,538.0 Z"/></clipPath>
+    <linearGradient id="trayFront" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4B53A"/><stop offset="1" stop-color="#D08C10"/></linearGradient>
+    <filter id="frost" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter>
+    <filter id="softSm" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+    <filter id="blurXs" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6"/></filter>
+    <filter id="far" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2"/></filter>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+    </filter>
+  </defs>
+
+  <!-- backdrop -->
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <ellipse cx="800" cy="900" rx="900" ry="260" fill="#5E8FA6" opacity="0.25" filter="url(#soft)"/>
+  <ellipse cx="810" cy="400" rx="420" ry="360" fill="url(#halo)"/>
+
+  <!-- stage disc -->
+  <ellipse cx="800" cy="812" rx="580" ry="44" fill="#0B1C27" opacity="0.22" filter="url(#soft)"/>
+  <path d="M220,735 L220,765 A580,108 0 0 0 1380,765 L1380,735 Z" fill="url(#discSide)"/>
+  <ellipse cx="800" cy="735" rx="580" ry="108" fill="url(#discTop)"/>
+  <ellipse cx="800" cy="735" rx="580" ry="108" fill="none" stroke="#F7FBFC" stroke-width="3" opacity="0.8"/>
+
+  <!-- stump contact shadow -->
+  <ellipse cx="840" cy="752" rx="300" ry="46" fill="#24465A" opacity="0.4" filter="url(#soft)"/>
+
+  <!-- stump -->
+  <path d="M590,572 L590,686 C590,716 566,738 548,752 C620,776 700,786 815,786 C930,786 1012,776 1082,752 C1064,738 1040,716 1040,686 L1040,572 Z" fill="url(#bark)"/>
+  <path d="M560,750 C600,764 660,772 720,776" fill="none" stroke="#C98B4E" stroke-width="4" stroke-linecap="round" opacity="0.45"/>
+  <g fill="none" stroke="#3E250F" stroke-width="4.5" stroke-linecap="round" opacity="0.38">
+    <path d="M640,612 C646,650 636,700 626,750"/>
+    <path d="M710,624 C704,664 716,716 704,770"/>
+    <path d="M800,630 C806,676 796,726 802,782"/>
+    <path d="M890,628 C884,676 896,726 900,778"/>
+    <path d="M975,614 C982,660 972,712 990,762"/>
+  </g>
+  <path d="M608,600 C610,640 606,680 600,718" fill="none" stroke="#E0B57F" stroke-width="6" stroke-linecap="round" opacity="0.5"/>
+  <!-- top face -->
+  <ellipse cx="815" cy="574" rx="227" ry="64" fill="#6E4521"/>
+  <ellipse cx="815" cy="569" rx="214" ry="57" fill="url(#wood)"/>
+  <g fill="none" stroke="#B07A45" stroke-width="2.5" opacity="0.55">
+    <ellipse cx="822" cy="571" rx="168" ry="44"/>
+    <ellipse cx="826" cy="572" rx="122" ry="32"/>
+    <ellipse cx="830" cy="573" rx="76" ry="20"/>
+  </g>
+  <!-- tiny sprout on the stump rim -->
+  <path d="M624,574 C620,552 622,536 628,522" fill="none" stroke="#2F7D3E" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M628,526 C632,502 656,494 666,498 C660,516 642,528 628,526 Z" fill="#3E9B4F"/>
+  <path d="M624,540 C610,524 590,524 582,530 C594,544 612,546 624,540 Z" fill="#7CC489"/>
+
+  <!-- ice cube: shadow, warm light and cold glow on the stump -->
+  <ellipse cx="820" cy="566" rx="180" ry="28" fill="#24465A" opacity="0.32" filter="url(#softSm)"/>
+  <ellipse cx="800" cy="582" rx="170" ry="22" fill="#FCEBC4" opacity="0.75" filter="url(#softSm)"/>
+  <!-- ice cube, clipped to a rounded silhouette (oblique depth +80,-46 on every face) -->
+  <g clip-path="url(#cubeClip)">
+  <path d="M722,254 L982,254 L982,514 L722,514 Z" fill="url(#iceBack)" opacity="0.6"/>
+  <path d="M642,300 L722,254 L722,514 L642,560 Z" fill="#BDE1EC" opacity="0.4"/>
+  <ellipse cx="800" cy="410" rx="190" ry="185" fill="url(#flameGlow)"/>
+  <rect x="642" y="300" width="260" height="260" fill="url(#iceFront)"/>
+  <ellipse cx="772" cy="440" rx="140" ry="140" fill="url(#warmCast)"/>
+  <g transform="translate(772,440) scale(1.42)">
+    <path d="M0,62 C-40,62 -54,32 -48,6 C-42,-20 -20,-34 -12,-66 C-2,-46 10,-42 16,-24 C22,-38 32,-42 36,-52 C50,-24 54,10 46,32 C40,52 22,62 0,62 Z" fill="url(#flameOuter)"/>
+    <path d="M0,56 C-17,56 -23,42 -20,28 C-17,14 -7,6 -3,-12 C3,-2 11,6 14,16 C19,32 17,56 0,56 Z" fill="url(#flameInner)"/>
+    <path d="M-36,8 C-34,-12 -22,-24 -15,-42" fill="none" stroke="#FFF7E2" stroke-width="3.5" stroke-linecap="round" opacity="0.75"/>
+  </g>
+  <rect x="642" y="300" width="260" height="260" fill="url(#cloud)"/>
+  <rect x="642" y="300" width="260" height="260" fill="none" stroke="#FFFFFF" stroke-width="46" opacity="0.55" filter="url(#frost)"/>
+  <circle cx="720" cy="372" r="4" fill="#F7BC45"/>
+  <circle cx="836" cy="356" r="3" fill="#F7BC45" opacity="0.85"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="2.2" opacity="0.85">
+    <circle cx="676" cy="380" r="7"/><circle cx="694" cy="354" r="4"/>
+    <circle cx="862" cy="510" r="6"/><circle cx="846" cy="532" r="3.5"/>
+    <circle cx="872" cy="350" r="4.5"/>
+  </g>
+  <path d="M650,470 L780,340 L808,340 L650,498 Z" fill="#FFFFFF" opacity="0.3"/>
+  <path d="M696,544 L880,360 L896,376 L712,560 Z" fill="#FFFFFF" opacity="0.14"/>
+  <!-- right face -->
+  <path d="M902,300 L982,254 L982,514 L902,560 Z" fill="url(#iceSide)"/>
+  <path d="M916,318 L966,290 L966,360 L916,388 Z" fill="#FFFFFF" opacity="0.25"/>
+  <ellipse cx="934" cy="440" rx="20" ry="60" fill="#FCEBC4" opacity="0.3" filter="url(#softSm)"/>
+  <!-- top face -->
+  <path d="M642,300 L902,300 L982,254 L722,254 Z" fill="url(#iceTop)"/>
+  <path d="M690,290 L740,266 M780,288 L880,284" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity="0.95"/>
+  </g>
+  <!-- bevel highlights on the three visible edges -->
+  <path d="M652,300 L902,300 L974,259 M902,300 L902,550" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+  <path d="M654,326 C650,360 650,400 652,432" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" opacity="0.95"/>
+  <path d="M642.0,322.0 Q642,300 661.1,289.0 L702.9,265.0 Q722,254 744.0,254.0 L960.0,254.0 Q982,254 982.0,276.0 L982.0,492.0 Q982,514 962.9,525.0 L921.1,549.0 Q902,560 880.0,560.0 L664.0,560.0 Q642,560 642.0,538.0 Z" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.75"/>
+  <path d="M664,552 L880,552" stroke="#5E8FA6" stroke-width="5" stroke-linecap="round" opacity="0.3"/>
+  <g stroke="#FFFFFF" opacity="0.95">
+    <use href="#flake" transform="translate(866,326) scale(0.6)" stroke-width="3.5"/>
+  </g>
+
+  <!-- acorn slot with an acorn going in (piggy bank) -->
+  <path d="M918,612 C940,602 980,598 1004,604" fill="none" stroke="#3E250F" stroke-width="17" stroke-linecap="round"/>
+  <path d="M918,612 C940,602 980,598 1004,604" fill="none" stroke="#1E1208" stroke-width="10" stroke-linecap="round"/>
+  <g clip-path="url(#slotClip)">
+    <use href="#acorn" transform="translate(962,570) rotate(-8) scale(1.08)"/>
+  </g>
+  <path d="M916,618 C940,610 980,606 1008,611" fill="none" stroke="#F0D3A4" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- acorns scattered on the stage -->
+  <g transform="translate(-140,6) scale(1.12) translate(-62,-50)">
+  <!-- the ice tray of spare freezes -->
+  <ellipse cx="560" cy="752" rx="160" ry="22" fill="#24465A" opacity="0.38" filter="url(#softSm)"/>
+  <path d="M420,712 L470,684 L690,684 L640,712 Z" fill="#F7BC45"/>
+  <path d="M432,708 L474,688 L540,688 L498,708 Z M505,708 L546,688 L612,688 L571,708 Z M578,708 L619,688 L680,688 L640,708 Z" fill="#B97F0C" opacity="0.55"/>
+  <g>
+    <path d="M466,653 L520,653 L520,707 L466,707 Z" fill="#8DB8CB" opacity="0.5"/>
+    <rect x="440" y="668" width="54" height="54" fill="url(#iceFront)"/>
+    <rect x="440" y="668" width="54" height="54" fill="#FFFFFF" opacity="0.25"/>
+    <path d="M494,668 L520,653 L520,707 L494,722 Z" fill="url(#iceSide)"/>
+    <path d="M440,668 L494,668 L520,653 L466,653 Z" fill="url(#iceTop)"/>
+    <path d="M442,668 L494,668 L518,654 M494,668 L494,718" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M446,678 L446,698" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+    <path d="M452,712 L480,682" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
+  </g>
+  <g>
+    <path d="M538,653 L592,653 L592,707 L538,707 Z" fill="#8DB8CB" opacity="0.5"/>
+    <rect x="512" y="668" width="54" height="54" fill="url(#iceFront)"/>
+    <rect x="512" y="668" width="54" height="54" fill="#FFFFFF" opacity="0.25"/>
+    <path d="M566,668 L592,653 L592,707 L566,722 Z" fill="url(#iceSide)"/>
+    <path d="M512,668 L566,668 L592,653 L538,653 Z" fill="url(#iceTop)"/>
+    <path d="M514,668 L566,668 L590,654 M566,668 L566,718" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M518,678 L518,698" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+    <path d="M524,712 L552,682" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
+  </g>
+  <g>
+    <path d="M610,653 L664,653 L664,707 L610,707 Z" fill="#8DB8CB" opacity="0.5"/>
+    <rect x="584" y="668" width="54" height="54" fill="url(#iceFront)"/>
+    <rect x="584" y="668" width="54" height="54" fill="#FFFFFF" opacity="0.25"/>
+    <path d="M638,668 L664,653 L664,707 L638,722 Z" fill="url(#iceSide)"/>
+    <path d="M584,668 L638,668 L664,653 L610,653 Z" fill="url(#iceTop)"/>
+    <path d="M586,668 L638,668 L662,654 M638,668 L638,718" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M590,678 L590,698" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+    <path d="M596,712 L624,682" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
+  </g>
+  <path d="M640,712 L690,684 L690,712 L640,740 Z" fill="#B97F0C"/>
+  <rect x="420" y="712" width="220" height="28" rx="4" fill="url(#trayFront)"/>
+  <path d="M424,714 L636,714" stroke="#FCEBC4" stroke-width="3" stroke-linecap="round"/>
+  <path d="M492,716 L492,738 M566,716 L566,738" stroke="#B97F0C" stroke-width="2.5" opacity="0.6"/>
+  </g>
+  <ellipse cx="1030" cy="812" rx="30" ry="7" fill="#24465A" opacity="0.3" filter="url(#softSm)"/>
+  <use href="#acorn" transform="translate(1030,784) rotate(-70) scale(0.9)"/>
+  <ellipse cx="1150" cy="788" rx="36" ry="8" fill="#24465A" opacity="0.35" filter="url(#softSm)"/>
+  <use href="#acorn" transform="translate(1150,750) rotate(16) scale(1.04)"/>
+  <ellipse cx="1236" cy="742" rx="34" ry="8" fill="#24465A" opacity="0.32" filter="url(#softSm)"/>
+  <use href="#acorn" transform="translate(1236,714) rotate(84) scale(0.95)"/>
+
+  <!-- frosty sparkles -->
+  <g stroke="#FFFFFF" opacity="0.9">
+    <use href="#flake" transform="translate(560,330) scale(1.1)" stroke-width="3"/>
+    <use href="#flake" transform="translate(1070,250) scale(1.3)" stroke-width="3"/>
+    <use href="#flake" transform="translate(1150,420) scale(0.8)" stroke-width="3"/>
+    <use href="#flake" transform="translate(450,560) scale(0.75)" stroke-width="3"/>
+    <use href="#flake" transform="translate(640,200) scale(0.7)" stroke-width="3"/>
+  </g>
+  <g fill="#FFFFFF">
+    <use href="#spark" transform="translate(1000,200) scale(0.9)"/>
+    <use href="#spark" transform="translate(620,430) scale(0.7)"/>
+    <use href="#spark" transform="translate(1100,540) scale(0.7)"/>
+  </g>
+
+  <rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

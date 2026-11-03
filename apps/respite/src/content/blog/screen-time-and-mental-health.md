@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Persistent low mood or anxiety deserves professional support, not just app settings.'
 section: "Digital Wellbeing"
 tags: ["screen time mental health", "screen time depression", "screen time anxiety", "digital wellbeing", "phone addiction mental health", "screen time effects"]
-heroImage: "/blog-placeholder-about.jpg"
+heroImage: '/images/blog/screen-time-and-mental-health.jpg'
+heroImageAlt: 'A paper-cut head in profile holding a moonlit lake whose reflection of the moon is a glowing rectangle.'
 faq:
   - question: 'Does screen time cause depression?'
     answer: 'Not on its own, as far as research can show. Studies find a modest association between heavy social media use and depressive symptoms, especially passive scrolling, but most are correlational and the effect runs both ways: people who feel low often use screens more. If you are experiencing persistent low mood, speak to a doctor or therapist rather than only changing screen habits.'

@@ -12,7 +12,8 @@ keyTakeaways:
   - 'It is a Respite Plus feature, and Respite never runs or pays for an AI on your data.'
   - 'You sign in with Google or Apple, allow the permission (and optionally let it make limits stricter), and can disconnect from your AI app.'
 tags: ['respite', 'announcement', 'bring your own ai', 'mcp', 'claude', 'chatgpt', 'respite plus', 'ai']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/bring-your-own-ai-to-respite.jpg'
+heroImageAlt: 'A speech-bubble-shaped cartridge slides into a rounded blue console marked with an acorn, a spare in a pouch beside it.'
 faq:
   - question: 'What is bring your own AI in Respite?'
     answer: 'It lets you connect an AI assistant you already use, such as Claude or ChatGPT, to your Respite account via MCP, an open standard for connecting AI to apps. The assistant can then work with your Respite data. Respite does not run an AI of its own on your data, and you choose which assistant, if any, to connect.'

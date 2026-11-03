@@ -13,7 +13,8 @@ keyTakeaways:
   - 'A pause before your usual apps turns the first check into a choice instead of a reflex.'
 section: 'Digital Wellbeing'
 tags: ['morning routine', 'stop checking phone in morning', 'phone addiction morning', 'digital wellbeing', 'mindful mornings']
-heroImage: '/blog-morning-phone.jpg'
+heroImage: '/images/blog/stop-checking-phone-morning.jpg'
+heroImageAlt: 'A sun rising out of a glass of water on a nightstand, with a phone charging in the next room through a doorway.'
 faq:
   - question: 'Why is checking my phone in the morning bad for me?'
     answer: 'It is not harmful in itself, but grabbing your phone as you wake tends to pull you straight into other people''s messages, news and demands before you have set any intentions. That can leave you feeling reactive, scattered or anxious for no clear reason. A short phone-free start gives you a calmer entry to the day and a say in what comes first.'

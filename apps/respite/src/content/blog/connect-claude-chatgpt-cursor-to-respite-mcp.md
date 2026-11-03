@@ -12,7 +12,8 @@ keyTakeaways:
   - 'You sign in with the same Google or Apple account as the app, then allow or deny the permissions.'
   - 'Your AI can read usage, insights, limits, events and progress; if you tick "Also let it make my limits stricter", it can lower limits and add schedules too.'
 tags: ['mcp', 'claude', 'chatgpt', 'cursor', 'how to', 'respite plus', 'bring your own ai', 'connector']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/connect-claude-chatgpt-cursor-to-respite-mcp.jpg'
+heroImageAlt: 'A universal travel adapter where three different plugs meet one acorn-shaped socket with a flip-up cap.'
 howToSteps:
   - name: 'Get the Respite address'
     text: 'The address is https://respite-api.liveintently.app/mcp. It is the same for every assistant.'

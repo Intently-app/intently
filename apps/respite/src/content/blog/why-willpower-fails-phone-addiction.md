@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Not trying harder is the point: design the situation so the easy option is the one you want.'
 section: "Digital Wellbeing"
 tags: ["why can't I stop scrolling", "phone addiction why", "willpower phone addiction", "dopamine phone addiction", "phone addiction science", "behavioral psychology"]
-heroImage: "/blog-placeholder-1.jpg"
+heroImage: '/images/blog/why-willpower-fails-phone-addiction.jpg'
+heroImageAlt: 'A figure pushes a boulder up a steep hill at dusk while someone who took the easy spiral ramp sips tea at the top.'
 faq:
   - question: 'Why can''t I stop scrolling even when I want to?'
     answer: 'Scrolling is usually an automatic habit, triggered by a cue like boredom or a notification and rewarded unpredictably by new content. By the time your deliberate self notices, the habit has already run. That is a feature of how habits and feeds work, not a failing in you, which is why changing the setup helps more than trying harder.'

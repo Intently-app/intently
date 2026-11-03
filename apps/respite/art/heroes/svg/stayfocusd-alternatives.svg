@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="wa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#41788F"/><stop offset=".35" stop-color="#5E8FA6"/><stop offset="1" stop-color="#8FBBCD"/></linearGradient>
+    <linearGradient id="res" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E8FA6"/><stop offset="1" stop-color="#BDE1EC"/></linearGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+    </filter>
+  </defs>
+
+  <!-- fields -->
+  <rect width="1600" height="900" fill="#D6EFD9"/>
+  <polygon points="0,180 1100,900 0,900" fill="#C3E2CA"/>
+  <circle cx="760" cy="500" r="260" fill="#EAF6EC"/>
+  <g fill="#A8CDB2" opacity=".6"><rect x="1240" y="160" width="180" height="4"/><rect x="1320" y="260" width="120" height="4"/><rect x="160" y="560" width="160" height="4"/><rect x="300" y="760" width="200" height="4"/></g>
+
+  <g>
+    <g fill="#0B1C27" opacity=".2"><circle cx="1360" cy="380" r="44"/><circle cx="1410" cy="400" r="32"/><circle cx="250" cy="680" r="50"/><circle cx="300" cy="700" r="34"/></g>
+    <g transform="translate(-20 -20)"><circle cx="1360" cy="380" r="44" fill="#6E9E7E"/><circle cx="1410" cy="400" r="32" fill="#6E9E7E"/><circle cx="1350" cy="366" r="24" fill="#A8CDB2"/>
+    <circle cx="250" cy="680" r="50" fill="#6E9E7E"/><circle cx="300" cy="700" r="34" fill="#6E9E7E"/><circle cx="238" cy="664" r="26" fill="#A8CDB2"/></g>
+  </g>
+  <g transform="translate(-10 40)">
+    <!-- towpath along the upper bank -->
+    <path d="M140 -60 L1250 520" stroke="#BFDCCB" stroke-width="44" stroke-linecap="round"/>
+    <path d="M140 -60 L1250 520" stroke="#F7FBFC" stroke-width="32" stroke-linecap="round"/>
+    <g fill="#DCEEF4"><rect x="420" y="76" width="30" height="4" transform="rotate(27.6 435 78)"/><rect x="860" y="306" width="40" height="4" transform="rotate(27.6 880 308)"/></g>
+
+    <!-- bank coping, one stone ribbon around the whole canal -->
+    <polygon points="-20,-34 384,152 414,196 664,316 694,360 944,480 974,524 1174,620 1100,770 884,664 856,640 720,694 548,616 576,512 560,454 324,346 294,302 -120,112" fill="#A8CDB2"/>
+    <polygon points="-20,-34 384,152 414,196 664,316 694,360 944,480 974,524 1174,620 1100,770 884,664 856,640 720,694 548,616 576,512 560,454 324,346 294,302 -120,112" fill="#6E9E7E" transform="translate(0 10)" opacity=".5"/>
+
+    <!-- pool 0 (top, from off-canvas) -->
+    <polygon points="-10,-22 370,160 280,280 -100,98" fill="url(#wa)"/>
+    <!-- drop face below gate A, with a thin leak -->
+    <polygon points="370,160 280,280 310,324 400,204" fill="#5E8FA6"/>
+    <polygon points="370,160 280,280 290,294 380,174" fill="#2F6079"/>
+    <path d="M330 240 C334 270 330 290 340 312" stroke="#F7FBFC" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- pool 1 -->
+    <polygon points="400,204 650,324 560,444 310,324" fill="url(#wa)"/>
+    <ellipse cx="342" cy="318" rx="14" ry="4" fill="#F7FBFC" opacity=".6"/>
+    <!-- drop face below gate B -->
+    <polygon points="650,324 560,444 590,488 680,368" fill="#5E8FA6"/>
+    <!-- pool 2: the calm holding basin -->
+    <polygon points="680,368 930,488 840,608 720,670 560,600 590,488" fill="url(#wa)"/>
+    <!-- drop face below gate C -->
+    <polygon points="930,488 840,608 870,652 960,532" fill="#5E8FA6"/>
+    <!-- pool 3 -->
+    <polygon points="960,532 1160,628 1070,748 870,652" fill="url(#wa)"/>
+    <!-- ripples -->
+    <g fill="#BDE1EC" opacity=".6">
+      <rect x="120" y="90" width="60" height="4" transform="rotate(25.6 150 92)"/><rect x="430" y="300" width="50" height="4" transform="rotate(25.6 455 302)"/><rect x="960" y="640" width="50" height="4" transform="rotate(25.6 985 642)"/>
+    </g>
+
+    <!-- reeds at the basin's edge -->
+    <g stroke="#4F7D5E" stroke-width="4" stroke-linecap="round">
+      <path d="M612 640 L604 588"/><path d="M628 650 L626 596"/><path d="M646 656 L652 604"/><path d="M664 664 L662 614"/>
+    </g>
+    <g fill="#5E3E22"><rect x="598" y="580" width="9" height="22" rx="4.5"/><rect x="621" y="588" width="9" height="22" rx="4.5"/><rect x="648" y="596" width="9" height="22" rx="4.5"/></g>
+
+    <!-- the paper boat, waiting in the basin -->
+    <g transform="translate(726 528)">
+      <ellipse cx="14" cy="22" rx="52" ry="9" fill="#24465A" opacity=".35"/>
+      <polygon points="-50,-4 50,-4 34,18 -34,18" fill="#DCEEF4"/>
+      <polygon points="0,-4 50,-4 34,18 0,18" fill="#BDE1EC"/>
+      <polygon points="-24,-4 0,-50 24,-4" fill="#F7FBFC"/>
+      <polygon points="0,-50 24,-4 0,-4" fill="#DCEEF4"/>
+      <rect x="-50" y="-6" width="100" height="4" fill="#FFFFFF"/>
+    </g>
+
+    <!-- GATE A: sealed shut with heavy beams -->
+    <polygon points="384,150 266,306 266,236 384,80" fill="#0B1C27" opacity=".25" transform="translate(20 20)"/>
+    <polygon points="384,80 266,236 286,248 404,92" fill="#2F6079"/>
+    <polygon points="384,150 266,306 266,236 384,80" fill="#24465A"/>
+    <path d="M384 100 L266 256" stroke="#0B1C27" stroke-width="12"/>
+    <path d="M384 132 L266 288" stroke="#0B1C27" stroke-width="12"/>
+    <path d="M380 92 L270 296 M380 146 L270 244" stroke="#2F6079" stroke-width="7"/>
+    <g fill="#5A7383"><circle cx="372" cy="110" r="5"/><circle cx="278" cy="236" r="5"/><circle cx="372" cy="142" r="5"/><circle cx="278" cy="268" r="5"/></g>
+    <!-- GATE B: two leaves swung open into the basin -->
+    <polygon points="650,324 690,300 690,256 650,280" fill="#24465A"/>
+    <polygon points="650,280 690,256 700,262 660,286" fill="#2F6079"/>
+    <polygon points="560,444 600,436 600,392 560,400" fill="#24465A"/>
+    <polygon points="560,400 600,392 608,398 568,406" fill="#2F6079"/>
+    <rect x="644" y="270" width="12" height="60" fill="#24465A"/><rect x="554" y="390" width="12" height="60" fill="#24465A"/>
+
+    <!-- GATE C: timed sluice with the orange wheel (the accent) -->
+    <polygon points="930,488 840,608 840,560 930,440" fill="#0B1C27" opacity=".25" transform="translate(20 20)"/>
+    <polygon points="930,440 840,560 858,570 948,450" fill="#2F6079"/>
+    <polygon points="930,488 840,608 840,560 930,440" fill="#24465A"/>
+    <polygon points="900,520 870,560 870,590 900,550" fill="#41788F"/>
+    <path d="M876 588 C880 610 872 626 878 646" stroke="#DCEEF4" stroke-width="5" fill="none" stroke-linecap="round" opacity=".9"/>
+    <rect x="891" y="434" width="10" height="70" fill="#24465A"/>
+    <g transform="translate(896 432)">
+      <circle r="40" fill="#0B1C27" opacity=".25" transform="translate(16 16)"/>
+      <circle r="36" fill="none" stroke="#B97F0C" stroke-width="12" transform="translate(3 3)"/>
+      <circle r="36" fill="none" stroke="#E8A317" stroke-width="11"/>
+      <g stroke="#E8A317" stroke-width="7"><path d="M-34 0 H34"/><path d="M0 -34 V34"/><path d="M-24 -24 L24 24"/><path d="M-24 24 L24 -24"/></g>
+      <circle r="10" fill="#B97F0C"/>
+      <path d="M-26 -26 A36 36 0 0 1 10 -35" stroke="#FCEBC4" stroke-width="4" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- GATE D: a simple swing gate with its balance beam -->
+    <polygon points="1160,628 1070,748 1070,712 1160,592" fill="#0B1C27" opacity=".25" transform="translate(20 20)"/>
+    <polygon points="1160,592 1070,712 1084,720 1174,600" fill="#2F6079"/>
+    <polygon points="1160,628 1070,748 1070,712 1160,592" fill="#24465A"/>
+    <path d="M1160 594 L1270 534" stroke="#0B1C27" stroke-width="14" stroke-linecap="round" opacity=".25" transform="translate(20 20)"/>
+    <path d="M1160 594 L1270 534" stroke="#2F6079" stroke-width="14" stroke-linecap="round"/>
+  </g>
+
+  <!-- reservoir shaped like a blank browser window -->
+  <rect x="1150" y="606" width="340" height="234" rx="20" fill="#0B1C27" opacity=".25" transform="translate(20 20)"/>
+  <rect x="1150" y="606" width="340" height="234" rx="20" fill="#A8CDB2"/>
+  <rect x="1150" y="606" width="340" height="40" rx="20" fill="#6E9E7E"/>
+  <rect x="1150" y="630" width="340" height="16" fill="#6E9E7E"/>
+  <g fill="#D6EFD9"><circle cx="1180" cy="626" r="8"/><circle cx="1208" cy="626" r="8"/><circle cx="1236" cy="626" r="8"/></g>
+  <rect x="1166" y="656" width="308" height="168" rx="10" fill="url(#res)"/>
+  <g fill="#F7FBFC" opacity=".6"><rect x="1220" y="720" width="70" height="4"/><rect x="1330" y="770" width="90" height="4"/><rect x="1260" y="800" width="50" height="4"/></g>
+  <!-- inflow from the last gate -->
+  <polygon points="1150,688 1170,672 1176,700 1156,712" fill="#5E8FA6"/>
+
+  <rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

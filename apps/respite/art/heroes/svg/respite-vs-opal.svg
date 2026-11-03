@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="skyL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0B1C27"/>
+      <stop offset="1" stop-color="#24465A"/>
+    </linearGradient>
+    <linearGradient id="skyR" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#DCEEF4"/>
+      <stop offset="1" stop-color="#F7FBFC"/>
+    </linearGradient>
+    <linearGradient id="waterL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2F6079"/>
+      <stop offset="1" stop-color="#0B1C27"/>
+    </linearGradient>
+    <linearGradient id="waterR" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#BDE1EC"/>
+      <stop offset="1" stop-color="#8FBBCD"/>
+    </linearGradient>
+    <clipPath id="L"><polygon points="0,0 1060,0 600,900 0,900"/></clipPath>
+    <clipPath id="R"><polygon points="1060,0 1600,0 1600,900 600,900"/></clipPath>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+    </filter>
+  </defs>
+
+  <!-- LEFT: the locked gate -->
+  <g clip-path="url(#L)">
+    <rect width="1600" height="900" fill="url(#skyL)"/>
+    <circle cx="560" cy="170" r="300" fill="#2F6079" opacity=".35"/>
+    <path d="M0 636 V596 Q300 572 560 592 Q760 606 1060 584 V636 Z" fill="#162E3C"/>
+    <rect y="636" width="1600" height="264" fill="url(#waterL)"/>
+    <g fill="#5E8FA6" opacity=".35">
+      <rect x="490" y="676" width="70" height="4"/>
+      <rect x="40" y="720" width="120" height="4"/>
+      <rect x="520" y="760" width="50" height="4"/>
+    </g>
+    <!-- castle bank -->
+    <rect x="0" y="600" width="476" height="300" fill="#24465A"/>
+    <rect x="0" y="600" width="476" height="14" fill="#7C93A1"/>
+    <g fill="#162E3C" opacity=".6">
+      <rect x="0" y="660" width="476" height="4"/><rect x="0" y="730" width="476" height="4"/><rect x="0" y="800" width="476" height="4"/>
+      <rect x="140" y="664" width="4" height="66"/><rect x="330" y="664" width="4" height="66"/><rect x="60" y="734" width="4" height="66"/><rect x="250" y="734" width="4" height="66"/><rect x="420" y="734" width="4" height="66"/>
+    </g>
+    <!-- wall -->
+    <rect x="120" y="360" width="330" height="240" fill="#5A7383"/>
+    <rect x="120" y="360" width="60" height="240" fill="#46606F"/>
+    <g fill="#5A7383">
+      <rect x="120" y="326" width="40" height="34"/><rect x="200" y="326" width="40" height="34"/>
+      <rect x="370" y="326" width="40" height="34"/><rect x="410" y="326" width="40" height="34"/>
+    </g>
+    <rect x="120" y="326" width="40" height="34" fill="#46606F"/>
+    <!-- gate opening -->
+    <path d="M370 600 V505 a40 40 0 0 1 80 0 V600 Z" fill="#0B1C27"/>
+    <!-- tower -->
+    <rect x="210" y="130" width="160" height="230" fill="#7C93A1"/>
+    <rect x="210" y="130" width="46" height="230" fill="#5A7383"/>
+    <polygon points="196,132 290,40 384,132" fill="#3A5263"/>
+    <polygon points="196,132 290,40 290,132" fill="#24465A"/>
+    <!-- clock -->
+    <circle cx="296" cy="226" r="62" fill="#24465A"/>
+    <circle cx="296" cy="226" r="52" fill="#BDE1EC"/>
+    <g stroke="#24465A" stroke-width="5" stroke-linecap="butt">
+      <path d="M296 180v12M296 260v12M250 226h12M330 226h12"/>
+    </g>
+    <g stroke="#24465A" stroke-width="3">
+      <path d="M319 186l-4 7M336 203l-7 4M336 249l-7-4M319 266l-4-7M273 266l4-7M256 249l7-4M256 203l7 4M273 186l4 7"/>
+    </g>
+    <path d="M296 226 L296 190" stroke="#0B1C27" stroke-width="6" stroke-linecap="round"/>
+    <path d="M296 226 L322 246" stroke="#0B1C27" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="296" cy="226" r="7" fill="#0B1C27"/>
+    <!-- gear mechanism -->
+    <g transform="translate(410 420)">
+      <circle r="40" fill="#24465A"/>
+      <g fill="#24465A">
+        <rect x="-9" y="-52" width="18" height="16"/><rect x="-9" y="36" width="18" height="16"/>
+        <rect x="-52" y="-9" width="16" height="18"/><rect x="36" y="-9" width="16" height="18"/>
+        <rect x="-9" y="-52" width="18" height="16" transform="rotate(45)"/><rect x="-9" y="36" width="18" height="16" transform="rotate(45)"/>
+        <rect x="-52" y="-9" width="16" height="18" transform="rotate(45)"/><rect x="36" y="-9" width="16" height="18" transform="rotate(45)"/>
+      </g>
+      <circle r="16" fill="#7C93A1"/>
+      <circle r="6" fill="#0B1C27"/>
+    </g>
+    <!-- raised drawbridge -->
+    <polygon points="476,600 444,600 444,318 476,318" fill="#162E3C"/>
+    <rect x="452" y="318" width="40" height="282" fill="#2F6079"/>
+    <g fill="#24465A">
+      <rect x="452" y="380" width="40" height="5"/><rect x="452" y="450" width="40" height="5"/><rect x="452" y="520" width="40" height="5"/>
+    </g>
+    <rect x="484" y="318" width="8" height="282" fill="#5E8FA6"/>
+    <!-- chains -->
+    <g stroke="#BDE1EC" stroke-width="7" stroke-dasharray="12 6" fill="none">
+      <path d="M488 330 L420 386"/>
+      <path d="M488 360 L438 404"/>
+    </g>
+    <!-- hard shadow of plank on water -->
+    <polygon points="492,636 640,636 640,700 556,900 470,900" fill="#0B1C27" opacity=".4"/>
+    <!-- central landing (left half) -->
+    <rect x="640" y="600" width="220" height="300" fill="#24465A"/>
+    <rect x="640" y="600" width="220" height="14" fill="#7C93A1"/>
+    <g fill="#162E3C" opacity=".6"><rect x="640" y="660" width="220" height="4"/><rect x="640" y="730" width="220" height="4"/><rect x="700" y="664" width="4" height="66"/></g>
+  </g>
+
+  <!-- RIGHT: the stepping stones -->
+  <g clip-path="url(#R)">
+    <rect width="1600" height="900" fill="url(#skyR)"/>
+    <circle cx="1170" cy="420" r="250" fill="#BDE1EC"/>
+    <path d="M600 636 V592 Q760 560 900 584 Q1060 606 1200 578 Q1360 552 1600 590 V636 Z" fill="#9CC6D6"/>
+    <rect y="636" width="1600" height="264" fill="url(#waterR)"/>
+    <g fill="#F7FBFC" opacity=".75">
+      <rect x="930" y="716" width="90" height="4"/><rect x="1230" y="746" width="140" height="4"/>
+      <rect x="1080" y="800" width="60" height="4"/><rect x="1400" y="706" width="50" height="4"/>
+      <rect x="860" y="846" width="110" height="4"/>
+    </g>
+    <!-- central landing (right half, grassy) -->
+    <rect x="600" y="600" width="220" height="300" fill="#5E8FA6"/>
+    <rect x="600" y="600" width="220" height="16" fill="#3E9B4F"/>
+    <!-- far bank -->
+    <rect x="1508" y="600" width="92" height="300" fill="#5E8FA6"/>
+    <rect x="1508" y="600" width="92" height="16" fill="#3E9B4F"/>
+    <polygon points="844,640 928,640 898,684 814,684" fill="#5E8FA6" opacity=".5"/>
+    <polygon points="844,620 928,620 922,648 850,648" fill="#2F7A3F"/>
+    <polygon points="854,606 918,606 928,620 844,620" fill="#3E9B4F"/>
+    <polygon points="862,608 900,608 896,612 860,612" fill="#D6EFD9"/>
+    <rect x="838" y="638" width="96" height="4" rx="2" fill="#F7FBFC" opacity=".8"/>
+    <polygon points="948,640 1032,640 1002,684 918,684" fill="#5E8FA6" opacity=".5"/>
+    <polygon points="948,620 1032,620 1026,648 954,648" fill="#2F7A3F"/>
+    <polygon points="958,606 1022,606 1032,620 948,620" fill="#3E9B4F"/>
+    <polygon points="966,608 1004,608 1000,612 964,612" fill="#D6EFD9"/>
+    <rect x="942" y="638" width="96" height="4" rx="2" fill="#F7FBFC" opacity=".8"/>
+    <polygon points="1316,640 1400,640 1370,684 1286,684" fill="#5E8FA6" opacity=".5"/>
+    <polygon points="1316,620 1400,620 1394,648 1322,648" fill="#2F7A3F"/>
+    <polygon points="1326,606 1390,606 1400,620 1316,620" fill="#3E9B4F"/>
+    <polygon points="1334,608 1372,608 1368,612 1332,612" fill="#D6EFD9"/>
+    <rect x="1310" y="638" width="96" height="4" rx="2" fill="#F7FBFC" opacity=".8"/>
+    <polygon points="1420,640 1504,640 1474,684 1390,684" fill="#5E8FA6" opacity=".5"/>
+    <polygon points="1420,620 1504,620 1498,648 1426,648" fill="#2F7A3F"/>
+    <polygon points="1430,606 1494,606 1504,620 1420,620" fill="#3E9B4F"/>
+    <polygon points="1438,608 1476,608 1472,612 1436,612" fill="#D6EFD9"/>
+    <rect x="1414" y="638" width="96" height="4" rx="2" fill="#F7FBFC" opacity=".8"/>
+    <!-- the wide pause stone -->
+    <polygon points="1050,640 1290,640 1252,704 1012,704" fill="#5E8FA6" opacity=".5"/>
+    <polygon points="1050,616 1290,616 1282,652 1058,652" fill="#B97F0C"/>
+    <polygon points="1066,596 1274,596 1290,616 1050,616" fill="#E8A317"/>
+    <polygon points="1078,599 1220,599 1216,604 1074,604" fill="#FCEBC4"/>
+    <rect x="1040" y="638" width="260" height="5" rx="2.5" fill="#F7FBFC" opacity=".85"/>
+    <!-- figure standing, deciding -->
+    <polygon points="1148,606 1196,606 1180,614 1124,614" fill="#B97F0C"/>
+    <g fill="#0B1C27">
+      <circle cx="1172" cy="486" r="20"/>
+      <path d="M1145 606 L1150 530 Q1172 512 1194 530 L1199 606 Z"/>
+    </g>
+  </g>
+
+  <!-- the split -->
+  <line x1="1060" y1="0" x2="600" y2="900" stroke="#F7FBFC" stroke-width="6"/>
+
+  <rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

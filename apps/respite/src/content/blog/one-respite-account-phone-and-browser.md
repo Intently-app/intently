@@ -10,7 +10,8 @@ keyTakeaways:
   - 'A free account syncs one device; Respite Plus syncs all of them.'
   - 'Signing in is optional; Respite still works fully on one device without an account.'
 tags: ['respite', 'announcement', 'sync', 'cross-device', 'account', 'chrome extension', 'respite plus']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/one-respite-account-phone-and-browser.jpg'
+heroImageAlt: 'A key ring with an acorn fob holding three keys shaped like an Android phone, an iPhone and a browser window.'
 faq:
   - question: 'Does Respite sync between my phone and my computer?'
     answer: 'Yes, when you sign in. With one Google or Apple account on your Android phone, iPhone and the browser extension, your limits, settings and usage history follow you. A free account syncs one device and Respite Plus syncs all of them. Without an account, each device keeps its own history on that device.'

@@ -3,7 +3,8 @@ title: 'Privacy-First Screen Time Tracking: What to Look For'
 description: 'What privacy-first screen time tracking means, why your usage data is sensitive, and the questions to ask before you trust an app with it.'
 pubDate: 2026-01-12
 updatedDate: 2026-11-03
-heroImage: '/blog-placeholder-3.jpg'
+heroImage: '/images/blog/privacy-first-screen-time-tracking.jpg'
+heroImageAlt: 'A snow globe containing a tiny house with one lit window and a small bar chart, sealed under glass.'
 author: 'Respite Team'
 answer: 'Privacy-first screen time tracking means your usage history stays on your own device by default, the app works without an account, and anything that leaves your phone, such as sync, is optional and clearly disclosed. Check four things before you install: whether it needs an account, where your data lives, what permissions it asks for, and whether its privacy policy is plain.'
 keyTakeaways:

@@ -11,7 +11,8 @@ keyTakeaways:
   - 'Reading your data needs Respite Plus; the account check works on a free account.'
   - 'Disconnect any time from Claude''s connector settings.'
 tags: ['claude', 'mcp', 'connect claude to screen time', 'screen time', 'how to', 'respite plus', 'bring your own ai']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/connect-claude-to-screen-time.jpg'
+heroImageAlt: 'A soft 3D chat bubble wearing round glasses whose lenses reflect a bar chart and moon, beside a glowing phone.'
 howToSteps:
   - name: 'Check what you need'
     text: 'A Respite account with Respite Plus, synced from at least one device, and a Claude plan that allows custom connectors.'

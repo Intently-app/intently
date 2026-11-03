@@ -12,7 +12,8 @@ keyTakeaways:
   - 'Both use a pause, not a hard block, so you always keep the final say.'
 section: 'App Comparisons'
 tags: ['respite', 'one sec', 'screen time app', 'app comparison', 'digital wellbeing', 'one sec alternatives', 'one sec app review']
-heroImage: '/blog-app-comparison.jpg'
+heroImage: '/images/blog/respite-vs-one-sec.jpg'
+heroImageAlt: 'Two hourglasses paused mid-fall; the right one branches into three lower bulbs, one shaped like a browser window.'
 faq:
   - question: 'Which is better: Respite or One Sec?'
     answer: 'It depends on what you value. One Sec is the better pick if you want a guided breathing exercise with published research behind it and do not mind paying. Respite is the better pick if you want a free pause, usage tracking and streaks across iPhone, Android and Chrome. Both use the same core idea, a pause before you open a distracting app.'

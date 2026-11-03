@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Forest pairs well with any of these: it covers sessions, they cover the day.'
 section: 'App Comparisons'
 tags: ['forest app alternatives', 'forest alternative free', 'apps like forest', 'focus apps', 'screen time', 'digital wellbeing']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/forest-app-alternatives.jpg'
+heroImageAlt: 'A garden-shop rack of seed packets showing a cactus, bean, sunflower, mushrooms and an acorn seedling being picked.'
 faq:
   - question: 'What are the best alternatives to the Forest app?'
     answer: 'Flora is the closest match with shared focus rooms. For help outside timed sessions, Respite (free pause, tracking and streaks on iPhone, Android and Chrome), One Sec (breathing pause, free for one app) and ScreenZen (free countdown delay) work all day. Opal is a hard blocker for iPhone.'

@@ -12,7 +12,8 @@ keyTakeaways:
   - 'FlowBuddy is the simplest free option: an open-source breathing pause, nothing else.'
 section: "App Comparisons"
 tags: ["free screen time app android", "best android screen time app", "privacy screen time app", "screen time app no account", "screen time app offline", "digital wellbeing android"]
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/free-screen-time-app-android.jpg'
+heroImageAlt: 'A little free library box on a post holding small tools, beside a lamppost covered in blank flyers.'
 faq:
   - question: 'What is the best free screen time app for Android?'
     answer: 'Respite is a strong free pick if you want to change habits: it adds a pause before the apps you choose, tracks usage and streaks, and has no ads. You can use it without an account. Google Digital Wellbeing is the best built-in option for basic timers and stats.'

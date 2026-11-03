@@ -13,7 +13,8 @@ keyTakeaways:
   - 'If you cannot cut back or it affects work or relationships, talk to a therapist.'
 section: "Digital Wellbeing"
 tags: ["phone addiction help", "reduce phone use moderately", "phone addiction recovery", "digital wellbeing", "mindful tech use"]
-heroImage: "/blog-phone-addiction-help.jpg"
+heroImage: '/images/blog/phone-addiction-help.jpg'
+heroImageAlt: 'A small figure walks a phone-shaped puppy on a short leash along a park path, its cable tail wagging.'
 faq:
   - question: 'Can I overcome phone addiction without deleting apps?'
     answer: 'Many people can. Deleting apps often leads to substitutes or a rebound when you reinstall. Building awareness works for lots of people: track your use, add a pause before the apps you open on autopilot, create phone-free zones and replace the habit with something specific. If you try this and still cannot cut back, speak to a professional.'

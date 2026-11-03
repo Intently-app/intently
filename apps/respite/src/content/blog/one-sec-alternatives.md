@@ -12,7 +12,8 @@ keyTakeaways:
   - 'Pick by platform first: not every alternative runs on Android or in your browser.'
 section: 'App Comparisons'
 tags: ['one sec alternatives', 'one sec alternative android', 'one sec alternative free', 'screen time', 'mindful pause', 'digital wellbeing', 'free one sec alternative android']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/one-sec-alternatives.jpg'
+heroImageAlt: 'Five paper pinwheels on a grassy hill spinning in one curling breeze that rises and falls like a breath.'
 faq:
   - question: "Is there a free version of One Sec?"
     answer: "One Sec is free for one app, but fuller use needs One Sec Pro, a paid subscription (around $20/year). For a free alternative with similar mindful pause functionality, Respite offers full-screen interventions, usage tracking, and gamification at zero cost on iPhone, Android and Chrome. ScreenZen offers free delay-based pauses on both iOS and Android."

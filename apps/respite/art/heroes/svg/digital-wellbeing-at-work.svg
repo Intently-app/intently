@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+
+<linearGradient id="desk" x1="1600" y1="0" x2="0" y2="900" gradientUnits="userSpaceOnUse">
+  <stop offset="0" stop-color="#DCEEF4"/><stop offset=".5" stop-color="#BDE1EC"/><stop offset="1" stop-color="#9CC3D3"/>
+</linearGradient>
+<radialGradient id="pool" cx="600" cy="520" r="360" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FCEBC4" stop-opacity="0.95"/><stop offset="0.45" stop-color="#FCEBC4" stop-opacity="0.55"/><stop offset="1" stop-color="#FCEBC4" stop-opacity="0"/></radialGradient>
+<pattern id="stripe" width="36" height="36" patternUnits="userSpaceOnUse" patternTransform="rotate(0)">
+  <rect width="18" height="36" fill="#E8A317"/><rect x="18" width="18" height="36" fill="#F7FBFC"/>
+</pattern>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+    <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+  </filter>
+</defs>
+
+<rect width="1600" height="900" fill="url(#desk)"/>
+<path d="M-10,40 C300,58 700,20 1100,48 S1500,30 1610,40M-10,127 C300,145 700,107 1100,135 S1500,117 1610,127M-10,214 C300,232 700,194 1100,222 S1500,204 1610,214M-10,274 C300,292 700,254 1100,282 S1500,264 1610,274M-10,361 C300,379 700,341 1100,369 S1500,351 1610,361M-10,448 C300,466 700,428 1100,456 S1500,438 1610,448M-10,508 C300,526 700,488 1100,516 S1500,498 1610,508M-10,595 C300,613 700,575 1100,603 S1500,585 1610,595M-10,682 C300,700 700,662 1100,690 S1500,672 1610,682M-10,742 C300,760 700,722 1100,750 S1500,732 1610,742M-10,829 C300,847 700,809 1100,837 S1500,819 1610,829M-10,916 C300,934 700,896 1100,924 S1500,906 1610,916" stroke="#F7FBFC" stroke-width="2" fill="none" opacity=".18"/>
+<rect width="1600" height="900" fill="url(#pool)"/>
+
+<!-- coffee ring stain -->
+<circle cx="880" cy="640" r="44" fill="none" stroke="#5E8FA6" stroke-width="5" opacity=".28"/>
+<path d="M846,612 A44,44 0 0 1 912,610" fill="none" stroke="#5E8FA6" stroke-width="8" opacity=".18"/>
+
+<!-- notebook (open) -->
+<path d="M410,404 L800,404 L800,644 L410,644Z" fill="#0B1C27" opacity=".2" transform="translate(-14 16)"/>
+<path d="M410,404 Q505,392 600,410 L600,644 Q505,628 410,644Z" fill="#F7FBFC"/>
+<path d="M800,404 Q695,392 600,410 L600,644 Q695,628 800,644Z" fill="#EEF5F8"/>
+<path d="M600,410 L600,644" stroke="#9CC3D3" stroke-width="3"/>
+<path d="M584,410 L600,410 L600,644 L584,642Z" fill="#BDE1EC" opacity=".6"/>
+<path d="M430,432 H578 M622,432 H770M430,454 H578 M622,454 H770M430,476 H578 M622,476 H770M430,498 H578 M622,498 H770M430,520 H578 M622,520 H770M430,542 H578 M622,542 H770M430,564 H578 M622,564 H770M430,586 H578 M622,586 H770M430,608 H578 M622,608 H770" stroke="#9CC3D3" stroke-width="2" opacity=".7"/>
+<!-- a few handwritten scribble strokes, not letters -->
+<path d="M440,436 q20,-8 40,0 t40,0 t30,-2 M440,458 q18,-6 36,0 t36,0" stroke="#2F6079" stroke-width="2.5" fill="none" opacity=".75" stroke-linecap="round"/>
+<!-- pen -->
+<g transform="translate(840 520) rotate(-62)">
+  <rect x="-8" y="-90" width="16" height="180" rx="8" fill="#0B1C27" opacity=".2" transform="translate(-10 12)"/>
+  <rect x="-8" y="-90" width="16" height="180" rx="8" fill="#24465A"/>
+  <path d="M-8,78 L0,104 L8,78Z" fill="#2F6079"/>
+  <rect x="3" y="-84" width="3" height="60" rx="1.5" fill="#F7FBFC" opacity=".5"/>
+</g>
+<!-- paper clip like a dropped key -->
+<path d="M980,770 h46 a10,10 0 0 0 0,-20 h-52 a14,14 0 0 0 0,28 h40" fill="none" stroke="#5E8FA6" stroke-width="4" stroke-linecap="round" transform="rotate(-18 1000 765)"/>
+
+<!-- desk lamp from above: weighted base, two arm segments, shade aimed at the notebook -->
+<circle cx="230" cy="170" r="62" fill="#0B1C27" opacity=".2" transform="translate(-14 16)"/>
+<circle cx="230" cy="170" r="62" fill="#2F6079"/>
+<circle cx="230" cy="170" r="50" fill="#24465A"/>
+<circle cx="230" cy="170" r="12" fill="#5E8FA6"/>
+<path d="M230,170 L300,120 L410,262" stroke="#0B1C27" stroke-width="9" fill="none" opacity=".2" transform="translate(-34 40)" stroke-linejoin="round"/>
+<path d="M230,170 L300,120 L410,262" stroke="#24465A" stroke-width="9" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="300" cy="120" r="10" fill="#2F6079"/>
+<g transform="rotate(-36 420 290)">
+  <path d="M380,250 L460,250 L486,346 L354,346Z" fill="#0B1C27" opacity=".2" transform="translate(-40 40)"/>
+  <path d="M380,250 L460,250 L486,346 L354,346Z" fill="#2F6079"/>
+  <path d="M380,250 L420,250 L400,346 L354,346Z" fill="#24465A"/>
+  <ellipse cx="420" cy="346" rx="66" ry="14" fill="#FCEBC4"/>
+  <rect x="404" y="236" width="32" height="18" rx="6" fill="#24465A"/>
+</g>
+<!-- phone parking bay, upper right -->
+<g transform="translate(-40 10) rotate(-8 1270 250)">
+  <rect x="1222" y="96" width="96" height="16" rx="4" fill="#9CC3D3"/>
+  <rect x="1222" y="104" width="96" height="8" rx="3" fill="#5E8FA6" opacity=".6"/>
+  <path d="M1150,80 L1150,410 M1390,80 L1390,410 M1150,80 L1390,80" stroke="#F7FBFC" stroke-width="10" fill="none" opacity=".85" stroke-linecap="square"/>
+  <!-- phone -->
+  <rect x="1212" y="116" width="116" height="214" rx="22" fill="#0B1C27" opacity=".2" transform="translate(-14 16)"/>
+  <rect x="1212" y="116" width="116" height="214" rx="22" fill="#24465A"/>
+  <rect x="1222" y="126" width="96" height="194" rx="15" fill="#0B1C27"/>
+  <path d="M1290,132 l18,0 l-50,180 l-18,0z" fill="#F7FBFC" opacity=".07"/>
+  <!-- barrier: post + striped arm, lowered across entrance -->
+  <rect x="1380" y="398" width="34" height="34" rx="5" fill="#0B1C27" opacity=".2" transform="translate(-10 12)"/>
+  <rect x="1170" y="404" width="220" height="22" rx="11" fill="#0B1C27" opacity=".2" transform="translate(-12 14)"/>
+  <rect x="1170" y="404" width="220" height="22" rx="11" fill="url(#stripe)"/>
+  <rect x="1380" y="398" width="34" height="34" rx="5" fill="#B97F0C"/>
+  <rect x="1386" y="404" width="22" height="22" rx="4" fill="#E8A317"/>
+  <!-- traffic cone at the bay corner -->
+  <path d="M1150,415 L1112,400 L1090,452 Z" fill="#0B1C27" opacity=".2"/>
+  <rect x="1112" y="380" width="72" height="72" rx="8" fill="#0B1C27" opacity=".2" transform="translate(-14 16)"/>
+  <rect x="1112" y="380" width="72" height="72" rx="8" fill="#2F6079"/>
+  <circle cx="1148" cy="416" r="28" fill="#E8A317"/>
+  <circle cx="1148" cy="416" r="19" fill="#F7FBFC"/>
+  <circle cx="1148" cy="416" r="11" fill="#E8A317"/>
+  <circle cx="1152" cy="412" r="4" fill="#FCEBC4"/>
+</g>
+
+<rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

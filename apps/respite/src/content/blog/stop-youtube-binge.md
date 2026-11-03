@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Know what you will do after the video so closing it is not the hard part.'
 section: 'Digital Wellbeing'
 tags: ['youtube addiction', 'stop youtube binge', 'reduce youtube usage', 'mindful streaming', 'digital wellbeing']
-heroImage: '/blog-youtube-binge.jpg'
+heroImage: '/images/blog/stop-youtube-binge.jpg'
+heroImageAlt: 'A curving run of toppling TV dominoes stops at a gap where one TV was lifted out and now shows a sunset.'
 faq:
   - question: 'Why is YouTube so addictive compared to other platforms?'
     answer: 'YouTube combines autoplay, which removes natural stopping points, with a recommendation algorithm that learns what keeps you watching and videos short enough that one more always feels harmless. Because every single video seems like a small commitment, the total is easy to underestimate. None of this is a personal failing; it is the design doing its job.'

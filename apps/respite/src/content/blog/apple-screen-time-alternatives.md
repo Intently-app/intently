@@ -12,7 +12,8 @@ keyTakeaways:
   - 'Many people keep Screen Time for Downtime and add one pause app on top.'
 section: 'App Comparisons'
 tags: ['apple screen time alternatives', 'screen time alternative iphone', 'better than screen time', 'iPhone', 'screen time', 'digital wellbeing']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/apple-screen-time-alternatives.jpg'
+heroImageAlt: 'Five umbrellas on a rainy hillside; the plain first one is blown inside out while the last shelters a dry patch of grass.'
 faq:
   - question: 'What is the best alternative to Apple Screen Time?'
     answer: 'It depends on what is failing. If you keep tapping Ignore Limit, a pause app helps: Respite and ScreenZen are free, One Sec is paid. If you need blocks you can''t undo, Opal or Freedom are the hard blockers. Many people keep Screen Time for Downtime and add one of these.'

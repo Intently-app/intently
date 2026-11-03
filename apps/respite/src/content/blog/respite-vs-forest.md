@@ -12,7 +12,8 @@ keyTakeaways:
   - 'Respite adds usage tracking and daily limits; Forest tracks focus sessions.'
 section: 'App Comparisons'
 tags: ['respite', 'forest', 'screen time app', 'app comparison', 'digital wellbeing', 'forest alternatives', 'forest app review']
-heroImage: '/blog-app-comparison.jpg'
+heroImage: '/images/blog/respite-vs-forest.jpg'
+heroImageAlt: 'A dark stage with a stopwatch under an unlit spotlight, beside a porch light switching on as someone approaches.'
 faq:
   - question: 'Which is better: Respite or Forest?'
     answer: 'It depends on the problem. Forest is better for dedicated focus sessions, such as studying with a timer and a growing virtual tree. Respite is better for cutting down impulsive phone checks throughout the day, because it pauses you whenever you open a chosen app. They overlap very little, and many people run both.'

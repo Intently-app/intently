@@ -12,7 +12,8 @@ keyTakeaways:
   - 'Respite adds usage tracking and streaks, which a pure blocker lacks.'
 section: 'App Comparisons'
 tags: ['respite', 'freedom', 'screen time app', 'app comparison', 'digital wellbeing', 'freedom alternatives', 'freedom app review']
-heroImage: '/blog-app-comparison.jpg'
+heroImage: '/images/blog/respite-vs-freedom.jpg'
+heroImageAlt: 'A laptop, tablet and phone threaded on one padlocked steel cable, beside a phone at an open door with a bell.'
 faq:
   - question: 'Which is better: Respite or Freedom?'
     answer: 'It depends on the problem. Freedom is better when you need strict blocking across all your devices during work or study, including Windows and Mac. Respite is better when you want a free, gentler pause and tracking to change everyday habits on iPhone, Android and Chrome. Some people use Freedom for work hours and Respite the rest of the time.'

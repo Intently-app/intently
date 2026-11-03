@@ -11,7 +11,8 @@ keyTakeaways:
   - 'Respite reads by default; changing limits is opt-in and only stricter changes apply on their own. It needs Respite Plus.'
   - 'Asking ChatGPT to block AI websites is a different thing: that is not what this connector does.'
 tags: ['chatgpt', 'mcp', 'connect chatgpt to screen time', 'phone usage', 'how to', 'respite plus', 'bring your own ai']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/connect-chatgpt-to-phone-usage.jpg'
+heroImageAlt: 'A phone and a chat bubble on floating platforms joined by a taut tin-can telephone string.'
 howToSteps:
   - name: 'Check your ChatGPT plan and settings'
     text: 'Custom MCP connectors are available on some ChatGPT plans and may need developer mode, or an admin to allow them in a workspace. Check OpenAI''s current documentation for your plan.'

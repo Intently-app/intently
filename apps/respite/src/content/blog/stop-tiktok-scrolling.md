@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Have a specific replacement ready for boredom, anxiety and procrastination.'
 section: 'Digital Wellbeing'
 tags: ['tiktok addiction', 'stop scrolling tiktok', 'reduce tiktok usage', 'mindful social media', 'digital wellbeing']
-heroImage: '/blog-tiktok-scrolling.jpg'
+heroImage: '/images/blog/stop-tiktok-scrolling.jpg'
+heroImageAlt: 'An endless paper strip of vertical panels unrolls off a cliff edge, with a small bench at the brink facing back.'
 faq:
   - question: 'Can I reduce TikTok usage without deleting the app?'
     answer: 'Yes. Deleting works for some people, but many reinstall because the urge to fill idle moments is still there. Keeping the app and adding a pause, friction, situation rules and a replacement activity lets you choose when to use it. That builds self-regulation, and you keep what you actually enjoy about TikTok.'

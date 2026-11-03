@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Your own phone habits are the strongest example you set.'
 section: "Digital Wellbeing"
 tags: ["screen time for parents", "kids screen time", "family screen time rules", "parental controls screen time", "digital wellbeing families", "children screen time guidelines"]
-heroImage: "/blog-placeholder-about.jpg"
+heroImage: '/images/blog/screen-time-for-parents.jpg'
+heroImageAlt: 'A dining table with a big and small chair and a bird''s nest holding face-down phones like eggs at its centre.'
 faq:
   - question: 'How much screen time should kids have per day?'
     answer: 'Guidance varies by age. The WHO and American Academy of Pediatrics advise avoiding screens for babies except video calls and keeping it to about an hour a day of quality content for ages 2 to 4, ideally with a parent. For older children there is no fixed number: protect sleep, physical activity, homework and family time, and consider content and context, not only minutes.'

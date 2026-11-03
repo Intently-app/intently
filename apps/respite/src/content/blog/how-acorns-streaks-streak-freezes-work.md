@@ -10,7 +10,8 @@ keyTakeaways:
   - 'A streak freeze covers one app for one day, costs 150 acorns, and 3 are free each month.'
   - 'XP equals acorns earned, so spending acorns never lowers your level.'
 tags: ['respite', 'how to', 'acorns', 'streaks', 'streak freeze', 'quests', 'help']
-heroImage: '/blog-productivity-social.jpg'
+heroImage: '/images/blog/how-acorns-streaks-streak-freezes-work.jpg'
+heroImageAlt: 'A small orange flame preserved inside an ice cube on an acorn-slot tree stump, with spare ice cubes in a tray.'
 faq:
   - question: 'How do I earn acorns in Respite?'
     answer: 'You earn 20 acorns for each day you stay within every one of your limits, 2 acorns each time you choose to walk away at the pause (up to 10 a day), 10 to 30 acorns for finishing a daily quest, bonuses when your streak reaches 3, 7, 14, 30 and 100 days, and a weekly chest worth 30 to 80 acorns.'

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+
+<linearGradient id="wall" x1="0" y1="0" x2="0" y2="738" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#7FAABD"/><stop offset="0.55" stop-color="#BDE1EC"/><stop offset="1" stop-color="#DCEEF4"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="738" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9CC3D3"/><stop offset="1" stop-color="#6E9DB2"/></linearGradient>
+<radialGradient id="sun" cx="1300" cy="260" r="700" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F7FBFC" stop-opacity="0.55"/><stop offset="1" stop-color="#F7FBFC" stop-opacity="0"/></radialGradient>
+<linearGradient id="glass" x1="0" y1="165" x2="0" y2="575" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#DCEEF4"/><stop offset="1" stop-color="#BDE1EC"/></linearGradient>
+<clipPath id="g"><rect x="622" y="168" width="356" height="404" rx="14"/></clipPath>
+<path id="coil" d="M0,0 c6,-10 14,-10 16,0 c2,10 10,10 16,0 c6,-10 14,-10 16,0 c2,10 10,10 16,0 c6,-10 14,-10 16,0 c2,10 10,10 16,0 c6,-10 14,-10 16,0 c2,10 10,10 16,0 c6,-10 14,-10 16,0" fill="none" stroke="#5E8FA6" stroke-width="3.5" stroke-linecap="round"/>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+    <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+  </filter>
+</defs>
+
+<rect width="1600" height="738" fill="url(#wall)"/>
+<rect width="1600" height="900" fill="url(#sun)"/>
+<rect x="0" y="724" width="1600" height="14" fill="#EEF5F8" opacity=".6"/>
+<rect x="0" y="738" width="1600" height="162" fill="url(#floor)"/>
+<!-- window light patch on the floor, with the frame's shadow bars -->
+<path d="M190,770 L470,770 L380,880 L60,880Z" fill="#F7FBFC" opacity=".35"/>
+<path d="M330,770 L346,770 L236,880 L220,880Z M138,822 L432,822 L424,832 L128,832Z" fill="#6E9DB2" opacity=".55"/>
+
+<!-- crisp cast shadows (light from upper right) -->
+<path d="M590,738 L1010,738 L850,808 L420,808Z" fill="#0B1C27" opacity=".2"/>
+<rect x="560" y="140" width="420" height="598" rx="56" fill="#0B1C27" opacity=".2"/>
+
+<!-- the machine -->
+<rect x="590" y="110" width="420" height="628" rx="58" fill="#24465A"/>
+<path d="M648,110 L952,110 Q1010,110 1010,168 L1010,680 Q1010,738 952,738 L930,738 Q984,738 984,678 L984,170 Q984,128 940,128 L660,128Z" fill="#2F6079"/>
+<rect x="760" y="134" width="80" height="10" rx="5" fill="#0B1C27"/>
+<!-- glass front + items -->
+<rect x="622" y="168" width="356" height="404" rx="14" fill="url(#glass)"/>
+<g clip-path="url(#g)">
+  <rect x="622" y="168" width="356" height="404" fill="#5E8FA6" opacity=".12"/>
+  <rect x="622" y="300" width="356" height="8" fill="#9CC3D3"/><use href="#coil" x="640" y="290"/><use href="#coil" x="812" y="290"/><rect x="622" y="432" width="356" height="8" fill="#9CC3D3"/><use href="#coil" x="640" y="422"/><use href="#coil" x="812" y="422"/><rect x="622" y="560" width="356" height="8" fill="#9CC3D3"/><use href="#coil" x="640" y="550"/><use href="#coil" x="812" y="550"/>
+  <!-- row 1: paperback, ball of yarn -->
+  <rect x="668" y="196" width="74" height="96" rx="4" fill="#F3EFE4"/>
+  <rect x="668" y="196" width="14" height="96" fill="#D9D3C2"/>
+  <rect x="690" y="222" width="42" height="22" fill="#7FA88E"/>
+  <circle cx="890" cy="252" r="40" fill="#7FA88E"/>
+  <path d="M858,232 Q890,250 920,226 M852,256 Q890,276 928,250 M862,278 Q894,282 916,272 M880,214 Q872,250 884,290" stroke="#5C8A70" stroke-width="3" fill="none"/>
+  <path d="M928,262 q30,10 22,30" stroke="#7FA88E" stroke-width="3" fill="none"/>
+  <!-- row 2: teacup, telephone handset -->
+  <ellipse cx="706" cy="420" rx="54" ry="8" fill="#D9D3C2"/>
+  <path d="M668,356 L744,356 L734,410 Q706,420 678,410Z" fill="#F3EFE4"/>
+  <path d="M744,368 q22,0 18,20 q-4,14 -22,12" stroke="#F3EFE4" stroke-width="6" fill="none"/>
+  <ellipse cx="706" cy="356" rx="38" ry="6" fill="#D9D3C2"/>
+  <path d="M700,346 q-8,-14 2,-24 M714,346 q-8,-16 4,-26" stroke="#F7FBFC" stroke-width="3" fill="none" opacity=".8"/>
+  <path d="M842,410 q-6,-40 26,-52 l60,0 q32,12 26,52 l-22,4 q-4,-24 -14,-28 l-40,0 q-10,4 -14,28Z" fill="#F3EFE4"/>
+  <path d="M842,410 l22,4 l-2,8 l-22,-4Z M954,410 l-22,4 l2,8 l22,-4Z" fill="#D9D3C2"/>
+  <path d="M850,420 c-10,6 4,12 -6,18 c-10,6 4,12 -6,18 c-10,6 4,12 -6,18 c-6,4 -2,10 6,12" stroke="#5E8FA6" stroke-width="3" fill="none"/>
+  <!-- row 3: the kite's slot, now empty; a stack of small notebooks -->
+  <rect x="842" y="504" width="96" height="16" rx="3" fill="#7FA88E"/>
+  <rect x="848" y="488" width="86" height="16" rx="3" fill="#F3EFE4"/>
+  <rect x="844" y="472" width="92" height="16" rx="3" fill="#9CC3D3"/>
+  <!-- glass highlight -->
+  <path d="M900,168 L960,168 L780,572 L720,572Z" fill="#F7FBFC" opacity=".22"/>
+</g>
+<rect x="622" y="168" width="356" height="404" rx="14" fill="none" stroke="#0B1C27" stroke-width="4" opacity=".35"/>
+
+<!-- keypad: blank buttons -->
+<g fill="#5E8FA6">
+  <rect x="640" y="628" width="26" height="18" rx="5"/><rect x="676" y="628" width="26" height="18" rx="5"/><rect x="712" y="628" width="26" height="18" rx="5"/><rect x="640" y="656" width="26" height="18" rx="5"/><rect x="676" y="656" width="26" height="18" rx="5"/><rect x="712" y="656" width="26" height="18" rx="5"/><rect x="640" y="684" width="26" height="18" rx="5"/><rect x="676" y="684" width="26" height="18" rx="5"/><rect x="712" y="684" width="26" height="18" rx="5"/>
+</g>
+<!-- heart-shaped coin slot -->
+<path d="M686,604 c-6,-10 -20,-6 -16,4 c3,7 16,14 16,14 c0,0 13,-7 16,-14 c4,-10 -10,-14 -16,-4Z" fill="#0B1C27"/>
+<!-- dispensing flap -->
+<rect x="790" y="598" width="190" height="110" rx="12" fill="#0B1C27"/>
+<!-- the kite, mid-drop -->
+<g transform="translate(880 652) scale(1.15) rotate(-24) translate(-880 -652)">
+  <path d="M880,604 L922,650 L880,712 L838,650Z" fill="#E8A317"/>
+  <path d="M880,604 L922,650 L880,650Z" fill="#F0B533"/>
+  <path d="M838,650 L880,712 L880,650Z" fill="#B97F0C"/>
+  <path d="M880,604 V712 M838,650 H922" stroke="#FCEBC4" stroke-width="3"/>
+</g>
+<!-- flap lid, translucent -->
+<rect x="790" y="662" width="190" height="46" rx="10" fill="#5E8FA6" opacity=".4"/>
+<rect x="796" y="666" width="178" height="5" rx="2.5" fill="#BDE1EC" opacity=".7"/>
+<!-- tail dangling out, already trying to fly -->
+<path d="M930,690 C990,720 1040,690 1060,640 C1080,590 1130,600 1160,560 C1190,520 1180,470 1230,440 C1260,422 1290,430 1310,410" stroke="#24465A" stroke-width="2.5" fill="none"/>
+<path d="M-17,-11 L0,0 L-17,11Z M17,-11 L0,0 L17,11Z" fill="#E8A317" transform="translate(1000 708) rotate(20)"/><path d="M-17,-11 L0,0 L-17,11Z M17,-11 L0,0 L17,11Z" fill="#E8A317" transform="translate(1062 632) rotate(-50)"/><path d="M-17,-11 L0,0 L-17,11Z M17,-11 L0,0 L17,11Z" fill="#E8A317" transform="translate(1150 572) rotate(-20)"/><path d="M-17,-11 L0,0 L-17,11Z M17,-11 L0,0 L17,11Z" fill="#E8A317" transform="translate(1196 488) rotate(-60)"/><path d="M-17,-11 L0,0 L-17,11Z M17,-11 L0,0 L17,11Z" fill="#E8A317" transform="translate(1270 428) rotate(-10)"/>
+<!-- feet -->
+<rect x="630" y="734" width="40" height="10" rx="3" fill="#0B1C27"/>
+<rect x="930" y="734" width="40" height="10" rx="3" fill="#0B1C27"/>
+
+<rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

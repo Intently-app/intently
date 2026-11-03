@@ -12,7 +12,8 @@ keyTakeaways:
   - 'You can combine them: Brick for high-risk hours, Respite for awareness the rest of the day.'
 section: 'App Comparisons'
 tags: ['respite', 'brick', 'brick app alternatives', 'brick phone blocker', 'screen time app', 'digital wellbeing', 'phone addiction']
-heroImage: '/blog-app-comparison.jpg'
+heroImage: '/images/blog/respite-vs-brick.jpg'
+heroImageAlt: 'A phone locked in a steel locker with its key on a long lanyard, beside a phone floating inside a soap bubble.'
 faq:
   - question: 'Which is better: Respite or Brick?'
     answer: 'It depends on your personality. Brick is better if you need a physical barrier and do not trust yourself with software alone. Respite is better if you want a free, flexible pause that works wherever your phone goes and builds awareness over time. Brick is firm; Respite is gentle. Plenty of people start with the free one.'

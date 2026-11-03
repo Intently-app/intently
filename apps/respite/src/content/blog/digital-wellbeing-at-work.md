@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Heavy phone use at work can signal burnout or avoidance, not just a habit.'
 section: 'Digital Wellbeing'
 tags: ['digital wellbeing at work', 'workplace phone addiction', 'focus at work without blocking apps', 'work productivity', 'notification management']
-heroImage: '/blog-placeholder-5.jpg'
+heroImage: '/images/blog/digital-wellbeing-at-work.jpg'
+heroImageAlt: 'A phone parked in a tiny painted parking bay with a barrier arm in the corner of a large clean desk.'
 faq:
   - question: 'How do I stop checking my phone at work?'
     answer: 'Keep your phone in a drawer or bag during focus periods rather than on your desk, turn off non-essential notifications, and schedule two or three intentional phone breaks. A pause before the apps you open on autopilot, such as the one Respite adds, can catch the reflex reach without needing constant willpower.'

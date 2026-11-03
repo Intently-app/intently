@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Phones are built to remove friction; adding one pause back levels it a little.'
 section: 'Digital Wellbeing'
 tags: ['friction behavior change', 'nudge theory phone', 'science of friction screen time', 'choice architecture', 'behavioral science']
-heroImage: '/blog-placeholder-5.jpg'
+heroImage: '/images/blog/science-of-friction.jpg'
+heroImageAlt: 'A paper-cut waterfall pausing in one calm terraced pool where a single leaf slowly spins.'
 faq:
   - question: 'What is friction in behavioural science?'
     answer: 'Friction is any small obstacle between a person and an action: a few seconds of delay, an extra tap, a question. Adding friction to a behaviour you want less of, or removing it from one you want more of, is one of the most practical ways to shift habits, because it changes the environment rather than relying on willpower.'

@@ -12,7 +12,8 @@ keyTakeaways:
   - 'A pause works in any setting, including meetings, transit and bed.'
 section: 'App Comparisons'
 tags: ['respite', 'clearspace', 'screen time app', 'app comparison', 'digital wellbeing', 'clearspace alternatives']
-heroImage: '/blog-app-comparison.jpg'
+heroImage: '/images/blog/respite-vs-clearspace.jpg'
+heroImageAlt: 'A phone forms the handle of a heavy kettlebell; beside it another phone rests in a shady hammock next to tea.'
 faq:
   - question: 'Which is better: Respite or ClearSpace?'
     answer: 'It depends on your style. ClearSpace is better if you are on iPhone and want stronger, effort-based friction before apps open. Respite is better if you want a free, gentle pause that works in any setting and across iPhone, Android and Chrome. If you are unsure, start with the free one and see whether a pause is enough.'

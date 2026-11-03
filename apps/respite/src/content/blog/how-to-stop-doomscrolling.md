@@ -13,7 +13,8 @@ keyTakeaways:
   - 'Protect the hour before bed, the highest-impact change for most people.'
 section: 'Digital Wellbeing'
 tags: ['stop doomscrolling', 'how to stop doomscrolling', 'doomscrolling addiction', 'negative news scrolling', 'digital wellbeing', 'mindful phone use']
-heroImage: '/blog-placeholder-3.jpg'
+heroImage: '/images/blog/how-to-stop-doomscrolling.jpg'
+heroImageAlt: 'A tap dripping dark drops into a phone-shaped basin, with a valve redirecting the flow into two clean cups.'
 faq:
   - question: 'What exactly is doomscrolling?'
     answer: 'Doomscrolling is the compulsive habit of continuing to scroll through negative or distressing news and social media content even when it makes you feel worse. The word became common during the COVID-19 pandemic, but the behaviour is older, driven by our attention to threats and the endless feeds of modern apps.'

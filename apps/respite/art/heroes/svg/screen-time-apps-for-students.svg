@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <radialGradient id="lamp" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FCEBC4" stop-opacity=".34"/><stop offset=".75" stop-color="#FCEBC4" stop-opacity=".2"/><stop offset="1" stop-color="#FCEBC4" stop-opacity="0"/></radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+    </filter>
+  </defs>
+
+  <!-- mist-blue floor -->
+  <rect width="1600" height="900" fill="#BDE1EC"/>
+  <g fill="#A9CFDC"><rect x="0" y="700" width="1600" height="4" transform="rotate(10 800 450)"/><rect x="0" y="800" width="1600" height="4" transform="rotate(10 800 450)"/><rect x="0" y="900" width="1600" height="4" transform="rotate(10 800 450)"/></g>
+
+  <g transform="rotate(10 800 450)">
+    <!-- desk -->
+    <rect x="-100" y="40" width="1580" height="770" fill="#0B1C27" opacity=".25" transform="translate(20 20)"/>
+    <rect x="-100" y="780" width="1580" height="30" fill="#3E2814"/>
+    <rect x="1452" y="40" width="28" height="770" fill="#4A3019"/>
+    <rect x="-100" y="40" width="1552" height="740" fill="#5E3E22"/>
+    <g fill="#6E4A2C">
+      <rect x="-100" y="120" width="1552" height="5"/><rect x="200" y="210" width="900" height="4"/><rect x="-100" y="330" width="600" height="5"/><rect x="1000" y="380" width="452" height="4"/><rect x="-100" y="560" width="1552" height="4"/><rect x="300" y="680" width="700" height="5"/><rect x="1100" y="700" width="352" height="4"/>
+    </g>
+    <rect x="-100" y="770" width="1552" height="10" fill="#6E4A2C"/>
+
+    <!-- lamp's circle of light over the case, not the phone -->
+    <circle cx="700" cy="450" r="360" fill="url(#lamp)"/>
+
+    <g transform="translate(730 450) scale(1.16) translate(-730 -450)">
+    <!-- open notebook (blank) -->
+    <rect x="420" y="220" width="620" height="460" rx="6" fill="#0B1C27" opacity=".3" transform="translate(20 20)"/>
+    <rect x="420" y="220" width="620" height="460" rx="6" fill="#24465A"/>
+    <rect x="432" y="230" width="296" height="440" fill="#EEF5F8"/>
+    <rect x="732" y="230" width="296" height="440" fill="#F7FBFC"/>
+    <rect x="716" y="230" width="28" height="440" fill="#DCEEF4"/>
+    <g fill="#DCEEF4"><rect x="450" y="640" width="250" height="3"/><rect x="760" y="640" width="250" height="3"/><rect x="450" y="250" width="40" height="3"/><rect x="980" y="250" width="30" height="3"/></g>
+
+    <!-- pencil case: lid flap folded back -->
+    <rect x="500" y="262" width="460" height="150" rx="40" fill="#0B1C27" opacity=".3" transform="translate(20 20)"/>
+    <rect x="500" y="262" width="460" height="150" rx="40" fill="#24465A"/>
+    <rect x="518" y="280" width="424" height="122" rx="28" fill="#2F6079"/>
+    <rect x="560" y="300" width="340" height="70" rx="12" fill="#41788F"/>
+    <!-- base -->
+    <rect x="500" y="400" width="460" height="210" rx="40" fill="#0B1C27" opacity=".35" transform="translate(20 20)"/>
+    <rect x="500" y="400" width="460" height="210" rx="40" fill="#24465A"/>
+    <rect x="518" y="416" width="424" height="178" rx="30" fill="#8FBBCD"/>
+    <rect x="518" y="560" width="424" height="34" rx="17" fill="#5E8FA6"/>
+    <rect x="518" y="416" width="424" height="12" rx="6" fill="#5E8FA6"/>
+    <!-- zip teeth along the hinge -->
+    <path d="M520 406 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6 l8 6 l8 -6" stroke="#9FB0BA" stroke-width="4" fill="none" stroke-linejoin="round"/>
+    <rect x="958" y="392" width="40" height="18" rx="6" fill="#9FB0BA"/>
+    <rect x="990" y="394" width="26" height="14" rx="7" fill="none" stroke="#9FB0BA" stroke-width="4"/>
+
+    <!-- the lineup of tools -->
+    <!-- tiny padlock -->
+    <g transform="translate(575 500)">
+      <rect x="-26" y="-12" width="52" height="46" rx="8" fill="#0B1C27" opacity=".2" transform="translate(10 10)"/>
+      <path d="M-15 -10 V-24 A15 15 0 0 1 15 -24 V-10" stroke="#7C93A1" stroke-width="8" fill="none"/>
+      <rect x="-26" y="-12" width="52" height="46" rx="8" fill="#F7FBFC"/>
+      <rect x="12" y="-12" width="14" height="46" rx="6" fill="#C9D4DA"/>
+      <circle cx="0" cy="6" r="5" fill="#24465A"/><rect x="-2" y="6" width="4" height="12" fill="#24465A"/>
+    </g>
+    <!-- pencil sprouting a leaf (the accent) -->
+    <g transform="translate(668 0)">
+      <polygon points="-14,440 14,440 14,556 0,592 -14,556" fill="#0B1C27" opacity=".2" transform="translate(10 10)"/>
+      <rect x="-14" y="444" width="28" height="112" fill="#A8CDB2"/>
+      <rect x="4" y="444" width="10" height="112" fill="#6E9E7E"/>
+      <polygon points="-14,556 14,556 0,592" fill="#E9DCC0"/>
+      <polygon points="-5,579 5,579 0,592" fill="#24465A"/>
+      <rect x="-15" y="428" width="30" height="18" fill="#9FB0BA"/>
+      <rect x="-15" y="434" width="30" height="3" fill="#7C93A1"/>
+      <rect x="-14" y="412" width="28" height="18" rx="6" fill="#F7FBFC"/>
+      <!-- sprout -->
+      <path d="M0 414 C0 390 -4 372 6 350" stroke="#3E9B4F" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M4 360 C30 330 70 334 84 344 C66 372 30 378 4 360 Z" fill="#0B1C27" opacity=".2" transform="translate(10 10)"/>
+      <path d="M4 360 C30 330 70 334 84 344 C66 372 30 378 4 360 Z" fill="#E8A317"/>
+      <path d="M4 360 C30 352 60 348 84 344 C66 372 30 378 4 360 Z" fill="#B97F0C"/>
+      <path d="M2 382 C-18 362 -48 366 -58 376 C-40 396 -14 396 2 382 Z" fill="#E8A317"/>
+      <path d="M2 382 C-18 380 -40 378 -58 376 C-40 396 -14 396 2 382 Z" fill="#B97F0C"/>
+      <path d="M14 352 C40 342 60 342 74 344" stroke="#FCEBC4" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </g>
+    <!-- miniature bench -->
+    <g transform="translate(790 520)">
+      <g fill="#0B1C27" opacity=".2" transform="translate(10 10)"><rect x="-56" y="-46" width="112" height="14"/><rect x="-60" y="-6" width="120" height="14"/></g>
+      <rect x="-56" y="-46" width="112" height="12" rx="3" fill="#6E9E7E"/>
+      <rect x="-56" y="-28" width="112" height="12" rx="3" fill="#6E9E7E"/>
+      <rect x="-60" y="-6" width="120" height="14" rx="3" fill="#A8CDB2"/>
+      <rect x="-50" y="-50" width="8" height="90" fill="#2F6079"/><rect x="42" y="-50" width="8" height="90" fill="#2F6079"/>
+      <rect x="-56" y="-46" width="112" height="4" fill="#D6EFD9"/>
+    </g>
+    <!-- cloud-shaped eraser -->
+    <g transform="translate(890 520)">
+      <path d="M-34 24 C-56 24 -56 -6 -36 -6 C-36 -30 -4 -36 4 -16 C14 -30 40 -24 36 -2 C56 0 54 24 34 24 Z" fill="#0B1C27" opacity=".2" transform="translate(10 10)"/>
+      <path d="M-34 24 C-56 24 -56 -6 -36 -6 C-36 -30 -4 -36 4 -16 C14 -30 40 -24 36 -2 C56 0 54 24 34 24 Z" fill="#F7FBFC"/>
+      <path d="M-34 24 C-50 24 -54 8 -46 2 C-36 14 20 16 48 8 C52 18 46 24 34 24 Z" fill="#BDE1EC"/>
+    </g>
+
+    </g>
+    <!-- desk lamp, seen from above: base, two-part arm, shade -->
+    <g fill="#0B1C27" opacity=".3" transform="translate(20 20)">
+      <circle cx="150" cy="170" r="50"/>
+      <path d="M150 170 L250 130 L360 250" stroke="#0B1C27" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M340 220 L402 248 L382 318 L312 292 Z"/>
+    </g>
+    <circle cx="150" cy="170" r="50" fill="#24465A"/>
+    <circle cx="150" cy="170" r="34" fill="#2F6079"/>
+    <path d="M150 170 L250 130 L360 250" stroke="#41788F" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="150" cy="170" r="10" fill="#9FB0BA"/><circle cx="250" cy="130" r="10" fill="#9FB0BA"/>
+    <path d="M340 220 L402 248 L382 318 L312 292 Z" fill="#24465A"/>
+    <path d="M340 220 L402 248 L396 268 L334 240 Z" fill="#2F6079"/>
+    <path d="M312 292 L382 318 L376 330 L308 304 Z" fill="#FCEBC4" opacity=".8"/>
+
+    <!-- pencil shavings curling like tiny waves -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M1110 650 c10 -16 30 -16 34 0 c4 14 -12 18 -16 8" stroke="#C9B994" stroke-width="7"/>
+      <path d="M1160 690 c10 -14 26 -12 28 2 c2 10 -10 14 -12 6" stroke="#C9B994" stroke-width="6"/>
+      <path d="M1110 650 c10 -16 30 -16 34 0" stroke="#24465A" stroke-width="2" transform="translate(0 -4)"/>
+      <circle cx="1140" cy="720" r="3" fill="#24465A" stroke="none"/>
+    </g>
+
+    <!-- small distant shelf with the phone, face down -->
+    <rect x="1220" y="120" width="190" height="130" rx="6" fill="#0B1C27" opacity=".35" transform="translate(20 20)"/>
+    <rect x="1220" y="236" width="190" height="16" fill="#3E2814"/>
+    <rect x="1220" y="120" width="190" height="118" rx="4" fill="#8A6A44"/>
+    <rect x="1220" y="120" width="190" height="8" fill="#A07D52"/>
+    <rect x="1282" y="132" width="66" height="96" rx="12" fill="#0B1C27" opacity=".35" transform="translate(10 10)"/>
+    <rect x="1282" y="132" width="66" height="96" rx="12" fill="#24465A"/>
+    <rect x="1290" y="140" width="24" height="24" rx="6" fill="#2F6079"/>
+    <circle cx="1298" cy="148" r="4" fill="#0B1C27"/><circle cx="1307" cy="157" r="4" fill="#0B1C27"/>
+    <rect x="1340" y="146" width="4" height="70" rx="2" fill="#41788F"/>
+  </g>
+
+  <rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

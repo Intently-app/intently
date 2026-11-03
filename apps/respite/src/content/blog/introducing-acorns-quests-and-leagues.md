@@ -10,7 +10,8 @@ keyTakeaways:
   - 'Friends and weekly leagues are optional, and you can hide from leagues at any time.'
   - 'It is free on iPhone and Android; it needs a free Google or Apple sign-in. The browser extension comes later.'
 tags: ['respite', 'announcement', 'acorns', 'quests', 'leagues', 'streaks', 'gamification']
-heroImage: '/blog-productivity-social.jpg'
+heroImage: '/images/blog/introducing-acorns-quests-and-leagues.jpg'
+heroImageAlt: 'A treasure chest bursting with acorns, a quest scroll under its lid and a pennant on top, one acorn tumbling free.'
 faq:
   - question: 'Is the game layer in Respite free?'
     answer: 'Yes. Acorns, quests, streak freezes, the shop, friends and weekly leagues are free for everyone, with no ads. Respite Plus is a separate optional upgrade for sync, schedules, longer focus sessions and richer insights, and none of the game depends on it.'

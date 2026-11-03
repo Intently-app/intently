@@ -11,7 +11,8 @@ keyTakeaways:
   - 'Connecting only makes sense if you trust both the server and your assistant''s provider with the data.'
   - 'Respite runs one for screen time: reads by default, optional stricter-limits access, Respite Plus.'
 tags: ['mcp', 'what is an mcp server', 'model context protocol', 'ai', 'claude', 'chatgpt', 'explainer', 'bring your own ai']
-heroImage: '/blog-digital-wellbeing-alternatives.jpg'
+heroImage: '/images/blog/what-is-an-mcp-server.jpg'
+heroImageAlt: 'A cutaway house where a dumbwaiter lifts trays of a chart, clock and sprout up to a chat bubble upstairs.'
 faq:
   - question: 'What is an MCP server in simple terms?'
     answer: 'It is a connector between an AI assistant and an app. The server lists the things it can do, such as "get this week''s usage", and the assistant calls them when your question needs them. MCP stands for Model Context Protocol, an open standard, so one server can work with Claude, ChatGPT, Cursor and other assistants that support it.'
