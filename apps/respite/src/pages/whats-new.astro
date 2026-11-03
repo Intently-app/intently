@@ -1,0 +1,240 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/ui/Button.astro';
+import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
+import { getChangelog } from '../data/changelog';
+
+const entries = getChangelog().map((entry) => ({
+	...entry,
+	label: new Date(`${entry.date}T00:00:00Z`).toLocaleDateString('en-US', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+		timeZone: 'UTC',
+	}),
+}));
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title="What's New in Respite: Latest Features and Updates"
+			description="See what is new in Respite: acorns, quests and leagues, Respite Plus and more, with the platforms each update is on, newest first."
+		/>
+		<BreadcrumbSchema
+			items={[
+				{ name: "Home", url: "https://respite.liveintently.app" },
+				{ name: "What's new", url: "https://respite.liveintently.app/whats-new/" }
+			]}
+		/>
+	</head>
+	<body>
+		<Header />
+
+		<main>
+			<section class="hero">
+				<div class="container">
+					<h1>What's new in Respite</h1>
+					<p class="subtitle">New features, newest first, with the platforms each one is on. For the full feature list, see <a href="/features/">Features</a>.</p>
+				</div>
+			</section>
+
+			<section class="section">
+				<div class="container list">
+					{entries.map((entry) => (
+						<article class="entry">
+							<div class="entry-meta">
+								<time datetime={entry.date}>{entry.label}</time>
+								{entry.draft && <span class="draft">Draft</span>}
+							</div>
+							<h2>{entry.title}</h2>
+							<p>{entry.summary}</p>
+							<div class="entry-foot">
+								<ul class="platforms" aria-label="Available on">
+									{entry.platforms.map((platform) => <li>{platform}</li>)}
+								</ul>
+								<a href={entry.link} class="entry-link">Read the details →</a>
+							</div>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section class="cta-section">
+				<div class="container">
+					<h2>Try it for yourself</h2>
+					<p>Respite is free, with no ads. An account is optional.</p>
+					<div class="cta-buttons">
+						<Button href="/download/" variant="primary" size="lg">Download Free</Button>
+						<Button href="/features/" variant="secondary" size="lg">See all features</Button>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		width: 100%;
+	}
+
+	.container {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 0 1rem;
+	}
+
+	.hero {
+		width: 100%;
+		padding: var(--ds-space-3xl) 0 var(--ds-space-2xl);
+		background: linear-gradient(135deg, var(--ds-primary) 0%, var(--ds-brand) 100%);
+		text-align: center;
+		color: var(--ds-on-brand);
+	}
+
+	.hero::before {
+		content: '';
+		display: block;
+		height: 7rem;
+	}
+
+	.hero h1 {
+		font-size: 2.5rem;
+		font-weight: 800;
+		margin: 0 0 var(--ds-space-md);
+		letter-spacing: -0.02em;
+		line-height: 1.2;
+		color: white;
+	}
+
+	.subtitle {
+		font-size: 1.125rem;
+		margin: 0 auto;
+		opacity: 0.95;
+		max-width: 600px;
+	}
+
+	.subtitle a {
+		color: inherit;
+		text-decoration: underline;
+	}
+
+	.section {
+		padding: var(--ds-space-3xl) 0;
+		background: var(--ds-bg-secondary);
+	}
+
+	.list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--ds-space-lg);
+	}
+
+	.entry {
+		padding: var(--ds-space-xl);
+		background: var(--ds-bg-primary);
+		border: 1px solid var(--ds-gray-200);
+		border-radius: var(--ds-radius-lg);
+	}
+
+	.entry-meta {
+		display: flex;
+		align-items: center;
+		gap: var(--ds-space-sm);
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--ds-text-secondary);
+	}
+
+	.draft {
+		padding: 0.1rem 0.5rem;
+		border-radius: var(--ds-radius-full);
+		background: var(--ds-gray-200);
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+
+	.entry h2 {
+		font-size: 1.375rem;
+		font-weight: 700;
+		color: var(--ds-text-primary);
+		margin: var(--ds-space-sm) 0;
+	}
+
+	.entry p {
+		margin: 0 0 var(--ds-space-md);
+		color: var(--ds-text-secondary);
+		line-height: 1.6;
+	}
+
+	.entry-foot {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--ds-space-md);
+	}
+
+	.platforms {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--ds-space-sm);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.platforms li {
+		padding: 0.2rem 0.7rem;
+		border-radius: var(--ds-radius-full);
+		background: rgba(var(--ds-brand-rgb), 0.1);
+		color: var(--ds-primary);
+		font-size: 0.8125rem;
+		font-weight: 700;
+	}
+
+	.entry-link {
+		font-weight: 600;
+		color: var(--ds-primary);
+		text-decoration: none;
+	}
+
+	.entry-link:hover {
+		text-decoration: underline;
+	}
+
+	.cta-section {
+		padding: var(--ds-space-3xl) 0;
+		text-align: center;
+	}
+
+	.cta-section h2 {
+		margin: 0 0 var(--ds-space-sm);
+		color: var(--ds-text-primary);
+	}
+
+	.cta-section p {
+		margin: 0 0 var(--ds-space-lg);
+		color: var(--ds-text-secondary);
+	}
+
+	.cta-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--ds-space-md);
+	}
+
+	@media (max-width: 600px) {
+		.hero h1 {
+			font-size: 2rem;
+		}
+	}
+</style>
