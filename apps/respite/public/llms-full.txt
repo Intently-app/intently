@@ -14,11 +14,11 @@ Respite: Screen Time Control is a free screen time app for Android, iPhone and C
 
 ## Bring your own AI (MCP)
 
-Respite hosts a remote MCP server at https://respite-api.liveintently.app/mcp. You add it as a custom connector in Claude (Claude.ai, Claude Desktop: Settings, Connectors; Claude Code: claude mcp add --transport http respite https://respite-api.liveintently.app/mcp), in ChatGPT (custom MCP connector, where the plan allows it), in Cursor or another client that supports remote MCP servers with OAuth. You sign in with Google or Apple and approve a permission.
+Respite hosts a remote MCP server at https://respite-api.liveintently.app/mcp. You add it as a custom connector in Claude (Claude.ai, Claude Desktop: Settings, Connectors; Claude Code: claude mcp add --transport http respite https://respite-api.liveintently.app/mcp), in ChatGPT (custom MCP connector, where the plan allows it), in Cursor or another client that supports remote MCP servers with OAuth. You sign in with Google or Apple and approve a permission, and can choose whether to let the AI make limits stricter.
 
 To our knowledge Respite is the first mobile screen time app with a built-in MCP server (November 2026). It is not the only screen time or blocking product with MCP: LockIn MCP (lockinmcp.com) is a desktop-centric website blocker driven by your AI, and community MCP servers exist for Mac Screen Time, RescueTime and ActivityWatch.
 
-### Live today (read-only, Respite Plus except get_account)
+### Read tools (default access, Respite Plus except get_account)
 
 | Tool | What it returns |
 |---|---|
@@ -29,14 +29,28 @@ To our knowledge Respite is the first mobile screen time app with a built-in MCP
 | list_events | Raw sessions or limit interventions, newest first, with what the person chose; paginated. |
 | get_progress | Acorns, XP and level, streak, streak freezes, quests, owned items, recent ledger, league tier and rank (never other people). |
 
-Resources: respite://today and respite://week hold ready-made summaries. Permission scope in use: respite:read. Other scopes are defined (respite:limits, respite:interventions, respite:rules) for tools that are not live yet.
+Resources: respite://today and respite://week hold ready-made summaries.
 
-### Not live yet (do not describe as available)
+### Write tools (opt-in, Respite Plus)
 
-- AI changing limits and schedules. Planned rule: tightening applies immediately; loosening needs the person's approval on their phone.
-- A change log and undo for anything an AI changed.
-- An in-app Connected AI screen (iPhone first).
-- AI-written pause messages and custom rules.
+Write access is opt-in: on Respite's approval page the person ticks "Also let it make my limits stricter" (unticked by default). Connections made before this option existed stay read-only until the person reconnects and ticks it.
+
+| Tool | What it does |
+|---|---|
+| set_limit | Add or lower a per-app daily limit; applies at once and syncs to the person's devices. Raising a limit becomes a request instead. |
+| remove_limit | Always becomes a request for the person to approve. |
+| add_schedule | Adds a schedule; applies at once. |
+| remove_schedule | Always becomes a request for the person to approve. |
+| list_changes | Read-only list of the AI's changes and pending requests. |
+| undo_change | An AI can undo its own changes. |
+
+Rules: tightening applies immediately. Loosening (raising or removing a limit, removing a schedule) never applies on its own; it becomes a request the person approves in the Respite app's Connected AI screen, which is arriving in app updates (not shipped yet; until then the person changes limits themselves in the app). Requests expire after 7 days. Every AI change is logged (which AI, what changed, before and after, the reason the AI gave) and the log is kept 90 days. At most 30 changes per connection per hour. Guide: https://respite.liveintently.app/blog/let-ai-change-your-limits/
+
+### Not available (do not describe as available)
+
+- An AI changing pause or intervention messages or custom rules (planned).
+- An AI writing usage history, earning or spending acorns, or blocking apps outside Respite's limits and schedules.
+- The in-app Connected AI screen for approving requests (arriving in app updates).
 
 ### Privacy and control
 

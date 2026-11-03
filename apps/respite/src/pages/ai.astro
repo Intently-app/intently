@@ -15,7 +15,7 @@ const description =
 
 // 40-60 words, quotable on its own.
 const answer =
-	'Respite is, to our knowledge, the first mobile screen time app with a built-in MCP server (November 2026). With Respite Plus you connect your own AI, such as Claude, ChatGPT or Cursor, and ask about your real usage, limits and progress. It is read-only today, Respite runs no AI of its own, and you can disconnect any time.';
+	'Respite is, to our knowledge, the first mobile screen time app with a built-in MCP server (November 2026). With Respite Plus you connect your own AI, such as Claude, ChatGPT or Cursor, and ask about your real usage, limits and progress. It reads by default; if you opt in it can also make your limits stricter, but never loosen one without your approval. Respite runs no AI of its own, and you can disconnect any time.';
 
 const prompts = [
 	{
@@ -59,6 +59,16 @@ const tools = [
 	{ name: 'list_limits', what: 'Your per-app daily limits and blocking schedules.', plus: true },
 	{ name: 'list_events', what: 'Raw sessions, or the moments Respite interrupted you at a limit and what you chose.', plus: true },
 	{ name: 'get_progress', what: 'Acorns, XP and level, streak, streak freezes, quests and your league tier (never other people).', plus: true },
+	{ name: 'list_changes', what: 'A read-only list of the changes AIs made to your limits and schedules, and requests waiting for your approval.', plus: true },
+];
+
+// Opt-in: the person ticks "Also let it make my limits stricter" on the approval page.
+const writeTools = [
+	{ name: 'set_limit', what: 'Add or lower a per-app daily limit. Applies at once. Raising a limit becomes a request you approve.' },
+	{ name: 'add_schedule', what: 'Add a blocking schedule. Applies at once.' },
+	{ name: 'remove_limit', what: 'Always becomes a request you approve; nothing is removed on its own.' },
+	{ name: 'remove_schedule', what: 'Always becomes a request you approve; nothing is removed on its own.' },
+	{ name: 'undo_change', what: 'Lets an AI undo a change it made itself.' },
 ];
 
 const steps = [
@@ -70,12 +80,12 @@ const steps = [
 	{
 		n: '2',
 		title: 'Sign in and allow',
-		body: 'Your AI opens a Respite page. You sign in with Google or Apple, the same as in the app, and approve the permissions it asks for.',
+		body: 'Your AI opens a Respite page. You sign in with Google or Apple, the same as in the app, and approve the permissions it asks for. One checkbox, "Also let it make my limits stricter", is unticked by default.',
 	},
 	{
 		n: '3',
 		title: 'Ask in plain language',
-		body: 'Your AI decides which of Respite\'s read-only tools to call and answers from your own synced data.',
+		body: 'Your AI decides which of Respite\'s tools to call and answers from your own synced data.',
 	},
 	{
 		n: '4',
@@ -88,17 +98,19 @@ const live = [
 	['Connect Claude, ChatGPT, Cursor or another remote MCP client with OAuth sign-in', 'Live'],
 	['Read your usage, insights, limits, schedules, sessions, interventions and game progress', 'Live (Respite Plus)'],
 	['Resources respite://today and respite://week with ready-made summaries', 'Live (Respite Plus)'],
-	['Everything is read-only: your AI cannot change a limit or a schedule', 'Live'],
-	['AI changes your limits and schedules: tightening applies at once, loosening needs your approval on the phone', 'Coming'],
-	['A change log with undo for anything an AI changed', 'Coming'],
-	['A Connected AI screen in the app to see and remove connections (iPhone first)', 'Coming'],
+	['Connections are read-only unless you tick \"Also let it make my limits stricter\" on the approval page; connections made before this update stay read-only until you reconnect', 'Live'],
+	['AI makes your limits stricter: lower a limit or add a schedule, applied at once and synced to your devices (opt-in)', 'Live (Respite Plus)'],
+	['Loosening (raising or removing a limit, removing a schedule) never applies on its own: it becomes a request, which expires after 7 days', 'Live'],
+	['A log of every AI change (which AI, what, before and after, the reason it gave), kept 90 days, with undo for the AI\'s own changes; at most 30 changes per connection per hour', 'Live'],
+	['A Connected AI screen in the Respite app to approve requests and remove connections; until it arrives you change limits yourself in the app', 'Coming in app updates'],
+	['An AI changing your pause messages or custom rules', 'Planned'],
 ];
 
 const compare = [
 	['How the AI is provided', 'Your own Claude, ChatGPT or Cursor account, over MCP', 'A coach built into the app, run by the app maker', 'Your own assistant, over MCP'],
 	['Platforms', 'Android, iPhone, Chrome', 'Mostly iPhone only (FOMO, Zensi, Argue, No Scroll AI)', 'macOS full; Windows and Linux via hosts file; Chrome add-on'],
 	['What the AI sees', 'Your synced Respite usage and limits, only when you ask', 'What you tell the coach, plus the app\'s usage data', 'Which sites are blocked; task-aware blocking sends a page excerpt'],
-	['What it does today', 'Reads and explains your data', 'Talks you out of opening a blocked app', 'Blocks sites and starts focus sessions'],
+	['What it does today', 'Reads and explains your data; with opt-in, makes limits stricter', 'Talks you out of opening a blocked app', 'Blocks sites and starts focus sessions'],
 	['Typical price', 'Respite Plus: $4.99 a month; you pay your AI separately', 'Around $9 to $10 a month for the apps that list a price', '$2.99 a month, $29.99 a year'],
 ];
 
@@ -111,7 +123,7 @@ const faqs = [
 	{
 		question: 'Can ChatGPT or Claude see my screen time?',
 		answer:
-			'Only if you connect them. Out of the box, neither can read your phone. With Respite Plus you add Respite as a custom connector, sign in and allow read access, after which the assistant can fetch your synced usage, insights and limits when you ask. It sees nothing before you connect and nothing after you disconnect.',
+			'Only if you connect them. Out of the box, neither can read your phone. With Respite Plus you add Respite as a custom connector, sign in and allow access, after which the assistant can fetch your synced usage, insights and limits when you ask. It sees nothing before you connect and nothing after you disconnect.',
 	},
 	{
 		question: 'What is a screen time MCP server?',
@@ -131,7 +143,7 @@ const faqs = [
 	{
 		question: 'Can my AI change my limits?',
 		answer:
-			'Not yet. Today every Respite tool is read-only. We are building tools that let an AI change limits and schedules: tightening would apply immediately, loosening would need your approval on your phone, with a change log and undo. Until those ship, we will not describe them as available.',
+			'Only to make them stricter, and only if you opt in. On Respite\'s approval page you can tick "Also let it make my limits stricter" (unticked by default); then your AI can lower a limit or add a schedule, and that applies at once. Raising or removing a limit, or removing a schedule, never applies on its own: it becomes a request you approve in the Respite app, which is arriving in app updates, and requests expire after 7 days. Every change is logged for 90 days, and an AI can undo its own changes. Connections made before this update stay read-only until you reconnect.',
 	},
 	{
 		question: 'Do I need Respite Plus to connect an AI?',
@@ -141,7 +153,7 @@ const faqs = [
 	{
 		question: 'How do I disconnect an AI from Respite?',
 		answer:
-			'Remove or disconnect the Respite connector in your AI app\'s connector settings, which ends its access. Deleting your Respite account also ends every connection. A Connected AI screen inside the Respite app, iPhone first, is planned but is not available yet.',
+			'Remove or disconnect the Respite connector in your AI app\'s connector settings, which ends its access. Deleting your Respite account also ends every connection. A Connected AI screen inside the Respite app is arriving in app updates.',
 	},
 ];
 
@@ -166,7 +178,7 @@ const softwareApplication = {
 	featureList: [
 		'Short pause before the apps and sites you pick',
 		'Daily limits, schedules and streaks',
-		'Remote MCP server with OAuth for Claude, ChatGPT and Cursor (Respite Plus, read-only)',
+		'Remote MCP server with OAuth for Claude, ChatGPT and Cursor (Respite Plus; read tools plus opt-in tools that make limits stricter)',
 	],
 };
 
@@ -219,7 +231,7 @@ const webPage = {
 			<section class="section">
 				<div class="container narrow">
 					<h2 class="section-title">What can I ask my AI about my screen time?</h2>
-					<p class="section-description">These prompts work with the tools that are live today. Your AI picks the tool; you just ask.</p>
+					<p class="section-description">These prompts work with the read tools. Your AI picks the tool; you just ask.</p>
 					<div class="table-wrapper">
 						<table class="data-table">
 							<thead>
@@ -253,7 +265,7 @@ const webPage = {
 						<span>You</span><span class="arrow">&rarr;</span>
 						<span>Your AI app<small>Claude, ChatGPT, Cursor</small></span><span class="arrow">&rarr;</span>
 						<span>OAuth sign-in<small>Google or Apple</small></span><span class="arrow">&rarr;</span>
-						<span>Respite MCP server<small>read-only tools</small></span><span class="arrow">&rarr;</span>
+						<span>Respite MCP server<small>read tools, opt-in stricter-limits tools</small></span><span class="arrow">&rarr;</span>
 						<span>Your synced data</span>
 					</div>
 					<h3 class="sub">The tools your AI can call today</h3>
@@ -267,8 +279,21 @@ const webPage = {
 							</tbody>
 						</table>
 					</div>
+					<h3 class="sub">Opt-in tools that make limits stricter</h3>
+					<p class="small">Available only if you tick "Also let it make my limits stricter" on Respite's approval page (Respite Plus). Try: "Lower my Instagram limit to 20 minutes on weekdays", "Add a schedule that blocks TikTok and YouTube 10pm to 7am" or "Undo the last change you made".</p>
+					<div class="table-wrapper">
+						<table class="data-table">
+							<thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+							<tbody>
+								{writeTools.map((t) => (
+									<tr><td><code>{t.name}</code></td><td>{t.what}</td></tr>
+								))}
+							</tbody>
+						</table>
+					</div>
 					<p class="small">
-						Permissions are separate. Today the consent screen asks for read access to your usage, insights and history. Permissions to change limits, messages or rules arrive with the tools that need them.
+						Reading is always part of a connection; making limits stricter is a separate choice, unticked by default. An AI cannot change pause messages or custom rules, write usage history, earn or spend acorns, or block apps outside your limits and schedules.
+						Read <a href="/blog/let-ai-change-your-limits/">how letting your AI change your limits works</a>.
 						New to the term? Read <a href="/blog/what-is-an-mcp-server/">what an MCP server is, in plain English</a>.
 					</p>
 				</div>
@@ -286,7 +311,7 @@ const webPage = {
 							</li>
 						))}
 					</ul>
-					<p class="small">Planned changes are described in <a href="/blog/bring-your-own-ai-to-respite/">bring your own AI to Respite</a>. The <a href="/whats-new/">What's new</a> page says when each one ships.</p>
+					<p class="small">Details are in <a href="/blog/let-ai-change-your-limits/">letting your AI change your limits</a> and <a href="/blog/bring-your-own-ai-to-respite/">bring your own AI to Respite</a>. The <a href="/whats-new/">What's new</a> page says when each one ships.</p>
 				</div>
 			</section>
 

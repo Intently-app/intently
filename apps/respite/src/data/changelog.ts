@@ -19,6 +19,14 @@ export interface ChangelogEntry {
 export const changelog: ChangelogEntry[] = [
 	{
 		date: '2026-11-03',
+		title: 'Let your AI make your limits stricter',
+		summary:
+			'Opt in when you connect Claude, ChatGPT or Cursor and your AI can lower a limit or add a schedule, applied at once. Raising or removing a limit, or removing a schedule, becomes a request you approve in the Respite app (the Connected AI screen is arriving in app updates). Every change is logged, and your AI can undo its own. Respite Plus.',
+		platforms: ['iPhone', 'Android', 'Chrome'],
+		link: '/blog/let-ai-change-your-limits/',
+	},
+	{
+		date: '2026-11-03',
 		title: 'Privacy policies updated',
 		summary:
 			'Our iPhone, Android and browser privacy policies now cover connecting an AI app you choose, and correct earlier wording on analytics and crash reports, sign-in, sync, purchases, and rewards, friends and leagues.',
@@ -29,7 +37,7 @@ export const changelog: ChangelogEntry[] = [
 		date: '2026-11-03',
 		title: 'Bring your own AI',
 		summary:
-			'Connect Claude, ChatGPT or Cursor to your Respite account with MCP and ask about your real usage, insights, limits, interruptions and progress. Read-only for now, Respite Plus. Next: letting your AI change limits, with approval on your phone for anything looser, plus a change log with undo.',
+			'Connect Claude, ChatGPT or Cursor to your Respite account with MCP and ask about your real usage, insights, limits, interruptions and progress. Respite Plus.',
 		platforms: ['iPhone', 'Android', 'Chrome'],
 		link: '/blog/bring-your-own-ai-to-respite/',
 	},

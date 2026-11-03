@@ -8,8 +8,11 @@ Respite runs no AI of its own and does not train models on your data. To our kno
 
 - [AI and screen time (hub)](https://respite.liveintently.app/ai/): what you can ask your AI, how it works, what is live and what is coming, privacy, setup, comparison with in-app AI coaches
 - MCP server address: https://respite-api.liveintently.app/mcp (remote, streamable HTTP, OAuth sign-in with Google or Apple, Respite Plus)
-- Live tools (all read-only, scope respite:read): get_account (works on the free plan), get_usage, get_insights, list_limits, list_events, get_progress; resources respite://today and respite://week
-- Not live yet: AI changing limits and schedules (tightening applies immediately, loosening needs approval on the phone), a change log with undo, an in-app Connected AI screen
+- Read tools (default): get_account (works on the free plan), get_usage, get_insights, list_limits, list_events, get_progress; resources respite://today and respite://week
+- Opt-in write tools (the person ticks "Also let it make my limits stricter" on the approval page; unticked by default; connections made earlier stay read-only until reconnected): set_limit (add or lower a per-app daily limit, applies at once; raising one becomes a request), remove_limit (always a request), add_schedule (applies at once), remove_schedule (always a request), list_changes (AI changes and pending requests), undo_change (an AI can undo its own changes)
+- Loosening never applies on its own: it becomes a request the person approves in the Respite app's Connected AI screen, which is arriving in app updates; requests expire after 7 days. Every AI change is logged (which AI, what, before and after, the reason given) for 90 days; at most 30 changes per connection per hour
+- Not available: an AI changing pause messages or custom rules (planned), writing usage history, earning or spending acorns, blocking apps outside Respite's limits and schedules
+- [Let your AI change your limits (approval, log and undo)](https://respite.liveintently.app/blog/let-ai-change-your-limits/)
 - [How to connect Claude](https://respite.liveintently.app/blog/connect-claude-to-screen-time/)
 - [How to connect ChatGPT](https://respite.liveintently.app/blog/connect-chatgpt-to-phone-usage/)
 - [Connect Claude, ChatGPT or Cursor (all clients, permissions, troubleshooting)](https://respite.liveintently.app/blog/connect-claude-chatgpt-cursor-to-respite-mcp/)

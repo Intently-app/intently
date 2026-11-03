@@ -1,56 +1,70 @@
 ---
 title: 'Let Your AI Change Your Limits: Approval, Log and Undo'
-description: 'How letting Claude or ChatGPT change your screen time limits will work in Respite: tighten at once, loosen with your approval, with a change log and undo.'
+description: 'How letting Claude or ChatGPT change your screen time limits works in Respite: stricter changes apply at once, loosening needs your approval, with a change log and undo.'
 pubDate: 2026-11-03
-draft: true
+draft: false
 author: 'Respite Team'
-answer: 'Letting an AI change your screen time limits is planned for Respite and is not live yet. The design is that an AI can tighten a limit or schedule immediately, because that only makes your phone stricter, but loosening one needs your approval on the phone. Every change goes into a change log, and you can undo it.'
+answer: 'With Respite Plus you can let Claude, ChatGPT or Cursor make your screen time limits stricter. It is opt-in: on Respite''s approval page you tick "Also let it make my limits stricter". Lowering a limit or adding a schedule then applies at once and syncs to your devices. Raising or removing a limit, or removing a schedule, never applies on its own: it becomes a request you approve in the Respite app. Every change is logged and can be undone.'
 keyTakeaways:
-  - 'Today Respite''s AI connection is read-only; changing limits is planned, not live.'
-  - 'Tightening a limit or schedule applies at once; loosening waits for your approval on the phone.'
-  - 'A change log records what an AI changed, and undo reverses it.'
-  - 'A Connected AI screen in the app (iPhone first) will show and remove connections.'
-  - 'Separate permissions mean you can allow reading without allowing changes.'
+  - 'Write access is opt-in: tick "Also let it make my limits stricter" when you connect. It is unticked by default.'
+  - 'Lowering a limit or adding a schedule applies at once and syncs to your devices.'
+  - 'Raising or removing a limit, or removing a schedule, becomes a request you approve in the app; requests expire after 7 days.'
+  - 'Every AI change is logged for 90 days, and an AI can undo its own changes.'
+  - 'The in-app Connected AI screen for approvals is arriving in app updates; until then you change limits yourself in the app.'
 tags: ['let ai set limits', 'ai agent control phone limits', 'let claude set app limits', 'mcp', 'approval', 'undo', 'bring your own ai']
 heroImage: '/blog-digital-wellbeing-alternatives.jpg'
 faq:
   - question: 'Can Claude or ChatGPT set my app limits?'
-    answer: 'Not yet. Respite''s tools are read-only today, so a connected AI can read your usage and limits but not change them. Tools that let an AI change limits and schedules are planned, with a rule that tightening applies immediately and loosening needs your approval on your phone. We will update this page when they ship.'
+    answer: 'Yes, to make them stricter, if you opt in. When you connect, tick "Also let it make my limits stricter" on Respite''s approval page. Then your AI can lower a per-app daily limit or add a schedule, and it applies at once. It cannot loosen anything on its own: raising or removing a limit and removing a schedule become requests you approve in the Respite app. It needs Respite Plus.'
   - question: 'Why does loosening a limit need approval?'
-    answer: 'Because the risk is asymmetric. If an AI makes a limit stricter, the worst outcome is that you are blocked sooner than you wanted, which you can reverse. If it loosens one, it could undo the very protection you set up, perhaps at 11 pm. Requiring your approval on the phone keeps the decision with you.'
+    answer: 'Because the risk is asymmetric. If an AI makes a limit stricter, the worst outcome is that you are blocked sooner than you wanted, which you can reverse. If it loosens one, it could undo the very protection you set up, perhaps at 11 pm. Requiring your approval keeps that decision with you.'
   - question: 'Can I undo what an AI changed?'
-    answer: 'That is the plan. Each change an AI makes will be recorded in a change log with what changed, when and which AI did it, and you will be able to undo it. This is not live yet. Until it ships, no AI can change your limits, so there is nothing to undo.'
-  - question: 'Will I be able to allow reading but not changing?'
-    answer: 'Yes. Respite already defines separate permissions: reading usage and history, and distinct permissions for limits, the messages shown at a limit, and custom rules. A connected AI gets only what you approve on the consent screen, and a tool that needs a permission you did not grant returns an error instead of acting.'
+    answer: 'Yes. Every change is logged with which AI made it, what changed, the before and after, and the reason the AI gave, and the log is kept for 90 days. An AI can undo its own changes with undo_change, and you can ask it to list them with list_changes.'
+  - question: 'How do I let my AI make changes if I connected it earlier?'
+    answer: 'Connections made before this update stay read-only. Disconnect Respite in your AI app''s connector settings, add it again, and tick "Also let it make my limits stricter" on the approval page.'
+  - question: 'Where do I approve requests?'
+    answer: 'In the Connected AI screen in the Respite app, which is arriving in app updates and has not shipped yet. Until it reaches your app, nothing loosens on its own, and you change limits yourself in the app. Requests expire after 7 days.'
 ---
 
-<!-- DRAFT: publish only when the write tools ship. The text below is the planned design, written in the future tense on purpose. To go live: remove draft: true, switch the answer, keyTakeaways and body to the present tense, set pubDate, flip the /ai/ "Coming" rows to "Live", update bring-your-own-ai-to-respite and the connect posts, add a changelog entry in src/data/changelog.ts, and add this URL to public/llms.txt. -->
+## What can an AI change?
 
-## What is planned?
+With Respite Plus, your own AI can make your limits stricter. Once you opt in, it can lower a per-app daily limit, add a schedule, list what it changed and undo its own changes. The question is how to make that safe, and the design answers it with a few rules.
 
-Respite's AI connection today only reads. The next stage lets your own AI change things: raise or lower a daily limit, add a schedule, or turn one off. The question is how to make that safe, and the design answers it with three rules.
+## How do I turn it on?
+
+It is opt-in. When you [connect Claude](/blog/connect-claude-to-screen-time/), [ChatGPT](/blog/connect-chatgpt-to-phone-usage/) or Cursor, Respite's approval page shows a checkbox, "Also let it make my limits stricter". It is unticked by default, so a plain connection can only read. Connections made before this update stay read-only until you disconnect, reconnect and tick it. See the [connection guide for all clients](/blog/connect-claude-chatgpt-cursor-to-respite-mcp/).
+
+## What can I ask?
+
+- "Lower my Instagram limit to 20 minutes on weekdays."
+- "Add a schedule that blocks TikTok and YouTube 10pm to 7am."
+- "Show me what you changed this week."
+- "Undo the last change you made."
 
 ## Rule 1: tightening applies immediately
 
-If an AI makes your phone stricter, such as lowering Instagram from 60 minutes to 40 or extending a bedtime schedule, the change takes effect at once. The reasoning is that a stricter limit cannot hurt you in the way a looser one can, and making you wait for approval on something that helps you would just be friction in the wrong place.
+When your AI makes your phone stricter, such as lowering Instagram from 60 minutes to 40 or adding a bedtime schedule, the change takes effect at once and syncs to your devices. A stricter limit cannot hurt you the way a looser one can, and making you wait for approval on something that helps you would be friction in the wrong place.
 
-## Rule 2: loosening needs approval on your phone
+## Rule 2: loosening needs your approval
 
-If an AI wants to make something weaker, such as raising a limit, shortening a schedule or turning one off, it does not happen until you approve it on your phone. The protection you set up when you were calm should not be undone by a chat at midnight, even a polite one.
+If your AI wants to make something weaker, such as raising a limit, removing a limit or removing a schedule, it does not happen on its own. It becomes a request that you approve in the Respite app's Connected AI screen, and it expires after 7 days. The protection you set up when you were calm should not be undone by a chat at midnight, even a polite one.
+
+The Connected AI screen is arriving in app updates and has not shipped yet. Until it reaches your app, nothing loosens on its own, and you change limits yourself in the app.
 
 ## Rule 3: every change is logged and can be undone
 
-Each change will go in a log that records what changed, when, and which AI did it. Undo reverses it. An in-app Connected AI screen, iPhone first, will list your connections and let you remove them.
+Each change is logged: which AI made it, what changed, the before and after, and the reason the AI gave. The log is kept for 90 days, and an AI can undo its own changes. An AI can make at most 30 changes per connection per hour.
 
-## How will permissions work?
+## What can an AI still not do?
 
-Permissions are separate. Reading usage is its own permission; changing limits and schedules, the messages shown at a limit, and custom rules are others. You can let an AI read without letting it change anything, and you can disconnect it at any time from your AI app.
+It cannot change your pause or intervention messages or your custom rules (planned, not available), write usage history, earn or spend acorns, or block apps outside your limits and schedules. Respite still runs no AI of its own and trains nothing on your data.
 
-## What can I do today?
+## Which tools does it use?
 
-Read. [Connect Claude](/blog/connect-claude-to-screen-time/) or [ChatGPT](/blog/connect-chatgpt-to-phone-usage/) and ask which limits to change, then change them yourself. See [AI and screen time](/ai/) for the current state.
+`set_limit`, `add_schedule`, `remove_limit`, `remove_schedule`, `list_changes` and `undo_change`, alongside the read tools. The full list is on [AI and screen time](/ai/).
 
 ## Related articles
 
 - [AI and screen time: bring your own AI to Respite](/ai/)
 - [Is it safe to give an AI your screen time data?](/blog/is-it-safe-to-give-ai-your-screen-time-data/)
+- [Bring your own AI to Respite](/blog/bring-your-own-ai-to-respite/)
