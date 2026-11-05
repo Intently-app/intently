@@ -8,7 +8,8 @@
 //      - Chrome Store → ?utm_source=…            (Developer Dashboard › Analytics › Acquisition)
 //      - App Store    → ?pt=<provider>&ct=…      (App Store Connect › App Analytics › Campaigns)
 //        Only when APPLE_PROVIDER_TOKEN is set; without it the App Store link is left as is.
-// 3. Each store click is sent to Ahrefs Web Analytics as a custom event `store_click`.
+// 3. Each store click is sent as a custom event `store_click` to Ahrefs Web Analytics and to GA4
+//    (registered in BaseHead.astro; the props become event parameters).
 //
 // The naming scheme is in docs/utm.md at the repo root. Keep the two in step.
 
@@ -107,10 +108,14 @@ export function initAttribution() {
 		const { where, utm } = tag(a, store, src, pg);
 		a.dataset.attributed = '1';
 		const send = () => {
-			const w = window as unknown as { AhrefsAnalytics?: { sendEvent: (n: string, o?: object) => void } };
-			w.AhrefsAnalytics?.sendEvent('store_click', {
-				props: { store, page: pg.slug, section: pg.section, placement: where, source: utm.utm_source, medium: utm.utm_medium },
-			});
+			const w = window as unknown as {
+				AhrefsAnalytics?: { sendEvent: (n: string, o?: object) => void };
+				gtag?: (command: 'event', name: string, params: object) => void;
+			};
+			const props = { store, page: pg.slug, section: pg.section, placement: where, source: utm.utm_source, medium: utm.utm_medium };
+			w.AhrefsAnalytics?.sendEvent('store_click', { props });
+			// beacon: the click usually leaves the page, so GA4 must not wait for a normal request.
+			w.gtag?.('event', 'store_click', { ...props, transport_type: 'beacon' });
 		};
 		a.addEventListener('click', send);
 		a.addEventListener('auxclick', send);

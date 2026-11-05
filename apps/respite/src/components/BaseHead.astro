@@ -55,6 +55,7 @@ const {
 <!-- Preconnect to external domains for faster loading -->
 <link rel="preconnect" href="https://analytics.ahrefs.com" />
 <link rel="dns-prefetch" href="https://analytics.ahrefs.com" />
+<link rel="preconnect" href="https://www.googletagmanager.com" />
 
 <!-- Canonical URL (none on noindex pages: the 404 page is served at every missing path) -->
 {!noindex && <link rel="canonical" href={canonicalURL} />}
@@ -132,3 +133,19 @@ const {
   ahrefs_analytics_script.setAttribute('data-key', 'Sd2CQ7ks44YVx4SUPYYfRw');
   document.getElementsByTagName('head')[0].appendChild(ahrefs_analytics_script);
 </script>
+
+<!-- Google Analytics 4, web stream "Respite Website" (G-40F2MVBEQE), with Consent Mode v2.
+     No banner: in the EEA, the UK and Switzerland analytics_storage stays denied, so GA4 sets no
+     cookies there and sends cookieless pings only. Elsewhere it uses first-party cookies. Ads
+     storage, ad user data and personalisation are denied everywhere, and Google signals is off.
+     Disclosed at /privacy/website/. -->
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  var noAds = { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' };
+  gtag('consent', 'default', Object.assign({ analytics_storage: 'denied', region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'] }, noAds));
+  gtag('consent', 'default', Object.assign({ analytics_storage: 'granted' }, noAds));
+  gtag('js', new Date());
+  gtag('config', 'G-40F2MVBEQE', { allow_google_signals: false, allow_ad_personalization_signals: false });
+</script>
+<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-40F2MVBEQE"></script>
