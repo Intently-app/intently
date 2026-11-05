@@ -1,4 +1,13 @@
 ---
+/**
+ * /blog/: find something worth reading.
+ *
+ * Search sits at the top (titles, summaries and tags; `/` focuses it; ?q= is shareable). Topics,
+ * sort and "hide what I've read" live in a sticky rail on wide screens and above the list on
+ * narrow ones. Before the full list: "Continue reading" (from this device's reading progress,
+ * saved by the post page), "Start here" and the newest posts. Every article is in the list as
+ * plain links, so the page works and is crawlable without JavaScript.
+ */
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -8,16 +17,9 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import BreadcrumbSchema from '../../components/SEO/BreadcrumbSchema.astro';
 import CollectionPageSchema from '../../components/SEO/CollectionPageSchema.astro';
 import Picture from '../../components/ui/Picture.astro';
-import {
-	BLOG_CATEGORIES,
-	getBlogCategoryId,
-	getBlogCategoryMeta,
-	getNormalizedHeroImage,
-} from '../../data/blogMeta';
+import { BLOG_CATEGORIES, getBlogCategoryId, getBlogCategoryMeta, getNormalizedHeroImage } from '../../data/blogMeta';
 
-const posts = (await getPublishedPosts()).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = (await getPublishedPosts()).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 function getWordCount(markdownBody = ''): number {
 	const plainText = markdownBody
@@ -28,47 +30,40 @@ function getWordCount(markdownBody = ''): number {
 		.replace(/[#*_>~|!-]/g, ' ')
 		.replace(/\s+/g, ' ')
 		.trim();
-
-	if (!plainText) {
-		return 0;
-	}
-
-	return plainText.split(' ').length;
+	return plainText ? plainText.split(' ').length : 0;
 }
 
-const postsWithMeta = posts.map((post) => {
-	const wordCount = getWordCount(post.body || '');
-	const readingTime = Math.max(1, Math.ceil(wordCount / 200));
-	const categoryId = getBlogCategoryId(post.id);
+const items = posts.map((post) => {
 	const category = getBlogCategoryMeta(post.id);
-	const heroImage = getNormalizedHeroImage(post.data.heroImage);
-
+	const readingTime = Math.max(1, Math.ceil(getWordCount(post.body || '') / 200));
+	const updated = post.data.updatedDate ?? post.data.pubDate;
 	return {
-		...post,
-		categoryId,
+		id: post.id,
+		title: post.data.title,
+		description: post.data.description,
+		pubDate: post.data.pubDate,
+		updated,
+		categoryId: getBlogCategoryId(post.id),
 		category,
-		heroImage,
+		heroImage: getNormalizedHeroImage(post.data.heroImage),
 		readingTime,
-		searchText: `${post.data.title} ${post.data.description} ${category.label}`.toLowerCase(),
+		search: [post.data.title, post.data.description, category.label, ...(post.data.tags ?? [])].join(' ').toLowerCase(),
 	};
 });
 
-const featuredPost = postsWithMeta[0];
-const regularPosts = postsWithMeta.slice(1);
+const topics = BLOG_CATEGORIES.map((c) => ({ ...c, count: items.filter((i) => i.categoryId === c.id).length })).filter((c) => c.count > 0);
 
-const categoryFilters = BLOG_CATEGORIES
-	.map((category) => ({
-		...category,
-		count: postsWithMeta.filter((post) => post.categoryId === category.id).length,
-	}))
-	.filter((category) => category.count > 0);
+// For a first visit: the basics, in the order they build on each other.
+const START_HERE = ['how-much-screen-time-is-too-much', 'why-willpower-fails-phone-addiction', 'how-to-stop-doomscrolling', 'how-to-reduce-screen-time'];
+const startHere = START_HERE.map((id) => items.find((i) => i.id === id)).filter((i): i is (typeof items)[number] => !!i);
+const latest = items.slice(0, 3);
 
-const collectionItems = postsWithMeta.map((post) => ({
-	name: post.data.title,
-	url: `https://respite.liveintently.app/blog/${post.id}/`,
-	description: post.data.description,
-	image: post.heroImage,
-	datePublished: post.data.pubDate.toISOString(),
+const collectionItems = items.map((i) => ({
+	name: i.title,
+	url: `https://respite.liveintently.app/blog/${i.id}/`,
+	description: i.description,
+	image: i.heroImage,
+	datePublished: i.pubDate.toISOString(),
 }));
 ---
 
@@ -76,8 +71,8 @@ const collectionItems = postsWithMeta.map((post) => ({
 <html lang="en">
 	<head>
 		<BaseHead
-			title={`Blog & Resources - ${SITE_TITLE}`}
-			description="Actionable digital wellbeing guides, behavior-change strategies, and app comparisons to help you build healthier phone habits."
+			title={`Blog - ${SITE_TITLE}`}
+			description="Guides to using your phone on purpose: habits, routines, app-by-app advice and honest comparisons of screen time apps."
 		/>
 		<BreadcrumbSchema
 			items={[
@@ -86,633 +81,1231 @@ const collectionItems = postsWithMeta.map((post) => ({
 			]}
 		/>
 		<CollectionPageSchema
-			name="Respite Blog & Resources"
+			name="Respite Blog"
 			description="Articles, guides, and research on digital wellbeing, screen time management, and building healthier relationships with technology."
 			url="/blog"
 			items={collectionItems}
 		/>
 	</head>
-	<body>
+	<body class="blog-index">
 		<Header />
-		<main class="blog-page">
-			<section class="blog-hero">
-				<div class="hero-copy">
-					<p class="hero-eyebrow">Respite Journal</p>
-					<h1>Blog & Resources</h1>
-					<p>
-						Practical, research-backed content for people who want to reduce screen time without
-						deleting the apps they care about.
-					</p>
-				</div>
-				<div class="hero-actions">
-					<a href="/quiz/" class="hero-button primary">Take the Phone Habit Quiz</a>
-					<a href="/download/" class="hero-button secondary">Download Respite</a>
-				</div>
-			</section>
-
-			<section class="blog-controls" aria-label="Filter and search blog posts">
-				<div class="search-field">
-					<label for="blog-search">Search articles</label>
-					<input
-						id="blog-search"
-						type="search"
-						placeholder="Try: doomscrolling, Instagram, alternatives, ADHD..."
-						autocomplete="off"
-					/>
-				</div>
-
-				<div class="filter-row" role="group" aria-label="Blog categories">
-					<button
-						type="button"
-						class="filter-chip active"
-						data-category="all"
-						aria-pressed="true">
-						All Posts
-						<span>{postsWithMeta.length}</span>
-					</button>
-					{
-						categoryFilters.map((category) => (
-							<button
-								type="button"
-								class="filter-chip"
-								data-category={category.id}
-								aria-pressed="false">
-								{category.label}
-								<span>{category.count}</span>
-							</button>
-						))
-					}
-				</div>
-
-				<p id="results-summary" class="results-summary">Showing {postsWithMeta.length} articles</p>
-			</section>
-
-			{featuredPost && (
-				<article
-					class="featured-post"
-					data-post
-					data-category={featuredPost.categoryId}
-					data-search={featuredPost.searchText}>
-					<a href={`/blog/${featuredPost.id}/`} class="featured-media" aria-label={`Read ${featuredPost.data.title}`}>
-						<Picture
-							src={featuredPost.heroImage}
-							alt={featuredPost.data.title}
-							width={960}
-							height={540}
-							loading="eager"
-							fetchpriority="high"
-						/>
-					</a>
-					<div class="featured-content">
-						<div class="post-meta">
-							<span class="category-tag" style={`--category-accent: ${featuredPost.category.accentColor}`}>
-								{featuredPost.category.label}
-							</span>
-							<span><FormattedDate date={featuredPost.data.pubDate} /></span>
-							<span>{featuredPost.readingTime} min read</span>
-						</div>
-						<h2>
-							<a href={`/blog/${featuredPost.id}/`}>{featuredPost.data.title}</a>
-						</h2>
-						<p>{featuredPost.data.description}</p>
-						<a href={`/blog/${featuredPost.id}/`} class="read-link">Read featured article</a>
-					</div>
-				</article>
-			)}
-
-			<section class="blog-grid" id="blog-grid" aria-live="polite">
-				{
-					regularPosts.map((post) => (
-						<article
-							class="blog-card"
-							data-post
-							data-category={post.categoryId}
-							data-search={post.searchText}>
-							<a href={`/blog/${post.id}/`} class="card-media" aria-label={`Read ${post.data.title}`}>
-								<Picture
-									src={post.heroImage}
-									alt={post.data.title}
-									width={720}
-									height={405}
-									loading="lazy"
-								/>
-							</a>
-							<div class="card-content">
-								<div class="post-meta">
-									<span class="category-tag" style={`--category-accent: ${post.category.accentColor}`}>
-										{post.category.label}
-									</span>
-									<span><FormattedDate date={post.data.pubDate} /></span>
-									<span>{post.readingTime} min read</span>
-								</div>
-								<h3>
-									<a href={`/blog/${post.id}/`}>{post.data.title}</a>
-								</h3>
-								<p>{post.data.description}</p>
-								<a href={`/blog/${post.id}/`} class="read-link">Read article</a>
-							</div>
-						</article>
-					))
-				}
-			</section>
-
-			<p id="empty-state" class="empty-state" hidden>
-				No articles match that filter. Try a different category or a broader search term.
-			</p>
-
-			<section class="blog-cta">
-				<h2>Want a personalized starting point?</h2>
-				<p>
-					Take the 2-minute phone habit quiz to get targeted recommendations based on your biggest
-					scrolling trigger.
+		<main class="index">
+			<header class="index-head">
+				<h1>Blog</h1>
+				<p class="index-dek">Guides to using your phone on purpose: habits, routines, app-by-app advice and honest comparisons.</p>
+				<form class="search" role="search" action="/blog/" method="get" onsubmit="return false">
+					<label for="blog-search" class="visually-hidden">Search articles</label>
+					<svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+					<input id="blog-search" name="q" type="search" placeholder={`Search ${items.length} articles`} autocomplete="off" enterkeyhint="search" aria-describedby="search-hint" />
+					<kbd class="search-key" id="search-hint" aria-label="Press slash to search">/</kbd>
+					<button type="button" class="search-clear" id="search-clear" hidden>Clear</button>
+				</form>
+				<p class="index-links">
+					<span>{items.length} articles</span>
+					<a href="/rss.xml">RSS feed</a>
 				</p>
-				<div class="cta-actions">
-					<a href="/quiz/" class="hero-button primary">Start the Quiz</a>
-					<a href="/compare/" class="hero-button secondary">Compare Alternatives</a>
+			</header>
+
+			<aside class="controls" aria-label="Filter articles">
+				<h2 class="controls-title" id="topics-title">Topics</h2>
+				<div class="topics" role="group" aria-labelledby="topics-title">
+					<button type="button" class="topic" data-topic="all" aria-pressed="true">
+						<span>All articles</span><span class="topic-count">{items.length}</span>
+					</button>
+					{topics.map((t) => (
+						<button type="button" class="topic" data-topic={t.id} data-description={t.description} aria-pressed="false" style={`--topic: ${t.accentColor}`}>
+							<span>{t.label}</span><span class="topic-count">{t.count}</span>
+						</button>
+					))}
 				</div>
-			</section>
+				<div class="list-options">
+					<label class="sort">
+						<span>Sort</span>
+						<select id="sort">
+							<option value="new">Newest</option>
+							<option value="updated">Recently updated</option>
+							<option value="short">Shortest first</option>
+						</select>
+					</label>
+					<label class="hide-read" id="hide-read-wrap" hidden>
+						<input type="checkbox" id="hide-read" />
+						<span>Hide what I've read</span>
+					</label>
+				</div>
+			</aside>
+
+			<div class="index-main">
+				<section class="continue" id="continue" aria-labelledby="continue-title" hidden>
+					<h2 id="continue-title">Continue reading</h2>
+					<ul class="continue-list" id="continue-list"></ul>
+				</section>
+
+				<div class="intro" id="intro">
+					{startHere.length > 0 && (
+						<section class="start" aria-labelledby="start-title">
+							<h2 id="start-title">New here? Start with these</h2>
+							<ol class="start-list">
+								{startHere.map((i) => (
+									<li>
+										<a href={`/blog/${i.id}/`}>
+											<span class="start-title">{i.title}</span>
+											<span class="start-meta">{i.readingTime} min read</span>
+										</a>
+									</li>
+								))}
+							</ol>
+						</section>
+					)}
+
+					<section class="latest" aria-labelledby="latest-title">
+						<h2 id="latest-title">Newest</h2>
+						<ul class="latest-list">
+							{latest.map((i, n) => (
+								<li>
+									<a href={`/blog/${i.id}/`}>
+										<Picture src={i.heroImage} alt="" width={720} height={405} loading={n === 0 ? 'eager' : 'lazy'} fetchpriority={n === 0 ? 'high' : undefined} />
+										<span class="item-topic" style={`--topic: ${i.category.accentColor}`}>{i.category.label}</span>
+										<span class="latest-title">{i.title}</span>
+										<span class="item-meta"><FormattedDate date={i.pubDate} />, {i.readingTime} min read</span>
+									</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				</div>
+
+				<section class="all" aria-labelledby="all-title">
+					<div class="all-head">
+						<h2 id="all-title">All articles</h2>
+						<p class="results" id="results" aria-live="polite">{items.length} articles</p>
+					</div>
+					<p class="topic-description" id="topic-description" hidden></p>
+					<ol class="list" id="list">
+						{items.map((i) => (
+							<li
+								class="row"
+								data-slug={i.id}
+								data-topic={i.categoryId}
+								data-search={i.search}
+								data-new={i.pubDate.valueOf()}
+								data-updated={i.updated.valueOf()}
+								data-minutes={i.readingTime}
+								data-img={i.heroImage}>
+								<a href={`/blog/${i.id}/`}>
+									<span class="row-thumb">
+										<Picture src={i.heroImage} alt="" width={320} height={180} loading="lazy" />
+										<span class="row-progress" aria-hidden="true"></span>
+									</span>
+									<span class="row-text">
+										<span class="item-topic" style={`--topic: ${i.category.accentColor}`}>{i.category.label}</span>
+										<span class="row-title" data-title>{i.title}</span>
+										<span class="row-desc">{i.description}</span>
+										<span class="item-meta">
+											<span data-date-new><FormattedDate date={i.pubDate} /></span>
+											<span data-date-updated hidden>Updated <FormattedDate date={i.updated} /></span>
+											<span>, {i.readingTime} min read</span>
+											<span class="row-state" data-state></span>
+										</span>
+									</span>
+								</a>
+							</li>
+						))}
+					</ol>
+
+					<div class="empty" id="empty" hidden>
+						<p class="empty-title" id="empty-title">No articles match.</p>
+						<p>Try one of these, or clear the search.</p>
+						<p class="suggestions">
+							{['doomscrolling', 'sleep', 'Instagram', 'ADHD', 'alternatives', 'ChatGPT'].map((s) => (
+								<button type="button" class="suggestion" data-suggest={s}>{s}</button>
+							))}
+							<button type="button" class="suggestion clear" data-clear-all>Clear search and topic</button>
+						</p>
+					</div>
+				</section>
+
+				<section class="index-cta" aria-labelledby="cta-title">
+					<h2 id="cta-title">Not sure where to start?</h2>
+					<p>The 2-minute phone habit quiz points you to the articles and settings that fit your biggest scrolling trigger.</p>
+					<p class="cta-actions">
+						<a href="/quiz/" class="cta-button">Take the quiz</a>
+						<a href="/compare/">Compare screen time apps</a>
+					</p>
+				</section>
+			</div>
 		</main>
 		<Footer />
 
 		<script>
-			const searchInput = document.getElementById('blog-search');
-			const filterButtons = Array.from(document.querySelectorAll('.filter-chip'));
-			const postCards = Array.from(document.querySelectorAll('[data-post]'));
-			const emptyState = document.getElementById('empty-state');
-			const resultsSummary = document.getElementById('results-summary');
+			const search = document.getElementById('blog-search') as HTMLInputElement;
+			const clearButton = document.getElementById('search-clear') as HTMLButtonElement;
+			const topicButtons = [...document.querySelectorAll<HTMLButtonElement>('.topic')];
+			const sortSelect = document.getElementById('sort') as HTMLSelectElement;
+			const hideRead = document.getElementById('hide-read') as HTMLInputElement;
+			const hideReadWrap = document.getElementById('hide-read-wrap') as HTMLElement;
+			const list = document.getElementById('list') as HTMLOListElement;
+			const rows = [...list.querySelectorAll<HTMLLIElement>('.row')];
+			const results = document.getElementById('results') as HTMLElement;
+			const empty = document.getElementById('empty') as HTMLElement;
+			const emptyTitle = document.getElementById('empty-title') as HTMLElement;
+			const intro = document.getElementById('intro') as HTMLElement;
+			const topicDescription = document.getElementById('topic-description') as HTMLElement;
+			const continueSection = document.getElementById('continue') as HTMLElement;
+			const continueList = document.getElementById('continue-list') as HTMLUListElement;
 
-			let activeCategory = 'all';
+			// Titles are kept as text so highlighting can be redone from scratch on every search.
+			const titles = new Map(rows.map((r) => [r, r.querySelector<HTMLElement>('[data-title]')!]));
+			const titleText = new Map(rows.map((r) => [r, titles.get(r)!.textContent ?? '']));
+			const order = new Map(rows.map((r, i) => [r, i]));
 
-			function setActiveCategoryChip(category) {
-				filterButtons.forEach((button) => {
-					const isActive = button.getAttribute('data-category') === category;
-					button.classList.toggle('active', isActive);
-					button.setAttribute('aria-pressed', String(isActive));
-				});
+			// ------------------------------------------------------------ reading progress (from the post page)
+			type Progress = Record<string, { p: number; at: number }>;
+			let progress: Progress = {};
+			try {
+				progress = JSON.parse(localStorage.getItem('respite-reading') || '{}');
+			} catch { /* storage blocked */ }
+			const isRead = (slug: string) => (progress[slug]?.p ?? 0) >= 0.9;
+			let readCount = 0;
+			rows.forEach((r) => {
+				const slug = r.dataset.slug ?? '';
+				const p = progress[slug]?.p ?? 0;
+				const state = r.querySelector<HTMLElement>('[data-state]');
+				if (p >= 0.9) {
+					readCount++;
+					r.classList.add('is-read');
+					if (state) state.textContent = 'Read';
+				} else if (p >= 0.05) {
+					r.classList.add('is-started');
+					r.style.setProperty('--p', String(p));
+					if (state) state.textContent = `${Math.round(p * 100)}% read`;
+				}
+			});
+			if (readCount > 0) hideReadWrap.hidden = false;
+
+			// Up to three posts started in the last 30 days and not finished, most recent first.
+			const MONTH = 30 * 24 * 3600 * 1000;
+			const started = Object.entries(progress)
+				.filter(([slug, v]) => v.p >= 0.05 && v.p < 0.9 && Date.now() - v.at < MONTH && rows.some((r) => r.dataset.slug === slug))
+				.sort((a, b) => b[1].at - a[1].at)
+				.slice(0, 3);
+			if (started.length > 0) {
+				for (const [slug, v] of started) {
+					const row = rows.find((r) => r.dataset.slug === slug)!;
+					const minutes = Number(row.dataset.minutes) || 1;
+					const left = Math.max(1, Math.ceil(minutes * (1 - v.p)));
+					const li = document.createElement('li');
+					const a = document.createElement('a');
+					a.href = `/blog/${slug}/#continue`;
+					const title = document.createElement('span');
+					title.className = 'continue-title';
+					title.textContent = titleText.get(row) ?? '';
+					const meta = document.createElement('span');
+					meta.className = 'continue-meta';
+					meta.textContent = `${left} min left`;
+					const bar = document.createElement('span');
+					bar.className = 'continue-bar';
+					bar.style.setProperty('--p', String(v.p));
+					bar.setAttribute('aria-hidden', 'true');
+					a.append(title, meta, bar);
+					li.append(a);
+					continueList.append(li);
+				}
+				continueSection.hidden = false;
 			}
 
-			function applyFilters(updateHash) {
-				const query = (searchInput?.value || '').trim().toLowerCase();
-				let visibleCount = 0;
+			// ------------------------------------------------------------ state <-> URL
+			const validTopics = new Set(topicButtons.map((b) => b.dataset.topic));
+			const params = new URLSearchParams(location.search);
+			let topic = validTopics.has(location.hash.slice(1)) ? location.hash.slice(1) : 'all';
+			search.value = params.get('q') ?? '';
+			if (['new', 'updated', 'short'].includes(params.get('sort') ?? '')) sortSelect.value = params.get('sort')!;
 
-				postCards.forEach((card) => {
-					const cardCategory = card.getAttribute('data-category') || '';
-					const searchableText = card.getAttribute('data-search') || '';
-					const matchesCategory = activeCategory === 'all' || cardCategory === activeCategory;
-					const matchesSearch = query.length === 0 || searchableText.includes(query);
-					const shouldShow = matchesCategory && matchesSearch;
+			function writeUrl() {
+				const p = new URLSearchParams();
+				if (search.value.trim()) p.set('q', search.value.trim());
+				if (sortSelect.value !== 'new') p.set('sort', sortSelect.value);
+				const qs = p.toString();
+				history.replaceState(null, '', `/blog/${qs ? `?${qs}` : ''}${topic !== 'all' ? `#${topic}` : ''}`);
+			}
 
-					card.toggleAttribute('hidden', !shouldShow);
-					if (shouldShow) {
-						visibleCount += 1;
+			// ------------------------------------------------------------ filter, rank, sort, highlight
+			const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+			function highlight(row: HTMLLIElement, terms: string[]) {
+				const el = titles.get(row)!;
+				const text = titleText.get(row)!;
+				if (terms.length === 0) {
+					el.textContent = text;
+					return;
+				}
+				const re = new RegExp(`(${terms.map(escapeRe).join('|')})`, 'gi');
+				el.textContent = '';
+				for (const part of text.split(re)) {
+					if (!part) continue;
+					if (re.test(part)) {
+						const mark = document.createElement('mark');
+						mark.textContent = part;
+						el.append(mark);
+					} else el.append(part);
+					re.lastIndex = 0;
+				}
+			}
+
+			function apply() {
+				const query = search.value.trim().toLowerCase();
+				const terms = query.split(/\s+/).filter(Boolean);
+				const filtering = terms.length > 0 || topic !== 'all';
+				const scored: { row: HTMLLIElement; score: number }[] = [];
+
+				for (const row of rows) {
+					const hay = row.dataset.search ?? '';
+					const inTopic = topic === 'all' || row.dataset.topic === topic;
+					const matches = terms.every((t) => hay.includes(t));
+					const hidden = !inTopic || !matches || (hideRead.checked && isRead(row.dataset.slug ?? ''));
+					row.hidden = hidden;
+					highlight(row, hidden ? [] : terms);
+					if (!hidden) {
+						const title = (titleText.get(row) ?? '').toLowerCase();
+						scored.push({ row, score: terms.reduce((s, t) => s + (title.includes(t) ? 2 : 1), 0) });
 					}
+				}
+
+				// A search ranks title matches first; otherwise the chosen sort.
+				const key = sortSelect.value;
+				const byKey = (r: HTMLLIElement) => (key === 'short' ? Number(r.dataset.minutes) : -Number(key === 'updated' ? r.dataset.updated : r.dataset.new));
+				scored.sort((a, b) => (terms.length ? b.score - a.score : 0) || byKey(a.row) - byKey(b.row) || order.get(a.row)! - order.get(b.row)!);
+				const frag = document.createDocumentFragment();
+				scored.forEach(({ row }) => frag.append(row));
+				rows.filter((r) => r.hidden).forEach((r) => frag.append(r));
+				list.append(frag);
+
+				rows.forEach((r) => {
+					r.querySelector<HTMLElement>('[data-date-new]')!.hidden = key === 'updated';
+					r.querySelector<HTMLElement>('[data-date-updated]')!.hidden = key !== 'updated';
 				});
 
-				if (resultsSummary) {
-					const noun = visibleCount === 1 ? 'article' : 'articles';
-					resultsSummary.textContent = query
-						? `Showing ${visibleCount} ${noun} for "${query}"`
-						: `Showing ${visibleCount} ${noun}`;
-				}
+				const n = scored.length;
+				const label = topicButtons.find((b) => b.dataset.topic === topic)?.querySelector('span')?.textContent ?? '';
+				const noun = n === 1 ? 'article' : 'articles';
+				results.textContent = query
+					? `${n} ${noun} for “${search.value.trim()}”${topic !== 'all' ? ` in ${label}` : ''}`
+					: topic !== 'all'
+						? `${n} ${noun} in ${label}`
+						: `${n} ${noun}`;
+				empty.hidden = n > 0;
+				if (n === 0) emptyTitle.textContent = query ? `No articles match “${search.value.trim()}”${topic !== 'all' ? ` in ${label}` : ''}.` : 'No articles here yet.';
+				intro.hidden = filtering;
+				continueSection.hidden = filtering || continueList.children.length === 0;
+				clearButton.hidden = !query;
 
-				if (emptyState) {
-					emptyState.toggleAttribute('hidden', visibleCount > 0);
-				}
+				const description = topicButtons.find((b) => b.dataset.topic === topic)?.dataset.description;
+				topicDescription.hidden = !description;
+				topicDescription.textContent = description ?? '';
 
-				if (updateHash) {
-					history.replaceState(null, '', activeCategory === 'all' ? '/blog' : `/blog#${activeCategory}`);
-				}
+				topicButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.topic === topic)));
 			}
 
-			function applyHashCategory() {
-				const hashCategory = window.location.hash.replace('#', '');
-				const hashIsValid = filterButtons.some(
-					(button) => button.getAttribute('data-category') === hashCategory,
-				);
-				activeCategory = hashCategory && hashIsValid ? hashCategory : 'all';
-				setActiveCategoryChip(activeCategory);
-				applyFilters(false);
-			}
-
-			filterButtons.forEach((button) => {
-				button.addEventListener('click', () => {
-					activeCategory = button.getAttribute('data-category') || 'all';
-					setActiveCategoryChip(activeCategory);
-					applyFilters(true);
-				});
+			// ------------------------------------------------------------ events
+			let typing: number | undefined;
+			search.addEventListener('input', () => {
+				apply();
+				clearTimeout(typing);
+				typing = window.setTimeout(writeUrl, 400);
+			});
+			search.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && search.value) {
+					e.preventDefault();
+					search.value = '';
+					apply();
+					writeUrl();
+				}
+				if (e.key === 'Enter') {
+					// Enter opens the best match, the way site search usually behaves.
+					const first = rows.find((r) => !r.hidden);
+					if (search.value.trim() && first) location.href = first.querySelector('a')!.href;
+				}
+			});
+			clearButton.addEventListener('click', () => {
+				search.value = '';
+				apply();
+				writeUrl();
+				search.focus();
+			});
+			topicButtons.forEach((b) =>
+				b.addEventListener('click', () => {
+					topic = b.dataset.topic ?? 'all';
+					apply();
+					writeUrl();
+					// On phones the list is below the controls: bring its top into view.
+					if (window.matchMedia('(max-width: 999px)').matches) {
+						document.getElementById('all-title')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+					}
+				}),
+			);
+			sortSelect.addEventListener('change', () => {
+				apply();
+				writeUrl();
+			});
+			hideRead.addEventListener('change', apply);
+			document.querySelectorAll<HTMLButtonElement>('[data-suggest]').forEach((b) =>
+				b.addEventListener('click', () => {
+					search.value = b.dataset.suggest ?? '';
+					topic = 'all';
+					apply();
+					writeUrl();
+				}),
+			);
+			document.querySelector('[data-clear-all]')?.addEventListener('click', () => {
+				search.value = '';
+				topic = 'all';
+				apply();
+				writeUrl();
+				search.focus();
+			});
+			addEventListener('hashchange', () => {
+				const t = location.hash.slice(1);
+				topic = validTopics.has(t) ? t : 'all';
+				apply();
+			});
+			// "/" focuses search from anywhere on the page, unless the reader is typing somewhere.
+			addEventListener('keydown', (e) => {
+				const t = e.target as HTMLElement;
+				if (e.key === '/' && !e.metaKey && !e.ctrlKey && !t.closest('input, textarea, select, [contenteditable]')) {
+					e.preventDefault();
+					search.focus();
+					search.select();
+				}
 			});
 
-			searchInput?.addEventListener('input', () => applyFilters(false));
-			window.addEventListener('hashchange', applyHashCategory);
-
-			applyHashCategory();
+			apply();
 		</script>
 	</body>
 </html>
 
 <style>
-	body {
-		background:
-			radial-gradient(circle at 15% 15%, color-mix(in srgb, var(--ds-primary) 16%, transparent) 0%, transparent 35%),
-			radial-gradient(circle at 90% 8%, color-mix(in srgb, var(--ds-green) 14%, transparent) 0%, transparent 32%),
-			var(--ds-bg-primary);
+	/* ------------------------------------------------------------ page and grid (matches the post page) */
+	:global(html:has(> body.blog-index)),
+	.blog-index {
+		overflow-x: clip;
 	}
 
-	.blog-page {
-		max-width: 1160px;
-		margin: 0 auto;
-		padding: 9rem var(--ds-space-md) var(--ds-space-4xl);
-		display: grid;
-		gap: var(--ds-space-xl);
-	}
-
-	.blog-hero {
-		border-radius: var(--ds-radius-xl);
-		padding: clamp(1.5rem, 2.5vw, 2.5rem);
-		background:
-			linear-gradient(140deg, color-mix(in srgb, var(--ds-primary) 12%, transparent), transparent 50%),
-			linear-gradient(210deg, color-mix(in srgb, var(--ds-green) 10%, transparent), transparent 55%),
-			var(--ds-bg-secondary);
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 18%, transparent);
-		box-shadow: var(--ds-shadow-sm);
-		display: grid;
-		gap: var(--ds-space-lg);
-	}
-
-	.hero-copy h1 {
-		margin: 0 0 var(--ds-space-sm);
-		font-size: clamp(1.8rem, 2.7vw, 2.8rem);
-		line-height: 1.12;
-		letter-spacing: -0.02em;
-	}
-
-	.hero-copy p {
-		margin: 0;
-		max-width: 60ch;
-		color: var(--ds-text-secondary);
-		line-height: 1.7;
-	}
-
-	.hero-eyebrow {
-		display: inline-flex;
-		margin: 0 0 var(--ds-space-sm);
-		padding: 0.3rem 0.75rem;
-		border-radius: var(--ds-radius-full);
-		background: color-mix(in srgb, var(--ds-primary) 14%, transparent);
-		color: var(--ds-primary);
-		font-size: 0.8rem;
-		font-weight: 700;
-		letter-spacing: 0.05em;
-		text-transform: uppercase;
-	}
-
-	.hero-actions,
-	.cta-actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--ds-space-sm);
-	}
-
-	.hero-button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-height: var(--touch-target-comfortable);
-		padding: 0.7rem 1.2rem;
-		border-radius: 999px;
-		font-weight: 700;
-		font-size: 0.95rem;
-		text-decoration: none;
-		border: 1px solid transparent;
-		transition: transform var(--ds-transition-fast), box-shadow var(--ds-transition-fast), background var(--ds-transition-fast);
-	}
-
-	.hero-button.primary {
-		background: var(--ds-primary);
-		color: var(--ds-on-primary);
-		box-shadow: 0 10px 26px color-mix(in srgb, var(--ds-primary) 35%, transparent);
-	}
-
-	.hero-button.primary:hover {
-		transform: translateY(-1px);
-		background: var(--ds-primary-dark);
-	}
-
-	.hero-button.secondary {
-		background: color-mix(in srgb, var(--ds-bg-primary) 88%, transparent);
-		color: var(--ds-text-primary);
-		border-color: color-mix(in srgb, var(--ds-text-hint) 22%, transparent);
-	}
-
-	.hero-button.secondary:hover {
-		transform: translateY(-1px);
-		border-color: color-mix(in srgb, var(--ds-primary) 45%, transparent);
-		color: var(--ds-primary);
-	}
-
-	.blog-controls {
+	.blog-index {
 		background: var(--ds-bg-primary);
-		border-radius: var(--ds-radius-lg);
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 20%, transparent);
-		padding: var(--ds-space-lg);
-		display: grid;
-		gap: var(--ds-space-md);
-		box-shadow: var(--ds-shadow-sm);
+		--rail: 14rem;
+		--gap: 3.5rem;
+		--main: 48rem;
+		--rule: color-mix(in srgb, var(--ds-text-hint) 22%, transparent);
 	}
 
-	.search-field {
-		display: grid;
-		gap: 0.4rem;
-	}
-
-	.search-field label {
-		font-size: 0.9rem;
-		font-weight: 600;
-		color: var(--ds-text-secondary);
-	}
-
-	.search-field input {
-		width: 100%;
+	.index,
+	.index :global(*) {
 		box-sizing: border-box;
-		padding: 0.72rem 0.9rem;
-		border-radius: var(--ds-radius-md);
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 32%, transparent);
-		background: color-mix(in srgb, var(--ds-bg-secondary) 75%, var(--ds-bg-primary));
-		color: var(--ds-text-primary);
-		font-family: inherit;
 	}
 
-	.search-field input:focus-visible {
-		outline: 2px solid color-mix(in srgb, var(--ds-primary) 70%, white);
-		outline-offset: 2px;
-	}
-
-	.filter-row {
-		display: flex;
-		gap: var(--ds-space-sm);
-		overflow-x: auto;
-		padding-bottom: 0.2rem;
-		scrollbar-width: thin;
-	}
-
-	.filter-chip {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.45rem;
-		padding: 0.55rem 0.95rem;
-		border-radius: 999px;
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 30%, transparent);
-		background: var(--ds-bg-primary);
-		color: var(--ds-text-secondary);
-		font-size: 0.88rem;
-		font-weight: 600;
-		cursor: pointer;
-		white-space: nowrap;
-		transition: all var(--ds-transition-fast);
-	}
-
-	.filter-chip span {
-		display: inline-flex;
-		align-items: center;
+	.index {
+		display: grid;
+		grid-template-columns: minmax(0, var(--main));
 		justify-content: center;
-		min-width: 1.35rem;
-		height: 1.35rem;
-		padding: 0 0.35rem;
-		border-radius: 999px;
-		font-size: 0.75rem;
-		background: color-mix(in srgb, var(--ds-text-hint) 18%, transparent);
-		color: var(--ds-text-primary);
+		padding: 8.5rem 1.25rem 5rem;
+		row-gap: 1.75rem;
 	}
 
-	.filter-chip:hover {
-		border-color: color-mix(in srgb, var(--ds-primary) 50%, transparent);
-		color: var(--ds-primary);
+	@media (min-width: 1000px) {
+		.index {
+			grid-template-columns: var(--rail) minmax(0, var(--main));
+			column-gap: var(--gap);
+			row-gap: 2.5rem;
+		}
+		.index-head,
+		.index-main {
+			grid-column: 2;
+		}
+		.controls {
+			grid-column: 1;
+			grid-row: 2;
+		}
+		.index-main {
+			grid-row: 2;
+		}
 	}
 
-	.filter-chip.active {
-		background: color-mix(in srgb, var(--ds-primary) 10%, transparent);
-		border-color: color-mix(in srgb, var(--ds-primary) 40%, transparent);
-		color: var(--ds-primary);
+	@media (min-width: 1280px) {
+		.index {
+			/* An empty right column of the rail's width keeps the list centred, as on the post page. */
+			grid-template-columns: var(--rail) minmax(0, var(--main)) var(--rail);
+		}
 	}
 
-	.results-summary {
-		margin: 0;
-		font-size: 0.9rem;
-		color: var(--ds-text-secondary);
-	}
-
-	.featured-post {
-		display: grid;
-		grid-template-columns: 1fr;
-		background: var(--ds-bg-primary);
-		border-radius: var(--ds-radius-xl);
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 22%, transparent);
-		overflow: hidden;
-		box-shadow: var(--ds-shadow-md);
-	}
-
-	.featured-media {
-		display: block;
-		aspect-ratio: 16 / 9;
-		background: color-mix(in srgb, var(--ds-bg-secondary) 80%, transparent);
-	}
-
-	.featured-media img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		border-radius: 0;
-	}
-
-	.featured-content {
-		padding: var(--ds-space-lg);
-		display: grid;
-		gap: var(--ds-space-sm);
-	}
-
-	.post-meta {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.5rem 0.75rem;
-		font-size: 0.82rem;
-		color: var(--ds-text-secondary);
-	}
-
-	.category-tag {
-		display: inline-flex;
-		align-items: center;
-		padding: 0.24rem 0.6rem;
-		border-radius: var(--ds-radius-full);
-		background: color-mix(in srgb, var(--category-accent) 14%, transparent);
-		color: var(--category-accent);
-		font-weight: 700;
-		letter-spacing: 0.01em;
-	}
-
-	.featured-content h2,
-	.card-content h3 {
-		margin: 0;
-		font-size: clamp(1.35rem, 2.1vw, 2rem);
-		line-height: 1.2;
-	}
-
-	.card-content h3 {
-		font-size: 1.2rem;
-	}
-
-	.featured-content h2 a,
-	.card-content h3 a {
-		text-decoration: none;
-		color: var(--ds-text-primary);
-	}
-
-	.featured-content p,
-	.card-content p {
-		margin: 0;
-		color: var(--ds-text-secondary);
-		line-height: 1.68;
-	}
-
-	.read-link {
-		display: inline-flex;
-		align-items: center;
-		font-weight: 700;
-		text-decoration: none;
-		color: var(--ds-primary);
-		margin-top: var(--ds-space-xs);
-	}
-
-	.read-link:hover {
-		color: var(--ds-primary-dark);
-	}
-
-	.blog-grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: var(--ds-space-md);
-	}
-
-	.blog-card {
-		display: grid;
-		grid-template-rows: auto 1fr;
-		background: var(--ds-bg-primary);
-		border-radius: var(--ds-radius-lg);
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 20%, transparent);
-		overflow: hidden;
-		box-shadow: var(--ds-shadow-sm);
-		transition: transform var(--ds-transition-normal), box-shadow var(--ds-transition-normal), border-color var(--ds-transition-normal);
-	}
-
-	.blog-card:hover {
-		transform: translateY(-2px);
-		box-shadow: var(--ds-shadow-md);
-		border-color: color-mix(in srgb, var(--ds-primary) 28%, transparent);
-	}
-
-	.card-media {
-		display: block;
-		aspect-ratio: 16 / 10;
-		background: color-mix(in srgb, var(--ds-bg-secondary) 78%, transparent);
-	}
-
-	.card-media img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		border-radius: 0;
-	}
-
-	.card-content {
-		display: grid;
-		gap: var(--ds-space-sm);
-		padding: var(--ds-space-md) var(--ds-space-md) var(--ds-space-lg);
-	}
-
-	.empty-state {
-		margin: 0;
-		padding: var(--ds-space-lg);
-		text-align: center;
-		border: 1px dashed color-mix(in srgb, var(--ds-text-hint) 35%, transparent);
-		background: var(--ds-bg-primary);
-		border-radius: var(--ds-radius-lg);
-		color: var(--ds-text-secondary);
-	}
-
-	.blog-cta {
-		padding: clamp(1.4rem, 2.4vw, 2.2rem);
-		border-radius: var(--ds-radius-xl);
-		background:
-			linear-gradient(145deg, color-mix(in srgb, var(--ds-primary) 12%, transparent), transparent 50%),
-			linear-gradient(220deg, color-mix(in srgb, var(--ds-purple) 10%, transparent), transparent 60%),
-			var(--ds-bg-secondary);
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 18%, transparent);
-		display: grid;
-		gap: var(--ds-space-sm);
-	}
-
-	.blog-cta h2 {
-		margin: 0;
-		font-size: clamp(1.2rem, 2.3vw, 1.8rem);
-	}
-
-	.blog-cta p {
-		margin: 0;
-		color: var(--ds-text-secondary);
-		max-width: 56ch;
-	}
-
-	[data-post][hidden] {
+	/* Sections here set display, which would otherwise beat the hidden attribute. */
+	.blog-index [hidden] {
 		display: none !important;
 	}
 
-	a:focus-visible,
-	button:focus-visible,
-	input:focus-visible {
-		outline: 2px solid color-mix(in srgb, var(--ds-primary) 70%, white);
-		outline-offset: 2px;
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
 	}
 
-	@media (min-width: 760px) {
-		.blog-page {
-			padding-top: 9.5rem;
-		}
+	/* ------------------------------------------------------------ head and search */
+	.index-head {
+		display: grid;
+		gap: 0.9rem;
+	}
 
-		.blog-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: var(--ds-space-lg);
-		}
+	.index-head h1 {
+		margin: 0;
+		font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3.2rem);
+		line-height: 1.05;
+		letter-spacing: -0.02em;
+	}
 
-		.featured-post {
-			grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-		}
+	.index-dek {
+		margin: 0;
+		max-width: 40rem;
+		font-family: 'Source Serif 4', Georgia, serif;
+		font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+		line-height: 1.55;
+		color: var(--ds-text-secondary);
+	}
 
-		.featured-media {
-			aspect-ratio: auto;
-			height: 100%;
-			min-height: 100%;
-		}
+	.search {
+		position: relative;
+		display: flex;
+		align-items: center;
+		margin-top: 0.5rem;
+	}
 
-		.featured-content {
-			padding: var(--ds-space-xl);
-			align-content: center;
+	.search-icon {
+		position: absolute;
+		left: 1rem;
+		color: var(--ds-text-hint);
+		pointer-events: none;
+	}
+
+	.search input {
+		width: 100%;
+		min-height: 52px;
+		padding: 0 5.5rem 0 3rem;
+		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 35%, transparent);
+		border-radius: var(--ds-radius-md);
+		background: var(--ds-bg-secondary);
+		color: var(--ds-text-primary);
+		font: inherit;
+		font-size: 1.05rem;
+		-webkit-appearance: none;
+		appearance: none;
+	}
+
+	.search input::-webkit-search-cancel-button {
+		display: none;
+	}
+
+	.search input::placeholder {
+		color: var(--ds-text-hint);
+	}
+
+	.search input:focus {
+		outline: none;
+		border-color: var(--ds-primary);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--ds-primary) 25%, transparent);
+	}
+
+	.search-key {
+		position: absolute;
+		right: 1rem;
+		min-width: 1.6rem;
+		padding: 0.1rem 0.45rem;
+		border: 1px solid var(--rule);
+		border-radius: 6px;
+		color: var(--ds-text-hint);
+		font: inherit;
+		font-size: 0.8rem;
+		text-align: center;
+	}
+
+	.search:focus-within .search-key,
+	.search-clear:not([hidden]) ~ .search-key {
+		display: none;
+	}
+
+	@media (hover: none) {
+		.search-key {
+			display: none;
 		}
 	}
 
-	@media (min-width: 1080px) {
-		.blog-grid {
+	.search-clear {
+		position: absolute;
+		right: 0.4rem;
+		min-height: 40px;
+		padding: 0 0.8rem;
+		border: 0;
+		border-radius: var(--ds-radius-sm);
+		background: transparent;
+		color: var(--ds-primary);
+		font: inherit;
+		font-size: 0.9rem;
+		font-weight: 800;
+		cursor: pointer;
+	}
+
+	.search-clear:hover {
+		background: var(--ds-bg-accent);
+	}
+
+	.index-links {
+		display: flex;
+		gap: 1.25rem;
+		margin: 0;
+		font-size: 0.875rem;
+		color: var(--ds-text-hint);
+	}
+
+	.index-links a {
+		color: var(--ds-text-secondary);
+		font-weight: 700;
+	}
+
+	/* ------------------------------------------------------------ controls: rail on wide screens, chips on narrow */
+	.controls {
+		display: grid;
+		gap: 1rem;
+		min-width: 0;
+	}
+
+	.controls-title {
+		margin: 0;
+		font-size: 0.95rem;
+		font-weight: 800;
+	}
+
+	.topics {
+		display: flex;
+		gap: 0.5rem;
+		overflow-x: auto;
+		margin: 0 -1.25rem;
+		padding: 0.15rem 1.25rem 0.4rem;
+		scrollbar-width: none;
+		scroll-snap-type: x proximity;
+		scroll-padding-inline: 1.25rem;
+	}
+
+	.topics::-webkit-scrollbar {
+		display: none;
+	}
+
+	.topic {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		flex: none;
+		min-height: 40px;
+		padding: 0 0.9rem;
+		border: 1px solid var(--rule);
+		border-radius: var(--ds-radius-full);
+		background: transparent;
+		color: var(--ds-text-secondary);
+		font: inherit;
+		font-size: 0.9rem;
+		font-weight: 700;
+		white-space: nowrap;
+		cursor: pointer;
+		scroll-snap-align: start;
+	}
+
+	.topic:hover {
+		color: var(--ds-text-primary);
+		border-color: color-mix(in srgb, var(--ds-primary) 40%, transparent);
+	}
+
+	.topic[aria-pressed='true'] {
+		background: var(--ds-primary);
+		border-color: var(--ds-primary);
+		color: var(--ds-on-primary);
+	}
+
+	.topic-count {
+		font-size: 0.8rem;
+		font-weight: 600;
+		opacity: 0.75;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.list-options {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.75rem 1.5rem;
+		font-size: 0.9rem;
+		color: var(--ds-text-secondary);
+	}
+
+	.sort {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-weight: 700;
+	}
+
+	.sort select {
+		min-height: 40px;
+		padding: 0 2rem 0 0.75rem;
+		border: 1px solid var(--rule);
+		border-radius: var(--ds-radius-sm);
+		background: var(--ds-bg-primary)
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%237F93A2' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")
+			no-repeat right 0.7rem center;
+		color: var(--ds-text-primary);
+		font: inherit;
+		font-weight: 600;
+		-webkit-appearance: none;
+		appearance: none;
+		cursor: pointer;
+	}
+
+	.hide-read {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		min-height: 40px;
+		cursor: pointer;
+	}
+
+	.hide-read input {
+		width: 1.1rem;
+		height: 1.1rem;
+		accent-color: var(--ds-primary);
+	}
+
+	@media (min-width: 1000px) {
+		.controls {
+			position: sticky;
+			top: 7rem;
+			align-self: start;
+			gap: 1.5rem;
+		}
+		.topics {
+			flex-direction: column;
+			gap: 0.1rem;
+			overflow: visible;
+			margin: 0;
+			padding: 0;
+		}
+		.topic {
+			justify-content: space-between;
+			min-height: 38px;
+			padding: 0 0.75rem;
+			border: 0;
+			border-radius: var(--ds-radius-sm);
+			font-weight: 600;
+		}
+		.topic:hover {
+			background: var(--ds-bg-secondary);
+		}
+		.topic[aria-pressed='true'] {
+			background: var(--ds-bg-info);
+			color: var(--ds-text-primary);
+			font-weight: 800;
+			box-shadow: inset 3px 0 0 var(--ds-brand);
+		}
+		.list-options {
+			flex-direction: column;
+			align-items: stretch;
+			padding-top: 1.25rem;
+			border-top: 1px solid var(--rule);
+		}
+		.sort {
+			justify-content: space-between;
+		}
+	}
+
+	/* ------------------------------------------------------------ main column */
+	.index-main {
+		display: grid;
+		gap: 3rem;
+		min-width: 0;
+	}
+
+	.index-main h2 {
+		margin: 0 0 1rem;
+		font-size: 1.3rem;
+		font-weight: 800;
+	}
+
+	.intro {
+		display: grid;
+		gap: 3rem;
+	}
+
+	/* Shared small type */
+	.item-topic {
+		font-size: 0.8rem;
+		font-weight: 800;
+		color: var(--topic, var(--ds-primary));
+	}
+
+	.item-meta {
+		font-size: 0.82rem;
+		color: var(--ds-text-hint);
+		font-variant-numeric: tabular-nums;
+	}
+
+	/* Continue reading */
+	.continue-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.continue-list :global(a) {
+		position: relative;
+		display: grid;
+		grid-template-columns: 1fr auto;
+		align-items: baseline;
+		gap: 0.25rem 1rem;
+		padding: 1rem 1.25rem 1.25rem;
+		border-radius: var(--ds-radius-md);
+		background: var(--ds-bg-info);
+		color: var(--ds-text-primary);
+		text-decoration: none;
+		overflow: hidden;
+	}
+
+	.continue-list :global(.continue-title) {
+		font-family: var(--font-heading);
+		font-weight: 800;
+		line-height: 1.3;
+	}
+
+	.continue-list :global(a:hover .continue-title) {
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+
+	.continue-list :global(.continue-meta) {
+		font-size: 0.85rem;
+		color: var(--ds-text-secondary);
+		white-space: nowrap;
+	}
+
+	.continue-list :global(.continue-bar) {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 4px;
+		background: color-mix(in srgb, var(--ds-brand) 25%, transparent);
+	}
+
+	.continue-list :global(.continue-bar)::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: var(--ds-brand);
+		transform-origin: left;
+		transform: scaleX(var(--p));
+	}
+
+	/* Start here: an ordered path, so numbered. */
+	.start-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		counter-reset: start;
+		display: grid;
+		gap: 0;
+		border-top: 1px solid var(--rule);
+	}
+
+	.start-list li {
+		counter-increment: start;
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.start-list a {
+		display: grid;
+		grid-template-columns: 2rem 1fr auto;
+		align-items: baseline;
+		gap: 0.75rem;
+		padding: 0.85rem 0.25rem;
+		color: var(--ds-text-primary);
+		text-decoration: none;
+	}
+
+	.start-list a::before {
+		content: counter(start);
+		font-family: var(--font-heading);
+		font-weight: 800;
+		color: var(--ds-brand);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.start-title {
+		font-family: var(--font-heading);
+		font-weight: 700;
+		line-height: 1.35;
+	}
+
+	.start-list a:hover .start-title {
+		color: var(--ds-primary);
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+
+	.start-meta {
+		font-size: 0.82rem;
+		color: var(--ds-text-hint);
+		white-space: nowrap;
+	}
+
+	/* Newest */
+	.latest-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	/* Phones: compact rows like the list. Wider: three cards. */
+	.latest-list a {
+		display: grid;
+		grid-template-columns: 6.5rem 1fr;
+		grid-template-rows: auto auto 1fr;
+		column-gap: 1rem;
+		row-gap: 0.2rem;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.latest-list a > :not(:global(picture), :global(img)) {
+		grid-column: 2;
+	}
+
+	.latest-list :global(img) {
+		grid-column: 1;
+		grid-row: 1 / span 3;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 10;
+		object-fit: cover;
+		border-radius: var(--ds-radius-sm);
+		background: var(--ds-bg-secondary);
+	}
+
+	.latest-title {
+		font-family: var(--font-heading);
+		font-size: 1.05rem;
+		font-weight: 800;
+		line-height: 1.3;
+		color: var(--ds-text-primary);
+		text-wrap: balance;
+	}
+
+	.latest-list a:hover .latest-title {
+		color: var(--ds-primary);
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+
+	@media (min-width: 640px) {
+		.latest-list {
 			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 1.25rem;
+		}
+		.latest-list a {
+			grid-template-columns: 1fr;
+			grid-template-rows: none;
+		}
+		.latest-list a > :not(:global(picture), :global(img)) {
+			grid-column: 1;
+		}
+		.latest-list :global(img) {
+			grid-row: auto;
+			aspect-ratio: 16 / 9;
+			border-radius: var(--ds-radius-md);
+			margin-bottom: 0.4rem;
+		}
+		.latest-title {
+			font-size: 1rem;
 		}
 	}
 
-	@media (prefers-color-scheme: dark) {
-		.blog-hero,
-		.blog-controls,
-		.featured-post,
-		.blog-card,
-		.blog-cta,
-		.empty-state {
-			border-color: color-mix(in srgb, var(--ds-text-hint) 32%, transparent);
+	/* All articles */
+	.all-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.25rem 1rem;
+		margin-bottom: 0.25rem;
+		scroll-margin-top: 6rem;
+	}
+
+	.all-head h2 {
+		margin: 0;
+		scroll-margin-top: 6rem;
+	}
+
+	.results {
+		margin: 0;
+		font-size: 0.9rem;
+		color: var(--ds-text-hint);
+	}
+
+	.topic-description {
+		margin: 0.25rem 0 0;
+		color: var(--ds-text-secondary);
+	}
+
+	.list {
+		list-style: none;
+		margin: 1rem 0 0;
+		padding: 0;
+		border-top: 1px solid var(--rule);
+	}
+
+	.row {
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.row[hidden] {
+		display: none;
+	}
+
+	.row a {
+		display: grid;
+		grid-template-columns: 6.5rem 1fr;
+		gap: 1rem;
+		padding: 1.1rem 0;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.row-thumb {
+		position: relative;
+		display: block;
+		align-self: start;
+		border-radius: var(--ds-radius-sm);
+		overflow: hidden;
+		background: var(--ds-bg-secondary);
+	}
+
+	.row-thumb :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 10;
+		object-fit: cover;
+	}
+
+	/* How far this reader got, as a bar along the thumbnail's bottom edge. */
+	.row-progress {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 4px;
+		display: none;
+		background: rgba(0, 0, 0, 0.35);
+	}
+
+	.row.is-started .row-progress,
+	.row.is-read .row-progress {
+		display: block;
+	}
+
+	.row-progress::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: var(--ds-brand);
+		transform-origin: left;
+		transform: scaleX(var(--p, 1));
+	}
+
+	.row-text {
+		display: grid;
+		gap: 0.25rem;
+		min-width: 0;
+		align-content: start;
+	}
+
+	.row-title {
+		font-family: var(--font-heading);
+		font-size: 1.05rem;
+		font-weight: 800;
+		line-height: 1.3;
+		color: var(--ds-text-primary);
+		text-wrap: pretty;
+	}
+
+	.row a:hover .row-title {
+		color: var(--ds-primary);
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+
+	.row-title :global(mark) {
+		background: color-mix(in srgb, var(--ds-orange) 35%, transparent);
+		color: inherit;
+		border-radius: 3px;
+		padding: 0 0.05em;
+	}
+
+	.row-desc {
+		font-size: 0.92rem;
+		line-height: 1.5;
+		color: var(--ds-text-secondary);
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.row-state:not(:empty) {
+		margin-left: 0.75rem;
+		padding: 0.05rem 0.5rem;
+		border-radius: var(--ds-radius-full);
+		background: var(--ds-bg-info);
+		color: var(--ds-text-secondary);
+		font-weight: 700;
+	}
+
+	.row.is-read .row-title {
+		color: var(--ds-text-secondary);
+	}
+
+	@media (max-width: 479px) {
+		.row-desc {
+			display: none;
+		}
+	}
+
+	@media (min-width: 640px) {
+		.row a {
+			grid-template-columns: 10rem 1fr;
+			gap: 1.25rem;
+		}
+		.row-title {
+			font-size: 1.1rem;
+		}
+	}
+
+	/* Empty state */
+	.empty {
+		margin-top: 1.5rem;
+		padding: 1.5rem;
+		border-radius: var(--ds-radius-md);
+		background: var(--ds-bg-secondary);
+	}
+
+	.empty p {
+		margin: 0 0 0.5rem;
+		color: var(--ds-text-secondary);
+	}
+
+	.empty .empty-title {
+		font-weight: 800;
+		color: var(--ds-text-primary);
+	}
+
+	.suggestions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-top: 1rem !important;
+	}
+
+	.suggestion {
+		min-height: 40px;
+		padding: 0 0.9rem;
+		border: 1px solid var(--rule);
+		border-radius: var(--ds-radius-full);
+		background: var(--ds-bg-primary);
+		color: var(--ds-text-primary);
+		font: inherit;
+		font-size: 0.9rem;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.suggestion:hover {
+		border-color: var(--ds-primary);
+		color: var(--ds-primary);
+	}
+
+	.suggestion.clear {
+		border-style: dashed;
+	}
+
+	/* Closing call to action */
+	.index-cta {
+		padding: 1.5rem;
+		border-radius: var(--ds-radius-md);
+		background: var(--ds-bg-info);
+	}
+
+	.index-cta h2 {
+		margin-bottom: 0.5rem !important;
+	}
+
+	.index-cta p {
+		margin: 0;
+		max-width: 38rem;
+		line-height: 1.55;
+		color: var(--ds-text-secondary);
+	}
+
+	.cta-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.75rem 1.25rem;
+		margin-top: 1rem !important;
+	}
+
+	.cta-actions a {
+		color: var(--ds-primary);
+		font-weight: 700;
+	}
+
+	.cta-actions .cta-button {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		padding: 0 1.2rem;
+		border-radius: var(--ds-radius-full);
+		background: var(--ds-primary);
+		color: var(--ds-on-primary);
+		font-weight: 800;
+		text-decoration: none;
+	}
+
+	.cta-actions .cta-button:hover {
+		background: var(--ds-primary-dark);
+	}
+
+	/* Focus */
+	.blog-index :is(a, button, select, input, summary):focus-visible {
+		outline: 2px solid var(--ds-primary);
+		outline-offset: 2px;
+		border-radius: 4px;
+	}
+
+	.search input:focus-visible {
+		outline: none;
+	}
+
+	@media (max-width: 560px) {
+		.index {
+			padding-top: 7.5rem;
 		}
 	}
 </style>
