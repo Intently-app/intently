@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 }
 
 const post = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
 function getWordCount(markdownBody = ''): number {
 	const plainText = markdownBody
@@ -83,6 +83,8 @@ const relatedPosts = allPosts
 	wordCount={wordCount}
 	readingTime={readingTime}
 	categoryLabel={categoryLabel}
+	categoryId={categoryId}
+	headings={headings}
 	relatedPosts={relatedPosts}>
 	<Content />
 </BlogPost>

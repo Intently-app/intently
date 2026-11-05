@@ -1,5 +1,16 @@
 ---
+/**
+ * The blog reading page.
+ *
+ * One reading column (about 68 characters of Source Serif), centred. On wide screens a contents
+ * rail sits to its left: one line per section that fills as it is read, the minutes left, text
+ * size and share. On narrower screens the same tools live in a bottom sheet, opened from a
+ * pill that names the current section. The contents are built at build time from the post's
+ * headings, so they work without JavaScript; scripts only add progress, the sheet, section
+ * links, scrollable tables and the text size.
+ */
 import type { CollectionEntry } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -8,7 +19,6 @@ import BlogPostSchema from '../components/SEO/BlogPostSchema.astro';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
 import HowToSchema from '../components/SEO/HowToSchema.astro';
-import AuthorBio from '../components/blog/AuthorBio.astro';
 import Picture from '../components/ui/Picture.astro';
 import { Image } from 'astro:assets';
 
@@ -26,6 +36,8 @@ type Props = CollectionEntry<'blog'>['data'] & {
 	wordCount?: number;
 	readingTime?: number;
 	categoryLabel?: string;
+	categoryId?: string;
+	headings?: MarkdownHeading[];
 	relatedPosts?: RelatedPost[];
 };
 
@@ -45,13 +57,31 @@ const {
 	wordCount = 0,
 	readingTime = 1,
 	categoryLabel = 'Insights',
+	categoryId,
+	headings = [],
 	relatedPosts = [],
 } = Astro.props;
 const postUrl = new URL(Astro.url.pathname, Astro.site).href;
 
-// Use frontmatter values with fallbacks
 const effectiveTags = tags && tags.length > 0 ? tags : ['digital wellbeing', 'screen time', 'mindful tech'];
 const effectiveAuthor = author || 'Respite Team';
+const isTeam = effectiveAuthor === 'Respite Team';
+
+// Contents: every h2, with its h3s under it (shown for the section being read). The FAQ is
+// rendered by this layout, not the markdown, so it is added by hand.
+interface Section {
+	slug: string;
+	text: string;
+	children: { slug: string; text: string }[];
+}
+const sections: Section[] = [];
+for (const h of headings) {
+	if (h.depth === 2) sections.push({ slug: h.slug, text: h.text, children: [] });
+	else if (h.depth === 3 && sections.length > 0) sections.at(-1)!.children.push({ slug: h.slug, text: h.text });
+}
+if (faq && faq.length > 0) sections.push({ slug: 'faq', text: 'Frequently asked questions', children: [] });
+const hasContents = sections.length >= 2;
+const shownDate = updatedDate ?? pubDate;
 ---
 
 <html lang="en">
@@ -90,875 +120,1008 @@ const effectiveAuthor = author || 'Respite Team';
 		{faq && <FAQSchema faqs={faq} />}
 		{howToSteps && <HowToSchema name={title} description={description} image={heroImage} steps={howToSteps} />}
 
-		<!-- Blog-specific reading font (only loaded on blog pages) -->
+		<!-- The reader's text size, applied before first paint so the page doesn't jump. -->
+		<script is:inline>
+			try {
+				var s = localStorage.getItem('respite-read-size');
+				if (s === 's' || s === 'l') document.documentElement.dataset.readSize = s;
+			} catch (e) {}
+		</script>
+
+		<!-- Reading face, blog pages only -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&display=swap" rel="stylesheet" />
 	</head>
 
-	<body>
+	<body class="reading-page">
 		<Header />
-		<div class="reading-progress" aria-hidden="true">
-			<div class="reading-progress-bar" id="reading-progress-bar"></div>
-		</div>
-		<main class="article-shell">
-			<header class="article-hero">
-				<a href="/blog/" class="back-link">&larr; Back to all articles</a>
-				<p class="hero-category">{categoryLabel}</p>
+		<div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar" id="reading-progress-bar"></div></div>
+
+		<main class="post" data-minutes={readingTime}>
+			<header class="post-head">
+				<nav class="crumbs" aria-label="Breadcrumb">
+					<a href="/blog/">Blog</a>
+					<span aria-hidden="true">/</span>
+					<a href={categoryId ? `/blog/#${categoryId}` : '/blog/'}>{categoryLabel}</a>
+				</nav>
 				<h1>{title}</h1>
-				<p class="hero-description">{description}</p>
-				<div class="hero-meta">
-					<span><FormattedDate date={pubDate} /></span>
-					{updatedDate && <span>Updated <FormattedDate date={updatedDate} /></span>}
+				<p class="post-dek">{description}</p>
+				<div class="post-meta">
+					<span>By {isTeam ? 'the Respite team' : effectiveAuthor}</span>
+					<span>{updatedDate ? 'Updated ' : ''}<FormattedDate date={shownDate} /></span>
 					<span>{readingTime} min read</span>
-					<span>{wordCount.toLocaleString()} words</span>
+					<button type="button" class="share-button" data-share>
+						<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M10 14a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1 1M14 10a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1-1"/></svg>
+						<span data-share-label>Copy link</span>
+					</button>
 				</div>
 				{heroImage && (
-					<div class="hero-image">
-						<Image
-							width={1020}
-							height={574}
-							src={heroImage}
-							alt={heroImageAlt || `${title} - Respite blog post illustration`}
-							fetchpriority="high"
-						/>
+					<div class="post-hero">
+						<Image width={1020} height={574} src={heroImage} alt={heroImageAlt || ''} fetchpriority="high" />
 					</div>
 				)}
 			</header>
 
-			<div class="article-layout">
-				<aside class="article-sidebar" aria-label="Article tools">
-					<nav class="toc-panel" aria-label="Table of contents">
-						<p class="toc-label">On this page</p>
-						<div class="toc-track" id="toc-track-desktop">
-							<ol class="toc-list toc-desktop-list" id="toc-desktop"></ol>
-						</div>
-						<p class="toc-empty" id="toc-empty-desktop">Headings appear as you scroll.</p>
+			{hasContents && (
+				<aside class="rail" aria-label="Reading tools">
+					<nav class="contents" aria-labelledby="contents-title">
+						<h2 class="rail-title" id="contents-title">Contents</h2>
+						<ol class="contents-list">
+							{sections.map((s) => (
+								<li data-section={s.slug}>
+									<a href={`#${s.slug}`}><span class="contents-fill" aria-hidden="true"></span>{s.text}</a>
+									{s.children.length > 0 && (
+										<ol class="contents-sub">
+											{s.children.map((c) => <li><a href={`#${c.slug}`}>{c.text}</a></li>)}
+										</ol>
+									)}
+								</li>
+							))}
+						</ol>
+						<p class="time-left" data-time-left aria-live="off">{readingTime} min read</p>
 					</nav>
-					<div class="sidebar-card sidebar-cta">
-						<h2>Take control of your attention</h2>
-						<p>Use mindful prompts to reduce autopilot scrolling without harsh app blocking.</p>
-						<div class="sidebar-cta-actions">
-							<a href="/quiz/" class="sidebar-button primary">Take the quiz</a>
-							<a href="/download/" class="sidebar-button secondary">Download free</a>
+					<div class="rail-tools">
+						<div class="size-picker" role="group" aria-label="Text size">
+							<span class="tool-label">Text size</span>
+							<button type="button" data-size="s" aria-label="Smaller text" aria-pressed="false"><span class="a a-s">A</span></button>
+							<button type="button" data-size="m" aria-label="Default text size" aria-pressed="true"><span class="a a-m">A</span></button>
+							<button type="button" data-size="l" aria-label="Larger text" aria-pressed="false"><span class="a a-l">A</span></button>
 						</div>
+						<a href="#top" class="to-top" data-to-top>Back to top</a>
+					</div>
+					<div class="rail-cta">
+						<p>Respite puts a short pause before the apps you pick. Free on iPhone, Android and Chrome.</p>
+						<a href="/download/" class="rail-cta-button">Get Respite free</a>
 					</div>
 				</aside>
+			)}
 
-				<article class="article-content">
-					<nav class="toc-mobile" id="toc-mobile-shell" aria-label="Table of contents">
-						<p class="toc-mobile-label">On this page</p>
-						<div class="toc-track" id="toc-track-mobile">
-							<ol class="toc-list toc-mobile-list" id="toc-mobile"></ol>
-						</div>
-						<p class="toc-empty" id="toc-empty-mobile">Headings appear as you scroll.</p>
-					</nav>
+			<article class="post-body">
+				{answer && (
+					<section class="short-answer" aria-labelledby="short-answer-title">
+						<h2 id="short-answer-title">The short answer</h2>
+						<p>{answer}</p>
+						{keyTakeaways && keyTakeaways.length > 0 && (
+							<ul>
+								{keyTakeaways.map((t) => <li>{t}</li>)}
+							</ul>
+						)}
+					</section>
+				)}
 
-					{answer ? (
-						<section class="reading-note quick-answer" aria-label="Quick answer">
-							<p class="quick-answer-label">Quick answer</p>
-							<p class="quick-answer-text">{answer}</p>
-							{keyTakeaways && keyTakeaways.length > 0 && (
-								<ul class="quick-answer-points">
-									{keyTakeaways.map((t) => <li>{t}</li>)}
-								</ul>
-							)}
-						</section>
-					) : (
-						<div class="reading-note" aria-label="Article context">
-							<p>
-								<strong>Quick context:</strong>
-								This article is designed for practical action. Read it once, then apply one strategy today.
-							</p>
-						</div>
-					)}
+				<div class="article-body">
+					<slot />
+					<aside class="inline-cta" id="inline-cta" data-placement="inline_cta" aria-label="Try Respite">
+						<p class="inline-cta-title">Want the pause without the willpower?</p>
+						<p>Respite puts a gentle, few-second pause before the apps you pick, so you open them on purpose. Free on iPhone, Android and Chrome.</p>
+						<p class="inline-cta-actions">
+							<a href="/download/" class="inline-cta-button">Get Respite free</a>
+							<a href="/quiz/" class="inline-cta-link">Or take the 2-minute phone habit quiz</a>
+						</p>
+					</aside>
+				</div>
 
-					<div id="article-intro" class="article-body">
-						<slot />
-						<aside class="inline-cta" id="inline-cta" data-placement="inline_cta" aria-label="Try Respite">
-							<p class="inline-cta-title">Want the pause without the willpower?</p>
-							<p>Respite puts a gentle, few-second pause before the apps you pick, so you open them on purpose. Free on iPhone, Android and Chrome.</p>
-							<p class="inline-cta-actions">
-								<a href="/download/" class="inline-cta-button">Get Respite free</a>
-								<a href="/quiz/" class="inline-cta-link">Or take the 2-minute phone habit quiz</a>
-							</p>
-						</aside>
-					</div>
+				{faq && faq.length > 0 && (
+					<section class="post-faq" aria-labelledby="faq">
+						<h2 id="faq">Frequently asked questions</h2>
+						{faq.map((item) => (
+							<details>
+								<summary><h3>{item.question}</h3></summary>
+								<p>{item.answer}</p>
+							</details>
+						))}
+					</section>
+				)}
 
-					{faq && faq.length > 0 && (
-						<section class="post-faq" id="faq" aria-labelledby="faq-heading">
-							<h2 id="faq-heading">Frequently asked questions</h2>
-							{faq.map((item) => (
-								<div class="post-faq-item">
-									<h3>{item.question}</h3>
-									<p>{item.answer}</p>
-								</div>
-							))}
-						</section>
-					)}
+				<footer class="byline">
+					<img src="/logo.svg" alt="" width="40" height="40" loading="lazy" />
+					<p>
+						{isTeam ? (
+							<>Written by the Respite team. We make Respite, a free app that puts a short pause before the apps you pick, so you open them on purpose. <a href="/about/">About Respite</a></>
+						) : (
+							<>Written by {effectiveAuthor} for the Respite blog. <a href="/about/">About Respite</a></>
+						)}
+					</p>
+				</footer>
+			</article>
 
-					<AuthorBio author={effectiveAuthor} />
-
-					{relatedPosts.length > 0 && (
-						<section class="related-posts" aria-label="Related articles">
-							<h2>Keep Reading</h2>
-							<div class="related-grid">
-								{relatedPosts.map((related) => (
-									<article class="related-card">
-										<a href={`/blog/${related.id}/`} class="related-image-link" aria-label={`Read ${related.title}`}>
-											<Picture
-												src={related.heroImage || '/images/blog/what-is-digital-wellbeing.jpg'}
-												alt={related.title}
-												width={640}
-												height={360}
-												loading="lazy"
-											/>
-										</a>
-										<div class="related-content">
-											<p class="related-meta">
-												<span>{related.categoryLabel}</span>
-												<span><FormattedDate date={related.pubDate} /></span>
-												<span>{related.readingTime} min read</span>
-											</p>
-											<h3>
-												<a href={`/blog/${related.id}/`}>{related.title}</a>
-											</h3>
-											<p>{related.description}</p>
-										</div>
-									</article>
-								))}
-							</div>
-						</section>
-					)}
-				</article>
-			</div>
+			{relatedPosts.length > 0 && (
+				<section class="keep-reading" aria-labelledby="keep-reading-title">
+					<h2 id="keep-reading-title">Keep reading</h2>
+					<ul>
+						{relatedPosts.map((related) => (
+							<li>
+								<a href={`/blog/${related.id}/`}>
+									<Picture src={related.heroImage || '/images/blog/what-is-digital-wellbeing.jpg'} alt="" width={640} height={360} loading="lazy" />
+									<span class="kr-meta">{related.categoryLabel}, {related.readingTime} min read</span>
+									<span class="kr-title">{related.title}</span>
+									<span class="kr-desc">{related.description}</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			)}
 		</main>
+
+		{hasContents && (
+			<>
+				<button type="button" class="section-pill" id="section-pill" aria-haspopup="dialog" aria-controls="contents-sheet" hidden>
+					<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 6h16M4 12h10M4 18h13"/></svg>
+					<span class="pill-section" data-pill-section>Contents</span>
+					<span class="pill-time" data-time-left>{readingTime} min</span>
+				</button>
+				<dialog class="sheet" id="contents-sheet" aria-labelledby="sheet-title">
+					<div class="sheet-head">
+						<h2 id="sheet-title">Contents</h2>
+						<button type="button" class="sheet-close" data-close-sheet>Close</button>
+					</div>
+					<ol class="sheet-list">
+						{sections.map((s) => (
+							<li data-section={s.slug}><a href={`#${s.slug}`}>{s.text}</a></li>
+						))}
+					</ol>
+					<div class="sheet-tools">
+						<div class="size-picker" role="group" aria-label="Text size">
+							<span class="tool-label">Text size</span>
+							<button type="button" data-size="s" aria-label="Smaller text" aria-pressed="false"><span class="a a-s">A</span></button>
+							<button type="button" data-size="m" aria-label="Default text size" aria-pressed="true"><span class="a a-m">A</span></button>
+							<button type="button" data-size="l" aria-label="Larger text" aria-pressed="false"><span class="a a-l">A</span></button>
+						</div>
+						<button type="button" class="share-button" data-share>
+							<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M10 14a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1 1M14 10a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1-1"/></svg>
+							<span data-share-label>Copy link</span>
+						</button>
+					</div>
+				</dialog>
+			</>
+		)}
+		<p class="visually-hidden" id="share-status" role="status" aria-live="polite"></p>
+
 		<Footer />
 
 		<script>
+			const body = document.querySelector<HTMLElement>('.article-body');
+			const post = document.querySelector<HTMLElement>('.post');
+			const minutes = Number(post?.dataset.minutes) || 1;
+			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 			// The call to action renders after the post; move it before the third section, where readers
 			// getting value from the post still are (before the last one in short posts).
 			{
 				const cta = document.getElementById('inline-cta');
-				const sections = [...document.querySelectorAll('.article-body > h2')];
-				const anchor = sections.length >= 4 ? sections[2] : sections.length >= 2 ? sections.at(-1) : null;
+				const h2s = [...document.querySelectorAll('.article-body > h2')];
+				const anchor = h2s.length >= 4 ? h2s[2] : h2s.length >= 2 ? h2s.at(-1) : null;
 				if (cta && anchor) anchor.before(cta);
 			}
-			const articleBody = document.querySelector('.article-body');
-			const progressBar = document.getElementById('reading-progress-bar');
-			const tocDesktop = document.getElementById('toc-desktop');
-			const tocMobile = document.getElementById('toc-mobile');
-			const tocEmptyDesktop = document.getElementById('toc-empty-desktop');
-			const tocEmptyMobile = document.getElementById('toc-empty-mobile');
-			const tocMobileShell = document.getElementById('toc-mobile-shell');
-			const tocTrackDesktop = document.getElementById('toc-track-desktop');
-			const tocTrackMobile = document.getElementById('toc-track-mobile');
 
-			function slugify(text) {
-				return text
-					.toLowerCase()
-					.trim()
-					.replace(/[^a-z0-9\s-]/g, '')
-					.replace(/\s+/g, '-')
-					.replace(/-+/g, '-');
-			}
+			// Wide tables scroll sideways inside their own box, which is focusable for keyboard scrolling.
+			body?.querySelectorAll('table').forEach((table) => {
+				const wrap = document.createElement('div');
+				wrap.className = 'table-scroll';
+				wrap.tabIndex = 0;
+				wrap.setAttribute('role', 'region');
+				wrap.setAttribute('aria-label', 'Table');
+				table.before(wrap);
+				wrap.append(table);
+				const mark = () => wrap.classList.toggle('is-scrollable', wrap.scrollWidth > wrap.clientWidth + 2);
+				mark();
+				// The box and the table resize separately (web fonts load late, the viewport turns).
+				const ro = new ResizeObserver(mark);
+				ro.observe(wrap);
+				ro.observe(table);
+			});
 
-			const headings = articleBody
-				? Array.from(articleBody.querySelectorAll('h2, h3'))
-				: [];
-
-			let h2Counter = 0;
-
-			function createTocItem(heading, index) {
-				if (!heading.id) {
-					heading.id = `${slugify(heading.textContent || 'section')}-${index + 1}`;
-				}
-
-				const isH3 = heading.tagName === 'H3';
-				const item = document.createElement('li');
-				item.className = isH3 ? 'toc-item toc-sub-item' : 'toc-item';
-
-				const link = document.createElement('a');
-				link.href = `#${heading.id}`;
-
-				if (!isH3) {
-					h2Counter++;
-					const num = document.createElement('span');
-					num.className = 'toc-number';
-					num.textContent = String(h2Counter).padStart(2, '0');
-					link.appendChild(num);
-				}
-
-				const text = document.createElement('span');
-				text.textContent = heading.textContent || 'Section';
-				link.appendChild(text);
-
-				item.appendChild(link);
-				return item;
-			}
-
-			function renderToc(listNode) {
-				if (!listNode) {
-					return;
-				}
-
-				h2Counter = 0;
-				listNode.innerHTML = '';
-				headings.forEach((heading, index) => {
-					listNode.appendChild(createTocItem(heading, index));
-				});
-			}
-
-			if (headings.length === 0) {
-				if (tocMobileShell) {
-					tocMobileShell.hidden = true;
-				}
-			} else {
-				renderToc(tocDesktop);
-				renderToc(tocMobile);
-
-				if (tocEmptyDesktop) {
-					tocEmptyDesktop.hidden = true;
-				}
-
-				if (tocEmptyMobile) {
-					tocEmptyMobile.hidden = true;
+			// A link on every section heading, so a reader can share the exact part they mean.
+			const status = document.getElementById('share-status');
+			async function copy(url: string) {
+				try {
+					await navigator.clipboard.writeText(url);
+					return true;
+				} catch {
+					return false;
 				}
 			}
-
-			const tocLinks = Array.from(document.querySelectorAll('.toc-list a'));
-
-			// Smooth scroll on TOC link clicks
-			tocLinks.forEach((link) => {
-				link.addEventListener('click', (e) => {
+			body?.querySelectorAll<HTMLElement>('h2[id], h3[id]').forEach((h) => {
+				const a = document.createElement('a');
+				a.className = 'heading-link';
+				a.href = `#${h.id}`;
+				a.setAttribute('aria-label', `Copy link to “${h.textContent?.trim()}”`);
+				a.textContent = '#';
+				a.addEventListener('click', async (e) => {
 					e.preventDefault();
-					const href = link.getAttribute('href');
-					if (!href) return;
-					const target = document.querySelector(href);
-					if (target) {
-						target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-						history.pushState(null, '', href);
+					const url = `${location.origin}${location.pathname}#${h.id}`;
+					history.replaceState(null, '', `#${h.id}`);
+					if (await copy(url) && status) status.textContent = 'Link to this section copied';
+					a.classList.add('copied');
+					setTimeout(() => a.classList.remove('copied'), 1600);
+				});
+				h.append(a);
+			});
+
+			// Share: the system share sheet where there is one (phones), otherwise copy the link.
+			document.querySelectorAll<HTMLButtonElement>('[data-share]').forEach((button) => {
+				const label = button.querySelector('[data-share-label]');
+				const canShare = typeof navigator.share === 'function' && window.matchMedia('(pointer: coarse)').matches;
+				if (canShare && label) label.textContent = 'Share';
+				button.addEventListener('click', async () => {
+					const url = location.href.split('#')[0];
+					if (canShare) {
+						try {
+							await navigator.share({ title: document.title, url });
+						} catch { /* dismissed */ }
+						return;
+					}
+					if (await copy(url) && label) {
+						label.textContent = 'Link copied';
+						if (status) status.textContent = 'Link copied';
+						setTimeout(() => (label.textContent = 'Copy link'), 1800);
 					}
 				});
 			});
 
-			function updateTrackPosition(activeLink) {
-				[tocTrackDesktop, tocTrackMobile].forEach((track) => {
-					if (!track) return;
-					const activeInTrack = track.querySelector('.toc-list a.active');
-					if (activeInTrack) {
-						const trackRect = track.getBoundingClientRect();
-						const linkRect = activeInTrack.getBoundingClientRect();
-						const top = linkRect.top - trackRect.top;
-						const height = linkRect.height;
-						track.style.setProperty('--toc-active-top', `${top}px`);
-						track.style.setProperty('--toc-active-height', `${height}px`);
-					}
+			// Text size, remembered on this device.
+			const sizeButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-size]')];
+			function applySize(size: string) {
+				if (size === 'm') delete document.documentElement.dataset.readSize;
+				else document.documentElement.dataset.readSize = size;
+				sizeButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.size === size)));
+			}
+			applySize(document.documentElement.dataset.readSize ?? 'm');
+			sizeButtons.forEach((b) =>
+				b.addEventListener('click', () => {
+					const size = b.dataset.size ?? 'm';
+					// Keep the line being read in place while the text reflows.
+					const anchor = activeHeading();
+					const before = anchor?.getBoundingClientRect().top ?? 0;
+					applySize(size);
+					try {
+						if (size === 'm') localStorage.removeItem('respite-read-size');
+						else localStorage.setItem('respite-read-size', size);
+					} catch { /* private mode */ }
+					if (anchor) window.scrollBy(0, anchor.getBoundingClientRect().top - before);
+				}),
+			);
+
+			// Back to top.
+			document.querySelectorAll('[data-to-top]').forEach((a) =>
+				a.addEventListener('click', (e) => {
+					e.preventDefault();
+					window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+					history.replaceState(null, '', location.pathname);
+				}),
+			);
+
+			// Sections: progress per section, minutes left, the current one in the rail and the pill.
+			const sectionIds = [...document.querySelectorAll<HTMLElement>('.contents-list > li')].map((li) => li.dataset.section ?? '');
+			const sectionHeads = sectionIds.map((id) => document.getElementById(id)).filter((h): h is HTMLElement => !!h);
+			const railItems = new Map([...document.querySelectorAll<HTMLElement>('.contents-list > li')].map((li) => [li.dataset.section, li]));
+			const sheetItems = new Map([...document.querySelectorAll<HTMLElement>('.sheet-list > li')].map((li) => [li.dataset.section, li]));
+			const timeLeft = [...document.querySelectorAll<HTMLElement>('[data-time-left]')];
+			const pill = document.getElementById('section-pill');
+			const pillSection = document.querySelector<HTMLElement>('[data-pill-section]');
+			const progressBar = document.getElementById('reading-progress-bar');
+			const end = document.querySelector<HTMLElement>('.byline');
+			const LINE = () => window.innerHeight * 0.3;
+
+			function activeHeading() {
+				let current: HTMLElement | undefined;
+				for (const h of sectionHeads) if (h.getBoundingClientRect().top - LINE() <= 0) current = h;
+				return current;
+			}
+
+			// Long contents lists scroll on their own; keep the current section in view without moving the page.
+			const railList = document.querySelector<HTMLElement>('.contents-list');
+			function keepInView(li: HTMLElement) {
+				if (!railList || railList.scrollHeight <= railList.clientHeight) return;
+				requestAnimationFrame(() => {
+					const top = li.offsetTop - railList.offsetTop;
+					const target = top - railList.clientHeight / 3;
+					railList.scrollTo({ top: Math.max(0, target), behavior: reduceMotion ? 'auto' : 'smooth' });
 				});
 			}
 
-			function updateActiveHeading() {
-				if (headings.length === 0) {
-					return;
-				}
+			function update() {
+				const line = LINE();
+				const startY = (body?.getBoundingClientRect().top ?? 0) + scrollY;
+				const endY = (end?.getBoundingClientRect().top ?? document.body.scrollHeight) + scrollY;
+				const done = Math.min(1, Math.max(0, (scrollY + line - startY) / Math.max(1, endY - startY)));
+				if (progressBar) progressBar.style.transform = `scaleX(${done})`;
 
-				const offset = 180;
-				let activeId = headings[0].id;
+				const left = Math.ceil(minutes * (1 - done));
+				const text = done <= 0.02 ? `${minutes} min read` : left <= 0 ? 'Finished' : left === 1 ? 'About 1 min left' : `${left} min left`;
+				timeLeft.forEach((el) => (el.textContent = el.classList.contains('pill-time') ? text.replace(' read', '').replace('About ', '') : text));
 
-				headings.forEach((heading) => {
-					if (heading.getBoundingClientRect().top - offset <= 0) {
-						activeId = heading.id;
-					}
+				const current = activeHeading();
+				sectionHeads.forEach((h, i) => {
+					const top = h.getBoundingClientRect().top + scrollY;
+					const next = sectionHeads[i + 1];
+					const bottom = next ? next.getBoundingClientRect().top + scrollY : endY;
+					const p = Math.min(1, Math.max(0, (scrollY + line - top) / Math.max(1, bottom - top)));
+					const li = railItems.get(h.id);
+					li?.style.setProperty('--p', p.toFixed(3));
+					const isCurrent = h === current;
+					if (isCurrent && li && !li.classList.contains('is-current')) keepInView(li);
+					li?.classList.toggle('is-current', isCurrent);
+					li?.querySelector(':scope > a')?.toggleAttribute('aria-current', isCurrent);
+					const si = sheetItems.get(h.id);
+					si?.classList.toggle('is-current', isCurrent);
+					si?.classList.toggle('is-read', p >= 1);
 				});
 
-				tocLinks.forEach((link) => {
-					const isActive = link.getAttribute('href') === `#${activeId}`;
-					link.classList.toggle('active', isActive);
-					if (isActive) {
-						link.setAttribute('aria-current', 'true');
-					} else {
-						link.removeAttribute('aria-current');
-					}
-				});
-
-				updateTrackPosition();
-			}
-
-			function updateReadingProgress() {
-				if (!articleBody || !progressBar) {
-					return;
+				if (pill && pillSection) {
+					pillSection.textContent = current?.textContent?.replace(/#$/, '').trim() || 'Contents';
+					const endTop = end?.getBoundingClientRect().top ?? Infinity;
+					const show = !!current && endTop > window.innerHeight * 0.6;
+					pill.hidden = false;
+					pill.classList.toggle('is-shown', show);
+					pill.inert = !show;
 				}
-
-				const articleTop = articleBody.offsetTop - 220;
-				const articleHeight = articleBody.offsetHeight;
-				const rawProgress = (window.scrollY - articleTop) / Math.max(articleHeight, 1);
-				const boundedProgress = Math.min(1, Math.max(0, rawProgress));
-				progressBar.style.transform = `scaleX(${boundedProgress})`;
 			}
 
 			let ticking = false;
-			function onScroll() {
-				if (ticking) {
-					return;
-				}
-
+			const onScroll = () => {
+				if (ticking) return;
 				ticking = true;
-				window.requestAnimationFrame(() => {
-					updateActiveHeading();
-					updateReadingProgress();
+				requestAnimationFrame(() => {
+					update();
 					ticking = false;
 				});
-			}
+			};
+			addEventListener('scroll', onScroll, { passive: true });
+			addEventListener('resize', onScroll);
+			update();
 
-			window.addEventListener('scroll', onScroll, { passive: true });
-			window.addEventListener('resize', onScroll);
-
-			updateActiveHeading();
-			updateReadingProgress();
+			// The contents sheet (phones and tablets).
+			const sheet = document.getElementById('contents-sheet') as HTMLDialogElement | null;
+			pill?.addEventListener('click', () => {
+				sheet?.showModal();
+				sheet?.querySelector<HTMLElement>('.is-current a, .sheet-list a')?.focus();
+			});
+			sheet?.querySelector('[data-close-sheet]')?.addEventListener('click', () => sheet.close());
+			sheet?.addEventListener('click', (e) => {
+				if (e.target === sheet) sheet.close(); // the backdrop
+			});
+			sheet?.querySelectorAll<HTMLAnchorElement>('.sheet-list a').forEach((a) =>
+				a.addEventListener('click', (e) => {
+					e.preventDefault();
+					sheet.close();
+					const id = a.hash.slice(1);
+					document.getElementById(id)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+					history.replaceState(null, '', `#${id}`);
+				}),
+			);
 		</script>
 	</body>
 </html>
 
 <style>
-	body {
-		background:
-			radial-gradient(circle at 15% 12%, color-mix(in srgb, var(--ds-primary) 12%, transparent) 0%, transparent 30%),
-			radial-gradient(circle at 88% 8%, color-mix(in srgb, var(--ds-green) 10%, transparent) 0%, transparent 28%),
-			var(--ds-bg-primary);
+	/* ------------------------------------------------------------ page and grid */
+	/* The site sets overflow-x: hidden on html and body, which makes body a scroll container and
+	   stops the rail from sticking. clip hides sideways overflow the same way without that. */
+	:global(html:has(> body.reading-page)),
+	.reading-page {
+		overflow-x: clip;
 	}
 
+	.reading-page {
+		background: var(--ds-bg-primary);
+		--read-size: 1.125rem;
+		--measure: 40rem;
+		--rail: 14rem;
+		--gap: 3.5rem;
+		--breakout: 0px;
+		--ink: var(--ds-text-primary);
+		--ink-soft: var(--ds-text-secondary);
+		--rule: color-mix(in srgb, var(--ds-text-hint) 22%, transparent);
+	}
+
+	:global(html[data-read-size='s']) .reading-page {
+		--read-size: 1rem;
+	}
+
+	:global(html[data-read-size='l']) .reading-page {
+		--read-size: 1.3rem;
+		--measure: 44rem;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.reading-page {
+			/* Slightly softer than the UI white: long text in pure white on dark glares. */
+			--ink: color-mix(in srgb, var(--ds-text-primary) 90%, var(--ds-bg-primary));
+		}
+	}
+
+	.post,
+	.post :global(*),
+	.section-pill,
+	.sheet {
+		box-sizing: border-box;
+	}
+
+	.post {
+		display: grid;
+		grid-template-columns: minmax(0, var(--measure));
+		justify-content: center;
+		padding: 8.5rem 1.25rem 5rem;
+		row-gap: 2.5rem;
+	}
+
+	/* Posts without contents (one section or none) keep the single centred column. */
+	@media (min-width: 1000px) {
+		.post:has(> .rail) {
+			grid-template-columns: var(--rail) minmax(0, var(--measure));
+			column-gap: var(--gap);
+		}
+		.post:has(> .rail) > :is(.post-head, .post-body, .keep-reading) {
+			grid-column: 2;
+		}
+		.rail {
+			grid-column: 1;
+			grid-row: 2 / span 2;
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.post:has(> .rail) {
+			/* An empty right column of the rail's width keeps the text centred and gives tables room. */
+			grid-template-columns: var(--rail) minmax(0, var(--measure)) var(--rail);
+		}
+		.reading-page {
+			--breakout: calc(var(--rail) + var(--gap));
+		}
+	}
+
+	/* ------------------------------------------------------------ progress */
 	.reading-progress {
 		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
+		inset: 0 0 auto;
 		height: 3px;
-		background: transparent;
 		z-index: 130;
 		pointer-events: none;
 	}
 
 	.reading-progress-bar {
-		width: 100%;
 		height: 100%;
-		background: linear-gradient(90deg, var(--ds-primary), var(--ds-green));
+		background: var(--ds-brand);
 		transform-origin: left center;
 		transform: scaleX(0);
 	}
 
-	.article-shell {
-		max-width: 1220px;
-		margin: 0 auto;
-		padding: 9rem var(--ds-space-md) var(--ds-space-4xl);
+	/* ------------------------------------------------------------ head */
+	.post-head {
 		display: grid;
-		gap: var(--ds-space-xl);
+		gap: 1rem;
 	}
 
-	.article-hero {
-		background:
-			linear-gradient(145deg, color-mix(in srgb, var(--ds-primary) 10%, transparent), transparent 52%),
-			linear-gradient(220deg, color-mix(in srgb, var(--ds-green) 8%, transparent), transparent 60%),
-			var(--ds-bg-secondary);
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 20%, transparent);
-		border-radius: var(--ds-radius-xl);
-		padding: clamp(1.4rem, 2.5vw, 2.4rem);
-		display: grid;
-		gap: var(--ds-space-sm);
-		box-shadow: var(--ds-shadow-sm);
-	}
-
-	.back-link {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.35rem;
+	.crumbs {
+		display: flex;
+		gap: 0.5rem;
 		font-size: 0.9rem;
-		font-weight: 700;
+		color: var(--ds-text-hint);
+	}
+
+	.crumbs a {
 		color: var(--ds-primary);
+		font-weight: 700;
 		text-decoration: none;
-		margin-bottom: var(--ds-space-xs);
 	}
 
-	.back-link:hover {
-		color: var(--ds-primary-dark);
+	.crumbs a:hover {
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
 	}
 
-	.hero-category {
+	.post-head h1 {
 		margin: 0;
-		font-size: 0.78rem;
-		font-weight: 700;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		color: var(--ds-primary);
-	}
-
-	.article-hero h1 {
-		margin: 0;
-		font-size: clamp(1.9rem, 3vw, 3.2rem);
-		line-height: 1.12;
+		font-size: clamp(2rem, 1.3rem + 2.6vw, 3rem);
+		line-height: 1.1;
 		letter-spacing: -0.02em;
+		text-wrap: balance;
 	}
 
-	.hero-description {
+	.post-dek {
 		margin: 0;
-		max-width: 70ch;
-		font-size: clamp(1rem, 1.4vw, 1.2rem);
-		line-height: 1.7;
-		color: var(--ds-text-secondary);
+		font-family: 'Source Serif 4', Georgia, serif;
+		font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
+		line-height: 1.55;
+		color: var(--ink-soft);
+		text-wrap: pretty;
 	}
 
-	.hero-meta {
+	.post-meta {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.55rem 0.85rem;
-		font-size: 0.86rem;
+		align-items: center;
+		gap: 0.4rem 1.25rem;
+		font-size: 0.9rem;
+		color: var(--ds-text-hint);
+	}
+
+	.share-button {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		min-height: 36px;
+		padding: 0.3rem 0.8rem;
+		border: 1px solid var(--rule);
+		border-radius: var(--ds-radius-full);
+		background: transparent;
+		color: var(--ds-text-secondary);
+		font: inherit;
+		font-size: 0.85rem;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.share-button:hover {
+		color: var(--ds-primary);
+		border-color: color-mix(in srgb, var(--ds-primary) 45%, transparent);
+	}
+
+	.post-meta .share-button {
+		margin-left: auto;
+	}
+
+	.post-hero {
+		margin-top: 0.75rem;
+		border-radius: var(--ds-radius-lg);
+		overflow: hidden;
+		aspect-ratio: 16 / 9;
+		background: var(--ds-bg-secondary);
+	}
+
+	.post-hero img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	/* ------------------------------------------------------------ rail (wide screens) */
+	.rail {
+		display: none;
+	}
+
+	@media (min-width: 1000px) {
+		.rail {
+			display: flex;
+			flex-direction: column;
+			gap: 1.75rem;
+			position: sticky;
+			top: 7rem;
+			align-self: start;
+			max-height: calc(100vh - 8rem);
+			font-size: 0.875rem;
+		}
+	}
+
+	.rail-title {
+		margin: 0 0 0.75rem;
+		font-size: 0.95rem;
+		font-weight: 800;
+		color: var(--ds-text-primary);
+	}
+
+	.contents {
+		display: flex;
+		flex-direction: column;
+		min-height: 0;
+	}
+
+	.contents-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		scrollbar-width: thin;
+	}
+
+	.contents-list > li {
+		--p: 0;
+		position: relative;
+	}
+
+	.contents-list > li > a {
+		position: relative;
+		display: block;
+		padding: 0.4rem 0 0.4rem 1rem;
+		color: var(--ds-text-secondary);
+		text-decoration: none;
+		line-height: 1.35;
+		text-wrap: pretty;
+	}
+
+	/* Each section's line: grey track, filled in brand blue as the section is read. */
+	.contents-list > li > a::before,
+	.contents-fill {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.2rem;
+		bottom: 0.2rem;
+		width: 3px;
+		border-radius: 3px;
+		background: var(--rule);
+	}
+
+	.contents-fill {
+		background: var(--ds-brand);
+		transform-origin: top;
+		transform: scaleY(var(--p));
+		z-index: 1;
+	}
+
+	.contents-list > li > a:hover {
+		color: var(--ds-text-primary);
+	}
+
+	.contents-list > li.is-current > a {
+		color: var(--ds-text-primary);
+		font-weight: 700;
+	}
+
+	.contents-sub {
+		display: none;
+		list-style: none;
+		margin: 0 0 0.35rem;
+		padding: 0 0 0 1rem;
+	}
+
+	.contents-list > li.is-current .contents-sub {
+		display: block;
+	}
+
+	.contents-sub a {
+		display: block;
+		padding: 0.2rem 0 0.2rem 0.75rem;
+		border-left: 1px solid var(--rule);
+		color: var(--ds-text-hint);
+		text-decoration: none;
+		font-size: 0.82rem;
+		line-height: 1.35;
+	}
+
+	.contents-sub a:hover {
+		color: var(--ds-text-primary);
+	}
+
+	.time-left {
+		margin: 0.75rem 0 0 1rem;
+		font-size: 0.82rem;
+		color: var(--ds-text-hint);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.rail-tools {
+		display: grid;
+		gap: 0.75rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--rule);
+	}
+
+	.to-top {
+		color: var(--ds-text-secondary);
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	.to-top:hover {
+		color: var(--ds-primary);
+	}
+
+	.rail-cta {
+		display: grid;
+		gap: 0.75rem;
+		padding: 1rem;
+		border-radius: var(--ds-radius-md);
+		background: var(--ds-bg-info);
+	}
+
+	/* On short screens the contents need the room more than the call to action. */
+	@media (max-height: 820px) {
+		.rail-cta {
+			display: none;
+		}
+	}
+
+	.rail-cta p {
+		margin: 0;
+		line-height: 1.5;
 		color: var(--ds-text-secondary);
 	}
 
-	.hero-meta span {
-		display: inline-flex;
+	.rail-cta-button {
+		justify-self: start;
+		padding: 0.5rem 1rem;
+		border-radius: var(--ds-radius-full);
+		background: var(--ds-primary);
+		color: var(--ds-on-primary);
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	.rail-cta-button:hover {
+		background: var(--ds-primary-dark);
+	}
+
+	/* Text size picker (rail and sheet) */
+	.size-picker {
+		display: flex;
 		align-items: center;
 		gap: 0.25rem;
 	}
 
-	.hero-image {
-		margin-top: var(--ds-space-sm);
-		border-radius: var(--ds-radius-lg);
-		overflow: hidden;
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 20%, transparent);
-		box-shadow: var(--ds-shadow-md);
-	}
-
-	.hero-image img {
-		display: block;
-		width: 100%;
-		height: auto;
-		border-radius: 0;
-	}
-
-	.article-layout {
-		display: grid;
-		gap: var(--ds-space-lg);
-	}
-
-	.article-sidebar {
-		display: none;
-	}
-
-	.sidebar-card {
-		background: var(--ds-bg-primary);
-		border-radius: var(--ds-radius-lg);
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 20%, transparent);
-		padding: var(--ds-space-md);
-		box-shadow: var(--ds-shadow-sm);
-	}
-
-	.toc-panel {
-		padding: 0;
-	}
-
-	.toc-label {
-		margin: 0 0 var(--ds-space-sm);
-		font-size: 0.72rem;
+	.tool-label {
+		margin-right: auto;
+		color: var(--ds-text-secondary);
 		font-weight: 700;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--ds-text-hint);
+		font-size: 0.875rem;
 	}
 
-	.toc-track {
-		position: relative;
-		padding-left: 1px;
-	}
-
-	.toc-track::before {
-		content: "";
-		position: absolute;
-		left: 0;
-		top: 0;
-		bottom: 0;
-		width: 1px;
-		background: color-mix(in srgb, var(--ds-text-hint) 25%, transparent);
-		border-radius: 1px;
-	}
-
-	.toc-track::after {
-		content: "";
-		position: absolute;
-		left: -0.5px;
-		top: var(--toc-active-top, 0);
-		height: var(--toc-active-height, 0);
-		width: 2px;
-		background: var(--ds-primary);
-		border-radius: 2px;
-		transition: top 250ms ease, height 250ms ease;
-	}
-
-	.toc-list {
-		margin: 0;
-		padding: 0;
-		list-style: none;
+	.size-picker button {
 		display: grid;
-		gap: 2px;
-	}
-
-	.toc-item a {
-		display: flex;
-		align-items: baseline;
-		gap: 0.5rem;
-		padding: 0.4rem 0 0.4rem 1rem;
-		font-size: 0.84rem;
-		font-weight: 500;
-		line-height: 1.4;
-		text-decoration: none;
-		color: var(--ds-text-secondary);
-		transition: color 150ms ease;
-	}
-
-	.toc-item a:hover {
-		color: var(--ds-text-primary);
-	}
-
-	.toc-item a.active {
-		color: var(--ds-primary);
-		font-weight: 600;
-	}
-
-	.toc-number {
-		font-size: 0.7rem;
-		font-weight: 600;
-		color: var(--ds-text-hint);
-		min-width: 1.1rem;
-		font-variant-numeric: tabular-nums;
-		flex-shrink: 0;
-	}
-
-	.toc-item a.active .toc-number {
-		color: var(--ds-primary);
-	}
-
-	.toc-sub-item a {
-		padding-left: 2rem;
-		font-size: 0.8rem;
-		font-weight: 400;
-		color: var(--ds-text-hint);
-	}
-
-	.toc-sub-item a:hover {
-		color: var(--ds-text-secondary);
-	}
-
-	.toc-sub-item a.active {
-		color: var(--ds-primary);
-		font-weight: 500;
-	}
-
-	.toc-empty {
-		margin: var(--ds-space-sm) 0 0;
-		padding-left: 1rem;
-		font-size: 0.8rem;
-		line-height: 1.5;
-		color: var(--ds-text-hint);
-	}
-
-	.sidebar-cta {
-		display: grid;
-		gap: var(--ds-space-sm);
-	}
-
-	.sidebar-cta h2 {
-		margin: 0;
-		font-size: 1.05rem;
-		line-height: 1.3;
-	}
-
-	.sidebar-cta p {
-		margin: 0;
-		font-size: 0.9rem;
-		line-height: 1.6;
-		color: var(--ds-text-secondary);
-	}
-
-	.sidebar-cta-actions {
-		display: grid;
-		gap: 0.55rem;
-	}
-
-	.sidebar-button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.65rem 0.9rem;
-		border-radius: 999px;
-		text-decoration: none;
-		font-size: 0.88rem;
-		font-weight: 700;
-		min-height: 44px;
+		place-items: center;
+		width: 2.25rem;
+		height: 2.25rem;
 		border: 1px solid transparent;
-	}
-
-	.sidebar-button.primary {
-		background: var(--ds-primary);
-		color: var(--ds-on-primary);
-	}
-
-	.sidebar-button.primary:hover {
-		background: var(--ds-primary-dark);
-	}
-
-	.sidebar-button.secondary {
-		background: var(--ds-bg-primary);
-		color: var(--ds-text-primary);
-		border-color: color-mix(in srgb, var(--ds-text-hint) 30%, transparent);
-	}
-
-	.sidebar-button.secondary:hover {
-		border-color: color-mix(in srgb, var(--ds-primary) 45%, transparent);
-		color: var(--ds-primary);
-	}
-
-	.article-content {
-		min-width: 0;
-	}
-
-	.toc-mobile {
-		background: color-mix(in srgb, var(--ds-bg-secondary) 60%, transparent);
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 15%, transparent);
-		border-radius: var(--ds-radius-md);
-		padding: var(--ds-space-md);
-		margin-bottom: var(--ds-space-lg);
-	}
-
-	.toc-mobile-label {
-		margin: 0 0 var(--ds-space-sm);
-		font-size: 0.72rem;
-		font-weight: 700;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--ds-text-hint);
-	}
-
-	.toc-mobile .toc-list {
-		max-height: 14rem;
-		overflow-y: auto;
-	}
-
-	.reading-note {
-		margin-bottom: var(--ds-space-xl);
-		padding: var(--ds-space-md) var(--ds-space-lg);
-		border-radius: var(--ds-radius-md);
-		background: color-mix(in srgb, var(--ds-green) 9%, transparent);
-		border: 1px solid color-mix(in srgb, var(--ds-green) 26%, transparent);
-	}
-
-	.reading-note p {
-		margin: 0;
-		font-size: 0.95rem;
-		line-height: 1.6;
+		border-radius: var(--ds-radius-sm);
+		background: transparent;
 		color: var(--ds-text-secondary);
+		font-family: 'Source Serif 4', Georgia, serif;
+		cursor: pointer;
 	}
 
-	.reading-note strong {
+	.size-picker button:hover {
+		background: var(--ds-bg-secondary);
+	}
+
+	.size-picker button[aria-pressed='true'] {
+		border-color: color-mix(in srgb, var(--ds-primary) 50%, transparent);
+		background: var(--ds-bg-info);
 		color: var(--ds-text-primary);
 	}
 
-	.post-faq {
-		max-width: 66ch;
-		margin: var(--ds-space-2xl, 3rem) 0 var(--ds-space-xl);
-		padding-top: var(--ds-space-xl);
-		border-top: 1px solid color-mix(in srgb, var(--ds-text-secondary) 20%, transparent);
-	}
+	.a-s { font-size: 0.8rem; }
+	.a-m { font-size: 1rem; }
+	.a-l { font-size: 1.25rem; }
 
-	.post-faq h2 {
-		margin: 0 0 var(--ds-space-lg);
-	}
-
-	.post-faq-item + .post-faq-item {
-		margin-top: var(--ds-space-lg);
-	}
-
-	.post-faq-item h3 {
-		margin: 0 0 var(--ds-space-xs);
-		font-size: 1.08rem;
-	}
-
-	.post-faq-item p {
-		margin: 0;
-		line-height: 1.65;
-		color: var(--ds-text-secondary);
-	}
-
-	.quick-answer-label {
-		font-size: 0.78rem !important;
-		font-weight: 800;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--ds-text-primary) !important;
-		margin-bottom: var(--ds-space-xs) !important;
-	}
-
-	.quick-answer .quick-answer-text {
-		font-size: 1.02rem;
-		color: var(--ds-text-primary);
-	}
-
-	.quick-answer-points {
-		margin: var(--ds-space-sm) 0 0;
-		padding-left: 1.2rem;
-		color: var(--ds-text-secondary);
-		font-size: 0.95rem;
-		line-height: 1.55;
-	}
-
-	:global(.article-body .inline-cta) {
-		margin: var(--ds-space-xl) 0;
-		padding: var(--ds-space-lg);
+	/* ------------------------------------------------------------ the short answer */
+	.short-answer {
+		margin-bottom: 2.5rem;
+		padding: 1.25rem 1.5rem;
 		border-radius: var(--ds-radius-md);
 		background: var(--ds-bg-info);
-		border: 1px solid color-mix(in srgb, var(--ds-primary) 28%, transparent);
-		font-family: inherit;
+		border-left: 4px solid var(--ds-brand);
 	}
 
-	:global(.article-body .inline-cta p) {
-		margin: 0 0 var(--ds-space-sm);
-		font-size: 0.98rem;
+	.short-answer h2 {
+		margin: 0 0 0.5rem;
+		font-size: 1rem;
+		font-weight: 800;
 	}
 
-	:global(.article-body .inline-cta .inline-cta-title) {
-		font-weight: 700;
-		font-size: 1.08rem;
+	.short-answer p {
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.6;
 		color: var(--ds-text-primary);
 	}
 
-	:global(.article-body .inline-cta .inline-cta-actions) {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: var(--ds-space-md);
-		margin: var(--ds-space-md) 0 0;
+	.short-answer ul {
+		list-style: none;
+		margin: 0.85rem 0 0;
+		padding: 0.85rem 0 0;
+		border-top: 1px solid var(--rule);
+		display: grid;
+		gap: 0.45rem;
 	}
 
-	:global(.article-body .inline-cta .inline-cta-button) {
-		display: inline-block;
-		padding: 0.6rem 1.1rem;
-		border-radius: 999px;
-		background: var(--ds-primary);
-		color: var(--ds-on-primary);
-		font-weight: 700;
-		text-decoration: none;
+	.short-answer li {
+		position: relative;
+		padding-left: 1.6rem;
+		font-size: 0.95rem;
+		line-height: 1.5;
+		color: var(--ds-text-secondary);
 	}
 
-	:global(.article-body .inline-cta .inline-cta-link) {
-		font-size: 0.92rem;
+	.short-answer li::before {
+		content: '';
+		position: absolute;
+		left: 0.1rem;
+		top: 0.3rem;
+		width: 0.85rem;
+		height: 0.45rem;
+		border-left: 2px solid var(--ds-green);
+		border-bottom: 2px solid var(--ds-green);
+		transform: rotate(-45deg);
 	}
 
+	/* ------------------------------------------------------------ article text */
 	.article-body {
-		max-width: 66ch;
-		font-family: "Source Serif 4", "Georgia", "Times New Roman", serif;
+		font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
 		font-optical-sizing: auto;
+		font-size: var(--read-size);
+		line-height: 1.7;
+		color: var(--ink);
+		hanging-punctuation: first;
 	}
 
 	:global(.article-body > *:first-child) {
 		margin-top: 0;
 	}
 
-	:global(.article-body > p:first-child) {
-		font-size: clamp(1.12rem, 1.6vw, 1.3rem);
-		line-height: 1.75;
-		color: var(--ds-text-primary);
+	:global(.article-body p) {
+		margin: 0 0 1.25em;
+		text-wrap: pretty;
+	}
+
+	:global(.article-body > p:first-of-type) {
+		font-size: 1.1em;
+		line-height: 1.65;
 	}
 
 	:global(.article-body strong) {
-		font-weight: 700;
-		color: var(--ds-text-primary);
-	}
-
-	:global(.article-body p) {
-		margin: 0 0 1.6rem;
-		font-size: clamp(1.05rem, 1.4vw, 1.2rem);
-		line-height: 1.8;
+		font-weight: 650;
 		color: var(--ds-text-primary);
 	}
 
 	:global(.article-body h2),
 	:global(.article-body h3),
 	:global(.article-body h4) {
-		font-family: "Atkinson", sans-serif;
-		line-height: 1.25;
-		letter-spacing: -0.015em;
+		position: relative;
+		font-family: var(--font-heading);
 		color: var(--ds-text-primary);
-		scroll-margin-top: 7.5rem;
+		letter-spacing: -0.01em;
+		text-wrap: balance;
+		scroll-margin-top: 6.5rem;
 	}
 
 	:global(.article-body h2) {
-		margin: 3rem 0 1rem;
-		font-size: clamp(1.45rem, 2vw, 2rem);
+		margin: 2.4em 0 0.6em;
+		font-size: 1.5em;
+		font-weight: 800;
+		line-height: 1.2;
 	}
 
 	:global(.article-body h3) {
-		margin: 2.5rem 0 0.85rem;
-		font-size: clamp(1.2rem, 1.5vw, 1.45rem);
+		margin: 1.9em 0 0.5em;
+		font-size: 1.2em;
+		font-weight: 800;
+		line-height: 1.3;
 	}
 
 	:global(.article-body h4) {
-		margin: 2rem 0 0.75rem;
-		font-size: 1.1rem;
+		margin: 1.6em 0 0.4em;
+		font-size: 1em;
+		font-weight: 800;
+	}
+
+	:global(.article-body h2 + h3) {
+		margin-top: 0.9em;
+	}
+
+	/* Section link: shown on hover or focus, beside the heading. */
+	:global(.article-body .heading-link) {
+		margin-left: 0.4em;
+		padding: 0 0.2em;
+		color: var(--ds-text-hint);
+		font-weight: 600;
+		text-decoration: none;
+		opacity: 0;
+		transition: opacity var(--ds-transition-fast);
+	}
+
+	:global(.article-body :is(h2, h3):hover .heading-link),
+	:global(.article-body .heading-link:focus-visible) {
+		opacity: 1;
+	}
+
+	:global(.article-body .heading-link.copied)::after {
+		content: ' copied';
+		font-size: 0.6em;
+		font-family: var(--font-heading);
+	}
+
+	@media (hover: none) {
+		:global(.article-body .heading-link) {
+			display: none;
+		}
 	}
 
 	:global(.article-body ul),
 	:global(.article-body ol) {
-		margin: 0 0 1.6rem;
-		padding-left: 1.5rem;
-		color: var(--ds-text-primary);
+		margin: 0 0 1.25em;
+		padding-left: 1.4em;
 	}
 
 	:global(.article-body li) {
-		margin: 0.6rem 0;
-		line-height: 1.75;
-		font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+		margin: 0.45em 0;
+		padding-left: 0.2em;
+	}
+
+	:global(.article-body li > p) {
+		margin-bottom: 0.5em;
+	}
+
+	:global(.article-body ul > li::marker) {
+		color: var(--ds-brand);
+		font-size: 1.1em;
+	}
+
+	/* Ordered lists are steps: numbers in small discs. */
+	:global(.article-body ol) {
+		list-style: none;
+		counter-reset: step;
+		padding-left: 0;
+	}
+
+	:global(.article-body ol > li) {
+		counter-increment: step;
+		position: relative;
+		padding-left: 2.4em;
+	}
+
+	:global(.article-body ol > li::before) {
+		content: counter(step);
+		position: absolute;
+		left: 0;
+		top: 0.1em;
+		width: 1.6em;
+		height: 1.6em;
+		display: grid;
+		place-items: center;
+		border-radius: 50%;
+		background: var(--ds-bg-info);
+		color: var(--ds-primary);
+		font-family: var(--font-heading);
+		font-size: 0.85em;
+		font-weight: 800;
+		font-variant-numeric: tabular-nums;
 	}
 
 	:global(.article-body a) {
-		color: var(--ds-primary-dark);
-		font-weight: 600;
+		color: var(--ds-primary);
 		text-decoration: underline;
-		text-decoration-color: color-mix(in srgb, var(--ds-primary) 30%, transparent);
-		text-underline-offset: 0.15em;
-		text-decoration-thickness: 1.5px;
-		transition:
-			color var(--ds-transition-fast),
-			text-decoration-color var(--ds-transition-fast);
+		text-decoration-thickness: 1px;
+		text-decoration-color: color-mix(in srgb, var(--ds-primary) 45%, transparent);
+		text-underline-offset: 0.18em;
+		transition: text-decoration-color var(--ds-transition-fast);
 	}
 
 	:global(.article-body a:hover) {
-		color: var(--ds-primary);
-		text-decoration-color: var(--ds-primary);
-	}
-
-	:global(.article-body a:focus-visible) {
-		outline: 2px solid color-mix(in srgb, var(--ds-primary) 65%, white);
-		outline-offset: 2px;
-		border-radius: 2px;
+		text-decoration-color: currentColor;
+		text-decoration-thickness: 2px;
 	}
 
 	:global(.article-body blockquote) {
-		margin: 2.2rem 0;
-		padding: var(--ds-space-lg) var(--ds-space-xl);
-		border-left: 4px solid;
-		border-image: linear-gradient(
-			to bottom,
-			var(--ds-primary),
-			color-mix(in srgb, var(--ds-green) 70%, var(--ds-primary))
-		) 1;
-		background: color-mix(in srgb, var(--ds-primary) 5%, transparent);
-		border-radius: 0 var(--ds-radius-md) var(--ds-radius-md) 0;
-		font-style: normal;
-	}
-
-	:global(.article-body blockquote p) {
-		font-size: clamp(1.08rem, 1.5vw, 1.25rem);
-		line-height: 1.75;
-		margin-bottom: 0.8rem;
+		margin: 1.75em 0;
+		padding: 0.1em 0 0.1em 1.25em;
+		border-left: 3px solid var(--ds-brand);
 		color: var(--ds-text-secondary);
+		font-style: italic;
 	}
 
 	:global(.article-body blockquote p:last-child) {
@@ -966,290 +1129,600 @@ const effectiveAuthor = author || 'Respite Team';
 	}
 
 	:global(.article-body hr) {
-		margin: 3rem auto;
+		margin: 2.5em auto;
 		border: 0;
-		width: 100%;
-		max-width: 6rem;
+		width: 4rem;
 		height: 1px;
-		background: linear-gradient(
-			90deg,
-			transparent,
-			color-mix(in srgb, var(--ds-text-hint) 50%, transparent) 20%,
-			color-mix(in srgb, var(--ds-text-hint) 50%, transparent) 80%,
-			transparent
-		);
-	}
-
-	:global(.article-body hr::after) {
-		content: "\2022\2002\2022\2002\2022";
-		display: block;
-		text-align: center;
-		margin-top: -0.65rem;
-		font-size: 1.1rem;
-		letter-spacing: 0.15em;
-		color: var(--ds-text-hint);
+		background: var(--rule);
 	}
 
 	:global(.article-body img) {
-		width: 100%;
+		display: block;
+		max-width: 100%;
 		height: auto;
-		margin: 2rem 0;
+		margin: 2em 0;
 		border-radius: var(--ds-radius-md);
-		box-shadow: var(--ds-shadow-sm);
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 15%, transparent);
-	}
-
-	:global(.article-body figure) {
-		margin: 2.5rem 0;
-		padding: 0;
-	}
-
-	:global(.article-body figure img) {
-		margin: 0 0 0.75rem;
 	}
 
 	:global(.article-body figcaption) {
-		font-family: "Atkinson", sans-serif;
-		font-size: 0.85rem;
-		line-height: 1.5;
-		color: var(--ds-text-secondary);
-		text-align: center;
-		font-style: italic;
+		margin-top: 0.5em;
+		font-family: var(--font-heading);
+		font-size: 0.8em;
+		color: var(--ds-text-hint);
 	}
 
 	:global(.article-body pre) {
-		margin: 2rem 0;
-		padding: var(--ds-space-lg);
+		margin: 1.75em 0;
+		padding: 1em 1.25em;
 		border-radius: var(--ds-radius-md);
-		background: color-mix(in srgb, var(--ds-bg-secondary) 85%, black 5%);
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 18%, transparent);
+		background: var(--ds-bg-secondary);
 		overflow-x: auto;
-		font-size: 0.9rem;
-		line-height: 1.65;
+		font-size: 0.8em;
+		line-height: 1.6;
 	}
 
 	:global(.article-body code) {
-		font-size: 0.88em;
-		padding: 0.15em 0.4em;
+		font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+		font-size: 0.85em;
+		padding: 0.1em 0.35em;
 		border-radius: 4px;
-		background: color-mix(in srgb, var(--ds-bg-secondary) 80%, var(--ds-text-hint) 10%);
-		font-family: "SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", monospace;
+		background: var(--ds-bg-secondary);
 	}
 
 	:global(.article-body pre code) {
-		font-size: inherit;
 		padding: 0;
-		border-radius: 0;
 		background: none;
+		font-size: inherit;
 	}
 
-	:global(.article-body table) {
-		display: block;
-		width: 100%;
+	/* Tables: their own scroll box; on wide screens they may use the empty right column. */
+	:global(.article-body .table-scroll) {
+		margin: 2em 0;
+		width: max-content;
+		min-width: 100%;
+		max-width: calc(100% + var(--breakout));
 		overflow-x: auto;
-		border-collapse: collapse;
-		margin: 2rem 0;
-		font-size: 0.95rem;
+		border: 1px solid var(--rule);
+		border-radius: var(--ds-radius-md);
+		/* Edge shadows that appear only where there is more to scroll to. */
+		background:
+			linear-gradient(to right, var(--ds-bg-primary) 30%, transparent) left / 2.5rem 100% no-repeat local,
+			linear-gradient(to left, var(--ds-bg-primary) 30%, transparent) right / 2.5rem 100% no-repeat local,
+			radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.18), transparent) left / 0.9rem 100% no-repeat scroll,
+			radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.18), transparent) right / 0.9rem 100% no-repeat scroll,
+			var(--ds-bg-primary);
 	}
 
-	:global(.article-body th) {
-		padding: 0.75rem 1rem;
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 28%, transparent);
-		text-align: left;
-		font-weight: 700;
-		font-family: "Atkinson", sans-serif;
-		font-size: 0.85rem;
-		letter-spacing: 0.03em;
-		text-transform: uppercase;
-		background: color-mix(in srgb, var(--ds-bg-secondary) 80%, var(--ds-text-hint) 8%);
-		color: var(--ds-text-secondary);
-	}
-
-	:global(.article-body td) {
-		padding: 0.75rem 1rem;
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 28%, transparent);
-		text-align: left;
-	}
-
-	:global(.article-body tbody tr:nth-child(even)) {
-		background: color-mix(in srgb, var(--ds-bg-secondary) 50%, transparent);
-	}
-
-	.related-posts {
-		margin-top: var(--ds-space-3xl);
-		display: grid;
-		gap: var(--ds-space-md);
-	}
-
-	.related-posts h2 {
-		margin: 0;
-		font-size: clamp(1.3rem, 2vw, 1.8rem);
-	}
-
-	.related-grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: var(--ds-space-md);
-	}
-
-	.related-card {
-		display: grid;
-		grid-template-rows: auto 1fr;
-		border: 1px solid color-mix(in srgb, var(--ds-text-hint) 22%, transparent);
-		border-radius: var(--ds-radius-lg);
-		overflow: hidden;
-		background: var(--ds-bg-primary);
-		box-shadow: var(--ds-shadow-sm);
-	}
-
-	.related-image-link {
-		display: block;
-		aspect-ratio: 16 / 9;
-	}
-
-	.related-image-link img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		border-radius: 0;
-	}
-
-	.related-content {
-		display: grid;
-		gap: var(--ds-space-xs);
-		padding: var(--ds-space-md);
-	}
-
-	.related-meta {
-		margin: 0;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem 0.75rem;
-		font-size: 0.78rem;
-		color: var(--ds-text-secondary);
-	}
-
-	.related-content h3 {
-		margin: 0;
-		font-size: 1.06rem;
-		line-height: 1.3;
-	}
-
-	.related-content h3 a {
-		text-decoration: none;
-		color: var(--ds-text-primary);
-	}
-
-	.related-content h3 a:hover {
-		color: var(--ds-primary);
-	}
-
-	.related-content p {
-		margin: 0;
-		color: var(--ds-text-secondary);
-		font-size: 0.93rem;
-		line-height: 1.55;
-	}
-
-	a:focus-visible,
-	button:focus-visible,
-	summary:focus-visible {
-		outline: 2px solid color-mix(in srgb, var(--ds-primary) 70%, white);
+	:global(.article-body .table-scroll:focus-visible) {
+		outline: 2px solid var(--ds-primary);
 		outline-offset: 2px;
 	}
 
-	@media (min-width: 980px) {
-		.article-layout {
-			grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
-			align-items: start;
-		}
+	:global(.article-body table) {
+		/* global.css makes tables scroll themselves (display: block); here the box scrolls. */
+		display: table;
+		overflow: visible;
+		/* Natural width (cells capped below), at least the box's; wider tables scroll. */
+		width: max-content;
+		min-width: 100%;
+		border-collapse: collapse;
+		font-family: var(--font-heading);
+		font-size: 0.8em;
+		line-height: 1.45;
+		font-variant-numeric: tabular-nums;
+	}
 
-		.article-sidebar {
-			display: grid;
-			gap: var(--ds-space-md);
-			position: sticky;
-			top: 7.2rem;
-		}
+	:global(.article-body th),
+	:global(.article-body td) {
+		padding: 0.7em 0.9em;
+		text-align: left;
+		vertical-align: top;
+		border-bottom: 1px solid var(--rule);
+		min-width: 6rem;
+		max-width: 16rem;
+	}
 
-		.toc-mobile {
+	:global(.article-body th) {
+		position: sticky;
+		top: 0;
+		font-weight: 800;
+		color: var(--ds-text-primary);
+		background: var(--ds-bg-secondary);
+		white-space: nowrap;
+	}
+
+	:global(.article-body tbody tr:last-child td) {
+		border-bottom: 0;
+	}
+
+	/* The first column names the row (an app, a feature): keep it in view while scrolling. */
+	:global(.article-body .table-scroll.is-scrollable :is(td, th):first-child) {
+		position: sticky;
+		left: 0;
+		z-index: 1;
+		background: var(--ds-bg-primary);
+		box-shadow: 1px 0 0 var(--rule);
+	}
+
+	:global(.article-body .table-scroll.is-scrollable th:first-child) {
+		background: var(--ds-bg-secondary);
+		z-index: 2;
+	}
+
+	:global(.article-body td:first-child) {
+		font-weight: 700;
+		color: var(--ds-text-primary);
+	}
+
+	:global(.article-body tbody tr:hover td) {
+		background-color: color-mix(in srgb, var(--ds-bg-info) 55%, transparent);
+	}
+
+	/* In-article call to action */
+	:global(.article-body .inline-cta) {
+		margin: 2.25em 0;
+		padding: 1.25rem 1.5rem;
+		border-radius: var(--ds-radius-md);
+		background: var(--ds-bg-info);
+		font-family: var(--font-heading);
+		font-size: 1rem;
+	}
+
+	:global(.article-body .inline-cta p) {
+		margin: 0 0 0.5rem;
+		line-height: 1.55;
+		color: var(--ds-text-secondary);
+	}
+
+	:global(.article-body .inline-cta .inline-cta-title) {
+		font-weight: 800;
+		font-size: 1.1rem;
+		color: var(--ds-text-primary);
+	}
+
+	:global(.article-body .inline-cta .inline-cta-actions) {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.75rem 1.25rem;
+		margin: 1rem 0 0;
+	}
+
+	:global(.article-body .inline-cta .inline-cta-button) {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		padding: 0 1.2rem;
+		border-radius: var(--ds-radius-full);
+		background: var(--ds-primary);
+		color: var(--ds-on-primary);
+		font-weight: 800;
+		text-decoration: none;
+	}
+
+	:global(.article-body .inline-cta .inline-cta-button:hover) {
+		background: var(--ds-primary-dark);
+	}
+
+	:global(.article-body .inline-cta .inline-cta-link) {
+		font-size: 0.95rem;
+		font-weight: 700;
+	}
+
+	/* ------------------------------------------------------------ FAQ */
+	.post-faq {
+		margin-top: 3.5rem;
+	}
+
+	.post-faq > h2 {
+		margin: 0 0 1rem;
+		font-size: calc(var(--read-size) * 1.5);
+		scroll-margin-top: 6.5rem;
+	}
+
+	.post-faq details {
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.post-faq details:first-of-type {
+		border-top: 1px solid var(--rule);
+	}
+
+	.post-faq summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1rem 0;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.post-faq summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.post-faq summary h3 {
+		margin: 0;
+		font-size: 1.05rem;
+		font-weight: 800;
+		line-height: 1.35;
+	}
+
+	.post-faq summary::after {
+		content: '';
+		flex: none;
+		width: 0.6rem;
+		height: 0.6rem;
+		margin-right: 0.3rem;
+		border-right: 2px solid var(--ds-text-hint);
+		border-bottom: 2px solid var(--ds-text-hint);
+		transform: rotate(45deg) translateY(-25%);
+		transition: transform var(--ds-transition-fast);
+	}
+
+	.post-faq details[open] summary::after {
+		transform: rotate(-135deg);
+	}
+
+	.post-faq summary:hover h3 {
+		color: var(--ds-primary);
+	}
+
+	.post-faq details p {
+		margin: 0 0 1.25rem;
+		font-family: 'Source Serif 4', Georgia, serif;
+		font-size: var(--read-size);
+		line-height: 1.65;
+		color: var(--ink);
+	}
+
+	/* ------------------------------------------------------------ byline */
+	.byline {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		margin-top: 3rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--rule);
+	}
+
+	.byline img {
+		flex: none;
+		border-radius: 10px;
+	}
+
+	.byline p {
+		margin: 0;
+		font-size: 0.95rem;
+		line-height: 1.55;
+		color: var(--ds-text-secondary);
+	}
+
+	.byline a {
+		color: var(--ds-primary);
+		font-weight: 700;
+	}
+
+	/* ------------------------------------------------------------ keep reading */
+	.keep-reading {
+		padding-top: 1rem;
+	}
+
+	.keep-reading h2 {
+		margin: 0 0 1.25rem;
+		font-size: 1.4rem;
+	}
+
+	.keep-reading ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.keep-reading a {
+		display: grid;
+		grid-template-columns: 7.5rem 1fr;
+		grid-template-rows: auto auto 1fr;
+		align-content: start;
+		column-gap: 1rem;
+		row-gap: 0.25rem;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.keep-reading a :global(picture),
+	.keep-reading a :global(img) {
+		grid-column: 1;
+		grid-row: 1 / span 3;
+		width: 100%;
+		aspect-ratio: 16 / 10;
+		height: auto;
+		object-fit: cover;
+		border-radius: var(--ds-radius-sm);
+	}
+
+	.kr-meta,
+	.kr-title,
+	.kr-desc {
+		grid-column: 2;
+	}
+
+	.kr-meta { grid-row: 1; }
+	.kr-title { grid-row: 2; }
+	.kr-desc { grid-row: 3; align-self: start; }
+
+	.kr-meta {
+		font-size: 0.8rem;
+		color: var(--ds-text-hint);
+	}
+
+	.kr-title {
+		font-family: var(--font-heading);
+		font-weight: 800;
+		line-height: 1.3;
+		color: var(--ds-text-primary);
+	}
+
+	.keep-reading a:hover .kr-title {
+		color: var(--ds-primary);
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+
+	.kr-desc {
+		display: none;
+		font-size: 0.9rem;
+		line-height: 1.5;
+		color: var(--ds-text-secondary);
+	}
+
+	@media (min-width: 640px) {
+		.keep-reading a {
+			grid-template-columns: 11rem 1fr;
+		}
+		.kr-desc {
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+	}
+
+	/* ------------------------------------------------------------ section pill and sheet */
+	.section-pill {
+		position: fixed;
+		left: 50%;
+		bottom: max(1rem, env(safe-area-inset-bottom));
+		z-index: 120;
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		max-width: min(30rem, calc(100vw - 2rem));
+		min-height: 48px;
+		padding: 0 1.1rem;
+		border: 1px solid var(--rule);
+		border-radius: var(--ds-radius-full);
+		background: color-mix(in srgb, var(--ds-bg-secondary) 92%, transparent);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		box-shadow: var(--ds-shadow-lg);
+		color: var(--ds-text-primary);
+		font: inherit;
+		font-size: 0.9rem;
+		cursor: pointer;
+		opacity: 0;
+		transform: translate(-50%, 1rem);
+		pointer-events: none;
+		transition: opacity var(--ds-transition-normal), transform var(--ds-transition-normal);
+	}
+
+	.section-pill.is-shown {
+		opacity: 1;
+		transform: translate(-50%, 0);
+		pointer-events: auto;
+	}
+
+	.pill-section {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		font-weight: 700;
+	}
+
+	.pill-time {
+		flex: none;
+		padding-left: 0.6rem;
+		border-left: 1px solid var(--rule);
+		color: var(--ds-text-hint);
+		font-variant-numeric: tabular-nums;
+	}
+
+	@media (min-width: 1000px) {
+		.section-pill {
 			display: none;
 		}
+	}
 
-		.related-grid {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-		}
+	.sheet {
+		width: min(36rem, 100vw);
+		max-width: 100vw;
+		max-height: min(80vh, 40rem);
+		margin: auto auto 0;
+		padding: 0;
+		border: 0;
+		border-radius: var(--ds-radius-xl) var(--ds-radius-xl) 0 0;
+		background: var(--ds-bg-primary);
+		color: var(--ds-text-primary);
+		box-shadow: var(--ds-shadow-xl);
+	}
+
+	.sheet[open] {
+		display: flex;
+		flex-direction: column;
+		animation: sheet-in 220ms ease-out;
+	}
+
+	.sheet::backdrop {
+		background: rgba(4, 12, 18, 0.5);
+	}
+
+	@keyframes sheet-in {
+		from { transform: translateY(1.5rem); opacity: 0; }
+	}
+
+	.sheet-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1rem 1.25rem 0.5rem;
+	}
+
+	.sheet-head h2 {
+		margin: 0;
+		font-size: 1.1rem;
+	}
+
+	.sheet-close {
+		min-height: 44px;
+		padding: 0 0.75rem;
+		border: 0;
+		background: transparent;
+		color: var(--ds-primary);
+		font: inherit;
+		font-weight: 800;
+		cursor: pointer;
+	}
+
+	.sheet-list {
+		list-style: none;
+		margin: 0;
+		padding: 0 0.75rem;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+	}
+
+	.sheet-list a {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		min-height: 44px;
+		padding: 0.55rem 0.5rem;
+		border-radius: var(--ds-radius-sm);
+		color: var(--ds-text-secondary);
+		text-decoration: none;
+		line-height: 1.35;
+	}
+
+	/* A dot per section: hollow, filled once read, ringed for the current one. */
+	.sheet-list a::before {
+		content: '';
+		flex: none;
+		width: 0.6rem;
+		height: 0.6rem;
+		border-radius: 50%;
+		border: 2px solid var(--rule);
+	}
+
+	.sheet-list li.is-read a::before {
+		background: var(--ds-brand);
+		border-color: var(--ds-brand);
+	}
+
+	.sheet-list li.is-current a {
+		background: var(--ds-bg-info);
+		color: var(--ds-text-primary);
+		font-weight: 700;
+	}
+
+	.sheet-list li.is-current a::before {
+		border-color: var(--ds-brand);
+	}
+
+	.sheet-tools {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem 1.5rem;
+		padding: 1rem 1.25rem max(1.25rem, env(safe-area-inset-bottom));
+		border-top: 1px solid var(--rule);
+	}
+
+	.sheet-tools .size-picker {
+		gap: 0.25rem;
+	}
+
+	.sheet-tools .tool-label {
+		margin-right: 0.5rem;
+	}
+
+	/* ------------------------------------------------------------ shared */
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+	}
+
+	.reading-page :is(a, button, summary, [tabindex]):focus-visible {
+		outline: 2px solid var(--ds-primary);
+		outline-offset: 2px;
+		border-radius: 4px;
 	}
 
 	@media (max-width: 560px) {
-		.article-shell {
-			padding-left: 0.85rem;
-			padding-right: 0.85rem;
+		.post {
+			padding-top: 7.5rem;
+			row-gap: 2rem;
 		}
-
-		.article-body {
-			max-width: 100%;
+		.post-meta {
+			gap: 0.25rem 1rem;
+			font-size: 0.85rem;
 		}
-
-		.hero-meta {
-			font-size: 0.8rem;
+		.post-meta .share-button {
+			margin-left: 0;
 		}
-
-		.reading-note {
-			padding: var(--ds-space-sm) var(--ds-space-md);
+		.short-answer {
+			padding: 1rem 1.1rem;
 		}
 	}
 
-	@media (prefers-color-scheme: dark) {
-		.article-hero,
-		.sidebar-card,
-		.related-card,
-		.hero-image {
-			border-color: color-mix(in srgb, var(--ds-text-hint) 35%, transparent);
+	@media (prefers-reduced-motion: reduce) {
+		.section-pill,
+		.sheet[open] {
+			transition: none;
+			animation: none;
 		}
+	}
 
-		.toc-mobile {
-			background: color-mix(in srgb, var(--ds-bg-secondary) 50%, transparent);
-			border-color: color-mix(in srgb, var(--ds-text-hint) 25%, transparent);
+	@media print {
+		.reading-progress,
+		.rail,
+		.section-pill,
+		.sheet,
+		.share-button,
+		.keep-reading,
+		:global(.article-body .inline-cta),
+		:global(.article-body .heading-link),
+		:global(body > header),
+		:global(body > footer) {
+			display: none !important;
 		}
-
-		.toc-track::before {
-			background: color-mix(in srgb, var(--ds-text-hint) 30%, transparent);
+		.post {
+			display: block;
+			padding: 0;
 		}
-
-		.reading-note {
-			background: color-mix(in srgb, var(--ds-green) 12%, transparent);
-		}
-
 		.article-body {
-			letter-spacing: 0.005em;
+			font-size: 11pt;
+			color: #000;
 		}
-
-		:global(.article-body blockquote) {
-			background: color-mix(in srgb, var(--ds-primary) 8%, transparent);
-		}
-
-		:global(.article-body pre) {
-			border-color: color-mix(in srgb, var(--ds-text-hint) 25%, transparent);
-		}
-
-		:global(.article-body code) {
-			background: color-mix(in srgb, var(--ds-bg-secondary) 90%, var(--ds-text-hint) 15%);
-		}
-
-		:global(.article-body th) {
-			background: color-mix(in srgb, var(--ds-bg-secondary) 90%, var(--ds-text-hint) 10%);
-		}
-
-		:global(.article-body img) {
-			border-color: color-mix(in srgb, var(--ds-text-hint) 25%, transparent);
-		}
-
-		:global(.article-body hr::after) {
-			color: var(--ds-text-hint);
-		}
-
-		:global(.article-body a) {
-			text-decoration-color: color-mix(in srgb, var(--ds-primary) 40%, transparent);
+		.post-faq details > p {
+			display: block;
 		}
 	}
 </style>
