@@ -2,7 +2,7 @@
 #
 # Every push to main deploys the app sites it changed (see .github/scripts/changed-apps.mjs: a change
 # to a shared package redeploys the apps that use it). Each app is tested, built and deployed in its
-# own job, so one failing site never blocks another, and then its live domain is checked.
+# own job, so one failing site never blocks another, and then the new version is checked.
 # Actions > Deploy > Run workflow deploys chosen apps by hand ("respite,hub" or "all").
 #
 # Needs one repository secret, CLOUDFLARE_API_TOKEN: a Cloudflare API token made from the "Edit
@@ -32,6 +32,7 @@ permissions:
 env:
   # Not a secret: it appears in every workers.dev and dashboard URL.
   CLOUDFLARE_ACCOUNT_ID: fae059b7b66e7a56172c1542b32f43d5
+  WORKERS_SUBDOMAIN: fsadakathussain
 
 jobs:
   plan:
@@ -109,19 +110,20 @@ jobs:
           fi
           npx wrangler deploy --message "$MESSAGE" | tee deploy.log
 
-      - name: Check the live site
-        if: matrix.host != ''
+      - name: Check the new version answers
         env:
-          URL: https://${{ matrix.host }}/
+          # The Worker's workers.dev address: the zone's bot protection answers 403 to GitHub's runners on
+          # the custom domain, and this one has no zone rules. Any answer below 500 means the new version
+          # runs (intently-redirects 404s here by design: it redirects by hostname); 5xx means it is broken.
+          URL: https://${{ matrix.worker }}.${{ env.WORKERS_SUBDOMAIN }}.workers.dev/
         run: |
-          # The new version can take a few seconds to reach every edge; retry before calling it broken.
           for i in 1 2 3 4 5 6; do
-            code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 20 "$URL" || true)
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$URL" || true)
             echo "Attempt $i: $URL -> $code"
-            if [ "$code" -ge 200 ] && [ "$code" -lt 400 ]; then exit 0; fi
+            if [ "$code" -ge 200 ] && [ "$code" -lt 500 ]; then exit 0; fi
             sleep 10
           done
-          echo "::error::$URL did not answer with 2xx/3xx after deploying."
+          echo "::error::$URL answered $code after deploying. Roll back with: npx wrangler rollback (in apps/${{ matrix.app }})"
           exit 1
 
       - name: Summary
