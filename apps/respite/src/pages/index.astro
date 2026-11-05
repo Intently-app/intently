@@ -1,22 +1,27 @@
 ---
+/**
+ * The home page. Mist styles (src/styles/info-pages.css) plus the hm-* rules below.
+ *
+ * Shown more than told: a drawn pause screen in the hero, three steps with small drawings, the
+ * before/after pairs as one grouped surface, the feature areas as the blog's own illustrations,
+ * then where to get it, privacy, the free tools, the latest posts and questions. Platform facts
+ * come from src/content.ts, the privacy policies and /features/: change them together.
+ */
+import '../styles/info-pages.css';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Hero from '../components/marketing/Hero.astro';
-import PlatformCard from '../components/marketing/PlatformCard.astro';
 import Icon from '../components/ui/Icon.astro';
 import Biscuit from '../components/ui/Biscuit.astro';
 import Picture from '../components/ui/Picture.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import { content } from '../content';
+import StoreButton from '../components/ui/StoreButton.astro';
+import WebSiteSchema from '../components/SEO/WebSiteSchema.astro';
+import ProductSchema from '../components/SEO/ProductSchema.astro';
+import FAQSchema from '../components/SEO/FAQSchema.astro';
+import { getPublishedPosts } from '../lib/posts';
 import { app } from '@intently/registry';
 
 const r = app('respite');
-const storeFor = { ios: ['appstore', r.stores.appStore], android: ['playstore', r.stores.play], chrome: ['chromestore', r.stores.chrome] } as const;
-import WebSiteSchema from '../components/SEO/WebSiteSchema.astro';
-import ProductSchema from '../components/SEO/ProductSchema.astro';
-import { getPublishedPosts } from '../lib/posts';
-import FAQSchema from '../components/SEO/FAQSchema.astro';
 
 const homeFaqs = [
 	{ question: "Is Respite free?", answer: "Yes. Respite is free on iPhone, Android and Chrome, with no ads. The pause, usage tracking, daily limits and streaks all work without paying. An optional upgrade, Respite Plus, adds sync across your devices and extras such as more schedules, longer focus sessions and richer insights." },
@@ -26,10 +31,42 @@ const homeFaqs = [
 	{ question: "Does Respite collect my data?", answer: "Your usage history stays on your device unless you turn on sync. Respite shows no ads and never sells your data. On iPhone, Apple's Screen Time keeps the apps you pick private, even from Respite. Each version's privacy policy lists exactly what it collects." },
 ];
 
+const steps = [
+	{ title: 'Pick your apps', line: 'Choose the ones that eat your day.' },
+	{ title: 'Get a short pause', line: 'A moment before they open.' },
+	{ title: 'Choose', line: 'Leave, or carry on, on purpose.' },
+];
 
-// Get latest 3 blog posts
-const allPosts = await getPublishedPosts();
-const latestPosts = allPosts
+const pairs = [
+	{ before: { icon: 'AlarmClock', text: '“Five more minutes” becomes an hour' }, after: { icon: 'Hand', text: 'You catch it before the spiral' } },
+	{ before: { icon: 'Moon', text: 'Evenings lost to the feed' }, after: { icon: 'BookOpen', text: 'Evenings for books, walks and people' } },
+	{ before: { icon: 'Bell', text: 'Waking up straight into notifications' }, after: { icon: 'Sun', text: 'Mornings on your own terms' } },
+	{ before: { icon: 'Frown', text: 'Guilty, but unable to stop' }, after: { icon: 'Trophy', text: 'Proud of small wins that add up' } },
+];
+
+// The blog's own illustrations (public/images/blog/), each linking to the matching part of /features/.
+const areas = [
+	{ title: 'Limits and schedules', line: 'Daily limits and quiet hours you can keep.', art: 'schedule-app-blocking-iphone-android', href: '/features/#limits' },
+	{ title: 'Focus sessions', line: 'Block your apps for 15 to 90 minutes.', art: 'focus-session-app-iphone', href: '/features/#focus' },
+	{ title: 'Streaks and acorns', line: 'Kept days add up. Walking away earns acorns.', art: 'introducing-acorns-quests-and-leagues', href: '/features/#game' },
+	{ title: 'Insights', line: 'Time per app, by day, week and month.', art: 'how-much-screen-time-is-too-much', href: '/features/#insights' },
+	{ title: 'Sync', line: 'One account on your phone and computer.', art: 'sync-respite-android-iphone-chrome', href: '/features/#sync' },
+	{ title: 'Bring your own AI', line: 'Ask Claude or ChatGPT about your real usage.', art: 'bring-your-own-ai-to-respite', href: '/ai/', plus: true },
+];
+
+const devices = [
+	{ id: 'ios', name: 'iPhone', icon: 'Smartphone', needs: 'iOS 17.4 or later', store: 'appstore' as const, href: r.stores.appStore!, chips: ['Built on Screen Time', 'Three ways to pause', 'App lock at your limit'] },
+	{ id: 'android', name: 'Android', icon: 'Smartphone', needs: 'Android 8.0 or later', store: 'playstore' as const, href: r.stores.play!, chips: ['Pause before apps', 'Reels and Shorts block', 'Home screen widgets'] },
+	{ id: 'chrome', name: 'Chrome', icon: 'Monitor', needs: 'On your computer', store: 'chromestore' as const, href: r.stores.chrome!, chips: ['Pause before sites', 'Focus mode', 'Time per website'] },
+];
+
+const tools = [
+	{ icon: 'ClipboardList', title: 'Phone addiction quiz', line: '8 questions, a clear next step.', href: '/quiz/' },
+	{ icon: 'Calculator', title: 'Screen time calculator', line: 'Your daily scroll, over a lifetime.', href: '/screen-time-calculator/' },
+	{ icon: 'Gauge', title: 'App addiction score', line: 'How hard your apps pull, scored.', href: '/app-addiction-score/' },
+];
+
+const latestPosts = (await getPublishedPosts())
 	.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
 	.slice(0, 3);
 ---
@@ -60,303 +97,251 @@ const latestPosts = allPosts
 			platform="chrome"
 			downloadUrl="https://chromewebstore.google.com/detail/intently-intentful-browsi/acjndeeecacgplloeefjjhlnlpgnonop"
 		/>
+		<FAQSchema faqs={homeFaqs} />
 	</head>
-	<body>
+	<body class="m-page">
 		<Header />
 
-		<main>
-			<Hero />
-
-			<!-- Features Section - Asymmetric Bento -->
-			<section class="bento-section">
-				<div class="container">
-					<div class="section-header">
-						<h2 class="section-title">What Changes When You Use Respite</h2>
-						<p class="section-subtitle">Four ways your relationship with your phone transforms.</p>
+		<main class="m">
+			<!-- Hero: the pause itself -->
+			<section class="hm-hero" aria-labelledby="hm-title">
+				<div class="hm-hero-copy">
+					<h1 id="hm-title">Pause before the scroll.</h1>
+					<p class="m-dek">A gentle pause before the apps you pick, so opening them is a choice. Free on iPhone, Android and Chrome.</p>
+					<div class="m-actions hm-hero-actions" data-placement="hero">
+						<a href="/download/" class="m-btn">Download free</a>
+						<a href="#how" class="m-btn is-soft">See how it works</a>
 					</div>
+					<ul class="m-pills" aria-label="Good to know">
+						<li><Icon name="Check" size={18} />No ads</li>
+						<li><Icon name="Check" size={18} />No account needed</li>
+						<li><Icon name="Check" size={18} />History stays on your device</li>
+					</ul>
+				</div>
 
-					<div class="bento-grid">
-						<!-- Hero Card: Stat Showpiece -->
-						<div class="bento-card bento-hero">
-							<div class="bento-glow-bg" aria-hidden="true"></div>
-							<div class="bento-hero-layout">
-								<div class="bento-hero-stat">
-									<span class="bento-stat-number">1</span>
-									<span class="bento-stat-unit">pause</span>
-									<span class="bento-stat-caption">before each app you choose</span>
-								</div>
-								<div class="bento-hero-content">
-									<div class="bento-icon bento-icon-blue">
-										<Icon name="Clock" size={32} color="var(--ds-primary)" />
+				<div class="hm-stage" role="img" aria-label="Respite's pause screen asking Open Instagram?, with Biscuit the fox waving, a 7-day streak and a daily limit at 42 of 60 minutes">
+					<div class="hm-phone" aria-hidden="true">
+						<span class="hm-hourglass"><Icon name="Hourglass" size={30} /></span>
+						<p class="hm-phone-big">Open Instagram?</p>
+						<p class="hm-phone-small">Opened 6 times today</p>
+						<span class="hm-phone-btn">I'll do something else</span>
+						<span class="hm-phone-btn is-soft">Continue in 5s</span>
+					</div>
+					<div class="hm-float hm-float-streak" aria-hidden="true">
+						<span class="m-tile is-reward"><Icon name="Flame" size={20} /></span>
+						<span><strong>7 days</strong><small>Streak</small></span>
+					</div>
+					<div class="hm-float hm-float-limit" aria-hidden="true">
+						<span class="hm-float-row"><strong>Instagram</strong><small>42 of 60m</small></span>
+						<span class="hm-meter"><span style="width:70%"></span></span>
+					</div>
+					<div class="hm-stage-biscuit" aria-hidden="true">
+						<Biscuit mood="wave" size={150} label="Biscuit the fox waving" />
+					</div>
+				</div>
+			</section>
+
+			<!-- How it works: a real sequence, so numbered -->
+			<section class="m-section" id="how" aria-labelledby="how-title">
+				<h2 id="how-title" class="m-h2 hm-center">How it works</h2>
+				<ol class="hm-steps">
+					{steps.map((s, i) => (
+						<li class="hm-step">
+							<div class={`hm-step-art s-${i + 1}`} aria-hidden="true">
+								{i === 0 && (
+									<div class="hm-apps">
+										{['I', 'Y', 'T', 'R', 'S', 'N'].map((l, j) => (
+											<span class={`hm-app ${j === 0 || j === 2 ? 'is-on' : ''}`}>
+												{l}
+												{(j === 0 || j === 2) && <span class="hm-app-check"><Icon name="Check" size={12} /></span>}
+											</span>
+										))}
 									</div>
-									<h3>See Where Your Hours Go</h3>
-									<p>Many people are surprised by how many hours go to apps they don't even enjoy. Respite shows you where your time goes, gently.</p>
-								</div>
-							</div>
-						</div>
-
-						<!-- Pause Card: Breathing Animation -->
-						<div class="bento-card bento-pause">
-							<div class="bento-icon bento-icon-purple">
-								<div class="breath-ring" aria-hidden="true"></div>
-								<Icon name="Pause" size={28} color="var(--ds-purple)" />
-							</div>
-							<h3>A Breath Between You and the Scroll</h3>
-							<p>When you reach for apps on autopilot, Respite creates a quiet pause. In that moment, you remember: you can choose.</p>
-						</div>
-
-						<!-- Transform Card: Streak Dots -->
-						<div class="bento-card bento-transform">
-							<div class="bento-icon bento-icon-orange">
-								<Icon name="TrendingUp" size={28} color="var(--ds-orange)" />
-							</div>
-							<div class="mini-streak" aria-hidden="true">
-								<span class="streak-dot"></span>
-								<span class="streak-dot"></span>
-								<span class="streak-dot filled"></span>
-								<span class="streak-dot filled"></span>
-								<span class="streak-dot filled"></span>
-								<span class="streak-dot filled"></span>
-								<span class="streak-dot filled active"></span>
-							</div>
-							<h3>Watch Yourself Transform</h3>
-							<p>Every day you choose presence over scrolling, your streak grows. It's not about perfection—it's about becoming someone in control.</p>
-						</div>
-
-						<!-- Privacy Card: Badge Pills -->
-						<div class="bento-card bento-privacy">
-							<Biscuit mood="meditate" size={96} label="Biscuit meditating" class="bento-biscuit" />
-							<h3>Your Secrets Stay Yours</h3>
-							<p>Your screen-time history stays on your device. No account needed for the core features, and nothing is synced unless you sign in.</p>
-							<div class="privacy-badges">
-								<span class="privacy-badge"><Icon name="ShieldCheck" size={14} color="var(--ds-green)" /> Account optional</span>
-								<span class="privacy-badge"><Icon name="EyeOff" size={14} color="var(--ds-green)" /> No ads</span>
-								<span class="privacy-badge"><Icon name="Database" size={14} color="var(--ds-green)" /> History on your phone</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			<!-- Transformation Journey Section -->
-			<section class="journey-section">
-				<div class="container">
-					<div class="journey-header">
-						<span class="journey-eyebrow">The shift</span>
-						<h2 class="journey-title">One Small Pause.<br/>Everything Changes.</h2>
-					</div>
-
-					<div class="journey-track">
-						<!-- Central timeline -->
-						<div class="timeline-line" aria-hidden="true">
-							<div class="timeline-glow"></div>
-						</div>
-
-						<!-- Row 1 -->
-						<div class="journey-row">
-							<div class="journey-before">
-								<div class="journey-card journey-card-before">
-									<span class="journey-icon journey-icon-before"><Icon name="AlarmClock" size={20} color="var(--ds-red)" /></span>
-									<p>"Just 5 more minutes" turns into an hour</p>
-								</div>
-							</div>
-							<div class="timeline-node" aria-hidden="true"><div class="node-dot"></div></div>
-							<div class="journey-after">
-								<div class="journey-card journey-card-after">
-									<span class="journey-icon journey-icon-after"><Icon name="Hand" size={20} color="var(--ds-green)" /></span>
-									<p>You catch yourself before the spiral starts</p>
-								</div>
-							</div>
-						</div>
-
-						<!-- Row 2 -->
-						<div class="journey-row">
-							<div class="journey-before">
-								<div class="journey-card journey-card-before">
-									<span class="journey-icon journey-icon-before"><Icon name="Smartphone" size={20} color="var(--ds-red)" /></span>
-									<p>Picking up your phone again and again without thinking</p>
-								</div>
-							</div>
-							<div class="timeline-node" aria-hidden="true"><div class="node-dot"></div></div>
-							<div class="journey-after">
-								<div class="journey-card journey-card-after">
-									<span class="journey-icon journey-icon-after"><Icon name="Brain" size={20} color="var(--ds-green)" /></span>
-									<p>Reaching for your phone becomes a conscious choice</p>
-								</div>
-							</div>
-						</div>
-
-						<!-- Row 3 -->
-						<div class="journey-row">
-							<div class="journey-before">
-								<div class="journey-card journey-card-before">
-									<span class="journey-icon journey-icon-before"><Icon name="Frown" size={20} color="var(--ds-red)" /></span>
-									<p>Feeling guilty but unable to stop</p>
-								</div>
-							</div>
-							<div class="timeline-node" aria-hidden="true"><div class="node-dot"></div></div>
-							<div class="journey-after">
-								<div class="journey-card journey-card-after">
-									<span class="journey-icon journey-icon-after"><Icon name="Trophy" size={20} color="var(--ds-green)" /></span>
-									<p>Feeling proud of small wins that add up</p>
-								</div>
-							</div>
-						</div>
-
-						<!-- Row 4 -->
-						<div class="journey-row">
-							<div class="journey-before">
-								<div class="journey-card journey-card-before">
-									<span class="journey-icon journey-icon-before"><Icon name="Moon" size={20} color="var(--ds-red)" /></span>
-									<p>Losing evenings to mindless scrolling</p>
-								</div>
-							</div>
-							<div class="timeline-node" aria-hidden="true"><div class="node-dot"></div></div>
-							<div class="journey-after">
-								<div class="journey-card journey-card-after">
-									<span class="journey-icon journey-icon-after"><Icon name="BookOpen" size={20} color="var(--ds-green)" /></span>
-									<p>Having evenings for books, walks, or real conversations</p>
-								</div>
-							</div>
-						</div>
-
-						<!-- Row 5 -->
-						<div class="journey-row">
-							<div class="journey-before">
-								<div class="journey-card journey-card-before">
-									<span class="journey-icon journey-icon-before"><Icon name="Bell" size={20} color="var(--ds-red)" /></span>
-									<p>Waking up and immediately checking notifications</p>
-								</div>
-							</div>
-							<div class="timeline-node" aria-hidden="true"><div class="node-dot"></div></div>
-							<div class="journey-after">
-								<div class="journey-card journey-card-after">
-									<span class="journey-icon journey-icon-after"><Icon name="Sun" size={20} color="var(--ds-green)" /></span>
-									<p>Starting your morning on your own terms</p>
-								</div>
-							</div>
-						</div>
-
-						<!-- Labels -->
-						<div class="journey-labels" aria-hidden="true">
-							<span class="journey-label journey-label-before">Before</span>
-							<span class="journey-label journey-label-after">After</span>
-						</div>
-					</div>
-
-					<div class="journey-closing">
-						<p>This isn't about willpower. It's about <em>awareness</em>.</p>
-						<span class="journey-closing-sub">Respite gives you the pause that changes everything.</span>
-					</div>
-				</div>
-			</section>
-
-			<!-- Platforms Section -->
-			<section class="platforms-section">
-				<div class="container">
-					<h2 class="section-title">Wherever You Scroll, We're There</h2>
-					<p class="section-subtitle">Whether it's your iPhone in bed, your Android on the commute, or your browser at work, Respite quietly has your back.</p>
-					<div class="platforms-grid">
-							{content.platforms.map((p) => (
-								<PlatformCard
-									platform={p.id}
-									title={p.title}
-									description={p.summary}
-									features={p.features}
-									downloadUrl={storeFor[p.id][1]!}
-									storeType={storeFor[p.id][0]}
-								/>
-							))}
-					</div>
-				</div>
-			</section>
-
-			<!-- Blog Section -->
-			<section class="blog-section">
-				<div class="container">
-					<span class="blog-eyebrow">From the blog</span>
-					<h2 class="section-title">Insights for a More Intentional Life</h2>
-					<p class="section-subtitle">Expert tips on digital wellbeing, phone addiction, and mindful tech use.</p>
-					<div class="blog-grid">
-						{latestPosts.map((post) => (
-							<article class="blog-card">
-								{post.data.heroImage && (
-									<a href={`/blog/${post.id}/`} class="blog-image-link">
-										<Picture src={post.data.heroImage} alt={post.data.title} class="blog-image" loading="lazy" width={640} height={360} />
-									</a>
 								)}
-								<div class="blog-content">
-									<h3 class="blog-title">
-										<a href={`/blog/${post.id}/`}>{post.data.title}</a>
-									</h3>
-									<p class="blog-description">{post.data.description}</p>
-									<a href={`/blog/${post.id}/`} class="blog-link">
-										Read more about {post.data.title}
-										<Icon name="ArrowRight" size={14} color="currentColor" />
-									</a>
-								</div>
-							</article>
+								{i === 1 && (
+									<div class="hm-breath">
+										<span class="hm-breath-ring"></span>
+										<span class="hm-breath-dot"><Icon name="Hourglass" size={26} /></span>
+									</div>
+								)}
+								{i === 2 && (
+									<div class="hm-choice">
+										<span class="hm-phone-btn">I'll do something else</span>
+										<span class="hm-phone-btn is-soft">Continue</span>
+										<span class="m-badge is-live"><Icon name="Check" size={14} />Streak kept</span>
+									</div>
+								)}
+							</div>
+							<span class="m-tile is-number">{i + 1}</span>
+							<h3>{s.title}</h3>
+							<p>{s.line}</p>
+						</li>
+					))}
+				</ol>
+			</section>
+
+			<!-- Before and after, as pairs -->
+			<section class="m-section" aria-labelledby="shift-title">
+				<div class="hm-center-head">
+					<h2 id="shift-title" class="m-h2">One small pause changes the day</h2>
+				</div>
+				<div class="hm-pairs">
+					<div class="hm-pairs-head" aria-hidden="true">
+						<span class="m-badge hm-before-badge">Without a pause</span>
+						<span></span>
+						<span class="m-badge is-live">With Respite</span>
+					</div>
+					<ul class="m-group hm-pairs-list">
+						{pairs.map((p) => (
+							<li class="hm-pair">
+								<span class="hm-side">
+									<span class="m-tile is-warning"><Icon name={p.before.icon} size={20} /></span>
+									<span><span class="m-sr">Without a pause: </span>{p.before.text}</span>
+								</span>
+								<span class="hm-arrow" aria-hidden="true"><Icon name="ArrowRight" size={18} /></span>
+								<span class="hm-side">
+									<span class="m-tile is-success"><Icon name={p.after.icon} size={20} /></span>
+									<span><span class="m-sr">With Respite: </span>{p.after.text}</span>
+								</span>
+							</li>
 						))}
-					</div>
-					<div class="blog-cta">
-						<a href="/blog/" class="view-all-button">View All Articles</a>
-						<a href="/quiz/" class="quiz-button"><Icon name="Smartphone" size={20} /> Take Our Phone Addiction Quiz</a>
-					</div>
+					</ul>
 				</div>
 			</section>
 
-			<!-- FAQ -->
-			<section class="faq-section">
-				<div class="container faq-container">
-					<h2 class="section-title">Frequently Asked Questions</h2>
+			<!-- Feature areas, as illustrations -->
+			<section class="m-section" aria-labelledby="more-title">
+				<div class="m-section-head">
+					<h2 id="more-title">More than a pause</h2>
+					<a class="hm-link" href="/features/">Every feature <Icon name="ArrowRight" size={16} /></a>
+				</div>
+				<div class="hm-areas">
+					{areas.map((a) => (
+						<a class="hm-area" href={a.href}>
+							<span class="hm-area-art" aria-hidden="true">
+								<Picture src={`/images/blog/${a.art}.jpg`} alt="" width={720} height={405} loading="lazy" />
+							</span>
+							<span class="hm-area-copy">
+								<span class="hm-area-title">{a.title}{a.plus && <span class="m-badge is-plus">Plus</span>}</span>
+								<span class="hm-area-line">{a.line}</span>
+							</span>
+						</a>
+					))}
+				</div>
+			</section>
+
+			<!-- Where to get it -->
+			<section class="m-section" id="get" aria-labelledby="get-title">
+				<div class="hm-center-head">
+					<h2 id="get-title" class="m-h2">Wherever you scroll</h2>
+					<p class="m-caption">Free on all three. Each works on its own, no account needed.</p>
+				</div>
+				<div class="hm-devices" data-placement="platforms">
+					{devices.map((d) => (
+						<section class="hm-device" aria-labelledby={`dev-${d.id}`}>
+							<span class="m-tile"><Icon name={d.icon} size={22} /></span>
+							<h3 id={`dev-${d.id}`}>{d.name}</h3>
+							<p class="m-caption">{d.needs}</p>
+							<ul class="hm-chips">
+								{d.chips.map((c) => <li>{c}</li>)}
+							</ul>
+							<div class="hm-device-store"><StoreButton store={d.store} href={d.href} /></div>
+						</section>
+					))}
+				</div>
+				<p class="m-caption hm-center">Respite Plus is optional: sync on every device, longer focus and more. <a href="/features/#plans">Free or Plus</a></p>
+			</section>
+
+			<!-- Privacy -->
+			<section class="hm-privacy" aria-labelledby="privacy-title">
+				<div class="m-biscuit hm-privacy-biscuit">
+					<div class="m-biscuit-disc" aria-hidden="true"><Biscuit mood="meditate" size={170} label="Biscuit meditating" /></div>
+					<p class="m-bubble">Your history stays with you.</p>
+				</div>
+				<div class="hm-privacy-main">
+					<h2 id="privacy-title" class="m-h2">Private by design</h2>
+					<ul class="m-group">
+						<li class="m-row">
+							<span class="m-tile is-success"><Icon name="UserX" size={22} /></span>
+							<div><p class="m-row-title">No account needed</p><p class="m-row-text">Sign in only if you want sync.</p></div>
+							<span></span>
+						</li>
+						<li class="m-row">
+							<span class="m-tile is-success"><Icon name="Smartphone" size={22} /></span>
+							<div><p class="m-row-title">History on your device</p><p class="m-row-text">Unless you turn on sync.</p></div>
+							<span></span>
+						</li>
+						<li class="m-row">
+							<span class="m-tile is-success"><Icon name="ShieldCheck" size={22} /></span>
+							<div><p class="m-row-title">No ads, never sold</p><p class="m-row-text">Each version's privacy policy lists what it collects.</p></div>
+							<span></span>
+						</li>
+					</ul>
+					<p class="m-caption">Privacy policy for <a href="/privacy/">iPhone</a>, <a href="/privacy/android/">Android</a> and <a href="/privacy/chrome/">Chrome</a></p>
+				</div>
+			</section>
+
+			<!-- Free tools -->
+			<section class="m-section" aria-labelledby="tools-title">
+				<div class="hm-center-head">
+					<h2 id="tools-title" class="m-h2">Where do you stand?</h2>
+					<p class="m-caption">Free, private, nothing stored.</p>
+				</div>
+				<div class="hm-tools">
+					{tools.map((t) => (
+						<a class="hm-tool" href={t.href}>
+							<span class="m-tile"><Icon name={t.icon} size={22} /></span>
+							<span class="hm-tool-copy">
+								<span class="hm-tool-title">{t.title}</span>
+								<span class="hm-tool-line">{t.line}</span>
+							</span>
+							<span class="hm-tool-go" aria-hidden="true"><Icon name="ArrowRight" size={18} /></span>
+						</a>
+					))}
+				</div>
+			</section>
+
+			<!-- Latest posts -->
+			<section class="m-section" aria-labelledby="blog-title">
+				<div class="m-section-head">
+					<h2 id="blog-title">From the blog</h2>
+					<a class="hm-link" href="/blog/">All articles <Icon name="ArrowRight" size={16} /></a>
+				</div>
+				<div class="hm-posts">
+					{latestPosts.map((post) => (
+						<a class="hm-post" href={`/blog/${post.id}/`}>
+							{post.data.heroImage && (
+								<span class="hm-post-art" aria-hidden="true">
+									<Picture src={post.data.heroImage} alt="" width={640} height={360} loading="lazy" />
+								</span>
+							)}
+							<span class="hm-post-copy">
+								<span class="hm-post-title">{post.data.title}</span>
+								<span class="hm-post-line">{post.data.description}</span>
+							</span>
+						</a>
+					))}
+				</div>
+			</section>
+
+			<!-- Questions -->
+			<section class="m-section" aria-labelledby="faq-title">
+				<h2 id="faq-title" class="m-h2">Questions</h2>
+				<div class="m-group m-faq">
 					{homeFaqs.map((faq) => (
-						<details class="faq-item">
+						<details>
 							<summary>{faq.question}</summary>
 							<p>{faq.answer}</p>
 						</details>
 					))}
 				</div>
 			</section>
-			<FAQSchema faqs={homeFaqs} />
 
-			<!-- CTA Section -->
-			<section class="cta-section">
-				<div class="cta-divider" aria-hidden="true"></div>
-				<div class="container">
-					<div class="cta-layout">
-						<div class="cta-content">
-							<Biscuit mood="cheer" size={120} label="Biscuit cheering" class="cta-biscuit" />
-							<span class="cta-eyebrow">
-								<Icon name="Sparkles" size={16} color="var(--ds-primary)" />
-								Ready to change?
-							</span>
-							<h2 class="cta-headline">
-								Tomorrow, You Could Wake Up With
-								<span class="cta-highlight">an Extra Hour</span>
-							</h2>
-							<p class="cta-body">Take back your mornings, your evenings, and your weekends. It starts with one free download.</p>
-							<div class="cta-actions" data-placement="final_cta">
-								<a href="/download/" class="cta-button-primary">
-									Start Reclaiming Your Time
-									<Icon name="ArrowRight" size={18} color="currentColor" />
-								</a>
-								<span class="cta-reassurance">
-									<Icon name="ShieldCheck" size={14} color="var(--ds-green)" />
-									Free, no ads. Account only for sync.
-								</span>
-							</div>
-						</div>
-						<div class="cta-visual" aria-hidden="true">
-							<div class="clock-face">
-								<div class="clock-ring"></div>
-								<div class="clock-hand clock-hour"></div>
-								<div class="clock-hand clock-minute"></div>
-								<div class="clock-center"></div>
-								<div class="clock-highlight"></div>
-							</div>
-						</div>
-					</div>
-				</div>
+			<section class="m-end hm-end" aria-labelledby="end-title" data-placement="final_cta">
+				<Biscuit mood="cheer" size={120} label="Biscuit cheering" />
+				<h2 id="end-title">Try it on one app first</h2>
+				<p>Free, no ads, about a minute to set up.</p>
+				<a href="/download/" class="m-btn">Download Respite</a>
 			</section>
 		</main>
 
@@ -365,1617 +350,704 @@ const latestPosts = allPosts
 </html>
 
 <style>
-	.faq-section {
+	.hm-center,
+	.hm-center-head {
+		text-align: center;
+		justify-self: center;
+	}
+
+	.hm-center-head {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.hm-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		color: var(--m-accent);
+		font-family: var(--font-heading);
+		font-weight: 800;
+		text-decoration: none;
+	}
+
+	.hm-link:hover {
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+
+	/* ------------------------------------------------------------ hero */
+	.hm-hero {
+		display: grid;
+		gap: 2.5rem;
+		align-items: center;
+	}
+
+	@media (min-width: 920px) {
+		.hm-hero {
+			grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+			gap: 3.5rem;
+		}
+	}
+
+	.hm-hero h1 {
+		margin: 0 0 1.1rem;
+		font-size: clamp(2.6rem, 1.7rem + 3.6vw, 4.4rem);
+		font-weight: 800;
+		line-height: 1.02;
+		letter-spacing: -0.025em;
+		text-wrap: balance;
+	}
+
+	.hm-hero-actions {
+		margin-top: 1.75rem;
+	}
+
+	.hm-stage {
+		position: relative;
+		display: grid;
+		place-items: center;
+		min-height: 470px;
+		padding: 2.5rem 1.5rem;
+		border-radius: 36px;
+		background: var(--m-accent-soft);
+	}
+
+	.hm-phone {
+		display: grid;
+		justify-items: center;
+		gap: 0.55rem;
+		width: min(270px, 78%);
+		padding: 1.75rem 1.2rem 1.2rem;
+		border-radius: 34px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-md);
+		text-align: center;
+	}
+
+	.hm-phone p {
+		margin: 0;
+	}
+
+	.hm-hourglass {
+		display: grid;
+		place-items: center;
+		width: 62px;
+		height: 62px;
+		margin-bottom: 0.25rem;
+		border-radius: 50%;
+		background: var(--m-accent-soft);
+		color: var(--m-accent-ink);
+		animation: hm-breathe 4s ease-in-out infinite;
+	}
+
+	@keyframes hm-breathe {
+		50% {
+			transform: scale(1.1);
+		}
+	}
+
+	.hm-phone-big {
+		font-family: var(--font-heading);
+		font-size: 1.35rem;
+		font-weight: 800;
+	}
+
+	.hm-phone-small {
+		margin-bottom: 0.5rem !important;
+		font-size: 0.9rem;
+		color: var(--m-ink-soft);
+	}
+
+	.hm-phone-btn {
+		display: block;
 		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-secondary);
+		padding: 0.65rem;
+		border-radius: 999px;
+		background: var(--m-accent-strong);
+		color: var(--m-on-accent);
+		font-family: var(--font-heading);
+		font-size: 0.92rem;
+		font-weight: 800;
+		text-align: center;
 	}
 
-	.faq-container {
-		max-width: 800px;
+	.hm-phone-btn.is-soft {
+		background: var(--m-fog);
+		color: var(--m-ink-soft);
 	}
 
-	.faq-item {
-		border: 1px solid var(--ds-gray-200);
-		border-radius: var(--ds-radius-md);
-		margin-bottom: var(--ds-space-sm);
-		overflow: hidden;
-		background: var(--ds-bg-primary);
-	}
-
-	.faq-item summary {
-		padding: var(--ds-space-md) var(--ds-space-lg);
-		font-weight: 600;
-		color: var(--ds-text-primary);
-		cursor: pointer;
-		list-style: none;
+	.hm-float {
+		position: absolute;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		gap: 0.65rem;
+		padding: 0.65rem 0.9rem;
+		border-radius: 18px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-md);
+		font-size: 0.85rem;
 	}
 
-	.faq-item summary::-webkit-details-marker {
-		display: none;
-	}
-
-	.faq-item summary::after {
-		content: "+";
-		font-size: 1.25rem;
-		color: var(--ds-primary);
-		flex-shrink: 0;
-	}
-
-	.faq-item[open] summary::after {
-		content: "-";
-	}
-
-	.faq-item p {
-		padding: 0 var(--ds-space-lg) var(--ds-space-md);
-		margin: 0;
-		color: var(--ds-text-secondary);
-		line-height: 1.6;
-	}
-
-	main {
-		width: 100%;
-	}
-
-	/* Bento Section — Asymmetric Showcase */
-	.bento-section {
-		width: 100%;
-		padding: var(--ds-space-4xl) 0;
-		background: var(--ds-bg-secondary);
-		position: relative;
-	}
-
-	.section-header {
-		text-align: center;
-		max-width: 600px;
-		margin: 0 auto var(--ds-space-3xl);
-		padding: 0 1rem;
-		position: relative;
-	}
-
-	.section-header .section-title {
-		font-size: 2rem;
+	.hm-float strong {
+		display: block;
+		font-family: var(--font-heading);
+		font-size: 1rem;
 		font-weight: 800;
-		margin: 0 0 var(--ds-space-md) 0;
-		color: var(--ds-text-primary);
-		letter-spacing: -0.03em;
 		line-height: 1.2;
 	}
 
-	.section-header .section-subtitle {
-		font-size: 1rem;
-		line-height: 1.6;
-		color: var(--ds-text-secondary);
-		margin: 0;
-		font-weight: 400;
-	}
-
-	/* Bento grid */
-	.bento-grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 1rem;
-		max-width: 1080px;
-		margin: 0 auto;
-		padding: 0 1rem;
-	}
-
-	/* Base card glass */
-	.bento-card {
-		position: relative;
-		border-radius: 24px;
-		overflow: hidden;
-		padding: 1.5rem;
-		background: rgba(255, 255, 255, 0.75);
-		backdrop-filter: blur(20px) saturate(160%);
-		-webkit-backdrop-filter: blur(20px) saturate(160%);
-		border: 1px solid rgba(255, 255, 255, 0.8);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 4px 20px rgba(0, 0, 0, 0.06);
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	@media (hover: hover) {
-		.bento-card:hover {
-			transform: scale(1.02);
-		}
-
-		.bento-card:hover .bento-icon::before {
-			opacity: 0.25;
-			transform: scale(1.3);
-		}
-
-		.bento-card:hover .bento-glow-bg {
-			opacity: 1;
-		}
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.bento-card {
-			background: rgba(21, 38, 47, 0.75);
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.1),
-				0 4px 20px rgba(0, 0, 0, 0.4);
-		}
-	}
-
-	.bento-card h3 {
-		font-size: 1.0625rem;
+	.hm-float small {
+		color: var(--m-ink-soft);
+		font-size: 0.8rem;
 		font-weight: 700;
-		margin: 0 0 0.5rem;
-		color: var(--ds-text-primary);
-		line-height: 1.3;
-		letter-spacing: -0.01em;
 	}
 
-	.bento-card p {
+	.hm-float .m-tile {
+		width: 38px;
+		height: 38px;
+		border-radius: 11px;
+	}
+
+	.hm-float-streak {
+		top: 1.75rem;
+		right: 1.25rem;
+	}
+
+	.hm-float-limit {
+		bottom: 2rem;
+		right: 1.25rem;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0.45rem;
+		width: 170px;
+	}
+
+	.hm-float-row {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.5rem;
+	}
+
+	.hm-float-row strong {
 		font-size: 0.9rem;
-		line-height: 1.55;
-		color: var(--ds-text-secondary);
+	}
+
+	.hm-meter {
+		display: block;
+		height: 8px;
+		border-radius: 999px;
+		background: var(--m-fog);
+		overflow: hidden;
+	}
+
+	.hm-meter span {
+		display: block;
+		height: 100%;
+		border-radius: 999px;
+		background: var(--m-accent);
+	}
+
+	.hm-stage-biscuit {
+		position: absolute;
+		left: 0.25rem;
+		bottom: -0.5rem;
+	}
+
+	@media (max-width: 600px) {
+		.hm-stage {
+			min-height: 430px;
+			padding: 2rem 1rem 6.5rem;
+		}
+		.hm-phone {
+			width: min(250px, 86%);
+		}
+		.hm-float-streak {
+			top: 1rem;
+			right: 0.75rem;
+		}
+		.hm-float-limit {
+			right: 0.75rem;
+			bottom: 1.25rem;
+			width: 165px;
+		}
+		.hm-float-row {
+			white-space: nowrap;
+		}
+		.hm-stage-biscuit :global(*) {
+			max-width: 120px;
+			max-height: 120px;
+		}
+	}
+
+	/* ------------------------------------------------------------ steps */
+	.hm-steps {
+		display: grid;
+		gap: 1.25rem;
 		margin: 0;
+		padding: 0;
+		list-style: none;
 	}
 
-	/* Floating icons with glow */
-	.bento-icon {
-		width: 56px;
-		height: 56px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: relative;
-		margin-bottom: 1rem;
-		flex-shrink: 0;
+	@media (min-width: 760px) {
+		.hm-steps {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
 	}
 
-	.bento-icon::before {
-		content: '';
-		position: absolute;
-		inset: -4px;
-		border-radius: 50%;
-		opacity: 0.15;
-		transition: opacity 0.4s ease, transform 0.4s ease;
-	}
-
-	.bento-icon-blue::before { background: radial-gradient(circle, var(--ds-primary), transparent 70%); }
-	.bento-icon-purple::before { background: radial-gradient(circle, var(--ds-purple), transparent 70%); }
-	.bento-icon-orange::before { background: radial-gradient(circle, var(--ds-orange), transparent 70%); }
-	.bento-icon-green::before { background: radial-gradient(circle, var(--ds-green), transparent 70%); }
-
-	/* === Hero Card === */
-	.bento-hero {
-		padding: 2rem;
-	}
-
-	.bento-hero-layout {
-		display: flex;
-		flex-direction: column;
-		gap: 1.5rem;
-		position: relative;
-		z-index: 1;
-	}
-
-	.bento-glow-bg {
-		position: absolute;
-		inset: -20px;
-		z-index: 0;
-		border-radius: 40px;
-		background:
-			radial-gradient(ellipse at 30% 50%, rgba(var(--ds-brand-rgb),  0.08) 0%, transparent 60%),
-			radial-gradient(ellipse at 70% 50%, rgba(63, 122, 151,  0.06) 0%, transparent 60%);
-		filter: blur(20px);
-		opacity: 0.6;
-		animation: glow-pulse 8s ease-in-out infinite;
-		pointer-events: none;
-	}
-
-	@keyframes glow-pulse {
-		0%, 100% { opacity: 0.6; }
-		50% { opacity: 1; }
-	}
-
-	.bento-hero-stat {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+	.hm-step {
+		display: grid;
+		justify-items: center;
+		align-content: start;
+		gap: 0.6rem;
+		padding: 0.6rem 0.6rem 1.75rem;
+		border-radius: 28px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
 		text-align: center;
 	}
 
-	.bento-stat-number {
-		font-size: clamp(3.5rem, 7vw, 5.5rem);
-		font-weight: 900;
-		letter-spacing: -0.04em;
-		line-height: 1;
-		background: linear-gradient(135deg, var(--ds-primary) 0%, var(--ds-purple) 50%, var(--ds-primary) 100%);
-		background-size: 200% 200%;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		animation: gradient-shift 6s ease-in-out infinite;
+	.hm-step h3 {
+		margin: 0;
+		font-size: 1.35rem;
+		font-weight: 800;
 	}
 
-	@keyframes gradient-shift {
-		0%, 100% { background-position: 0% 50%; }
-		50% { background-position: 100% 50%; }
+	.hm-step p {
+		margin: 0;
+		padding: 0 1rem;
+		color: var(--m-ink-soft);
+		line-height: 1.5;
 	}
 
-	.bento-stat-unit {
-		font-size: clamp(1.5rem, 3vw, 2.5rem);
+	.hm-step .m-tile.is-number {
+		width: 36px;
+		height: 36px;
+		margin-top: 0.75rem;
+		border-radius: 50%;
+	}
+
+	.hm-step-art {
+		display: grid;
+		place-items: center;
+		justify-self: stretch;
+		height: 200px;
+		border-radius: 22px;
+		background: var(--m-ground);
+	}
+
+	.hm-apps {
+		display: grid;
+		grid-template-columns: repeat(3, 52px);
+		gap: 0.75rem;
+	}
+
+	.hm-app {
+		position: relative;
+		display: grid;
+		place-items: center;
+		width: 52px;
+		height: 52px;
+		border-radius: 15px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		color: var(--m-ink-soft);
+		font-family: var(--font-heading);
+		font-size: 1.2rem;
+		font-weight: 800;
+	}
+
+	.hm-app.is-on {
+		background: var(--m-accent-strong);
+		color: var(--m-on-accent);
+	}
+
+	.hm-app-check {
+		position: absolute;
+		top: -6px;
+		right: -6px;
+		display: grid;
+		place-items: center;
+		width: 22px;
+		height: 22px;
+		border-radius: 50%;
+		background: var(--m-success-soft);
+		color: var(--m-success-ink);
+		box-shadow: 0 0 0 3px var(--m-ground);
+	}
+
+	.hm-breath {
+		position: relative;
+		display: grid;
+		place-items: center;
+		width: 140px;
+		height: 140px;
+	}
+
+	.hm-breath-ring {
+		position: absolute;
+		inset: 0;
+		border-radius: 50%;
+		background: var(--m-accent-soft);
+		animation: hm-breathe 4s ease-in-out infinite;
+	}
+
+	.hm-breath-dot {
+		position: relative;
+		display: grid;
+		place-items: center;
+		width: 76px;
+		height: 76px;
+		border-radius: 50%;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		color: var(--m-accent-ink);
+	}
+
+	.hm-choice {
+		display: grid;
+		justify-items: center;
+		gap: 0.55rem;
+		width: min(220px, 80%);
+	}
+
+	.hm-choice .m-badge {
+		margin-top: 0.3rem;
+	}
+
+	/* ------------------------------------------------------------ before and after */
+	.hm-pairs {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.hm-pairs-head,
+	.hm-pair {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 2.5rem minmax(0, 1fr);
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.hm-pairs-head {
+		padding: 0 1.25rem;
+	}
+
+	.hm-pairs-head .m-badge {
+		justify-self: start;
+		font-size: 0.85rem;
+	}
+
+	.hm-before-badge {
+		background: var(--m-warning-soft) !important;
+		color: var(--m-warning-ink) !important;
+	}
+
+	.hm-pair {
+		position: relative;
+		padding: 1rem 1.25rem;
+	}
+
+	.hm-pair + .hm-pair::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 1.25rem;
+		left: 1.25rem;
+		height: 1px;
+		background: var(--m-line);
+	}
+
+	.hm-side {
+		display: flex;
+		align-items: center;
+		gap: 0.85rem;
+		font-family: var(--font-heading);
+		font-size: 1.05rem;
 		font-weight: 700;
-		color: var(--ds-text-secondary);
+		line-height: 1.35;
+	}
+
+	.hm-pair .hm-side:first-child {
+		color: var(--m-ink-soft);
+	}
+
+	.hm-arrow {
+		display: grid;
+		place-items: center;
+		color: var(--m-ink-soft);
+	}
+
+	@media (max-width: 680px) {
+		.hm-pairs-head {
+			display: none;
+		}
+		.hm-pair {
+			grid-template-columns: 1fr;
+			gap: 0.5rem;
+		}
+		.hm-arrow {
+			justify-self: start;
+			width: 44px;
+			transform: rotate(90deg);
+		}
+	}
+
+	/* ------------------------------------------------------------ feature areas */
+	.hm-areas,
+	.hm-posts {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	@media (min-width: 680px) {
+		.hm-areas,
+		.hm-posts {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 1000px) {
+		.hm-areas,
+		.hm-posts {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	.hm-area,
+	.hm-post {
+		display: flex;
+		flex-direction: column;
+		border-radius: 28px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		color: inherit;
+		text-decoration: none;
+		overflow: hidden;
+		transition: box-shadow 0.2s ease, transform 0.2s ease;
+	}
+
+	.hm-area:hover,
+	.hm-post:hover {
+		box-shadow: var(--m-shadow-md);
+		transform: translateY(-2px);
+	}
+
+	.hm-area-art,
+	.hm-post-art {
+		display: block;
+		margin: 0.6rem 0.6rem 0;
+		aspect-ratio: 16 / 10;
+		border-radius: 22px;
+		overflow: hidden;
+		background: var(--m-ground);
+	}
+
+	.hm-area-art :global(img),
+	.hm-post-art :global(img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.hm-area-copy,
+	.hm-post-copy {
+		display: grid;
+		gap: 0.35rem;
+		padding: 1.1rem 1.4rem 1.4rem;
+	}
+
+	.hm-area-title,
+	.hm-post-title {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-family: var(--font-heading);
+		font-size: 1.25rem;
+		font-weight: 800;
+		line-height: 1.25;
+	}
+
+	.hm-post-title {
+		font-size: 1.12rem;
+	}
+
+	.hm-area-line,
+	.hm-post-line {
+		color: var(--m-ink-soft);
+		line-height: 1.5;
+	}
+
+	.hm-post-line {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		font-size: 0.95rem;
+	}
+
+	/* ------------------------------------------------------------ devices */
+	.hm-devices {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	@media (min-width: 860px) {
+		.hm-devices {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	.hm-device {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 2rem 1.5rem 1.75rem;
+		border-radius: 28px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		text-align: center;
+	}
+
+	.hm-device .m-caption {
 		margin-top: -0.25rem;
 	}
 
-	.bento-stat-caption {
-		font-size: 0.8125rem;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-		color: var(--ds-text-hint);
-		font-weight: 600;
-		margin-top: 0.5rem;
-	}
-
-	.bento-hero-content {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.bento-hero h3 {
-		font-size: 1.375rem;
-	}
-
-	.bento-hero p {
-		font-size: 0.975rem;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.bento-stat-number {
-			background: linear-gradient(135deg, var(--ds-mist) 0%, var(--ds-brand) 50%, var(--ds-mist) 100%);
-			background-size: 200% 200%;
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
-			animation: gradient-shift 6s ease-in-out infinite;
-		}
-
-		.bento-glow-bg {
-			background:
-				radial-gradient(ellipse at 30% 50%, rgba(var(--ds-brand-rgb),  0.04) 0%, transparent 60%),
-				radial-gradient(ellipse at 70% 50%, rgba(63, 122, 151,  0.03) 0%, transparent 60%);
-		}
-	}
-
-	/* === Breathing Ring (Pause card) === */
-	.breath-ring {
-		position: absolute;
-		width: 72px;
-		height: 72px;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		border-radius: 50%;
-		border: 2px solid var(--ds-purple);
-		opacity: 0.3;
-		animation: breathe 4s ease-in-out infinite;
-	}
-
-	@keyframes breathe {
-		0%, 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.15; }
-		50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.35; }
-	}
-
-	/* === Streak Dots (Transform card) === */
-	.mini-streak {
-		display: flex;
-		gap: 6px;
-		margin-bottom: 0.75rem;
-	}
-
-	.streak-dot {
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background: var(--ds-gray-300);
-	}
-
-	.streak-dot.filled {
-		background: var(--ds-orange);
-	}
-
-	.streak-dot.active {
-		background: var(--ds-orange);
-		box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
-		animation: pulse-dot 2s ease-in-out infinite;
-	}
-
-	@keyframes pulse-dot {
-		0%, 100% { box-shadow: 0 0 4px rgba(255, 152, 0, 0.3); }
-		50% { box-shadow: 0 0 12px rgba(255, 152, 0, 0.6); }
-	}
-
-	/* === Privacy Badges === */
-	.privacy-badges {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		margin-top: 1rem;
-		padding-top: 1rem;
-		border-top: 1px solid rgba(0, 0, 0, 0.04);
-	}
-
-	.privacy-badge {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.375rem;
-		font-size: 0.75rem;
-		font-weight: 600;
-		color: var(--ds-green);
-		background: rgba(76, 175, 80, 0.08);
-		padding: 0.25rem 0.75rem;
-		border-radius: var(--ds-radius-full);
-		border: 1px solid rgba(76, 175, 80, 0.15);
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.privacy-badges {
-			border-top-color: rgba(255, 255, 255, 0.06);
-		}
-
-		.privacy-badge {
-			background: rgba(76, 175, 80, 0.12);
-			border-color: rgba(76, 175, 80, 0.2);
-		}
-
-		.streak-dot {
-			background: var(--ds-gray-400);
-		}
-	}
-
-	/* Bento responsive */
-	@media (min-width: 768px) {
-		.bento-grid {
-			grid-template-columns: repeat(2, 1fr);
-			gap: 1.5rem;
-		}
-
-		.bento-hero {
-			grid-column: 1 / -1;
-		}
-
-		.bento-privacy {
-			grid-column: 1 / -1;
-		}
-
-		.bento-hero-layout {
-			flex-direction: row;
-			align-items: center;
-			gap: 2.5rem;
-		}
-
-		.bento-hero-stat {
-			min-width: 200px;
-		}
-
-		.section-header .section-title {
-			font-size: 2.5rem;
-		}
-
-		.section-header .section-subtitle {
-			font-size: 1.0625rem;
-		}
-	}
-
-	@media (min-width: 1024px) {
-		.bento-section {
-			padding: var(--ds-space-5xl) 0;
-		}
-
-		.bento-grid {
-			grid-template-columns: 1.2fr 1fr 1.2fr;
-			gap: 1.75rem;
-		}
-
-		.bento-hero {
-			grid-column: 1 / -1;
-		}
-
-		.bento-pause { grid-column: 1; }
-		.bento-transform { grid-column: 2; }
-		.bento-privacy { grid-column: 3; }
-	}
-
-	/* Bento mobile */
-	@media (max-width: 767px) {
-		.bento-hero {
-			padding: 1.5rem;
-		}
-
-		.bento-hero h3 {
-			font-size: 1.125rem;
-		}
-
-		.bento-icon {
-			width: 48px;
-			height: 48px;
-		}
-	}
-
-	/* Reduced motion */
-	@media (prefers-reduced-motion: reduce) {
-		.bento-stat-number,
-		.bento-glow-bg,
-		.breath-ring,
-		.streak-dot.active {
-			animation: none;
-		}
-
-		.bento-glow-bg {
-			opacity: 0.8;
-		}
-
-		.breath-ring {
-			transform: translate(-50%, -50%) scale(1);
-			opacity: 0.2;
-		}
-	}
-
-	/* Features Section - keeping for backward compatibility */
-	.features-section {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-primary);
-	}
-
-	/* Platforms Section */
-	.platforms-section {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-secondary);
-	}
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 1rem;
-	}
-
-	.section-title {
-		font-size: 2.5rem;
-		font-weight: 700;
-		text-align: center;
-		margin: 0 0 var(--ds-space-md) 0;
-		color: var(--ds-text-primary);
-	}
-
-	.section-subtitle {
-		font-size: 1.125rem;
-		text-align: center;
-		max-width: 600px;
-		margin: 0 auto var(--ds-space-3xl);
-		color: var(--ds-text-secondary);
-	}
-
-	.features-grid,
-	.platforms-grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: var(--ds-space-xl);
-	}
-
-	.features-grid .feature-card,
-	.platforms-grid .platform-card {
-		height: auto;
-	}
-
-	/* Tablet: 2 columns */
-	@media (min-width: 768px) {
-		.features-grid,
-		.platforms-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-
-		.features-grid .feature-card,
-		.platforms-grid .platform-card {
-			height: 100%;
-		}
-	}
-
-	/* Desktop: 4 columns for features, 3 for platforms */
-	@media (min-width: 1024px) {
-		.features-grid {
-			grid-template-columns: repeat(4, 1fr);
-		}
-
-		.platforms-grid {
-			grid-template-columns: repeat(3, 1fr);
-		}
-	}
-
-	/* Blog Section */
-	.blog-section {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-secondary);
-	}
-
-	.blog-eyebrow {
-		display: block;
-		text-align: center;
-		font-size: 0.8125rem;
-		font-weight: 600;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-		color: var(--ds-primary);
-		margin-bottom: 0.75rem;
-	}
-
-	.blog-grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 1.25rem;
-		margin-bottom: var(--ds-space-2xl);
-	}
-
-	.blog-card {
-		background: rgba(255, 255, 255, 0.7);
-		backdrop-filter: blur(20px) saturate(160%);
-		-webkit-backdrop-filter: blur(20px) saturate(160%);
-		border-radius: 24px;
-		overflow: hidden;
-		border: 1px solid rgba(255, 255, 255, 0.8);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 4px 20px rgba(0, 0, 0, 0.06);
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-		display: flex;
-		flex-direction: column;
-	}
-
-	.blog-card:hover {
-		transform: translateY(-4px);
-		background: rgba(255, 255, 255, 0.85);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 12px 40px rgba(0, 0, 0, 0.1),
-			0 4px 12px rgba(0, 0, 0, 0.06);
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.blog-card {
-			background: rgba(27, 46, 58, 0.7);
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.15),
-				0 4px 20px rgba(0, 0, 0, 0.4);
-		}
-
-		.blog-card:hover {
-			background: rgba(27, 46, 58, 0.85);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.2),
-				0 12px 40px rgba(0, 0, 0, 0.5);
-		}
-	}
-
-	.blog-image-link {
-		display: block;
-		overflow: hidden;
-	}
-
-	.blog-image {
-		width: 100%;
-		height: 200px;
-		object-fit: cover;
-		transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.blog-card:hover .blog-image {
-		transform: scale(1.06);
-	}
-
-	.blog-content {
-		padding: 1.25rem 1.5rem 1.5rem;
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.blog-title {
-		font-size: 1.125rem;
-		font-weight: 700;
-		margin: 0 0 0.5rem;
-		line-height: 1.3;
-		letter-spacing: -0.01em;
-	}
-
-	.blog-title a {
-		color: var(--ds-text-primary);
-		text-decoration: none;
-		transition: color var(--ds-transition-fast);
-	}
-
-	.blog-title a:hover {
-		color: var(--ds-primary);
-	}
-
-	.blog-description {
-		font-size: 0.9rem;
-		color: var(--ds-text-secondary);
-		margin: 0 0 1rem;
-		line-height: 1.55;
-		flex: 1;
-	}
-
-	.blog-link {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.375rem;
-		color: var(--ds-primary);
-		font-weight: 600;
-		text-decoration: none;
-		font-size: 0.875rem;
-		transition: all var(--ds-transition-fast);
-		align-self: flex-start;
-	}
-
-	.blog-link:hover {
-		gap: 0.625rem;
-		color: var(--ds-primary-dark);
-	}
-
-	.blog-cta {
-		display: flex;
-		gap: var(--ds-space-md);
-		justify-content: center;
-		flex-wrap: wrap;
-	}
-
-	.view-all-button,
-	.quiz-button {
-		display: inline-block;
-		padding: 0.875rem 1.75rem;
-		border-radius: var(--ds-radius-full);
-		font-weight: 600;
-		font-size: 1rem;
-		text-decoration: none;
-		transition: all var(--ds-transition-normal);
-	}
-
-	.view-all-button {
-		background: rgba(var(--ds-brand-rgb),  0.85);
-		color: var(--ds-on-brand);
-		border: 1px solid rgba(255, 255, 255, 0.25);
-		backdrop-filter: blur(12px) saturate(150%);
-		-webkit-backdrop-filter: blur(12px) saturate(150%);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.3),
-			0 4px 16px rgba(var(--ds-brand-rgb),  0.3);
-	}
-
-	.view-all-button:hover {
-		background: rgba(var(--ds-brand-rgb),  0.95);
-		transform: translateY(-2px);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.35),
-			0 8px 24px rgba(var(--ds-brand-rgb),  0.4);
-	}
-
-	.quiz-button {
-		background: rgba(255, 255, 255, 0.6);
-		color: var(--ds-primary);
-		border: 1px solid rgba(var(--ds-brand-rgb),  0.2);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
-	}
-
-	.quiz-button:hover {
-		background: rgba(255, 255, 255, 0.85);
-		border-color: rgba(var(--ds-brand-rgb),  0.4);
-		transform: translateY(-2px);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.5),
-			0 4px 16px rgba(var(--ds-brand-rgb),  0.1);
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.quiz-button {
-			background: rgba(255, 255, 255, 0.08);
-			border-color: rgba(var(--ds-brand-rgb),  0.25);
-			color: var(--ds-primary);
-		}
-
-		.quiz-button:hover {
-			background: rgba(255, 255, 255, 0.15);
-			border-color: rgba(var(--ds-brand-rgb),  0.45);
-		}
-	}
-
-	@media (min-width: 768px) {
-		.blog-grid {
-			grid-template-columns: repeat(3, 1fr);
-		}
-
-		.blog-image {
-			height: 180px;
-		}
-	}
-
-	/* Journey / Transformation Section */
-	.journey-section {
-		width: 100%;
-		padding: var(--ds-space-3xl) 0;
-		background: var(--ds-bg-primary);
-		position: relative;
-		overflow: hidden;
-	}
-
-	.journey-header {
-		text-align: center;
-		max-width: 560px;
-		margin: 0 auto var(--ds-space-3xl);
-		padding: 0 1rem;
-	}
-
-	.journey-eyebrow {
-		display: inline-block;
-		font-size: 0.8125rem;
-		font-weight: 600;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-		color: var(--ds-primary);
-		margin-bottom: 0.75rem;
-	}
-
-	.journey-title {
-		font-size: 2rem;
+	.hm-device h3 {
+		margin: 0.4rem 0 0;
+		font-size: 1.45rem;
 		font-weight: 800;
-		line-height: 1.2;
-		letter-spacing: -0.03em;
-		color: var(--ds-text-primary);
-		margin: 0;
 	}
 
-	/* The track that holds timeline + rows */
-	.journey-track {
-		position: relative;
-		max-width: 820px;
-		margin: 0 auto;
-		padding: 0 1rem;
+	.hm-chips {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.4rem;
+		margin: 0.6rem 0 0.4rem;
+		padding: 0;
+		list-style: none;
 	}
 
-	/* Central vertical line */
-	.timeline-line {
-		position: absolute;
-		left: 50%;
-		top: 0;
-		bottom: 0;
-		width: 2px;
-		background: linear-gradient(
-			180deg,
-			var(--ds-red) 0%,
-			var(--ds-gray-300) 40%,
-			var(--ds-gray-300) 60%,
-			var(--ds-green) 100%
-		);
-		transform: translateX(-50%);
-		border-radius: 2px;
-		z-index: 0;
+	.hm-chips li {
+		padding: 0.35rem 0.75rem;
+		border-radius: 999px;
+		background: var(--m-fog);
+		font-size: 0.88rem;
+		font-weight: 700;
+		white-space: nowrap;
 	}
 
-	.timeline-glow {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		filter: blur(6px);
-		background: inherit;
-		opacity: 0.4;
+	.hm-device-store {
+		margin-top: auto;
+		padding-top: 0.75rem;
 	}
 
-	/* Before / After labels floating at top */
-	.journey-labels {
+	/* ------------------------------------------------------------ privacy */
+	.hm-privacy {
+		display: grid;
+		gap: 2rem;
+		align-items: center;
+	}
+
+	@media (min-width: 860px) {
+		.hm-privacy {
+			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+			gap: 3rem;
+		}
+	}
+
+	.hm-privacy-main {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.hm-privacy-main .m-row {
+		grid-template-columns: auto 1fr;
+	}
+
+	.hm-privacy-main .m-row > span:last-child:empty {
 		display: none;
 	}
 
-	@media (min-width: 768px) {
-		.journey-labels {
-			display: flex;
-			justify-content: space-between;
-			padding: 0 2rem;
-			margin-bottom: 1.5rem;
-			position: relative;
-			z-index: 1;
-		}
-
-		.journey-label {
-			font-size: 0.75rem;
-			font-weight: 700;
-			letter-spacing: 0.08em;
-			text-transform: uppercase;
-			padding: 0.375rem 1rem;
-			border-radius: 100px;
-		}
-
-		.journey-label-before {
-			color: var(--ds-red);
-			background: rgba(244, 67, 54, 0.08);
-		}
-
-		.journey-label-after {
-			color: var(--ds-green);
-			background: rgba(76, 175, 80, 0.08);
-		}
-	}
-
-	/* Each row: before | node | after */
-	.journey-row {
+	/* ------------------------------------------------------------ tools */
+	.hm-tools {
 		display: grid;
-		grid-template-columns: 1fr 40px 1fr;
+		gap: 1rem;
+	}
+
+	@media (min-width: 860px) {
+		.hm-tools {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 1.25rem;
+		}
+	}
+
+	.hm-tool {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
 		align-items: center;
-		gap: 0;
-		margin-bottom: 1rem;
-		position: relative;
-		z-index: 1;
+		gap: 1rem;
+		padding: 1.25rem;
+		border-radius: 22px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		color: inherit;
+		text-decoration: none;
+		transition: box-shadow 0.2s ease;
 	}
 
-	.journey-row:last-of-type {
-		margin-bottom: 0;
+	.hm-tool:hover {
+		box-shadow: var(--m-shadow-md);
 	}
 
-	/* Timeline dot at center */
-	.timeline-node {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		z-index: 2;
+	.hm-tool-copy {
+		display: grid;
+		gap: 0.15rem;
 	}
 
-	.node-dot {
-		width: 10px;
-		height: 10px;
-		border-radius: 50%;
-		background: var(--ds-gray-400);
-		border: 2px solid var(--ds-bg-primary);
-		box-shadow: 0 0 0 2px var(--ds-gray-300);
-		transition: all 0.3s ease;
+	.hm-tool-title {
+		font-family: var(--font-heading);
+		font-size: 1.08rem;
+		font-weight: 800;
 	}
 
-	.journey-row:first-of-type .node-dot {
-		background: var(--ds-red);
-		box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.2);
+	.hm-tool-line {
+		font-size: 0.92rem;
+		color: var(--m-ink-soft);
 	}
 
-	.journey-row:last-of-type .node-dot {
-		background: var(--ds-green);
-		box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
-	}
-
-	/* Before side (left) */
-	.journey-before {
-		display: flex;
-		justify-content: flex-end;
-		padding-right: 0.75rem;
-	}
-
-	/* After side (right) */
-	.journey-after {
-		display: flex;
-		justify-content: flex-start;
-		padding-left: 0.75rem;
-	}
-
-	/* The glass cards */
-	.journey-card {
-		display: flex;
-		align-items: flex-start;
-		gap: 0.75rem;
-		padding: 0.875rem 1.125rem;
-		border-radius: 16px;
-		backdrop-filter: blur(16px) saturate(150%);
-		-webkit-backdrop-filter: blur(16px) saturate(150%);
-		transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-		max-width: 100%;
-	}
-
-	.journey-card p {
-		margin: 0;
-		font-size: 0.9rem;
-		line-height: 1.5;
-		color: var(--ds-text-secondary);
-	}
-
-	.journey-card:hover {
-		transform: translateY(-2px);
-	}
-
-	/* Before card — warm/red tinted glass */
-	.journey-card-before {
-		background: rgba(255, 255, 255, 0.65);
-		border: 1px solid rgba(244, 67, 54, 0.1);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.8),
-			0 2px 12px rgba(244, 67, 54, 0.06);
-	}
-
-	.journey-card-before:hover {
-		background: rgba(255, 255, 255, 0.85);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 8px 24px rgba(244, 67, 54, 0.1);
-	}
-
-	/* After card — cool/green tinted glass */
-	.journey-card-after {
-		background: rgba(255, 255, 255, 0.65);
-		border: 1px solid rgba(76, 175, 80, 0.1);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.8),
-			0 2px 12px rgba(76, 175, 80, 0.06);
-	}
-
-	.journey-card-after:hover {
-		background: rgba(255, 255, 255, 0.85);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 8px 24px rgba(76, 175, 80, 0.1);
-	}
-
-	/* Icon circles */
-	.journey-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	.hm-tool-go {
+		display: grid;
+		place-items: center;
 		width: 36px;
 		height: 36px;
-		border-radius: 10px;
-		flex-shrink: 0;
-	}
-
-	.journey-icon-before {
-		background: rgba(244, 67, 54, 0.08);
-	}
-
-	.journey-icon-after {
-		background: rgba(76, 175, 80, 0.08);
-	}
-
-	/* Dark mode */
-	@media (prefers-color-scheme: dark) {
-		.journey-card-before {
-			background: rgba(50, 40, 40, 0.7);
-			border-color: rgba(244, 67, 54, 0.15);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.08),
-				0 2px 12px rgba(0, 0, 0, 0.3);
-		}
-
-		.journey-card-before:hover {
-			background: rgba(60, 45, 45, 0.85);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.12),
-				0 8px 24px rgba(0, 0, 0, 0.4);
-		}
-
-		.journey-card-after {
-			background: rgba(40, 50, 40, 0.7);
-			border-color: rgba(76, 175, 80, 0.15);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.08),
-				0 2px 12px rgba(0, 0, 0, 0.3);
-		}
-
-		.journey-card-after:hover {
-			background: rgba(45, 60, 45, 0.85);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.12),
-				0 8px 24px rgba(0, 0, 0, 0.4);
-		}
-
-		.node-dot {
-			border-color: var(--ds-bg-primary);
-			box-shadow: 0 0 0 2px var(--ds-gray-300);
-		}
-
-		.journey-icon-before {
-			background: rgba(244, 67, 54, 0.15);
-		}
-
-		.journey-icon-after {
-			background: rgba(76, 175, 80, 0.15);
-		}
-
-		.timeline-line {
-			background: linear-gradient(
-				180deg,
-				var(--ds-red) 0%,
-				var(--ds-gray-400) 40%,
-				var(--ds-gray-400) 60%,
-				var(--ds-green) 100%
-			);
-		}
-
-		.journey-label-before {
-			background: rgba(244, 67, 54, 0.12);
-		}
-
-		.journey-label-after {
-			background: rgba(76, 175, 80, 0.12);
-		}
-	}
-
-	/* Closing */
-	.journey-closing {
-		text-align: center;
-		max-width: 520px;
-		margin: var(--ds-space-3xl) auto 0;
-		padding: 0 1rem;
-	}
-
-	.journey-closing p {
-		font-size: 1.375rem;
-		font-weight: 600;
-		color: var(--ds-text-primary);
-		margin: 0 0 0.5rem;
-		line-height: 1.4;
-		letter-spacing: -0.02em;
-	}
-
-	.journey-closing em {
-		font-style: normal;
-		background: linear-gradient(135deg, var(--ds-primary) 0%, var(--ds-green) 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.journey-closing-sub {
-		display: block;
-		font-size: 0.9375rem;
-		color: var(--ds-text-hint);
-		font-weight: 400;
-	}
-
-	/* === Mobile: stack cards vertically === */
-	@media (max-width: 767px) {
-		.journey-title {
-			font-size: 1.625rem;
-		}
-
-		.timeline-line,
-		.timeline-node,
-		.journey-labels {
-			display: none;
-		}
-
-		.journey-track {
-			max-width: 480px;
-		}
-
-		.journey-row {
-			display: flex;
-			flex-direction: column;
-			gap: 0.5rem;
-			margin-bottom: 1.25rem;
-		}
-
-		.journey-before,
-		.journey-after {
-			padding: 0;
-			justify-content: stretch;
-		}
-
-		.journey-card {
-			width: 100%;
-		}
-
-		.journey-closing p {
-			font-size: 1.1875rem;
-		}
-	}
-
-	/* Tablet+ */
-	@media (min-width: 768px) {
-		.journey-section {
-			padding: var(--ds-space-4xl) 0;
-		}
-
-		.journey-title {
-			font-size: 2.5rem;
-		}
-	}
-
-	/* Desktop */
-	@media (min-width: 1024px) {
-		.journey-section {
-			padding: var(--ds-space-5xl) 0;
-		}
-
-		.journey-card p {
-			font-size: 0.9375rem;
-		}
-	}
-
-	/* Testimonials Section */
-	.testimonials-section {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-primary);
-		overflow: hidden;
-	}
-
-	.testimonials-section .section-title {
-		margin-bottom: var(--ds-space-xl);
-	}
-
-	/* Marquee */
-	.marquee-wrap {
-		position: relative;
-		width: 100%;
-		padding: 0.5rem 0 1.5rem;
-	}
-
-	.marquee-wrap::before,
-	.marquee-wrap::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 80px;
-		z-index: 2;
-		pointer-events: none;
-	}
-
-	.marquee-wrap::before {
-		left: 0;
-		background: linear-gradient(90deg, var(--ds-bg-primary) 0%, transparent 100%);
-	}
-
-	.marquee-wrap::after {
-		right: 0;
-		background: linear-gradient(270deg, var(--ds-bg-primary) 0%, transparent 100%);
-	}
-
-	.marquee-track {
-		display: flex;
-		gap: 1.25rem;
-		width: max-content;
-		animation: marquee 40s linear infinite;
-	}
-
-	.marquee-track:hover {
-		animation-play-state: paused;
-	}
-
-	@keyframes marquee {
-		0% { transform: translateX(0); }
-		100% { transform: translateX(-50%); }
-	}
-
-	/* Quote cards */
-	.quote-card {
-		min-width: 300px;
-		max-width: 360px;
-		flex-shrink: 0;
-		padding: 1.5rem;
-		background: rgba(255, 255, 255, 0.65);
-		backdrop-filter: blur(16px) saturate(150%);
-		-webkit-backdrop-filter: blur(16px) saturate(150%);
-		border: 1px solid rgba(255, 255, 255, 0.7);
-		border-radius: 20px;
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.8),
-			0 2px 12px rgba(0, 0, 0, 0.04);
-		transition: all 0.3s ease;
-		position: relative;
-	}
-
-	.quote-card::before {
-		content: '\201C';
-		position: absolute;
-		top: 0.5rem;
-		left: 1rem;
-		font-size: 3rem;
-		line-height: 1;
-		color: var(--ds-primary);
-		opacity: 0.12;
-		font-family: Georgia, serif;
-		pointer-events: none;
-	}
-
-	.quote-card:hover {
-		transform: scale(1.02);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 8px 24px rgba(0, 0, 0, 0.08);
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.quote-card {
-			background: rgba(34, 56, 70, 0.7);
-			border-color: rgba(255, 255, 255, 0.1);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.08),
-				0 2px 12px rgba(0, 0, 0, 0.3);
-		}
-
-		.quote-card:hover {
-			background: rgba(34, 56, 70, 0.85);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.12),
-				0 8px 24px rgba(0, 0, 0, 0.4);
-		}
-
-		.quote-card::before {
-			opacity: 0.15;
-		}
-	}
-
-	.quote-text {
-		font-size: 0.9375rem;
-		line-height: 1.6;
-		color: var(--ds-text-primary);
-		margin: 0 0 0.75rem;
-		font-style: italic;
-	}
-
-	.quote-author {
-		font-size: 0.8125rem;
-		color: var(--ds-text-hint);
-		font-weight: 500;
-	}
-
-	/* Stats bar — glass */
-	.stats-bar {
-		display: flex;
-		justify-content: center;
-		gap: var(--ds-space-2xl);
-		flex-wrap: wrap;
-		padding: var(--ds-space-xl);
-		background: rgba(255, 255, 255, 0.6);
-		backdrop-filter: blur(16px);
-		-webkit-backdrop-filter: blur(16px);
-		border: 1px solid rgba(255, 255, 255, 0.7);
-		border-radius: 20px;
-		max-width: 700px;
-		margin: var(--ds-space-xl) auto 0;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.stats-bar {
-			background: rgba(34, 56, 70, 0.6);
-			border-color: rgba(255, 255, 255, 0.1);
-		}
-	}
-
-	.stat-item {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.25rem;
-	}
-
-	.stat-number {
-		font-size: 1.75rem;
-		font-weight: 800;
-		color: var(--ds-primary);
-	}
-
-	.stat-desc {
-		font-size: 0.875rem;
-		color: var(--ds-text-secondary);
-		font-weight: 500;
-	}
-
-	/* CTA Section — The Inversion */
-	.cta-section {
-		padding: var(--ds-space-3xl) 0 var(--ds-space-2xl);
-		background: var(--ds-bg-primary);
-		position: relative;
-		overflow: hidden;
-	}
-
-	.cta-divider {
-		position: absolute;
-		top: 0;
-		left: 10%;
-		right: 10%;
-		height: 1px;
-		background: linear-gradient(90deg,
-			transparent 0%,
-			var(--ds-primary) 30%,
-			var(--ds-purple) 70%,
-			transparent 100%
-		);
-		opacity: 0.3;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.cta-divider {
-			opacity: 0.4;
-		}
-	}
-
-	.cta-layout {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		gap: var(--ds-space-2xl);
-		max-width: 1000px;
-		margin: 0 auto;
-	}
-
-	.cta-content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.cta-eyebrow {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		font-size: 0.875rem;
-		font-weight: 600;
-		color: var(--ds-primary);
-		letter-spacing: 0.02em;
-		margin-bottom: var(--ds-space-md);
-	}
-
-	.cta-headline {
-		font-size: clamp(1.75rem, 4vw, 3rem);
-		font-weight: 800;
-		line-height: 1.15;
-		letter-spacing: -0.03em;
-		color: var(--ds-text-primary);
-		margin: 0 0 var(--ds-space-lg);
-	}
-
-	.cta-highlight {
-		display: block;
-		background: linear-gradient(135deg, var(--ds-primary) 0%, var(--ds-purple) 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		font-size: 1.15em;
-	}
-
-	.cta-body {
-		font-size: 1.0625rem;
-		line-height: 1.7;
-		color: var(--ds-text-secondary);
-		margin: 0 0 var(--ds-space-xl);
-		max-width: 540px;
-	}
-
-	.cta-actions {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0;
-	}
-
-	.cta-button-primary {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		padding: 1rem 2rem;
-		background: var(--ds-primary);
-		color: var(--ds-on-primary);
-		font-weight: 700;
-		font-size: 1.0625rem;
-		border-radius: var(--ds-radius-full);
-		text-decoration: none;
-		box-shadow: 0 4px 16px rgba(var(--ds-brand-rgb),  0.3);
-		transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.cta-button-primary:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 8px 28px rgba(var(--ds-brand-rgb),  0.4);
-		filter: brightness(1.1);
-	}
-
-	.cta-reassurance {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.375rem;
-		font-size: 0.8125rem;
-		color: var(--ds-text-hint);
-		font-weight: 500;
-		margin-top: 0.75rem;
-	}
-
-	/* CSS-only Clock */
-	.cta-visual {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.clock-face {
-		width: clamp(160px, 22vw, 240px);
-		aspect-ratio: 1;
 		border-radius: 50%;
-		position: relative;
+		background: var(--m-fog);
+		color: var(--m-ink-soft);
 	}
 
-	.clock-ring {
-		position: absolute;
-		inset: 0;
-		border-radius: 50%;
-		border: 2px solid var(--ds-gray-300);
-		background: conic-gradient(
-			from 270deg,
-			rgba(var(--ds-brand-rgb),  0.1) 0deg,
-			rgba(var(--ds-brand-rgb),  0.1) 30deg,
-			transparent 30deg
-		);
+	.hm-tool:hover .hm-tool-go {
+		background: var(--m-accent-soft);
+		color: var(--m-accent-ink);
 	}
 
-	@media (prefers-color-scheme: dark) {
-		.clock-ring {
-			border-color: var(--ds-gray-400);
-			background: conic-gradient(
-				from 270deg,
-				rgba(var(--ds-brand-rgb),  0.15) 0deg,
-				rgba(var(--ds-brand-rgb),  0.15) 30deg,
-				transparent 30deg
-			);
-		}
+	/* ------------------------------------------------------------ end */
+	.hm-end {
+		padding-top: 2rem;
 	}
 
-	.clock-hand {
-		position: absolute;
-		bottom: 50%;
-		left: 50%;
-		transform-origin: bottom center;
-		border-radius: 2px;
-	}
-
-	.clock-hour {
-		width: 3px;
-		height: 28%;
-		background: var(--ds-text-primary);
-		transform: translateX(-50%) rotate(0deg);
-		animation: hour-tick 40s linear infinite;
-	}
-
-	.clock-minute {
-		width: 2px;
-		height: 38%;
-		background: var(--ds-primary);
-		transform: translateX(-50%) rotate(90deg);
-		animation: minute-tick 4s linear infinite;
-	}
-
-	.clock-center {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background: var(--ds-primary);
-	}
-
-	.clock-highlight {
-		position: absolute;
-		inset: 8px;
-		border-radius: 50%;
-		background: conic-gradient(
-			from 270deg,
-			rgba(var(--ds-brand-rgb),  0.15) 0deg,
-			rgba(var(--ds-brand-rgb),  0) 30deg,
-			transparent 30deg
-		);
-		animation: highlight-pulse 4s ease-in-out infinite;
-	}
-
-	@keyframes hour-tick {
-		0% { transform: translateX(-50%) rotate(0deg); }
-		100% { transform: translateX(-50%) rotate(360deg); }
-	}
-
-	@keyframes minute-tick {
-		0% { transform: translateX(-50%) rotate(90deg); }
-		100% { transform: translateX(-50%) rotate(450deg); }
-	}
-
-	@keyframes highlight-pulse {
-		0%, 100% { opacity: 0.6; }
-		50% { opacity: 1; }
-	}
-
-	/* CTA responsive */
-	@media (min-width: 1024px) {
-		.cta-layout {
-			flex-direction: row;
-			text-align: left;
-			align-items: center;
-			gap: var(--ds-space-3xl);
-		}
-
-		.cta-content {
-			flex: 1.2;
-			align-items: flex-start;
-		}
-
-		.cta-visual {
-			flex: 0.8;
-		}
-
-		.cta-reassurance {
-			justify-content: flex-start;
-		}
-	}
-
-	/* CTA reduced motion */
 	@media (prefers-reduced-motion: reduce) {
-		.clock-hour,
-		.clock-minute,
-		.clock-highlight {
+		.hm-hourglass,
+		.hm-breath-ring {
 			animation: none;
 		}
-	}
-
-	/* Responsive - Mobile First */
-	/* Tablet: more spacing */
-	@media (min-width: 768px) {
-		.features-section,
-		.platforms-section,
-		.blog-section,
-		.testimonials-section,
-		.cta-section {
-			padding: var(--ds-space-3xl) 0;
+		.hm-area:hover,
+		.hm-post:hover {
+			transform: none;
 		}
-	}
-
-	/* Desktop: even more spacing */
-	@media (min-width: 1024px) {
-		.features-section,
-		.platforms-section,
-		.blog-section,
-		.testimonials-section,
-		.cta-section {
-			padding: var(--ds-space-4xl) 0;
-		}
-	}
-
-	/* Mobile: optimize layouts */
-	@media (max-width: 767px) {
-		.section-title {
-			font-size: 1.75rem;
-		}
-
-		.section-subtitle {
-			font-size: 1rem;
-		}
-
-		.cta-button-primary {
-			width: 100%;
-			justify-content: center;
-		}
-
-		.cta-body {
-			font-size: 1rem;
-		}
-
-		.cta-divider {
-			display: none;
-		}
-	}
-	.bento-privacy :global(.bento-biscuit) {
-		margin: -8px 0 4px -8px;
-	}
-
-	.cta-content :global(.cta-biscuit) {
-		margin-bottom: var(--ds-space-sm);
 	}
 </style>

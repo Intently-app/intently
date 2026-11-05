@@ -1,13 +1,31 @@
 ---
+/**
+ * /about/: why Respite exists and what it stands for. Mist styles (src/styles/info-pages.css)
+ * plus the ab-* rules below. The story is the founder's own; keep its facts as they are.
+ */
+import '../styles/info-pages.css';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
-import ScrollReveal from '../components/ui/ScrollReveal.astro';
+import Biscuit from '../components/ui/Biscuit.astro';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
 import ProfilePageSchema from '../components/SEO/ProfilePageSchema.astro';
-import { SITE_TITLE } from '../consts';
+import { SUPPORT_EMAIL } from '../consts';
+
+const beliefs = [
+	{ icon: 'Brain', tone: '', title: 'Awareness, not punishment', line: 'A lock on the fridge never fixed hunger. A moment to notice does more.' },
+	{ icon: 'Lock', tone: 'is-success', title: 'Your history is yours', line: 'It stays on your device, and nothing syncs unless you sign in.' },
+	{ icon: 'Target', tone: 'is-reward', title: 'Grounded in habit research', line: 'Ideas from habit formation and behavioural psychology, kept simple.' },
+	{ icon: 'Heart', tone: 'is-warning', title: 'Built for people, not metrics', line: 'The less you need us, the better we have done.' },
+];
+
+const nevers = [
+	{ icon: 'Ban', label: 'No ads' },
+	{ icon: 'ShieldCheck', label: 'Never sells your data' },
+	{ icon: 'Infinity', label: 'No infinite scroll' },
+	{ icon: 'BellOff', label: 'No anxious notifications' },
+];
 ---
 
 <!doctype html>
@@ -16,142 +34,93 @@ import { SITE_TITLE } from '../consts';
 		<BaseHead title="Our Story: Why We Built Respite" description="Built at 2am by someone who couldn't stop scrolling. Respite rests on one idea: you don't need to be controlled, just given a moment to choose differently." />
 		<BreadcrumbSchema
 			items={[
-				{ name: "Home", url: "https://respite.liveintently.app" },
-				{ name: "About", url: "https://respite.liveintently.app/about/" }
+				{ name: 'Home', url: 'https://respite.liveintently.app' },
+				{ name: 'About', url: 'https://respite.liveintently.app/about/' },
 			]}
 		/>
 		<ProfilePageSchema />
 	</head>
-	<body>
+	<body class="m-page">
 		<Header />
 
-		<main>
-			<!-- About Hero - Glass -->
-			<section class="about-hero">
-				<div class="hero-glow" aria-hidden="true"></div>
-				<div class="container">
-					<h1 class="text-gradient">We Built This Because We Needed It Too</h1>
-					<p class="hero-subtitle">Respite wasn't born in a boardroom. It was born at 2am, during yet another scroll session that left us feeling empty. We knew there had to be a kinder way.</p>
-				</div>
+		<main class="m">
+			<section class="ab-hero" aria-labelledby="ab-title">
+				<div class="m-biscuit-disc ab-disc" aria-hidden="true"><Biscuit mood="peek_phone" size={170} label="Biscuit peeking at a phone" /></div>
+				<h1 id="ab-title">We built this because we needed it too</h1>
+				<p class="m-dek">Respite started at 2am, mid-scroll. There had to be a kinder way.</p>
 			</section>
 
-			<!-- Mission - Glass Card -->
-			<section class="mission">
-				<div class="container">
-					<ScrollReveal animation="fadeUp">
-						<div class="mission-card">
-							<span class="mission-eyebrow">Our Belief</span>
-							<p>You're not broken. You're not weak. The apps on your phone were designed by thousands of engineers to be irresistible. The fact that you're here, looking for a solution, means you're already fighting back.</p>
-							<p>We believe you don't need to be controlled. You need to be seen. Respite doesn't lock your phone or shame you into compliance. It simply gives you a moment—one breath, one question—before the autopilot kicks in. In that moment, you remember who you are and what you actually want. Curious where you stand? <a href="/quiz/">Take our Phone Addiction Quiz</a> to find out.</p>
-						</div>
-					</ScrollReveal>
-				</div>
-			</section>
-
-			<!-- Values - Bento Grid -->
-			<section class="values">
-				<div class="container">
-					<ScrollReveal animation="fadeUp">
-						<h2 class="section-title">Our Values</h2>
-					</ScrollReveal>
-
-					<ScrollReveal animation="fadeUp">
-						<div class="values-grid">
-							<div class="value-card value-hero">
-								<div class="bento-icon bento-icon-blue">
-									<Icon name="Lock" size={32} color="var(--ds-primary)" />
-								</div>
-								<h3>Your Usage History Stays on Your Phone</h3>
-								<p>Respite keeps your screen-time history on your device, works without an account for the core features, and only syncs if you choose to sign in. There are no ads. We never sell data, and each version's privacy policy lists exactly what it collects. Read the privacy policy for <a href="/privacy/">iPhone</a>, <a href="/privacy/android/">Android</a> or <a href="/privacy/chrome/">Chrome</a>.</p>
-							</div>
-
-							<div class="value-card">
-								<div class="bento-icon bento-icon-purple">
-									<Icon name="Brain" size={28} color="var(--ds-purple)" />
-								</div>
-								<h3>Awareness, Not Punishment</h3>
-								<p>Blocking apps feels like putting a lock on the fridge. It doesn't address why you're hungry. Respite addresses the why—by creating moments of awareness where you can choose consciously.</p>
-							</div>
-
-							<div class="value-card">
-								<div class="bento-icon bento-icon-green">
-									<Icon name="Target" size={28} color="var(--ds-green)" />
-								</div>
-								<h3>Inspired by Habit Research</h3>
-								<p>Our approach draws on ideas from habit formation and behavioral psychology. The goal is simple: you feel in control of your phone, not the other way around. See how it works on our <a href="/features/">Features</a> page.</p>
-							</div>
-
-							<div class="value-card">
-								<div class="bento-icon bento-icon-red">
-									<Icon name="Heart" size={28} color="var(--ds-red)" />
-								</div>
-								<h3>Built for Humans, Not Metrics</h3>
-								<p>We'll never add infinite scroll, push notifications designed to create anxiety, or 'engagement' features. Our success metric is simple: the less you need us, the better we've done our job.</p>
-							</div>
-						</div>
-					</ScrollReveal>
-				</div>
-			</section>
-
-			<!-- Story - Pull-Quote Narrative -->
-			<section class="story">
-				<div class="container">
-					<ScrollReveal animation="fadeUp">
-						<h2 class="section-title">The Story Behind Respite</h2>
-					</ScrollReveal>
-
-					<div class="story-layout">
-						<ScrollReveal animation="fadeUp">
-							<div class="story-block">
-								<p>It was 1:47am on a Tuesday. I'd been scrolling for two hours. I didn't even remember opening Instagram. My thumb was moving, but I wasn't there.</p>
-							</div>
-						</ScrollReveal>
-
-						<ScrollReveal animation="fadeUp">
-							<blockquote class="pull-quote">
-								<p>When I finally put the phone down, I felt hollow. Not relaxed. Not entertained. Just <em>empty</em>.</p>
-							</blockquote>
-						</ScrollReveal>
-
-						<ScrollReveal animation="fadeUp">
-							<div class="story-block">
-								<p>And angry—at myself, at the app, at whoever designed that endless feed to be so perfectly, maddeningly addictive.</p>
-								<p>I'd tried screen time apps before. They blocked me out of my own phone like a parent grounding a child. They showed scary usage stats designed to shame me. None of it worked.</p>
-							</div>
-						</ScrollReveal>
-
-						<ScrollReveal animation="fadeUp">
-							<blockquote class="pull-quote pull-quote-highlight">
-								<p>What if an app didn't try to control me? What if it just asked me a question?</p>
-								<cite>'Is this what you want to be doing right now?'</cite>
-							</blockquote>
-						</ScrollReveal>
-
-						<ScrollReveal animation="fadeUp">
-							<div class="story-block">
-								<p>That question became Respite.</p>
-								<p>Today, that moment of pause helps people choose their own path. Some days they choose to scroll—and that's fine. The point was never to eliminate screens. The point was to make it a <em>choice</em>. Your choice.</p>
-							</div>
-						</ScrollReveal>
+			<!-- The story, beside the moment it started -->
+			<section class="ab-story" aria-labelledby="story-title">
+				<div class="ab-night" role="img" aria-label="A phone at 1:47am on a Tuesday, asking: Is this what you want to be doing right now?">
+					<span class="ab-night-day" aria-hidden="true">Tuesday</span>
+					<span class="ab-night-time" aria-hidden="true">1:47</span>
+					<div class="ab-night-card" aria-hidden="true">
+						<span class="ab-night-icon"><Icon name="Hourglass" size={22} /></span>
+						<p>Is this what you want to be doing right now?</p>
+						<span class="ab-night-btns"><span>Put it down</span><span>Keep going</span></span>
 					</div>
+					<div class="ab-night-fox" aria-hidden="true"><Biscuit mood="sleepy" size={110} label="Biscuit sleepy" /></div>
+				</div>
+
+				<div class="ab-story-copy">
+					<h2 id="story-title" class="m-h2">How it started</h2>
+					<p>It was 1:47am on a Tuesday. I'd been scrolling for two hours and didn't remember opening Instagram.</p>
+					<blockquote>When I finally put the phone down, I felt hollow. Not relaxed. Just empty.</blockquote>
+					<p>Other screen time apps locked me out like a parent grounding a child, or shamed me with scary stats. None of it worked.</p>
+					<p>So I asked: what if an app didn't try to control me, and just asked me a question? That question became Respite.</p>
+					<p class="ab-sign">Some days you'll still choose to scroll, and that's fine. The point is that it's your choice.</p>
 				</div>
 			</section>
 
-			<!-- CTA - Enhanced -->
-			<section class="cta-section">
-				<div class="cta-divider" aria-hidden="true"></div>
-				<div class="container">
-					<ScrollReveal animation="fadeUp">
-						<div class="cta-glass">
-							<h2>You're Already Taking the First Step</h2>
-							<p>The fact that you're here means something. Take the next step—it's free, has no ads, and takes about 30 seconds.</p>
-							<div class="cta-buttons" data-placement="final_cta">
-								<Button href="/download/" variant="primary" size="lg">Download Respite</Button>
-								<Button href="/blog/" variant="secondary" size="lg">Read Our Blog</Button>
-								<Button href="/compare/" variant="secondary" size="lg">Compare Apps</Button>
-							</div>
+			<section class="m-section" aria-labelledby="beliefs-title">
+				<h2 id="beliefs-title" class="m-h2 ab-center">What we believe</h2>
+				<div class="ab-beliefs">
+					{beliefs.map((b) => (
+						<div class="ab-belief">
+							<span class={`m-tile ${b.tone}`}><Icon name={b.icon} size={22} /></span>
+							<h3>{b.title}</h3>
+							<p>{b.line}</p>
 						</div>
-					</ScrollReveal>
+					))}
+				</div>
+			</section>
+
+			<section class="m-section" aria-labelledby="never-title">
+				<div class="ab-center-head">
+					<h2 id="never-title" class="m-h2">What we'll never do</h2>
+					<p class="m-caption">Privacy policy for <a href="/privacy/">iPhone</a>, <a href="/privacy/android/">Android</a> and <a href="/privacy/chrome/">Chrome</a></p>
+				</div>
+				<ul class="ab-nevers">
+					{nevers.map((n) => (
+						<li>
+							<span class="m-tile is-success"><Icon name={n.icon} size={22} /></span>
+							{n.label}
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<section class="ab-studio" aria-labelledby="studio-title">
+				<img src="/logo.svg" alt="" width="64" height="64" class="ab-logo" />
+				<div class="ab-studio-copy">
+					<h2 id="studio-title">Made by Intently</h2>
+					<p>Respite is made by the Intently studio. Questions, ideas and bug reports are always welcome.</p>
+				</div>
+				<div class="ab-studio-links">
+					<a class="m-btn is-soft" href="/contact/"><Icon name="MessageCircle" size={18} />Contact us</a>
+					<a class="m-btn is-soft" href={`mailto:${SUPPORT_EMAIL}`}><Icon name="Mail" size={18} />Email</a>
+					<a class="m-btn is-soft" href="https://liveintently.app">More apps</a>
+				</div>
+			</section>
+
+			<section class="m-end" aria-labelledby="end-title" data-placement="final_cta">
+				<Biscuit mood="cheer" size={110} label="Biscuit cheering" />
+				<h2 id="end-title">You're already taking the first step</h2>
+				<p>Free, no ads, about a minute to set up.</p>
+				<div class="m-actions ab-end-actions">
+					<a href="/download/" class="m-btn">Download Respite</a>
+					<a href="/quiz/" class="m-btn is-soft">Take the quiz</a>
 				</div>
 			</section>
 		</main>
@@ -161,536 +130,305 @@ import { SITE_TITLE } from '../consts';
 </html>
 
 <style>
-	main {
-		width: 100%;
-	}
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 1rem;
-	}
-
-	/* ============================
-	   HERO - Glass with gradient
-	   ============================ */
-	.about-hero {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: linear-gradient(180deg, var(--ds-bg-accent) 0%, var(--ds-bg-secondary) 100%);
+	.ab-center,
+	.ab-center-head {
+		justify-self: center;
 		text-align: center;
+	}
+
+	.ab-center-head {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	/* ------------------------------------------------------------ hero */
+	.ab-hero {
+		display: grid;
+		justify-items: center;
+		gap: 1rem;
+		text-align: center;
+	}
+
+	.ab-disc {
+		width: 190px;
+	}
+
+	.ab-hero h1 {
+		max-width: 16ch;
+		margin: 0.75rem 0 0;
+		font-size: clamp(2.3rem, 1.6rem + 2.8vw, 3.6rem);
+		font-weight: 800;
+		line-height: 1.05;
+		letter-spacing: -0.02em;
+		text-wrap: balance;
+	}
+
+	/* ------------------------------------------------------------ story */
+	.ab-story {
+		display: grid;
+		gap: 2.5rem;
+		align-items: center;
+	}
+
+	@media (min-width: 900px) {
+		.ab-story {
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+			gap: 3.5rem;
+		}
+	}
+
+	/* The night screen stays dark in both themes: it is 1:47am. */
+	.ab-night {
 		position: relative;
+		display: grid;
+		justify-items: center;
+		align-content: start;
+		gap: 0.25rem;
+		min-height: 480px;
+		padding: 3rem 1.5rem 2rem;
+		border-radius: 36px;
+		background: #142632;
+		color: #e8f2f7;
 		overflow: hidden;
 	}
 
-	.about-hero::before {
-		content: '';
-		display: block;
-		height: 7rem;
+	.ab-night-day {
+		font-family: var(--font-heading);
+		font-size: 1rem;
+		font-weight: 700;
+		opacity: 0.75;
 	}
 
-	.hero-glow {
-		position: absolute;
-		top: -100px;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 600px;
-		height: 400px;
-		background: radial-gradient(ellipse, rgba(var(--ds-brand-rgb),  0.12) 0%, transparent 70%);
-		filter: blur(60px);
-		pointer-events: none;
-	}
-
-	.text-gradient {
-		font-size: 2rem;
+	.ab-night-time {
+		font-family: var(--font-heading);
+		font-size: clamp(4.5rem, 3rem + 5vw, 6.5rem);
 		font-weight: 800;
-		margin: 0 0 var(--ds-space-md);
-		letter-spacing: -0.02em;
-		line-height: 1.2;
-		background: linear-gradient(135deg, var(--ds-primary) 0%, var(--ds-purple) 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
+		line-height: 1;
+		letter-spacing: -0.03em;
+		font-variant-numeric: tabular-nums;
 	}
 
-	.hero-subtitle {
-		font-size: 1.25rem;
-		max-width: 700px;
-		margin: 0 auto;
-		color: var(--ds-text-secondary);
-		line-height: 1.6;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.hero-glow {
-			background: radial-gradient(ellipse, rgba(var(--ds-brand-rgb),  0.08) 0%, transparent 70%);
-		}
-	}
-
-	/* ============================
-	   MISSION - Glass Card
-	   ============================ */
-	.mission {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-secondary);
-	}
-
-	.mission-card {
-		max-width: 800px;
-		margin: 0 auto;
-		padding: var(--ds-space-2xl);
-		background: rgba(255, 255, 255, 0.75);
-		backdrop-filter: blur(20px) saturate(160%);
-		-webkit-backdrop-filter: blur(20px) saturate(160%);
-		border: 1px solid rgba(255, 255, 255, 0.8);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 4px 20px rgba(0, 0, 0, 0.06);
-		border-radius: 24px;
-		text-align: center;
-	}
-
-	.mission-eyebrow {
-		display: inline-block;
-		font-size: 0.8125rem;
-		font-weight: 600;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-		color: var(--ds-primary);
-		margin-bottom: var(--ds-space-lg);
-	}
-
-	.mission-card p {
-		font-size: 1.125rem;
-		line-height: 1.8;
-		color: var(--ds-text-secondary);
-		margin: 0 0 var(--ds-space-lg);
-	}
-
-	.mission-card p:last-child {
-		margin-bottom: 0;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.mission-card {
-			background: rgba(21, 38, 47, 0.75);
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.1),
-				0 4px 20px rgba(0, 0, 0, 0.4);
-		}
-	}
-
-	/* ============================
-	   VALUES - Bento Grid
-	   ============================ */
-	.values {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-primary);
-	}
-
-	.section-title {
-		font-size: 2rem;
-		font-weight: 700;
-		text-align: center;
-		margin: 0 0 var(--ds-space-2xl);
-		color: var(--ds-text-primary);
-	}
-
-	.values-grid {
+	.ab-night-card {
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: 1rem;
-		max-width: 1000px;
-		margin: 0 auto;
-	}
-
-	.value-card {
-		position: relative;
-		padding: 1.5rem;
-		background: rgba(255, 255, 255, 0.75);
-		backdrop-filter: blur(20px) saturate(160%);
-		-webkit-backdrop-filter: blur(20px) saturate(160%);
-		border: 1px solid rgba(255, 255, 255, 0.8);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 4px 20px rgba(0, 0, 0, 0.06);
-		border-radius: 24px;
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.value-hero {
-		padding: 2rem;
-	}
-
-	@media (hover: hover) {
-		.value-card:hover {
-			transform: scale(1.02);
-		}
-
-		.value-card:hover .bento-icon::before {
-			opacity: 0.25;
-			transform: scale(1.3);
-		}
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.value-card {
-			background: rgba(21, 38, 47, 0.75);
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.1),
-				0 4px 20px rgba(0, 0, 0, 0.4);
-		}
-	}
-
-	/* Icon with glow */
-	.bento-icon {
-		width: 56px;
-		height: 56px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: relative;
-		margin-bottom: 1rem;
-		flex-shrink: 0;
-	}
-
-	.bento-icon::before {
-		content: '';
-		position: absolute;
-		inset: -4px;
-		border-radius: 50%;
-		opacity: 0.15;
-		transition: opacity 0.4s ease, transform 0.4s ease;
-	}
-
-	.bento-icon-blue::before { background: radial-gradient(circle, var(--ds-primary), transparent 70%); }
-	.bento-icon-purple::before { background: radial-gradient(circle, var(--ds-purple), transparent 70%); }
-	.bento-icon-green::before { background: radial-gradient(circle, var(--ds-green), transparent 70%); }
-	.bento-icon-red::before { background: radial-gradient(circle, var(--ds-red), transparent 70%); }
-
-	.value-card h3 {
-		font-size: 1.125rem;
-		font-weight: 700;
-		margin: 0 0 0.5rem;
-		color: var(--ds-text-primary);
-		line-height: 1.3;
-		letter-spacing: -0.01em;
-	}
-
-	.value-hero h3 {
-		font-size: 1.375rem;
-	}
-
-	.value-card p {
-		font-size: 0.9375rem;
-		line-height: 1.6;
-		color: var(--ds-text-secondary);
-		margin: 0;
-	}
-
-	/* ============================
-	   STORY - Pull-Quote Narrative
-	   ============================ */
-	.story {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-secondary);
-	}
-
-	.story-layout {
-		max-width: 720px;
-		margin: 0 auto;
-	}
-
-	.story-block p {
-		font-size: 1.125rem;
-		line-height: 1.8;
-		color: var(--ds-text-secondary);
-		margin: 0 0 var(--ds-space-lg);
-	}
-
-	.story-block p:last-child {
-		margin-bottom: 0;
-	}
-
-	.story-block strong {
-		color: var(--ds-text-primary);
-		font-weight: 700;
-	}
-
-	/* Pull quotes */
-	.pull-quote {
-		margin: var(--ds-space-xl) 0;
-		padding: var(--ds-space-xl) var(--ds-space-2xl);
-		border-left: 4px solid var(--ds-primary);
-		background: rgba(255, 255, 255, 0.75);
-		backdrop-filter: blur(20px) saturate(160%);
-		-webkit-backdrop-filter: blur(20px) saturate(160%);
-		border-radius: 0 24px 24px 0;
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 4px 20px rgba(0, 0, 0, 0.06);
-	}
-
-	.pull-quote p {
-		font-size: 1.375rem;
-		font-weight: 600;
-		line-height: 1.5;
-		color: var(--ds-text-primary);
-		margin: 0;
-		font-style: italic;
-	}
-
-	.pull-quote em {
-		font-style: italic;
-		color: var(--ds-primary);
-	}
-
-	.pull-quote-highlight {
-		border-left-color: var(--ds-purple);
-	}
-
-	.pull-quote-highlight p {
-		font-size: 1.5rem;
-	}
-
-	.pull-quote cite {
-		display: block;
-		margin-top: var(--ds-space-md);
-		font-size: 1.125rem;
-		font-style: normal;
-		font-weight: 700;
-		background: linear-gradient(135deg, var(--ds-primary) 0%, var(--ds-purple) 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.pull-quote {
-			background: rgba(21, 38, 47, 0.75);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.1),
-				0 4px 20px rgba(0, 0, 0, 0.4);
-		}
-	}
-
-	/* ============================
-	   CTA - Enhanced Glass
-	   ============================ */
-	.cta-section {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-primary);
+		justify-items: center;
+		gap: 0.75rem;
+		width: min(300px, 100%);
+		margin-top: 2rem;
+		padding: 1.4rem 1.2rem 1.2rem;
+		border-radius: 26px;
+		background: #ffffff;
+		color: #13222d;
+		box-shadow: 0 20px 40px -16px rgba(0, 0, 0, 0.6);
 		text-align: center;
-		position: relative;
 	}
 
-	.cta-divider {
+	.ab-night-icon {
+		display: grid;
+		place-items: center;
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		background: #e2eef4;
+		color: #24465a;
+	}
+
+	.ab-night-card p {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: 1.15rem;
+		font-weight: 800;
+		line-height: 1.3;
+	}
+
+	.ab-night-btns {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.5rem;
+		width: 100%;
+	}
+
+	.ab-night-btns span {
+		padding: 0.55rem;
+		border-radius: 999px;
+		background: #2f6079;
+		color: #ffffff;
+		font-family: var(--font-heading);
+		font-size: 0.9rem;
+		font-weight: 800;
+	}
+
+	.ab-night-btns span:last-child {
+		background: #e8eff4;
+		color: #46596a;
+	}
+
+	.ab-night-fox {
 		position: absolute;
-		top: 0;
-		left: 10%;
-		right: 10%;
-		height: 1px;
-		background: linear-gradient(
-			90deg,
-			transparent 0%,
-			var(--ds-primary) 30%,
-			var(--ds-purple) 50%,
-			var(--ds-green) 70%,
-			transparent 100%
-		);
-		opacity: 0.3;
+		left: 0.5rem;
+		bottom: -0.25rem;
 	}
 
-	.cta-glass {
-		max-width: 700px;
-		margin: 0 auto;
-		padding: var(--ds-space-2xl);
-		background: rgba(255, 255, 255, 0.75);
-		backdrop-filter: blur(20px) saturate(160%);
-		-webkit-backdrop-filter: blur(20px) saturate(160%);
-		border: 1px solid rgba(255, 255, 255, 0.8);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 4px 20px rgba(0, 0, 0, 0.06);
-		border-radius: 24px;
+	.ab-story-copy {
+		display: grid;
+		gap: 1rem;
+		font-size: 1.1rem;
+		line-height: 1.65;
 	}
 
-	@media (prefers-color-scheme: dark) {
-		.cta-divider {
-			opacity: 0.4;
-		}
-
-		.cta-glass {
-			background: rgba(21, 38, 47, 0.75);
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.1),
-				0 4px 20px rgba(0, 0, 0, 0.4);
-		}
+	.ab-story-copy h2 {
+		margin-bottom: 0.25rem;
 	}
 
-	.cta-glass h2 {
-		font-size: 2rem;
+	.ab-story-copy p {
+		margin: 0;
+		color: var(--m-ink-soft);
+	}
+
+	.ab-story-copy blockquote {
+		margin: 0.25rem 0;
+		padding: 1.25rem 1.5rem;
+		border: 0;
+		border-radius: 20px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		font-family: var(--font-heading);
+		font-size: 1.3rem;
+		font-style: normal;
+		font-weight: 800;
+		line-height: 1.4;
+	}
+
+	.ab-story-copy .ab-sign {
+		color: var(--m-ink);
 		font-weight: 700;
-		margin: 0 0 var(--ds-space-md);
-		color: var(--ds-text-primary);
 	}
 
-	.cta-glass p {
-		font-size: 1.125rem;
-		color: var(--ds-text-secondary);
-		max-width: 600px;
-		margin: 0 auto var(--ds-space-xl);
+	/* ------------------------------------------------------------ beliefs */
+	.ab-beliefs {
+		display: grid;
+		gap: 1.25rem;
 	}
 
-	.cta-buttons {
-		display: flex;
-		gap: var(--ds-space-md);
-		justify-content: center;
-		flex-wrap: wrap;
+	@media (min-width: 680px) {
+		.ab-beliefs {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
 	}
 
-	/* ============================
-	   RESPONSIVE
-	   ============================ */
+	.ab-belief {
+		display: grid;
+		align-content: start;
+		gap: 0.6rem;
+		padding: 1.75rem;
+		border-radius: 28px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+	}
 
-	/* Tablet */
-	@media (min-width: 768px) {
-		.about-hero,
-		.mission,
-		.values,
-		.story,
-		.cta-section {
-			padding: var(--ds-space-3xl) 0;
+	.ab-belief .m-tile {
+		width: 52px;
+		height: 52px;
+		border-radius: 15px;
+		margin-bottom: 0.4rem;
+	}
+
+	.ab-belief h3 {
+		margin: 0;
+		font-size: 1.3rem;
+		font-weight: 800;
+	}
+
+	.ab-belief p {
+		margin: 0;
+		line-height: 1.55;
+		color: var(--m-ink-soft);
+	}
+
+	/* ------------------------------------------------------------ never */
+	.ab-nevers {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	@media (min-width: 960px) {
+		.ab-nevers {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
 		}
+	}
 
-		.text-gradient {
-			font-size: 2.5rem;
-		}
+	.ab-nevers li {
+		display: grid;
+		justify-items: center;
+		gap: 0.75rem;
+		padding: 1.5rem 1rem;
+		border-radius: 24px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		font-family: var(--font-heading);
+		font-size: 1.08rem;
+		font-weight: 800;
+		line-height: 1.3;
+		text-align: center;
+	}
 
-		.section-title {
-			font-size: 1.75rem;
-		}
+	/* ------------------------------------------------------------ studio */
+	.ab-studio {
+		display: grid;
+		justify-items: center;
+		gap: 1.25rem;
+		padding: 2rem 1.5rem;
+		border-radius: 28px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		text-align: center;
+	}
 
-		.values-grid {
-			grid-template-columns: repeat(2, 1fr);
+	@media (min-width: 900px) {
+		.ab-studio {
+			grid-template-columns: auto 1fr auto;
+			justify-items: start;
+			align-items: center;
 			gap: 1.5rem;
-		}
-
-		.value-hero {
-			grid-column: 1 / -1;
-		}
-
-		.cta-glass h2 {
-			font-size: 2rem;
+			padding: 1.75rem 2rem;
+			text-align: left;
 		}
 	}
 
-	/* Desktop */
-	@media (min-width: 1024px) {
-		.about-hero,
-		.mission,
-		.values,
-		.story,
-		.cta-section {
-			padding: var(--ds-space-4xl) 0;
-		}
-
-		.text-gradient {
-			font-size: 3rem;
-		}
-
-		.section-title {
-			font-size: 2rem;
-		}
-
-		.values-grid {
-			grid-template-columns: repeat(3, 1fr);
-		}
-
-		.value-hero {
-			grid-column: 1 / -1;
-		}
-
-		.pull-quote-highlight p {
-			font-size: 1.625rem;
-		}
-
-		.cta-glass h2 {
-			font-size: 2.5rem;
-		}
+	.ab-logo {
+		display: block;
+		width: 64px;
+		height: 64px;
+		border-radius: 18px;
 	}
 
-	/* Mobile */
-	@media (max-width: 767px) {
-		.hero-subtitle {
-			font-size: 1rem;
-		}
-
-		.mission-card {
-			padding: var(--ds-space-lg);
-		}
-
-		.mission-card p {
-			font-size: 1rem;
-		}
-
-		.bento-icon {
-			width: 48px;
-			height: 48px;
-		}
-
-		.story-block p {
-			font-size: 1rem;
-		}
-
-		.pull-quote {
-			padding: var(--ds-space-lg);
-			margin: var(--ds-space-lg) 0;
-		}
-
-		.pull-quote p {
-			font-size: 1.125rem;
-		}
-
-		.pull-quote-highlight p {
-			font-size: 1.25rem;
-		}
-
-		.cta-glass {
-			padding: var(--ds-space-xl) var(--ds-space-md);
-		}
-
-		.cta-buttons {
-			flex-direction: column;
-			gap: var(--ds-space-md);
-		}
-
-		.cta-divider {
-			display: none;
-		}
+	.ab-studio-copy h2 {
+		margin: 0 0 0.25rem;
+		font-size: 1.45rem;
+		font-weight: 800;
 	}
 
-	html {
-		scroll-behavior: smooth;
+	.ab-studio-copy p {
+		margin: 0;
+		color: var(--m-ink-soft);
+		line-height: 1.5;
 	}
 
-	a:focus-visible,
-	button:focus-visible {
-		outline: 2px solid var(--ds-primary);
-		outline-offset: 2px;
+	.ab-studio-links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.5rem;
 	}
 
-	@media (prefers-reduced-motion: reduce) {
-		.value-card,
-		.pull-quote {
-			transition: none;
-		}
+	.ab-studio-links .m-btn {
+		gap: 0.45rem;
+	}
+
+	.ab-end-actions {
+		justify-content: center;
 	}
 </style>
