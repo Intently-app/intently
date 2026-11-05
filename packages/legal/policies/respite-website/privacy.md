@@ -42,6 +42,10 @@ cookies or scripts for this site in your browser. The site works the same withou
 `utm_source`) to say which page sent you, so the store can count installs by source. The tags you
 arrived with are kept in your browser's session storage until you close the tab.
 
+**Reading on the blog:** your text size and how far you have read each article (so the blog can
+offer "Continue reading" and mark what you have read) are kept in your browser's local storage.
+They never leave your device; clear them by clearing this site's data in your browser.
+
 ## Forms
 
 - **Contact form:** your name, email address, subject and message are emailed to us through
