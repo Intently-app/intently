@@ -2,9 +2,10 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Button from '../components/ui/Button.astro';
+import '../styles/info-pages.css';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
+import JumpNav from '../components/ui/JumpNav.astro';
 
 const MCP_URL = 'https://respite-api.liveintently.app/mcp';
 const PAGE_URL = 'https://respite.liveintently.app/ai/';
@@ -69,29 +70,6 @@ const writeTools = [
 	{ name: 'remove_limit', what: 'Always becomes a request you approve; nothing is removed on its own.' },
 	{ name: 'remove_schedule', what: 'Always becomes a request you approve; nothing is removed on its own.' },
 	{ name: 'undo_change', what: 'Lets an AI undo a change it made itself.' },
-];
-
-const steps = [
-	{
-		n: '1',
-		title: 'Add Respite to your AI',
-		body: `In Claude, ChatGPT or Cursor, add a custom connector with the address ${MCP_URL}.`,
-	},
-	{
-		n: '2',
-		title: 'Sign in and allow',
-		body: 'Your AI opens a Respite page. You sign in with Google or Apple, the same as in the app, and approve the permissions it asks for. One checkbox, "Also let it make my limits stricter", is unticked by default.',
-	},
-	{
-		n: '3',
-		title: 'Ask in plain language',
-		body: 'Your AI decides which of Respite\'s tools to call and answers from your own synced data.',
-	},
-	{
-		n: '4',
-		title: 'Disconnect whenever you like',
-		body: 'Remove the connector in your AI app and its access ends. Deleting your Respite account ends every connection.',
-	},
 ];
 
 const live = [
@@ -195,6 +173,58 @@ const webPage = {
 	about: { '@id': 'https://respite.liveintently.app/#software' },
 	mainEntity: { '@id': 'https://respite.liveintently.app/#software' },
 };
+
+// Setup per assistant, from the connect guides on the blog. Steps may contain simple HTML.
+const setups = [
+	{
+		id: 'claude',
+		name: 'Claude',
+		steps: [
+			'In Claude.ai or Claude Desktop, open <strong>Settings</strong>, then <strong>Connectors</strong>.',
+			'Choose <strong>Add custom connector</strong>, name it Respite and paste the address.',
+			'Sign in with Google or Apple and choose <strong>Allow</strong>. Tick "Also let it make my limits stricter" only if you want that.',
+		],
+		command: '',
+		note: 'Remote servers like Respite go in Connectors, not in claude_desktop_config.json.',
+		guide: '/blog/connect-claude-to-screen-time/',
+	},
+	{
+		id: 'claude-code',
+		name: 'Claude Code',
+		steps: [
+			'Run the command below. Add <code>--scope user</code> to have Respite in every project.',
+			'Start Claude Code, type <code>/mcp</code>, select <strong>respite</strong> and choose to authenticate.',
+			'Your browser opens the Respite sign-in page. Sign in and allow.',
+		],
+		command: `claude mcp add --transport http respite ${MCP_URL}`,
+		note: 'To remove it later: claude mcp remove respite.',
+		guide: '/blog/connect-claude-to-screen-time/',
+	},
+	{
+		id: 'chatgpt',
+		name: 'ChatGPT',
+		steps: [
+			'Open <strong>Settings</strong> and find <strong>connectors</strong> (some versions say <strong>apps</strong>). Turn on developer mode there if your plan requires it.',
+			'Create a new connector with the name Respite and the address, and choose <strong>OAuth</strong>.',
+			'Sign in with Google or Apple and choose <strong>Allow</strong>, then switch Respite on in a new chat.',
+		],
+		command: '',
+		note: 'Custom connectors depend on your ChatGPT plan; on Business, Enterprise or Edu an admin may need to allow them.',
+		guide: '/blog/connect-chatgpt-to-phone-usage/',
+	},
+	{
+		id: 'cursor',
+		name: 'Cursor and others',
+		steps: [
+			'Add a <strong>remote (HTTP) MCP server</strong> with the address.',
+			'The assistant registers itself with Respite and opens your browser.',
+			'Sign in with Google or Apple and allow.',
+		],
+		command: '',
+		note: 'Works with any assistant that supports remote MCP servers with OAuth.',
+		guide: '/blog/connect-claude-chatgpt-cursor-to-respite-mcp/',
+	},
+];
 ---
 
 <!doctype html>
@@ -211,66 +241,118 @@ const webPage = {
 		<script type="application/ld+json" set:html={JSON.stringify(webPage)} />
 		<FAQSchema faqs={faqs} />
 	</head>
-	<body>
+	<body class="ip-page">
 		<Header />
 
-		<main>
-			<section class="hero">
-				<div class="container">
-					<p class="eyebrow">Bring your own AI</p>
-					<h1>AI Screen Time App: Connect Claude or ChatGPT to Your Real Phone Data</h1>
-					<p class="answer">{answer}</p>
-					<div class="hero-actions">
-						<Button href="/blog/connect-claude-to-screen-time/" variant="secondary" size="lg">Connect Claude</Button>
-						<Button href="/blog/connect-chatgpt-to-phone-usage/" variant="secondary" size="lg">Connect ChatGPT</Button>
-					</div>
-					<p class="hero-note">Respite Plus. Updated November 2026.</p>
-				</div>
-			</section>
+		<main class="ip">
+			<header class="ip-head">
+				<h1>AI Screen Time App: Connect Claude or ChatGPT to Your Real Phone Data</h1>
+				<p class="ip-dek">{answer}</p>
+				<ul class="ip-facts" aria-label="At a glance">
+					<li>Reads by default</li>
+					<li>Stricter limits only if you opt in</li>
+					<li>Respite runs no AI</li>
+					<li>Disconnect any time</li>
+				</ul>
+				<p class="ai-meta"><span class="ip-badge ip-badge-plus">Respite Plus</span> Updated November 2026.</p>
+			</header>
 
-			<section class="section">
-				<div class="container narrow">
-					<h2 class="section-title">What can I ask my AI about my screen time?</h2>
-					<p class="section-description">These prompts work with the read tools. Your AI picks the tool; you just ask.</p>
-					<div class="table-wrapper">
-						<table class="data-table">
-							<thead>
-								<tr><th>Ask</th><th>Tool used</th></tr>
-							</thead>
-							<tbody>
-								{prompts.map((p) => (
-									<tr><td>{p.prompt}</td><td><code>{p.tool}</code></td></tr>
-								))}
-							</tbody>
-						</table>
-					</div>
-					<p class="small">More in <a href="/blog/chatgpt-claude-screen-time-prompts/">30 prompts to ask Claude or ChatGPT about your screen time</a>.</p>
-				</div>
-			</section>
+			<JumpNav links={[{ href: '#setup', label: 'Set it up' }, { href: '#ask', label: 'What to ask' }, { href: '#can', label: 'What it can do' }, { href: '#status', label: "What's live" }, { href: '#privacy', label: 'Privacy' }, { href: '#compare', label: 'Compared' }, { href: '#faq', label: 'Questions' }]} />
 
-			<section class="section section-alt">
-				<div class="container">
-					<h2 class="section-title">How does it work?</h2>
-					<p class="section-description">Respite hosts an MCP server. Your AI app is the client. You stay in control of who connects.</p>
-					<ol class="steps">
-						{steps.map((s) => (
-							<li class="step">
-								<span class="step-n">{s.n}</span>
-								<h3>{s.title}</h3>
-								<p>{s.body}</p>
-							</li>
+			<section class="ip-section" id="setup" aria-labelledby="setup-title">
+				<h2 id="setup-title">Set it up in about two minutes</h2>
+				<p class="ip-lead">Every assistant uses the same address. Add it as a custom connector, sign in with the Google or Apple account you use in Respite, and allow access.</p>
+
+				<div class="ai-address">
+					<label for="mcp-url">Respite's MCP server</label>
+					<div class="ai-copyline">
+						<input id="mcp-url" type="text" value={MCP_URL} readonly />
+						<button type="button" class="ip-copy" data-copy={MCP_URL}>Copy address</button>
+					</div>
+				</div>
+
+				<div class="ai-tabs" data-tabs>
+					<div class="ai-tablist" role="tablist" aria-label="Your AI app">
+						{setups.map((s, i) => (
+							<button type="button" role="tab" id={`tab-${s.id}`} aria-controls={`panel-${s.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{s.name}</button>
 						))}
-					</ol>
-					<div class="flow" aria-label="Data flow">
-						<span>You</span><span class="arrow">&rarr;</span>
-						<span>Your AI app<small>Claude, ChatGPT, Cursor</small></span><span class="arrow">&rarr;</span>
-						<span>OAuth sign-in<small>Google or Apple</small></span><span class="arrow">&rarr;</span>
-						<span>Respite MCP server<small>read tools, opt-in stricter-limits tools</small></span><span class="arrow">&rarr;</span>
-						<span>Your synced data</span>
 					</div>
-					<h3 class="sub">The tools your AI can call today</h3>
-					<div class="table-wrapper">
-						<table class="data-table">
+					{setups.map((s, i) => (
+						<div class="ai-panel" role="tabpanel" id={`panel-${s.id}`} aria-labelledby={`tab-${s.id}`} hidden={i !== 0}>
+							<ol class="ai-steps">
+								{s.steps.map((step) => <li><span set:html={step} /></li>)}
+							</ol>
+							{s.command && (
+								<div class="ai-copyline ai-command">
+									<code>{s.command}</code>
+									<button type="button" class="ip-copy" data-copy={s.command}>Copy command</button>
+								</div>
+							)}
+							<p class="ip-note">{s.note} <a href={s.guide}>Full {s.name} guide</a></p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section class="ip-section" id="ask" aria-labelledby="ask-title">
+				<h2 id="ask-title">What can I ask?</h2>
+				<p class="ip-lead">Copy one to start. Your AI picks the right tool; you just ask in plain language.</p>
+				<ul class="ai-prompts">
+					{prompts.map((p) => (
+						<li>
+							<p class="ai-prompt">{p.prompt}</p>
+							<span class="ai-tool">{p.tool}</span>
+							<button type="button" class="ip-copy" data-copy={p.prompt} aria-label={`Copy prompt: ${p.prompt}`}>Copy</button>
+						</li>
+					))}
+				</ul>
+				<p class="ip-note">With the opt-in, try "Lower my Instagram limit to 20 minutes on weekdays" or "Add a schedule that blocks TikTok and YouTube 10pm to 7am". More in <a href="/blog/chatgpt-claude-screen-time-prompts/">30 prompts for your screen time</a>.</p>
+			</section>
+
+			<section class="ip-section" id="can" aria-labelledby="can-title">
+				<h2 id="can-title">What your AI can and can't do</h2>
+				<p class="ip-lead">Reading is part of every connection. Changing anything is a separate choice, and loosening a limit is never automatic.</p>
+				<div class="ai-perms">
+					<div class="ai-perm">
+						<h3>Always, once connected</h3>
+						<ul>
+							<li>Read your usage, insights, limits and schedules</li>
+							<li>Read your sessions and the moments you were paused</li>
+							<li>Read your streak, acorns, quests and league tier</li>
+						</ul>
+					</div>
+					<div class="ai-perm">
+						<h3>Only if you tick the box</h3>
+						<ul>
+							<li>Lower a daily limit, applied at once</li>
+							<li>Add a blocking schedule, applied at once</li>
+							<li>Undo a change it made itself</li>
+						</ul>
+					</div>
+					<div class="ai-perm">
+						<h3>Only with your approval</h3>
+						<ul>
+							<li>Raise or remove a limit</li>
+							<li>Remove a schedule</li>
+							<li>Requests expire after 7 days</li>
+						</ul>
+					</div>
+					<div class="ai-perm ai-perm-never">
+						<h3>Never</h3>
+						<ul>
+							<li>Change pause messages or custom rules</li>
+							<li>Write usage history, earn or spend acorns</li>
+							<li>Block apps outside your limits and schedules</li>
+						</ul>
+					</div>
+				</div>
+				<p class="ip-note">Every AI change is logged for 90 days with which AI, what changed and the reason it gave, and each connection can make at most 30 changes an hour. <a href="/blog/let-ai-change-your-limits/">How AI changes to limits work</a>.</p>
+
+				<details class="ai-ref">
+					<summary>Tool reference for the technically curious</summary>
+					<h3>Read tools</h3>
+					<div class="ip-table-wrap" role="region" aria-label="Read tools" tabindex="0">
+						<table class="ip-table">
 							<thead><tr><th>Tool</th><th>What it returns</th><th>Plan</th></tr></thead>
 							<tbody>
 								{tools.map((t) => (
@@ -279,10 +361,9 @@ const webPage = {
 							</tbody>
 						</table>
 					</div>
-					<h3 class="sub">Opt-in tools that make limits stricter</h3>
-					<p class="small">Available only if you tick "Also let it make my limits stricter" on Respite's approval page (Respite Plus). Try: "Lower my Instagram limit to 20 minutes on weekdays", "Add a schedule that blocks TikTok and YouTube 10pm to 7am" or "Undo the last change you made".</p>
-					<div class="table-wrapper">
-						<table class="data-table">
+					<h3>Opt-in tools that make limits stricter</h3>
+					<div class="ip-table-wrap" role="region" aria-label="Opt-in tools" tabindex="0">
+						<table class="ip-table">
 							<thead><tr><th>Tool</th><th>What it does</th></tr></thead>
 							<tbody>
 								{writeTools.map((t) => (
@@ -291,207 +372,400 @@ const webPage = {
 							</tbody>
 						</table>
 					</div>
-					<p class="small">
-						Reading is always part of a connection; making limits stricter is a separate choice, unticked by default. An AI cannot change pause messages or custom rules, write usage history, earn or spend acorns, or block apps outside your limits and schedules.
-						Read <a href="/blog/let-ai-change-your-limits/">how letting your AI change your limits works</a>.
-						New to the term? Read <a href="/blog/what-is-an-mcp-server/">what an MCP server is, in plain English</a>.
-					</p>
-				</div>
+					<p class="ip-note">Resources <code>respite://today</code> and <code>respite://week</code> give ready-made summaries. New to the term? <a href="/blog/what-is-an-mcp-server/">What an MCP server is, in plain English</a>.</p>
+				</details>
 			</section>
 
-			<section class="section">
-				<div class="container narrow">
-					<h2 class="section-title">What is live and what is coming?</h2>
-					<p class="section-description">We describe a tool as available only when it is.</p>
-					<ul class="status-list">
-						{live.map(([what, state]) => (
-							<li>
-								<span class={`badge ${state.startsWith('Live') ? 'badge-live' : 'badge-soon'}`}>{state}</span>
-								<span>{what}</span>
-							</li>
-						))}
-					</ul>
-					<p class="small">Details are in <a href="/blog/let-ai-change-your-limits/">letting your AI change your limits</a> and <a href="/blog/bring-your-own-ai-to-respite/">bring your own AI to Respite</a>. The <a href="/whats-new/">What's new</a> page says when each one ships.</p>
-				</div>
-			</section>
-
-			<section class="section section-alt">
-				<div class="container narrow">
-					<h2 class="section-title">Is it private?</h2>
-					<ul class="plain">
-						<li><strong>Your AI provider handles the data.</strong> What a tool returns goes into your chat, so the assistant's provider (Anthropic, OpenAI, Cursor or another) processes it under its own policy and your account settings there.</li>
-						<li><strong>Respite runs no AI</strong> on your data and does not train models on it. Respite only answers the calls your connected AI makes.</li>
-						<li><strong>You choose the permissions</strong> on the consent screen, and tools that need a permission you did not grant return an error instead of data.</li>
-						<li><strong>You can disconnect</strong> in your AI app's connector settings. Deleting your Respite account ends every connection.</li>
-						<li><strong>Only synced data.</strong> The AI sees what your devices sync to your account, not what stays on a device.</li>
-					</ul>
-					<p class="small">
-						Read the full explanation in <a href="/blog/is-it-safe-to-give-ai-your-screen-time-data/">is it safe to give an AI your screen time data?</a>
-						Policies: <a href="/privacy/">iPhone</a>, <a href="/privacy/android/">Android</a>, <a href="/privacy/chrome/">Chrome</a>.
-					</p>
-				</div>
-			</section>
-
-			<section class="section">
-				<div class="container">
-					<h2 class="section-title">How do I set it up?</h2>
-					<p class="section-description">The address is the same everywhere: <code>{MCP_URL}</code></p>
-					<div class="card-grid">
-						<a href="/blog/connect-claude-to-screen-time/" class="card">
-							<h3>Claude</h3>
-							<p>Claude.ai and Claude Desktop: Settings, Connectors, Add custom connector. Claude Code: one command.</p>
-							<span class="card-link">Claude setup &rarr;</span>
-						</a>
-						<a href="/blog/connect-chatgpt-to-phone-usage/" class="card">
-							<h3>ChatGPT</h3>
-							<p>Add Respite as a custom MCP connector in ChatGPT's connector settings, where your plan allows it.</p>
-							<span class="card-link">ChatGPT setup &rarr;</span>
-						</a>
-						<a href="/blog/connect-claude-chatgpt-cursor-to-respite-mcp/" class="card">
-							<h3>Cursor and others</h3>
-							<p>Any assistant that supports remote MCP servers with OAuth. Includes permissions and troubleshooting.</p>
-							<span class="card-link">All clients &rarr;</span>
-						</a>
-					</div>
-				</div>
-			</section>
-
-			<section class="section section-alt">
-				<div class="container">
-					<h2 class="section-title">Respite vs in-app AI coaches</h2>
-					<p class="section-description">Two different ideas of "AI screen time". Facts checked November 2026; see the sources in our <a href="/blog/ai-screen-time-coach-apps-compared/">coach comparison</a>.</p>
-					<div class="table-wrapper">
-						<table class="data-table compare-table">
-							<thead>
-								<tr><th></th><th class="highlight">Respite (bring your own AI)</th><th>In-app AI coach apps</th><th>LockIn MCP</th></tr>
-							</thead>
-							<tbody>
-								{compare.map((row) => (
-									<tr><th scope="row">{row[0]}</th><td class="highlight">{row[1]}</td><td>{row[2]}</td><td>{row[3]}</td></tr>
-								))}
-							</tbody>
-						</table>
-					</div>
-					<p class="small">
-						Coach apps are not worse: if you want an AI to talk you out of an app at the moment you tap it, that is exactly what they do and Respite does not (yet).
-						LockIn MCP is a desktop website blocker; see <a href="/blog/respite-vs-lockin-mcp/">Respite vs LockIn MCP</a>. For the full picture of apps with AI features,
-						read <a href="/blog/best-ai-app-blockers-screen-time-apps-2026/">best AI app blockers and screen time apps in 2026</a>.
-					</p>
-				</div>
-			</section>
-
-			<section class="cta-section">
-				<div class="container">
-					<h2>Try it with your own data</h2>
-					<p>Respite is free to start on Android, iPhone and Chrome. Plus adds sync and bring your own AI.</p>
-					<div class="cta-buttons">
-						<Button href="/download/" variant="primary" size="lg">Download Respite</Button>
-						<Button href="/blog/respite-plus-whats-included/" variant="secondary" size="lg">What Plus includes</Button>
-					</div>
-				</div>
-			</section>
-
-			<section class="section">
-				<div class="container faq-container">
-					<h2 class="section-title">Frequently asked questions</h2>
-					{faqs.map((faq) => (
-						<details class="faq-item">
-							<summary>{faq.question}</summary>
-							<p>{faq.answer}</p>
-						</details>
+			<section class="ip-section" id="status" aria-labelledby="status-title">
+				<h2 id="status-title">What is live and what is coming?</h2>
+				<p class="ip-lead">We describe a tool as available only when it is.</p>
+				<ul class="ai-status">
+					{live.map(([what, state]) => (
+						<li>
+							<span class={`ip-badge ${state.startsWith('Live') ? 'ip-badge-live' : 'ip-badge-soon'}`}>{state}</span>
+							<span>{what}</span>
+						</li>
 					))}
+				</ul>
+				<p class="ip-note">The <a href="/whats-new/">What's new</a> page says when each one ships. Background: <a href="/blog/bring-your-own-ai-to-respite/">bring your own AI to Respite</a>.</p>
+			</section>
+
+			<section class="ip-section" id="privacy" aria-labelledby="privacy-title">
+				<h2 id="privacy-title">Is it private?</h2>
+				<ul class="ai-plain">
+					<li><strong>Your AI provider handles the data.</strong> What a tool returns goes into your chat, so the assistant's provider (Anthropic, OpenAI, Cursor or another) processes it under its own policy and your account settings there.</li>
+					<li><strong>Respite runs no AI</strong> on your data and does not train models on it. Respite only answers the calls your connected AI makes.</li>
+					<li><strong>You choose the permissions</strong> on the consent screen, and tools that need a permission you did not grant return an error instead of data.</li>
+					<li><strong>You can disconnect</strong> in your AI app's connector settings. Deleting your Respite account ends every connection.</li>
+					<li><strong>Only synced data.</strong> The AI sees what your devices sync to your account, not what stays on a device.</li>
+				</ul>
+				<p class="ip-note">
+					Read <a href="/blog/is-it-safe-to-give-ai-your-screen-time-data/">is it safe to give an AI your screen time data?</a>
+					Policies: <a href="/privacy/">iPhone</a>, <a href="/privacy/android/">Android</a>, <a href="/privacy/chrome/">Chrome</a>.
+				</p>
+			</section>
+
+			<section class="ip-section" id="compare" aria-labelledby="compare-title">
+				<h2 id="compare-title">Respite vs in-app AI coaches</h2>
+				<p class="ip-lead">Two different ideas of "AI screen time". Facts checked November 2026; sources in our <a href="/blog/ai-screen-time-coach-apps-compared/">coach comparison</a>.</p>
+				<div class="ip-table-wrap" role="region" aria-label="Respite compared with AI coach apps and LockIn MCP" tabindex="0">
+					<table class="ip-table ai-compare">
+						<thead>
+							<tr><th scope="col"><span class="ip-visually-hidden">Question</span></th><th scope="col" class="ip-col-hi">Respite (bring your own AI)</th><th scope="col">In-app AI coach apps</th><th scope="col">LockIn MCP</th></tr>
+						</thead>
+						<tbody>
+							{compare.map((row) => (
+								<tr><th scope="row">{row[0]}</th><td class="ip-col-hi">{row[1]}</td><td>{row[2]}</td><td>{row[3]}</td></tr>
+							))}
+						</tbody>
+					</table>
 				</div>
+				<p class="ip-note">
+					Coach apps are not worse: if you want an AI to talk you out of an app at the moment you tap it, that is exactly what they do and Respite does not (yet).
+					LockIn MCP is a desktop website blocker; see <a href="/blog/respite-vs-lockin-mcp/">Respite vs LockIn MCP</a>. For the full picture, read
+					<a href="/blog/best-ai-app-blockers-screen-time-apps-2026/">best AI app blockers and screen time apps in 2026</a>.
+				</p>
+			</section>
+
+			<section class="ip-end" aria-labelledby="end-title">
+				<h2 id="end-title">Try it with your own data</h2>
+				<p>Respite is free to start on Android, iPhone and Chrome. Plus adds sync and bring your own AI.</p>
+				<div class="ip-actions">
+					<a href="/download/" class="ip-button">Download Respite</a>
+					<a href="/blog/respite-plus-whats-included/" class="ip-button ip-button-quiet">What Plus includes</a>
+				</div>
+			</section>
+
+			<section class="ip-section ip-faq" id="faq" aria-labelledby="faq-title">
+				<h2 id="faq-title">Frequently asked questions</h2>
+				{faqs.map((faq) => (
+					<details>
+						<summary>{faq.question}</summary>
+						<p>{faq.answer}</p>
+					</details>
+				))}
 			</section>
 		</main>
 
 		<Footer />
+		<p class="ip-visually-hidden" id="copy-status" role="status" aria-live="polite"></p>
+
+		<script>
+			// Copy buttons: address, commands and prompts.
+			const status = document.getElementById('copy-status');
+			document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((b) => {
+				const label = b.textContent;
+				b.addEventListener('click', async () => {
+					try {
+						await navigator.clipboard.writeText(b.dataset.copy ?? '');
+						b.dataset.copied = '';
+						b.textContent = 'Copied';
+						if (status) status.textContent = 'Copied to the clipboard';
+						setTimeout(() => {
+							delete b.dataset.copied;
+							b.textContent = label;
+						}, 1600);
+					} catch {
+						const input = document.getElementById('mcp-url') as HTMLInputElement | null;
+						if (input && b.dataset.copy === input.value) input.select();
+					}
+				});
+			});
+			document.getElementById('mcp-url')?.addEventListener('focus', (e) => (e.target as HTMLInputElement).select());
+
+			// Tabs (WAI-ARIA pattern): click or arrow keys; the choice is remembered in the URL hash.
+			const tablist = document.querySelector<HTMLElement>('[role="tablist"]');
+			const tabs = [...(tablist?.querySelectorAll<HTMLButtonElement>('[role="tab"]') ?? [])];
+			function select(tab: HTMLButtonElement, focus = false) {
+				tabs.forEach((t) => {
+					const on = t === tab;
+					t.setAttribute('aria-selected', String(on));
+					t.tabIndex = on ? 0 : -1;
+					document.getElementById(t.getAttribute('aria-controls')!)!.hidden = !on;
+				});
+				if (focus) tab.focus();
+			}
+			tabs.forEach((t, i) => {
+				t.addEventListener('click', () => select(t));
+				t.addEventListener('keydown', (e) => {
+					const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+					if (step) {
+						e.preventDefault();
+						select(tabs[(i + step + tabs.length) % tabs.length], true);
+					}
+					if (e.key === 'Home') select(tabs[0], true);
+					if (e.key === 'End') select(tabs[tabs.length - 1], true);
+				});
+			});
+		</script>
 	</body>
 </html>
 
 <style>
-	main { width: 100%; }
-	.container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
-	.container.narrow { max-width: 820px; }
-
-	.hero {
-		width: 100%;
-		padding: var(--ds-space-3xl) 0 var(--ds-space-2xl);
-		background: linear-gradient(135deg, var(--ds-primary) 0%, var(--ds-brand) 100%);
-		text-align: center;
-		color: var(--ds-on-brand);
+	.ai-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		margin: 0;
+		font-size: 0.875rem;
+		color: var(--ds-text-hint);
 	}
-	.hero::before { content: ''; display: block; height: 6rem; }
-	.eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8125rem; font-weight: 700; margin: 0 0 var(--ds-space-sm); color: white; opacity: 0.9; }
-	.hero h1 { font-size: 2.25rem; font-weight: 800; margin: 0 auto var(--ds-space-md); letter-spacing: -0.02em; line-height: 1.2; color: white; max-width: 820px; }
-	.answer { font-size: 1.125rem; line-height: 1.6; margin: 0 auto var(--ds-space-lg); max-width: 720px; color: white; }
-	.hero-actions { display: flex; gap: var(--ds-space-md); justify-content: center; flex-wrap: wrap; }
-	.hero-note { margin: var(--ds-space-md) 0 0; font-size: 0.875rem; color: white; opacity: 0.85; }
 
-	.section { width: 100%; padding: var(--ds-space-3xl) 0; background: var(--ds-bg-primary); }
-	.section-alt { background: var(--ds-bg-secondary); }
-	.section-title { font-size: 1.75rem; font-weight: 800; text-align: center; margin: 0 0 var(--ds-space-sm); color: var(--ds-text-primary); }
-	.section-description { text-align: center; color: var(--ds-text-secondary); max-width: 640px; margin: 0 auto var(--ds-space-xl); line-height: 1.6; }
-	.small { color: var(--ds-text-secondary); font-size: 0.9375rem; line-height: 1.6; margin: var(--ds-space-lg) 0 0; }
-	.small a, .section-description a, .plain a { color: var(--ds-primary); }
-	.sub { font-size: 1.25rem; margin: var(--ds-space-2xl) 0 var(--ds-space-md); color: var(--ds-text-primary); }
-	code { font-size: 0.875em; background: var(--ds-gray-100); padding: 0.1rem 0.35rem; border-radius: 6px; word-break: break-word; }
-
-	.table-wrapper { overflow-x: auto; border-radius: var(--ds-radius-lg); border: 1px solid var(--ds-gray-200); background: var(--ds-bg-primary); }
-	.data-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
-	.data-table th, .data-table td { padding: var(--ds-space-md); text-align: left; border-bottom: 1px solid var(--ds-gray-200); vertical-align: top; color: var(--ds-text-secondary); }
-	.data-table thead th { background: var(--ds-bg-secondary); color: var(--ds-text-primary); font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.5px; }
-	.data-table tbody tr:last-child td, .data-table tbody tr:last-child th { border-bottom: none; }
-	.compare-table { min-width: 720px; }
-	.compare-table tbody th { color: var(--ds-text-primary); font-weight: 700; }
-	.data-table .highlight { background: rgba(var(--ds-brand-rgb), 0.06); color: var(--ds-primary); font-weight: 600; }
-
-	.steps { list-style: none; margin: 0 0 var(--ds-space-xl); padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--ds-space-lg); }
-	.step { background: var(--ds-bg-primary); border: 1px solid var(--ds-gray-200); border-radius: var(--ds-radius-lg); padding: var(--ds-space-lg); }
-	.step-n { display: inline-flex; width: 2rem; height: 2rem; align-items: center; justify-content: center; border-radius: 50%; background: var(--ds-primary); color: white; font-weight: 800; margin-bottom: var(--ds-space-sm); }
-	.step h3 { margin: 0 0 var(--ds-space-xs); font-size: 1.0625rem; color: var(--ds-text-primary); }
-	.step p { margin: 0; color: var(--ds-text-secondary); line-height: 1.55; font-size: 0.9375rem; word-break: break-word; }
-
-	.flow { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--ds-space-sm); margin: 0 0 var(--ds-space-md); }
-	.flow > span:not(.arrow) { background: var(--ds-primary-light); color: var(--ds-primary-dark); border-radius: var(--ds-radius-md); padding: 0.5rem 0.9rem; font-weight: 700; font-size: 0.9375rem; display: inline-flex; flex-direction: column; text-align: center; }
-	.flow small { font-weight: 500; font-size: 0.75rem; opacity: 0.85; }
-	.arrow { color: var(--ds-primary); font-weight: 800; }
-
-	.status-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--ds-space-sm); }
-	.status-list li { display: flex; gap: var(--ds-space-md); align-items: flex-start; padding: var(--ds-space-md); background: var(--ds-bg-primary); border: 1px solid var(--ds-gray-200); border-radius: var(--ds-radius-md); color: var(--ds-text-secondary); line-height: 1.5; }
-	.badge { flex-shrink: 0; min-width: 7.5rem; text-align: center; padding: 0.2rem 0.6rem; border-radius: var(--ds-radius-full); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; }
-	.badge-live { background: var(--ds-green-light); color: var(--ds-green-dark); }
-	.badge-soon { background: var(--ds-orange-light); color: var(--ds-orange-dark); }
-
-	.plain { margin: 0; padding-left: 1.25rem; color: var(--ds-text-secondary); line-height: 1.65; display: grid; gap: var(--ds-space-sm); }
-
-	.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--ds-space-lg); }
-	.card { display: block; padding: var(--ds-space-xl); background: var(--ds-bg-primary); border: 1px solid var(--ds-gray-200); border-radius: var(--ds-radius-lg); text-decoration: none; transition: all var(--ds-transition-normal); }
-	.card:hover { transform: translateY(-4px); box-shadow: var(--ds-shadow-lg); border-color: var(--ds-primary); }
-	.card h3 { margin: 0 0 var(--ds-space-sm); font-size: 1.25rem; color: var(--ds-text-primary); }
-	.card p { margin: 0 0 var(--ds-space-md); color: var(--ds-text-secondary); line-height: 1.5; font-size: 0.9375rem; }
-	.card-link { font-weight: 600; color: var(--ds-primary); }
-
-	.cta-section { width: 100%; padding: var(--ds-space-3xl) 0; background: linear-gradient(135deg, var(--ds-primary) 0%, var(--ds-purple) 100%); text-align: center; color: var(--ds-on-primary); }
-	.cta-section h2 { font-size: 2rem; font-weight: 800; margin: 0 0 var(--ds-space-sm); color: white; }
-	.cta-section p { font-size: 1.125rem; margin: 0 0 var(--ds-space-xl); opacity: 0.95; }
-	.cta-buttons { display: flex; gap: var(--ds-space-md); justify-content: center; flex-wrap: wrap; }
-
-	.faq-container { max-width: 800px; }
-	.faq-item { border: 1px solid var(--ds-gray-200); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-space-sm); overflow: hidden; background: var(--ds-bg-primary); }
-	.faq-item summary { padding: var(--ds-space-md) var(--ds-space-lg); font-weight: 600; color: var(--ds-text-primary); cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: var(--ds-space-md); }
-	.faq-item summary::after { content: "+"; font-size: 1.25rem; color: var(--ds-primary); flex-shrink: 0; }
-	.faq-item[open] summary::after { content: "-"; }
-	.faq-item p { padding: 0 var(--ds-space-lg) var(--ds-space-md); margin: 0; color: var(--ds-text-secondary); line-height: 1.6; }
-
-	@media (max-width: 767px) {
-		.hero h1 { font-size: 1.75rem; }
-		.section-title { font-size: 1.5rem; }
-		.status-list li { flex-direction: column; gap: var(--ds-space-sm); }
-		.badge { align-self: flex-start; }
-		.flow { flex-direction: column; }
-		.arrow { transform: rotate(90deg); }
+	/* The address */
+	.ai-address {
+		display: grid;
+		gap: 0.4rem;
+		margin-bottom: 1.5rem;
 	}
-	@media (min-width: 1024px) {
-		.hero h1 { font-size: 2.75rem; }
+
+	.ai-address label {
+		font-weight: 800;
+		font-size: 0.95rem;
+	}
+
+	.ai-copyline {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.4rem 0.4rem 0.4rem 0.9rem;
+		border: 1px solid var(--ip-rule);
+		border-radius: var(--ds-radius-md);
+		background: var(--ds-bg-secondary);
+	}
+
+	.ai-copyline input,
+	.ai-copyline code {
+		flex: 1;
+		min-width: 0;
+		border: 0;
+		padding: 0;
+		background: transparent;
+		color: var(--ds-text-primary);
+		font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+		font-size: 0.95rem;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+
+	.ai-copyline input:focus {
+		outline: none;
+	}
+
+	.ai-copyline:focus-within {
+		border-color: var(--ds-primary);
+	}
+
+	/* Tabs */
+	.ai-tablist {
+		display: flex;
+		gap: 0.25rem;
+		overflow-x: auto;
+		border-bottom: 1px solid var(--ip-rule);
+		scrollbar-width: none;
+	}
+
+	.ai-tablist [role='tab'] {
+		flex: none;
+		min-height: 44px;
+		padding: 0 1rem;
+		border: 0;
+		border-bottom: 3px solid transparent;
+		background: transparent;
+		color: var(--ds-text-secondary);
+		font: inherit;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.ai-tablist [role='tab']:hover {
+		color: var(--ds-text-primary);
+	}
+
+	.ai-tablist [role='tab'][aria-selected='true'] {
+		border-bottom-color: var(--ds-brand);
+		color: var(--ds-text-primary);
+	}
+
+	.ai-panel {
+		padding-top: 1.25rem;
+	}
+
+	.ai-steps {
+		display: grid;
+		gap: 0.75rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		counter-reset: step;
+	}
+
+	.ai-steps li {
+		counter-increment: step;
+		display: grid;
+		grid-template-columns: 1.8rem 1fr;
+		gap: 0.75rem;
+		line-height: 1.55;
+	}
+
+	.ai-steps li::before {
+		content: counter(step);
+		display: grid;
+		place-items: center;
+		width: 1.8rem;
+		height: 1.8rem;
+		border-radius: 50%;
+		background: var(--ds-bg-info);
+		color: var(--ds-primary);
+		font-weight: 800;
+		font-size: 0.9rem;
+	}
+
+	.ai-command {
+		margin-top: 1rem;
+	}
+
+	/* Prompts */
+	.ai-prompts {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		border-top: 1px solid var(--ip-rule);
+	}
+
+	.ai-prompts li {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		grid-template-areas: 'prompt copy' 'tool copy';
+		gap: 0.25rem 1rem;
+		align-items: center;
+		padding: 0.85rem 0;
+		border-bottom: 1px solid var(--ip-rule);
+	}
+
+	.ai-prompt {
+		grid-area: prompt;
+		margin: 0;
+		font-family: 'Source Serif 4', Georgia, serif;
+		font-size: 1.05rem;
+		line-height: 1.45;
+	}
+
+	.ai-tool {
+		grid-area: tool;
+		font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+		font-size: 0.78rem;
+		color: var(--ds-text-hint);
+	}
+
+	.ai-prompts .ip-copy {
+		grid-area: copy;
+	}
+
+	/* Permissions */
+	.ai-perms {
+		display: grid;
+		gap: 1rem;
+	}
+
+	@media (min-width: 720px) {
+		.ai-perms {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	.ai-perm {
+		padding: 1.1rem 1.25rem;
+		border-radius: var(--ds-radius-md);
+		background: var(--ds-bg-secondary);
+		border-top: 3px solid var(--ds-brand);
+	}
+
+	.ai-perm:nth-child(2) {
+		border-top-color: var(--ds-green);
+	}
+
+	.ai-perm:nth-child(3) {
+		border-top-color: var(--ds-orange);
+	}
+
+	.ai-perm-never {
+		border-top-color: var(--ds-text-hint);
+	}
+
+	.ai-perm h3 {
+		margin: 0 0 0.5rem;
+		font-size: 1rem;
+	}
+
+	.ai-perm ul {
+		margin: 0;
+		padding-left: 1.1rem;
+		display: grid;
+		gap: 0.3rem;
+		line-height: 1.45;
+		color: var(--ds-text-secondary);
+	}
+
+	.ai-ref {
+		margin-top: 1.5rem;
+	}
+
+	.ai-ref summary {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		cursor: pointer;
+		font-weight: 700;
+		color: var(--ds-primary);
+	}
+
+	.ai-ref h3 {
+		margin: 1rem 0 0.6rem;
+	}
+
+	/* Status */
+	.ai-status {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		border-top: 1px solid var(--ip-rule);
+	}
+
+	.ai-status li {
+		display: grid;
+		grid-template-columns: 9.5rem 1fr;
+		gap: 1rem;
+		align-items: baseline;
+		padding: 0.75rem 0;
+		border-bottom: 1px solid var(--ip-rule);
+		line-height: 1.5;
+	}
+
+	.ai-status .ip-badge {
+		justify-self: start;
+	}
+
+	@media (max-width: 560px) {
+		.ai-status li {
+			grid-template-columns: 1fr;
+			gap: 0.35rem;
+		}
+	}
+
+	.ai-plain {
+		margin: 0;
+		padding-left: 1.2rem;
+		display: grid;
+		gap: 0.6rem;
+		line-height: 1.6;
+		color: var(--ds-text-secondary);
+	}
+
+	.ai-plain strong {
+		color: var(--ds-text-primary);
+	}
+
+	.ai-compare {
+		min-width: 44rem;
 	}
 </style>

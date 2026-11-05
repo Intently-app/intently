@@ -1,0 +1,53 @@
+---
+/**
+ * Free vs Respite Plus, one table for /download/ and /features/. Every row comes from
+ * /blog/respite-plus-whats-included/, /blog/schedule-app-blocking-iphone-android/,
+ * /blog/focus-session-app-iphone/, /blog/sync-respite-android-iphone-chrome/ and /ai/: change
+ * them together. Prices are "at the time of writing" and set by the stores per country.
+ */
+const rows: { what: string; free: string | true | false; plus: string | true }[] = [
+	{ what: 'The pause before the apps and sites you pick', free: true, plus: true },
+	{ what: 'Usage tracking and daily limits', free: true, plus: true },
+	{ what: 'Schedules', free: '1 schedule', plus: 'Unlimited (up to 8 running at once)' },
+	{ what: 'Focus sessions', free: 'Up to 25 minutes', plus: 'Up to 90 minutes' },
+	{ what: 'Insights', free: 'Daily, weekly and monthly usage', plus: 'Richer insights' },
+	{ what: 'Acorns, quests and leagues (iPhone and Android, free sign-in)', free: true, plus: true },
+	{ what: 'Sync across devices', free: 'One device, with a free account', plus: 'Every device' },
+	{ what: 'Bring your own AI (Claude, ChatGPT, Cursor)', free: false, plus: true },
+	{ what: 'Live Activity and Control Center control (iPhone)', free: false, plus: true },
+];
+---
+
+<div class="ip-table-wrap" role="region" aria-label="Free and Plus compared" tabindex="0">
+	<table class="ip-table plan-table">
+		<thead>
+			<tr>
+				<th scope="col">What you get</th>
+				<th scope="col">Free</th>
+				<th scope="col" class="ip-col-hi">Respite Plus</th>
+			</tr>
+		</thead>
+		<tbody>
+			{rows.map((r) => (
+				<tr>
+					<th scope="row">{r.what}</th>
+					{r.free === true ? <td class="ip-yes"><span class="ip-visually-hidden">Included</span></td> : r.free === false ? <td class="ip-no">Not included</td> : <td>{r.free}</td>}
+					{r.plus === true ? <td class="ip-yes ip-col-hi"><span class="ip-visually-hidden">Included</span></td> : <td class="ip-col-hi">{r.plus}</td>}
+				</tr>
+			))}
+		</tbody>
+	</table>
+</div>
+<p class="ip-note">
+	Plus is $4.99 a month, $29.99 a year with a one-week free trial, or $59.99 once for lifetime, at the time of writing; the stores set prices by country.
+	You buy it in the iPhone or Android app, and no account is needed to buy. <a href="/blog/respite-plus-whats-included/">Everything Plus includes</a>.
+</p>
+
+<style>
+	.plan-table {
+		min-width: 30rem;
+	}
+	.plan-table td {
+		width: 28%;
+	}
+</style>

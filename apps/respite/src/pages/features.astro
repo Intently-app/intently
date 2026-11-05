@@ -1,1095 +1,418 @@
 ---
+/**
+ * /features/: what Respite does, and on which device.
+ *
+ * Every feature row says which platforms have it, and a filter (?on=ios|android|chrome) shows only
+ * one device's features. Platform facts come from src/content.ts, the privacy policies and the
+ * feature posts on the blog; keep a row to what that platform's app actually does.
+ */
+import '../styles/info-pages.css';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Button from '../components/ui/Button.astro';
-import Icon from '../components/ui/Icon.astro';
-import ScrollReveal from '../components/ui/ScrollReveal.astro';
+import PlanCompare from '../components/ui/PlanCompare.astro';
+import JumpNav from '../components/ui/JumpNav.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
-import { SITE_TITLE } from '../consts';
-import { content } from '../content';
 
-const features = [
+type P = 'ios' | 'android' | 'chrome';
+const ALL: P[] = ['ios', 'android', 'chrome'];
+const NAMES: Record<P, string> = { ios: 'iPhone', android: 'Android', chrome: 'Chrome' };
+
+interface Feature {
+	title: string;
+	body: string;
+	on: P[];
+	plus?: 'only' | 'more';
+	link?: { href: string; label: string };
+}
+
+const groups: { id: string; title: string; lead: string; features: Feature[] }[] = [
 	{
-		icon: "BarChart3",
-		title: "Finally See the Truth",
-		description: "You tell yourself it's only 20 minutes. The data tells a different story. Respite shows you exactly where your time goes—without judgment.",
-		details: ["Daily time summaries", "Per-app usage breakdown", "Weekly and monthly trends", "Streaks and daily totals"],
-		color: "blue"
+		id: 'pause',
+		title: 'The pause',
+		lead: 'The heart of Respite: a moment between the reflex and the app.',
+		features: [
+			{ title: 'A pause before the apps and sites you pick', body: "A short check-in covers the app or site as it opens. Leave, or continue after a moment. On iPhone it is Apple's Screen Time shield.", on: ALL },
+			{ title: 'Three ways to pause', body: 'Every time, Smart timing that spaces check-ins out, or a time budget you choose as you open the app.', on: ['ios', 'android'] },
+			{ title: 'Something to think about', body: 'The pause rotates reflection questions, a short guided breathing exercise, your own usage stats, quotes and activity suggestions.', on: ['android', 'chrome'] },
+		],
 	},
 	{
-		icon: "Target",
-		title: "Set Boundaries You Actually Keep",
-		description: "Choose how much time feels right for each app. When you're getting close, Respite lets you know, with a gentle heads-up and no lectures. On iPhone you can also turn on an app lock that covers an app once today's time is used.",
-		details: ["Daily time limits per app", "Visual progress rings", "Goal achievement celebrations", "Adjust limits any time"],
-		color: "green"
+		id: 'limits',
+		title: 'Limits and schedules',
+		lead: 'Boundaries you set once and can keep.',
+		features: [
+			{ title: 'Daily limits per app or site', body: 'Choose how much time feels right; Respite gives a gentle heads-up as you get close.', on: ALL },
+			{ title: "Lock it once today's time is used", body: 'An app or site stays covered for the rest of the day and opens again at midnight.', on: ALL },
+			{ title: 'Schedules', body: 'Block apps during the hours you choose, with Bedtime, Work hours and Morning ready-made. A pass or snooze does not lift a running schedule.', on: ['ios', 'android'], plus: 'more', link: { href: '/blog/schedule-app-blocking-iphone-android/', label: 'How schedules work' } },
+			{ title: 'Reels and Shorts blocking', body: 'Optional. On Android it uses the Accessibility service, only if you turn it on; in Chrome it blocks Shorts and Reels on the page.', on: ['android', 'chrome'] },
+		],
 	},
 	{
-		icon: "Bell",
-		title: "The 3-Second Pause That Changes Everything",
-		description: "Before an app opens, a simple screen appears: 'Is this what you want to be doing right now?' That tiny moment is all it takes.",
-		details: ["A pause before the apps you pick", "Leave, or continue after a moment", "Timers and daily limits", "Reflection questions (Android and Chrome)"],
-		color: "purple"
+		id: 'focus',
+		title: 'Focus',
+		lead: 'When you need an hour, not a nudge.',
+		features: [
+			{ title: 'Focus sessions', body: 'Block your tracked apps, or just some of them, for 15 to 90 minutes. Free sessions run up to 25 minutes. In Chrome this is focus mode.', on: ALL, plus: 'more', link: { href: '/blog/focus-session-app-iphone/', label: 'Focus sessions on iPhone' } },
+			{ title: 'Live Activity and Control Center', body: 'See a running session on the Lock Screen, and start or end one from Control Center.', on: ['ios'], plus: 'only' },
+		],
 	},
 	{
-		icon: "Trophy",
-		title: "Celebrate Every Win (Even the Small Ones)",
-		description: "Day 1 feels small. Day 7 feels like something. Day 30 feels like you're becoming someone new. Respite tracks your streaks because lasting change deserves recognition.",
-		details: ["Daily streak tracking", "Milestone celebrations", "Streak freezes in newer versions", "Gentle, no-guilt reminders"],
-		color: "orange"
+		id: 'insights',
+		title: 'Insights',
+		lead: 'See the pattern, not just the moment.',
+		features: [
+			{ title: 'Where your time goes', body: 'Per-app daily totals with weekly and monthly trends. Plus adds richer insights.', on: ALL, plus: 'more' },
+			{ title: 'Home screen widgets', body: "Your streak and today's progress at a glance, plus a quick settings toggle.", on: ['android'] },
+			{ title: 'Quick settings', body: "Open Respite's quick settings from the browser toolbar.", on: ['chrome'] },
+		],
 	},
 	{
-		icon: "TrendingUp",
-		title: "Watch Your Progress Unfold",
-		description: "Beautiful charts show your journey over days, weeks, and months. See your baseline shrink, and feel the pride of measurable progress.",
-		details: ["Usage trend charts", "Day-by-day comparisons", "Weekly and monthly views", "Richer insights with Respite Plus"],
-		color: "blue"
+		id: 'game',
+		title: 'Streaks and the game',
+		lead: 'Rewards for days you keep, never for more screen time.',
+		features: [
+			{ title: 'Streaks', body: 'Every day you choose presence over scrolling, your streak grows, with milestone celebrations and gentle reminders. No lectures.', on: ALL },
+			{ title: 'Acorns, quests and a shop', body: 'Earn acorns for kept days and for walking away at the pause, finish three daily quests, and spend acorns on your garden and Biscuit. Needs a free sign-in.', on: ['ios', 'android'], link: { href: '/blog/introducing-acorns-quests-and-leagues/', label: 'How the game works' } },
+			{ title: 'Weekly leagues and friends', body: 'Optional. Others see only your display name and progress, never your apps, and you can hide from leagues at any time.', on: ['ios', 'android'], link: { href: '/blog/respite-leagues-and-friends/', label: 'What friends can see' } },
+		],
 	},
 	{
-		icon: "Brain",
-		title: "Ask Yourself: Is This What I Want?",
-		description: "On Android and Chrome, the pause rotates reflection questions, a short guided breathing exercise, your own usage stats, quotes and activity suggestions. On iPhone, the pause is Apple's Screen Time shield. It's mindfulness, built into your phone.",
-		details: ["Reflection questions (Android and Chrome)", "Guided breathing exercise (Android and Chrome)", "Your own usage stats in the pause", "Quotes and activity suggestions"],
-		color: "green"
+		id: 'sync',
+		title: 'Sync and AI',
+		lead: 'One account across your phone and computer, if you want it.',
+		features: [
+			{ title: 'Sync across devices', body: 'Sign in with the same Google or Apple account on each device. A free account syncs one device; Plus syncs them all, and one limit can cover your total time.', on: ALL, plus: 'more', link: { href: '/blog/sync-respite-android-iphone-chrome/', label: 'How to sync' } },
+			{ title: 'Bring your own AI', body: 'Connect Claude, ChatGPT or Cursor and ask about your real usage. It reads by default and can make limits stricter only if you opt in. Respite runs no AI of its own.', on: ALL, plus: 'only', link: { href: '/ai/', label: 'How it works' } },
+		],
 	},
 	{
-		icon: "Smartphone",
-		title: "Your Progress, At a Glance",
-		description: "On Android, a widget on your home screen shows your streak and today's progress. One look is often enough to remind you of who you're becoming.",
-		details: ["Home screen widgets (Android)", "Quick settings toggle (Android)", "One-tap stats view", "Streak at a glance"],
-		color: "purple"
+		id: 'privacy',
+		title: 'Privacy',
+		lead: 'Your data stays yours.',
+		features: [
+			{ title: 'No account needed', body: 'Everything except sync and the game works without signing in, and your history stays on your device.', on: ALL },
+			{ title: 'No ads, never sold', body: 'Respite shows no ads and never sells your data. Each privacy policy lists exactly what that version collects.', on: ALL },
+			{ title: 'App names stay on your iPhone', body: "Apple's Screen Time keeps the apps you pick private, even from Respite, unless you match an app for sync.", on: ['ios'] },
+		],
 	},
-	{
-		icon: "Lock",
-		title: "Your Data Stays Yours",
-		description: "No account needed for the core features, and your usage history stays on your device unless you turn on sync. There are no ads, and we never sell your data.",
-		details: ["History stored on your device", "No account needed (sign in only for sync)", "No ads", "We never sell your data"],
-		color: "green"
-	}
 ];
+
+const counts = Object.fromEntries(ALL.map((p) => [p, groups.reduce((n, g) => n + g.features.filter((f) => f.on.includes(p)).length, 0)])) as Record<P, number>;
+const total = groups.reduce((n, g) => n + g.features.length, 0);
 
 const featureFAQs = [
-	{
-		question: "Is Respite free?",
-		answer: "Yes. Respite is free on iPhone, Android and Chrome, with no ads. The pause, usage tracking, daily limits and streaks all work without paying. An optional upgrade, Respite Plus, adds sync across your devices and extras such as more schedules, longer focus sessions and richer insights."
-	},
-	{
-		question: "Does Respite need an account?",
-		answer: "No. You can use Respite's core features without signing in. An account (Google or Apple sign-in) is only needed if you want to sync across devices with Respite Plus. Without one, your usage history stays on your device."
-	},
-	{
-		question: "Does Respite work on iPhone?",
-		answer: "Yes. Respite is available for iPhone, Android and Chrome. The iPhone app is built on Apple's Screen Time, so the pause appears as Apple's Screen Time shield before the apps you pick. It also offers daily limits and an app lock that covers an app once today's time is used, refreshing at midnight."
-	},
-	{
-		question: "How is Respite different from app blockers?",
-		answer: "Blockers shut an app down. Respite puts a short, gentle pause in front of the apps you pick, so you open them on purpose rather than by reflex. You can leave or continue after a moment. It also tracks your usage, keeps streaks and lets you set daily limits, so you see the pattern as well as interrupt it."
-	},
-	{
-		question: "Does Respite collect my data?",
-		answer: "Your usage history stays on your device unless you turn on sync. Respite shows no ads and never sells your data. On iPhone, Apple's Screen Time keeps the apps you pick private, even from Respite. Each version's privacy policy lists exactly what it collects, including any anonymous analytics or crash reports."
-	},
-	{
-		question: "Can I use Respite on multiple devices?",
-		answer: "Yes. Respite runs on iPhone, Android and Chrome, and each device works on its own with its own history and settings. If you want your progress synced across devices, the optional Respite Plus upgrade adds sync, which requires signing in with Google or Apple."
-	}
+	{ question: 'Is Respite free?', answer: 'Yes. Respite is free on iPhone, Android and Chrome, with no ads. The pause, usage tracking, daily limits and streaks all work without paying. An optional upgrade, Respite Plus, adds sync across your devices and extras such as more schedules, longer focus sessions and richer insights.' },
+	{ question: 'Does Respite need an account?', answer: 'No. You can use Respite\'s core features without signing in. An account (Google or Apple sign-in) is only needed if you want to sync across devices with Respite Plus. Without one, your usage history stays on your device.' },
+	{ question: 'Does Respite work on iPhone?', answer: "Yes. Respite is available for iPhone, Android and Chrome. The iPhone app is built on Apple's Screen Time, so the pause appears as Apple's Screen Time shield before the apps you pick. It also offers daily limits and an app lock that covers an app once today's time is used, refreshing at midnight." },
+	{ question: 'How is Respite different from app blockers?', answer: 'Blockers shut an app down. Respite puts a short, gentle pause in front of the apps you pick, so you open them on purpose rather than by reflex. You can leave or continue after a moment. It also tracks your usage, keeps streaks and lets you set daily limits, so you see the pattern as well as interrupt it.' },
+	{ question: 'Does Respite collect my data?', answer: "Your usage history stays on your device unless you turn on sync. Respite shows no ads and never sells your data. On iPhone, Apple's Screen Time keeps the apps you pick private, even from Respite. Each version's privacy policy lists exactly what it collects, including any anonymous analytics or crash reports." },
+	{ question: 'Can I use Respite on multiple devices?', answer: 'Yes. Respite runs on iPhone, Android and Chrome, and each device works on its own with its own history and settings. If you want your progress synced across devices, the optional Respite Plus upgrade adds sync, which requires signing in with Google or Apple.' },
 ];
-
-const colorMap: Record<string, string> = {
-	blue: 'var(--ds-primary)',
-	green: 'var(--ds-green)',
-	orange: 'var(--ds-orange)',
-	purple: 'var(--ds-purple)'
-};
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title="How Respite Works | Mindful Screen Time Features" description="Usage tracking that opens your eyes, pauses that feel like a deep breath, and streaks that build quiet pride. See how Respite helps you scroll less." />
+		<BaseHead title="How Respite Works | Mindful Screen Time Features" description="Every Respite feature on iPhone, Android and Chrome: the pause, limits, schedules, focus, insights, streaks, sync and bring your own AI, and what's free." />
 		<BreadcrumbSchema
 			items={[
-				{ name: "Home", url: "https://respite.liveintently.app" },
-				{ name: "Features", url: "https://respite.liveintently.app/features/" }
+				{ name: 'Home', url: 'https://respite.liveintently.app' },
+				{ name: 'Features', url: 'https://respite.liveintently.app/features/' },
 			]}
 		/>
+		<FAQSchema faqs={featureFAQs} />
 	</head>
-	<body>
+	<body class="ip-page">
 		<Header />
 
-		<main>
-			<!-- Features Hero - Glass -->
-			<section class="features-hero">
-				<div class="hero-glow" aria-hidden="true"></div>
-				<div class="container">
-					<h1 class="text-gradient">Everything You Need to Take Back Control</h1>
-					<p class="hero-subtitle">Respite uses a gentle pause, not shame, to help you open apps on purpose. Free on iPhone, Android and Chrome, with no ads.</p>
+		<main class="ip">
+			<header class="ip-head">
+				<h1>What Respite does</h1>
+				<p class="ip-dek">Respite puts a short, gentle pause before the apps and sites you pick, so you open them on purpose. Around it: limits you can keep, focus when you need it, and streaks instead of guilt.</p>
+				<ol class="ft-how" aria-label="How it works">
+					<li><strong>Notice.</strong> See which apps pull you in, within a day.</li>
+					<li><strong>Pause.</strong> A moment to ask: is this what I want right now?</li>
+					<li><strong>Choose.</strong> Leave or continue. Each kept day builds your streak.</li>
+				</ol>
+			</header>
+
+			<JumpNav links={[...groups.map((g) => ({ href: `#${g.id}`, label: g.title })), { href: '#plans', label: 'Free or Plus' }, { href: '#faq', label: 'Questions' }]} />
+
+			<section class="ft-filter" aria-labelledby="filter-title">
+				<h2 id="filter-title" class="ft-filter-title">Show features for</h2>
+				<div class="ft-seg" role="group" aria-labelledby="filter-title">
+					<button type="button" data-on="all" aria-pressed="true">Every device <span>{total}</span></button>
+					{ALL.map((p) => (
+						<button type="button" data-on={p} aria-pressed="false">{NAMES[p]} <span>{counts[p]}</span></button>
+					))}
 				</div>
+				<p class="ft-filter-note" id="filter-note" aria-live="polite"></p>
 			</section>
 
-			<!-- What is Respite - Glass Intro -->
-			<section class="intro-section">
-				<div class="container">
-					<ScrollReveal animation="fadeUp">
-						<h2>What is Respite?</h2>
-						<div class="glass-intro-card">
-							<p class="direct-answer">
-								Respite is a <strong>privacy-first digital wellbeing app</strong> that helps you build healthier relationships with technology. Instead of just blocking apps, it uses <strong>mindful interventions</strong> to create moments of awareness, helping you make conscious choices about screen time. It's free with no ads, your usage history stays on your device, you only sign in if you want sync, and it runs on iPhone, Android and Chrome.
-							</p>
-						</div>
-						<p class="intro-links">
-							Learn more about our privacy-first approach (<a href="/privacy/">iPhone</a>, <a href="/privacy/android/">Android</a>, <a href="/privacy/chrome/">Chrome</a>) or <a href="/download/">download Respite today</a> to start building healthier digital habits.
-						</p>
-					</ScrollReveal>
-				</div>
-			</section>
-
-			<!-- Core Features - Asymmetric Bento Grid -->
-			<section class="bento-section">
-				<div class="container">
-					<ScrollReveal animation="fadeUp">
-						<h2 class="section-title">Core Features</h2>
-					</ScrollReveal>
-
-					<ScrollReveal animation="fadeUp">
-						<div class="bento-grid">
-							{features.map((feature, index) => (
-								<div class={`bento-card ${index === 0 ? 'bento-hero-card' : index === 7 ? 'bento-privacy-card' : 'bento-standard'}`} style={`--card-delay: ${[0, 0, 100, 200, 0, 100, 0, 100][index]}ms`}>
-									<div class="bento-feature-header">
-										<div class={`bento-icon bento-icon-${feature.color}`}>
-											<Icon name={feature.icon} size={index === 0 ? 32 : 24} color={colorMap[feature.color]} />
-										</div>
-										<h3>{feature.title}</h3>
-									</div>
-									<p class="bento-description">{feature.description}</p>
-									<ul class="bento-details">
-										{feature.details.map(detail => <li>{detail}</li>)}
-									</ul>
+			{groups.map((g) => (
+				<section class="ip-section ft-group" id={g.id} aria-labelledby={`${g.id}-title`}>
+					<h2 id={`${g.id}-title`}>{g.title}</h2>
+					<p class="ip-lead">{g.lead}</p>
+					<ul class="ft-list">
+						{g.features.map((f) => (
+							<li class="ft-row" data-on={f.on.join(' ')}>
+								<div class="ft-text">
+									<h3>
+										{f.title}
+										{f.plus === 'only' && <span class="ip-badge ip-badge-plus">Plus</span>}
+										{f.plus === 'more' && <span class="ip-badge ip-badge-plus">More with Plus</span>}
+									</h3>
+									<p>{f.body}{f.link && <> <a href={f.link.href}>{f.link.label}</a></>}</p>
 								</div>
-							))}
-						</div>
-					</ScrollReveal>
-				</div>
-			</section>
-
-			<!-- Bring your own AI -->
-			<section class="ai-band">
-				<div class="container">
-					<h2 class="section-title">Bring Your Own AI</h2>
-					<p class="platform-lead">With Respite Plus you can connect Claude, ChatGPT or Cursor to your own usage and ask questions in plain language. It reads by default and, if you opt in, can make your limits stricter; anything looser needs your approval. Respite runs no AI of its own. <a href="/ai/">See how it works</a>.</p>
-				</div>
-			</section>
-
-			<!-- What each platform does -->
-				<section class="platform-section">
-					<div class="container">
-						<ScrollReveal animation="fadeUp">
-							<h2 class="section-title">What Each Version Does</h2>
-							<p class="platform-lead">Respite is the same idea on every device, but each app is built for its platform. Features below belong only to the platform they are listed under.</p>
-							<div class="platform-columns">
-								{content.platforms.map((p) => (
-									<div class="platform-col">
-										<h3>{p.title}</h3>
-										<p>{p.summary}</p>
-										<ul>{p.features.map((f) => <li>{f}</li>)}</ul>
-										<p class="platform-links"><a href={p.privacy}>Privacy policy</a>{p.terms && <> · <a href={p.terms}>Terms</a></>}</p>
-									</div>
-								))}
-							</div>
-						</ScrollReveal>
-					</div>
+								<ul class="ft-platforms" aria-label="Available on">
+									{ALL.map((p) => (
+										<li class={f.on.includes(p) ? 'has' : 'not'}>
+											<span class="ip-visually-hidden">{f.on.includes(p) ? '' : 'Not on '}</span>{NAMES[p]}
+										</li>
+									))}
+								</ul>
+							</li>
+						))}
+					</ul>
 				</section>
+			))}
 
-				<!-- How It Works - Glass Step Cards -->
-			<section class="how-it-works">
-				<div class="container">
-					<ScrollReveal animation="fadeUp">
-						<h2 class="section-title">How Respite Works</h2>
-					</ScrollReveal>
-
-					<ScrollReveal animation="fadeUp">
-					<div class="steps-timeline">
-						<div class="timeline-step">
-							<div class="step-number-wrapper">
-								<div class="step-marker step-1">
-									<span class="step-number">1</span>
-								</div>
-								<div class="timeline-connector"></div>
-							</div>
-							<div class="step-glass-card">
-								<h3>Notice</h3>
-								<p>Respite quietly observes which apps pull you in. Within a day, you'll see exactly where your time goes.</p>
-							</div>
-						</div>
-
-						<div class="timeline-step">
-							<div class="step-number-wrapper">
-								<div class="step-marker step-2">
-									<span class="step-number">2</span>
-								</div>
-								<div class="timeline-connector"></div>
-							</div>
-							<div class="step-glass-card">
-								<h3>Pause</h3>
-								<p>When you reach for a distracting app on autopilot, a gentle pause appears. Not to scold you—to ask: 'Is this what you want right now?'</p>
-							</div>
-						</div>
-
-						<div class="timeline-step">
-							<div class="step-number-wrapper">
-								<div class="step-marker step-3">
-									<span class="step-number">3</span>
-								</div>
-							</div>
-							<div class="step-glass-card">
-								<h3>Transform</h3>
-								<p>Small choices compound. Each time you pause, you get a little better at choosing on purpose, and your streak shows it.</p>
-							</div>
-							</div>
-					</div>
-				</ScrollReveal>
-				</div>
+			<section class="ip-section" id="plans" aria-labelledby="plans-title">
+				<h2 id="plans-title">Free or Plus?</h2>
+				<p class="ip-lead">Everything above is free unless it is marked Plus. Plus raises a few limits and adds sync for every device.</p>
+				<PlanCompare />
 			</section>
 
-			<!-- FAQ Section - Glass Cards -->
-			<section class="faq-section">
-				<div class="container">
-					<ScrollReveal animation="fadeUp">
-						<h2 class="section-title">Frequently Asked Questions</h2>
-					</ScrollReveal>
-
-					<ScrollReveal animation="fadeUp">
-						<div class="faq-list">
-							{featureFAQs.map((faq) => (
-								<details class="faq-glass-card">
-									<summary>{faq.question}</summary>
-									<p>{faq.answer}</p>
-								</details>
-							))}
-						</div>
-					</ScrollReveal>
-				</div>
+			<section class="ip-section ip-faq" id="faq" aria-labelledby="faq-title">
+				<h2 id="faq-title">Questions</h2>
+				{featureFAQs.map((faq) => (
+					<details>
+						<summary>{faq.question}</summary>
+						<p>{faq.answer}</p>
+					</details>
+				))}
 			</section>
 
-			<!-- FAQ Schema -->
-			<FAQSchema faqs={featureFAQs} />
-
-			<!-- CTA Section - Enhanced -->
-			<section class="cta-section">
-				<div class="cta-divider" aria-hidden="true"></div>
-				<div class="container">
-					<ScrollReveal animation="fadeUp">
-						<div class="cta-glass">
-							<h2>Ready to Take Back Control?</h2>
-							<p>Change your relationship with your phone, one gentle pause at a time. Free, no ads, account optional.</p>
-							<div class="cta-buttons" data-placement="final_cta">
-								<Button href="/download/" variant="primary" size="lg">Download Free</Button>
-								<Button href="/support/" variant="secondary" size="lg">Get Support</Button>
-							</div>
-						</div>
-					</ScrollReveal>
+			<section class="ip-end" aria-labelledby="end-title" data-placement="final_cta">
+				<h2 id="end-title">Try it on one app first</h2>
+				<p>Pick the app you open most without meaning to, and give it a pause for a week. Free, no ads, no account needed.</p>
+				<div class="ip-actions">
+					<a href="/download/" class="ip-button">Download Respite</a>
+					<a href="/support/" class="ip-button ip-button-quiet">Get help</a>
 				</div>
 			</section>
 		</main>
 
 		<Footer />
+
+		<script>
+			// Platform filter: shows one device's features, kept in ?on= so a link can point at it.
+			const NAMES: Record<string, string> = { ios: 'iPhone', android: 'Android', chrome: 'Chrome' };
+			const buttons = [...document.querySelectorAll<HTMLButtonElement>('.ft-seg button')];
+			const rows = [...document.querySelectorAll<HTMLElement>('.ft-row')];
+			const groups = [...document.querySelectorAll<HTMLElement>('.ft-group')];
+			const note = document.getElementById('filter-note')!;
+
+			function show(on: string, write: boolean) {
+				buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.on === on)));
+				rows.forEach((r) => (r.hidden = on !== 'all' && !(r.dataset.on ?? '').split(' ').includes(on)));
+				groups.forEach((g) => (g.hidden = !g.querySelector('.ft-row:not([hidden])')));
+				document.body.dataset.on = on;
+				const n = rows.filter((r) => !r.hidden).length;
+				note.textContent = on === 'all' ? '' : `${n} features on ${NAMES[on]}. Rows show where else each one works.`;
+				if (write) {
+					const url = new URL(location.href);
+					if (on === 'all') url.searchParams.delete('on');
+					else url.searchParams.set('on', on);
+					history.replaceState(null, '', url);
+				}
+			}
+
+			buttons.forEach((b) => b.addEventListener('click', () => show(b.dataset.on ?? 'all', true)));
+			const initial = new URL(location.href).searchParams.get('on');
+			show(initial && NAMES[initial] ? initial : 'all', false);
+		</script>
 	</body>
 </html>
 
 <style>
-	.ai-band {
-		padding: var(--ds-space-2xl) 0;
-		text-align: center;
-	}
-
-	.ai-band a {
-		color: var(--ds-primary);
-		font-weight: 600;
-	}
-
-	main {
-		width: 100%;
-	}
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 1rem;
-	}
-
-	/* ============================
-	   HERO - Glass with gradient
-	   ============================ */
-	.features-hero {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: linear-gradient(180deg, var(--ds-bg-accent) 0%, var(--ds-bg-secondary) 100%);
-		text-align: center;
-		position: relative;
-		overflow: hidden;
-	}
-
-	.features-hero::before {
-		content: '';
-		display: block;
-		height: 7rem;
-	}
-
-	.hero-glow {
-		position: absolute;
-		top: -100px;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 600px;
-		height: 400px;
-		background: radial-gradient(ellipse, rgba(var(--ds-brand-rgb),  0.12) 0%, transparent 70%);
-		filter: blur(60px);
-		pointer-events: none;
-	}
-
-	.text-gradient {
-		font-size: 2rem;
-		font-weight: 800;
-		margin: 0 0 var(--ds-space-md);
-		letter-spacing: -0.02em;
-		line-height: 1.2;
-		background: linear-gradient(135deg, var(--ds-primary) 0%, var(--ds-purple) 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.hero-subtitle {
-		font-size: 1.25rem;
-		max-width: 700px;
-		margin: 0 auto;
-		color: var(--ds-text-secondary);
-		line-height: 1.6;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.hero-glow {
-			background: radial-gradient(ellipse, rgba(var(--ds-brand-rgb),  0.08) 0%, transparent 70%);
-		}
-	}
-
-	/* ============================
-	   INTRO SECTION - Glass card
-	   ============================ */
-	.intro-section {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-secondary);
-		text-align: center;
-	}
-
-	.intro-section h2 {
-		font-size: 2rem;
-		font-weight: 700;
-		margin: 0 0 var(--ds-space-lg);
-		color: var(--ds-text-primary);
-	}
-
-	.glass-intro-card {
-		max-width: 800px;
-		margin: 0 auto;
-		padding: var(--ds-space-2xl);
-		background: rgba(255, 255, 255, 0.75);
-		backdrop-filter: blur(20px) saturate(160%);
-		-webkit-backdrop-filter: blur(20px) saturate(160%);
-		border: 1px solid rgba(255, 255, 255, 0.8);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 4px 20px rgba(0, 0, 0, 0.06);
-		border-radius: 24px;
-	}
-
-	.direct-answer {
-		font-size: 1.125rem;
-		line-height: 1.75;
-		color: var(--ds-text-secondary);
-		margin: 0;
-	}
-
-	.direct-answer strong {
-		color: var(--ds-text-primary);
-		font-weight: 600;
-	}
-
-	.intro-links {
-		font-size: 1rem;
-		max-width: 800px;
-		margin: var(--ds-space-lg) auto 0;
-		color: var(--ds-text-secondary);
-	}
-
-	.intro-links a {
-		color: var(--ds-primary);
-		font-weight: 600;
-		text-decoration: none;
-		border-bottom: 2px solid transparent;
-		transition: var(--ds-transition-normal);
-	}
-
-	.intro-links a:hover {
-		border-bottom-color: var(--ds-primary);
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.glass-intro-card {
-			background: rgba(21, 38, 47, 0.75);
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.1),
-				0 4px 20px rgba(0, 0, 0, 0.4);
-		}
-	}
-
-	/* ============================
-	   BENTO SECTION - Asymmetric
-	   ============================ */
-	.bento-section {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-secondary);
-	}
-
-	.section-title {
-		font-size: 2rem;
-		font-weight: 700;
-		text-align: center;
-		margin: 0 0 var(--ds-space-2xl);
-		color: var(--ds-text-primary);
-	}
-
-	.bento-grid {
+	.ft-how {
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: 1rem;
-		max-width: 1100px;
-		margin: 0 auto;
-	}
-
-	/* Base glass card */
-	.bento-card {
-		position: relative;
-		border-radius: 24px;
-		overflow: hidden;
-		padding: 1.5rem;
-		background: rgba(255, 255, 255, 0.75);
-		backdrop-filter: blur(20px) saturate(160%);
-		-webkit-backdrop-filter: blur(20px) saturate(160%);
-		border: 1px solid rgba(255, 255, 255, 0.8);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 4px 20px rgba(0, 0, 0, 0.06);
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	@media (hover: hover) {
-		.bento-card:hover {
-			transform: scale(1.02);
-		}
-
-		.bento-card:hover .bento-icon::before {
-			opacity: 0.25;
-			transform: scale(1.3);
-		}
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.bento-card {
-			background: rgba(21, 38, 47, 0.75);
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.1),
-				0 4px 20px rgba(0, 0, 0, 0.4);
-		}
-	}
-
-	/* Hero card: full width */
-	.bento-hero-card {
-		padding: 2rem;
-	}
-
-	.bento-hero-card h3 {
-		font-size: 1.375rem;
-	}
-
-	/* Privacy card: wider */
-	.bento-privacy-card {
-		padding: 2rem;
-	}
-
-	/* Feature header with icon */
-	.bento-feature-header {
-		display: flex;
-		align-items: flex-start;
-		gap: var(--ds-space-md);
-		margin-bottom: var(--ds-space-md);
-	}
-
-	/* Icon with glow */
-	.bento-icon {
-		width: 56px;
-		height: 56px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: relative;
-		flex-shrink: 0;
-	}
-
-	.bento-icon::before {
-		content: '';
-		position: absolute;
-		inset: -4px;
-		border-radius: 50%;
-		opacity: 0.15;
-		transition: opacity 0.4s ease, transform 0.4s ease;
-	}
-
-	.bento-icon-blue::before { background: radial-gradient(circle, var(--ds-primary), transparent 70%); }
-	.bento-icon-green::before { background: radial-gradient(circle, var(--ds-green), transparent 70%); }
-	.bento-icon-purple::before { background: radial-gradient(circle, var(--ds-purple), transparent 70%); }
-	.bento-icon-orange::before { background: radial-gradient(circle, var(--ds-orange), transparent 70%); }
-
-	.bento-feature-header h3 {
-		font-size: 1.125rem;
-		font-weight: 700;
+		gap: 0.5rem;
 		margin: 0.5rem 0 0;
-		color: var(--ds-text-primary);
-		line-height: 1.3;
-		letter-spacing: -0.01em;
-	}
-
-	.bento-description {
-		color: var(--ds-text-secondary);
-		line-height: 1.6;
-		margin: 0 0 var(--ds-space-md);
-		font-size: 0.9375rem;
-	}
-
-	.bento-details {
-		list-style: none;
 		padding: 0;
-		margin: 0;
+		list-style: none;
+		counter-reset: how;
 	}
 
-	.bento-details li {
-		padding: 0.25rem 0 0.25rem 1.25rem;
-		position: relative;
-		font-size: 0.875rem;
-		color: var(--ds-text-secondary);
+	.ft-how li {
+		counter-increment: how;
+		display: flex;
+		gap: 0.75rem;
+		align-items: baseline;
 		line-height: 1.5;
-	}
-
-	.bento-details li::before {
-		content: "";
-		position: absolute;
-		left: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		width: 6px;
-		height: 6px;
-		background: var(--ds-primary);
-		border-radius: 50%;
-	}
-
-	/* ============================
-	   HOW IT WORKS - Glass Steps
-	   ============================ */
-	.platform-section { width: 100%; padding: var(--ds-space-2xl) 0; background: var(--ds-bg-secondary); }
-	.platform-lead { max-width: 700px; margin: 0 auto var(--ds-space-xl); text-align: center; color: var(--ds-text-secondary); }
-	.platform-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--ds-space-lg); }
-	.platform-col { padding: var(--ds-space-lg); border-radius: var(--ds-radius-lg); background: var(--ds-bg-primary); border: 1px solid var(--ds-gray-200); }
-	.platform-col h3 { margin: 0 0 var(--ds-space-sm); color: var(--ds-text-primary); }
-	.platform-col p { color: var(--ds-text-secondary); }
-	.platform-col ul { padding-left: 1.2rem; color: var(--ds-text-primary); }
-	.platform-col li { margin: 0.35rem 0; }
-	.platform-links a { color: var(--ds-primary); font-weight: 600; }
-	@media (max-width: 860px) { .platform-columns { grid-template-columns: 1fr; } }
-
-	.how-it-works {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0 var(--ds-space-4xl);
-		background: var(--ds-bg-primary);
-	}
-
-	.steps-timeline {
-		max-width: 800px;
-		margin: 0 auto;
-	}
-
-	.timeline-step {
-		display: flex;
-		gap: var(--ds-space-lg);
-		margin-bottom: var(--ds-space-xl);
-		align-items: flex-start;
-	}
-
-	.timeline-step:last-child {
-		margin-bottom: 0;
-	}
-
-	.step-number-wrapper {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		position: relative;
-		flex-shrink: 0;
-	}
-
-	.step-marker {
-		width: 48px;
-		height: 48px;
-		flex-shrink: 0;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: relative;
-		z-index: 2;
-	}
-
-	.step-marker.step-1 { background: var(--ds-primary); }
-	.step-marker.step-2 { background: var(--ds-purple); }
-	.step-marker.step-3 { background: var(--ds-green); }
-
-	.step-number {
-		color: white;
-		font-size: 1.25rem;
-		font-weight: 700;
-	}
-
-	.timeline-connector {
-		width: 3px;
-		height: calc(100% + var(--ds-space-xl) - 48px);
-		background: linear-gradient(180deg, var(--ds-primary) 0%, var(--ds-purple) 50%, var(--ds-green) 100%);
-		position: absolute;
-		top: 48px;
-		left: 50%;
-		transform: translateX(-50%);
-		z-index: 1;
-		border-radius: 2px;
-		opacity: 0.4;
-	}
-
-	/* Glass card for step content */
-	.step-glass-card {
-		flex: 1;
-		padding: var(--ds-space-lg) var(--ds-space-xl);
-		background: rgba(255, 255, 255, 0.75);
-		backdrop-filter: blur(20px) saturate(160%);
-		-webkit-backdrop-filter: blur(20px) saturate(160%);
-		border: 1px solid rgba(255, 255, 255, 0.8);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 4px 20px rgba(0, 0, 0, 0.06);
-		border-radius: 24px;
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	@media (hover: hover) {
-		.step-glass-card:hover {
-			transform: scale(1.02);
-		}
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.step-glass-card {
-			background: rgba(21, 38, 47, 0.75);
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.1),
-				0 4px 20px rgba(0, 0, 0, 0.4);
-		}
-	}
-
-	.step-glass-card h3 {
-		font-size: 1.25rem;
-		font-weight: 700;
-		margin: 0 0 var(--ds-space-sm);
-		color: var(--ds-text-primary);
-	}
-
-	.step-glass-card p {
 		color: var(--ds-text-secondary);
-		line-height: 1.6;
-		margin: 0;
-		font-size: 0.9375rem;
 	}
 
-	/* ============================
-	   FAQ SECTION - Glass Cards
-	   ============================ */
-	.faq-section {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-secondary);
+	.ft-how li::before {
+		content: counter(how);
+		flex: none;
+		display: grid;
+		place-items: center;
+		width: 1.6rem;
+		height: 1.6rem;
+		border-radius: 50%;
+		background: var(--ds-bg-info);
+		color: var(--ds-primary);
+		font-weight: 800;
+		font-size: 0.85rem;
 	}
 
-	.faq-list {
-		display: flex;
-		flex-direction: column;
-		gap: var(--ds-space-md);
-		max-width: 900px;
-		margin: 0 auto;
-	}
-
-	.faq-glass-card {
-		padding: 0;
-		background: rgba(255, 255, 255, 0.75);
-		backdrop-filter: blur(20px) saturate(160%);
-		-webkit-backdrop-filter: blur(20px) saturate(160%);
-		border: 1px solid rgba(255, 255, 255, 0.8);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 4px 20px rgba(0, 0, 0, 0.06);
-		border-radius: 16px;
-		transition: all 0.3s ease;
-	}
-
-	.faq-glass-card[open] {
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 8px 30px rgba(0, 0, 0, 0.08);
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.faq-glass-card {
-			background: rgba(21, 38, 47, 0.75);
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.1),
-				0 4px 20px rgba(0, 0, 0, 0.4);
-		}
-
-		.faq-glass-card[open] {
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.1),
-				0 8px 30px rgba(0, 0, 0, 0.5);
-		}
-	}
-
-	.faq-glass-card summary {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: var(--ds-space-md);
-		padding: var(--ds-space-lg) var(--ds-space-xl);
-		font-size: 1.125rem;
-		font-weight: 700;
+	.ft-how strong {
 		color: var(--ds-text-primary);
-		cursor: pointer;
-		list-style: none;
-		user-select: none;
-		transition: color 0.2s ease;
 	}
 
-	.faq-glass-card summary::-webkit-details-marker {
+	@media (min-width: 760px) {
+		.ft-how {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1.25rem;
+		}
+	}
+
+	/* Platform filter */
+	.ft-filter {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.ft-filter-title {
+		margin: 0;
+		font-size: 1rem;
+		font-weight: 800;
+	}
+
+	.ft-seg {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.ft-seg button {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		min-height: 44px;
+		padding: 0 1rem;
+		border: 1px solid var(--ip-rule);
+		border-radius: var(--ds-radius-full);
+		background: transparent;
+		color: var(--ds-text-secondary);
+		font: inherit;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.ft-seg button span {
+		font-size: 0.8rem;
+		opacity: 0.75;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.ft-seg button:hover {
+		border-color: var(--ds-primary);
+		color: var(--ds-text-primary);
+	}
+
+	.ft-seg button[aria-pressed='true'] {
+		background: var(--ds-primary);
+		border-color: var(--ds-primary);
+		color: var(--ds-on-primary);
+	}
+
+	.ft-filter-note {
+		margin: 0;
+		font-size: 0.9rem;
+		color: var(--ds-text-secondary);
+	}
+
+	.ft-filter-note:empty {
 		display: none;
 	}
 
-	.faq-glass-card summary::after {
-		content: '+';
-		font-size: 1.5rem;
-		font-weight: 300;
-		color: var(--ds-text-hint);
-		flex-shrink: 0;
-		width: 28px;
-		height: 28px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-radius: 50%;
-		background: rgba(0, 0, 0, 0.04);
-		transition: all 0.3s ease;
-		line-height: 1;
-	}
-
-	.faq-glass-card[open] summary::after {
-		content: '\2212';
-		background: rgba(var(--ds-brand-rgb),  0.1);
-		color: var(--ds-primary);
-		transform: rotate(180deg);
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.faq-glass-card summary::after {
-			background: rgba(255, 255, 255, 0.08);
-		}
-
-		.faq-glass-card[open] summary::after {
-			background: rgba(var(--ds-brand-rgb),  0.15);
-		}
-	}
-
-	@media (hover: hover) {
-		.faq-glass-card summary:hover {
-			color: var(--ds-primary);
-		}
-
-		.faq-glass-card summary:hover::after {
-			background: rgba(var(--ds-brand-rgb),  0.1);
-			color: var(--ds-primary);
-		}
-	}
-
-	.faq-glass-card p {
+	/* Feature rows */
+	.ft-list {
+		list-style: none;
 		margin: 0;
-		padding: 0 var(--ds-space-xl) var(--ds-space-lg);
+		padding: 0;
+		border-top: 1px solid var(--ip-rule);
+	}
+
+	.ft-row {
+		display: grid;
+		gap: 0.6rem;
+		padding: 1.1rem 0;
+		border-bottom: 1px solid var(--ip-rule);
+	}
+
+	@media (min-width: 760px) {
+		.ft-row {
+			grid-template-columns: 1fr auto;
+			gap: 2rem;
+			align-items: start;
+		}
+	}
+
+	.ft-text h3 {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.25rem 0.6rem;
+		margin: 0 0 0.3rem;
+		font-size: 1.08rem;
+	}
+
+	.ft-text p {
+		margin: 0;
+		max-width: 38rem;
+		line-height: 1.55;
 		color: var(--ds-text-secondary);
-		line-height: 1.7;
-		font-size: 0.9375rem;
 	}
 
-	/* ============================
-	   CTA SECTION - Enhanced
-	   ============================ */
-	.cta-section {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-primary);
-		text-align: center;
-		position: relative;
+	.ft-platforms {
+		display: flex;
+		gap: 0.35rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
 	}
 
-	.cta-divider {
-		position: absolute;
-		top: 0;
-		left: 10%;
-		right: 10%;
-		height: 1px;
-		background: linear-gradient(
-			90deg,
-			transparent 0%,
-			var(--ds-primary) 30%,
-			var(--ds-purple) 50%,
-			var(--ds-green) 70%,
-			transparent 100%
-		);
-		opacity: 0.3;
-	}
-
-	.cta-glass {
-		max-width: 700px;
-		margin: 0 auto;
-		padding: var(--ds-space-2xl);
-		background: rgba(255, 255, 255, 0.75);
-		backdrop-filter: blur(20px) saturate(160%);
-		-webkit-backdrop-filter: blur(20px) saturate(160%);
-		border: 1px solid rgba(255, 255, 255, 0.8);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 4px 20px rgba(0, 0, 0, 0.06);
-		border-radius: 24px;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.cta-divider {
-			opacity: 0.4;
-		}
-
-		.cta-glass {
-			background: rgba(21, 38, 47, 0.75);
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.1),
-				0 4px 20px rgba(0, 0, 0, 0.4);
-		}
-	}
-
-	.cta-glass h2 {
-		font-size: 2.5rem;
+	.ft-platforms li {
+		padding: 0.2rem 0.6rem;
+		border-radius: var(--ds-radius-full);
+		font-size: 0.8rem;
 		font-weight: 700;
-		margin: 0 0 var(--ds-space-md);
+		white-space: nowrap;
+	}
+
+	.ft-platforms .has {
+		background: var(--ds-bg-info);
 		color: var(--ds-text-primary);
 	}
 
-	.cta-glass p {
-		font-size: 1.125rem;
-		color: var(--ds-text-secondary);
-		max-width: 600px;
-		margin: 0 auto var(--ds-space-xl);
+	.ft-platforms .not {
+		color: var(--ds-text-hint);
+		text-decoration: line-through;
+		text-decoration-color: color-mix(in srgb, var(--ds-text-hint) 60%, transparent);
+		opacity: 0.7;
 	}
 
-	.cta-buttons {
-		display: flex;
-		gap: var(--ds-space-md);
-		justify-content: center;
-		flex-wrap: wrap;
-	}
-
-	/* ============================
-	   RESPONSIVE
-	   ============================ */
-
-	/* Tablet */
-	@media (min-width: 768px) {
-		.features-hero,
-		.bento-section,
-		.faq-section,
-		.cta-section {
-			padding: var(--ds-space-3xl) 0;
-		}
-
-		.text-gradient {
-			font-size: 2.5rem;
-		}
-
-		.intro-section h2 {
-			font-size: 1.75rem;
-		}
-
-		.section-title {
-			font-size: 1.75rem;
-		}
-
-		.bento-grid {
-			grid-template-columns: repeat(3, 1fr);
-			gap: 1.5rem;
-		}
-
-		/* Row 1: hero card full width */
-		.bento-hero-card {
-			grid-column: 1 / -1;
-		}
-
-		/* Row 4: privacy card spans 2 */
-		.bento-privacy-card {
-			grid-column: span 2;
-		}
-
-
-		.cta-glass h2 {
-			font-size: 2rem;
-		}
-
-		.timeline-step {
-			gap: var(--ds-space-md);
-		}
-	}
-
-	/* Desktop */
-	@media (min-width: 1024px) {
-		.features-hero,
-		.bento-section,
-		.faq-section,
-		.cta-section {
-			padding: var(--ds-space-4xl) 0;
-		}
-
-		.text-gradient {
-			font-size: 3.5rem;
-		}
-
-		.intro-section h2 {
-			font-size: 2rem;
-		}
-
-		.section-title {
-			font-size: 2rem;
-		}
-
-		.bento-grid {
-			grid-template-columns: repeat(3, 1fr);
-		}
-
-
-
-		.cta-glass h2 {
-			font-size: 2.5rem;
-		}
-	}
-
-	/* Mobile */
-	@media (max-width: 767px) {
-		.hero-subtitle {
-			font-size: 1rem;
-		}
-
-		.intro-section h2 {
-			font-size: 1.5rem;
-		}
-
-		.glass-intro-card {
-			padding: var(--ds-space-lg);
-		}
-
-		.direct-answer {
-			font-size: 1rem;
-		}
-
-		.intro-links {
-			font-size: 0.9375rem;
-		}
-
-		.bento-icon {
-			width: 48px;
-			height: 48px;
-		}
-
-		.cta-section {
-			padding-left: 0;
-			padding-right: 0;
-		}
-
-		.cta-glass {
-			padding: var(--ds-space-xl) var(--ds-space-md);
-			border-radius: 0;
-		}
-
-		.cta-buttons {
-			flex-direction: column;
-			gap: var(--ds-space-md);
-		}
-
-		.timeline-connector {
-			display: none;
-		}
-
-		.step-glass-card {
-			padding: var(--ds-space-md);
-		}
-
-		.cta-divider {
-			display: none;
-		}
-
-		/* Bento grid on tablet (2-col) */
-		.bento-privacy-card {
-			grid-column: auto;
-		}
-	}
-
-	/* Small tablet: 2-col bento grid */
-	@media (min-width: 480px) and (max-width: 767px) {
-		.bento-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-
-		.bento-hero-card {
-			grid-column: 1 / -1;
-		}
-	}
-
-	html {
-		scroll-behavior: smooth;
-	}
-
-	a:focus-visible,
-	button:focus-visible {
-		outline: 2px solid var(--ds-primary);
-		outline-offset: 2px;
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.bento-card,
-		.step-glass-card,
-		.faq-glass-card {
-			transition: none;
-		}
+	/* With a platform chosen, its chip stands out in every row. */
+	:global(body[data-on='ios']) .ft-platforms li:nth-child(1).has,
+	:global(body[data-on='android']) .ft-platforms li:nth-child(2).has,
+	:global(body[data-on='chrome']) .ft-platforms li:nth-child(3).has {
+		background: var(--ds-primary);
+		color: var(--ds-on-primary);
 	}
 </style>
