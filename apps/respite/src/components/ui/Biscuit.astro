@@ -1,11 +1,14 @@
 ---
 /**
  * Biscuit, the Respite mascot, from the same Lottie files the app ships
- * (copied from ThinkFast-Android app/src/main/res/raw/biscuit_<mood>.json).
+ * (copied from ThinkFast-Android main, app/src/main/res/raw/biscuit_<mood>.json; iOS and the
+ * extension ship the same files). Re-copy all of them whenever the app's Biscuit changes.
  * Frame 0 is a finished pose, so with reduced motion the still frame is shown.
  */
 interface Props {
-	mood: 'wave' | 'meditate' | 'cheer' | 'hop_in' | 'sleepy' | 'thinking' | 'ring_bell' | 'read_chart' | 'peek_phone' | 'idle' | 'breathe' | 'concerned';
+	mood:
+		| 'wave' | 'meditate' | 'cheer' | 'hop_in' | 'sleepy' | 'thinking' | 'ring_bell' | 'read_chart' | 'peek_phone' | 'idle' | 'breathe' | 'concerned'
+		| 'happy' | 'gift' | 'big_celebration' | 'badge_unlock' | 'carry_cloud' | 'deep_sleep' | 'pop_up';
 	size?: number;
 	loop?: boolean;
 	label?: string;
