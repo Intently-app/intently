@@ -1,0 +1,142 @@
+# Continuous deployment to Cloudflare Workers.
+#
+# Every push to main deploys the app sites it changed (see .github/scripts/changed-apps.mjs: a change
+# to a shared package redeploys the apps that use it). Each app is tested, built and deployed in its
+# own job, so one failing site never blocks another, and then its live domain is checked.
+# Actions > Deploy > Run workflow deploys chosen apps by hand ("respite,hub" or "all").
+#
+# Needs one repository secret, CLOUDFLARE_API_TOKEN: a Cloudflare API token made from the "Edit
+# Cloudflare Workers" template, for the account below and the liveintently.app zone.
+# apps/pawse is never deployed (retired; its domain belongs to intently-redirects).
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.nvmrc'
+  workflow_dispatch:
+    inputs:
+      apps:
+        description: 'Apps to deploy: comma-separated folder names under apps/ (e.g. respite,hub), or "all"'
+        required: true
+        default: respite
+
+permissions:
+  contents: read
+
+env:
+  # Not a secret: it appears in every workers.dev and dashboard URL.
+  CLOUDFLARE_ACCOUNT_ID: fae059b7b66e7a56172c1542b32f43d5
+
+jobs:
+  plan:
+    name: Pick apps
+    runs-on: ubuntu-latest
+    outputs:
+      apps: ${{ steps.changed.outputs.apps }}
+      count: ${{ steps.changed.outputs.count }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - id: changed
+        env:
+          EVENT: ${{ github.event_name }}
+          APPS: ${{ inputs.apps }}
+          BEFORE: ${{ github.event.before }}
+          SHA: ${{ github.sha }}
+        run: |
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            node .github/scripts/changed-apps.mjs --apps "$APPS"
+          else
+            node .github/scripts/changed-apps.mjs --base "$BEFORE" --head "$SHA"
+          fi
+
+  deploy:
+    name: ${{ matrix.app }}
+    needs: plan
+    if: needs.plan.outputs.count != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.apps) }}
+    environment:
+      name: production
+      url: https://${{ matrix.host }}
+    # One deployment per Worker at a time; a newer push waits rather than cancelling a deploy halfway.
+    concurrency:
+      group: deploy-${{ matrix.worker }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-audit --no-fund
+
+      - name: Test
+        if: matrix.hasTest
+        run: npm test -w "${{ matrix.workspace }}"
+
+      - name: Build
+        if: matrix.hasBuild
+        run: npm run build -w "${{ matrix.workspace }}"
+
+      - name: Deploy ${{ matrix.worker }}
+        working-directory: apps/${{ matrix.app }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          MESSAGE: 'GitHub ${{ github.sha }} (run ${{ github.run_id }})'
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::error::CLOUDFLARE_API_TOKEN is not set (Settings > Secrets and variables > Actions)."
+            exit 1
+          fi
+          npx wrangler deploy --message "$MESSAGE" | tee deploy.log
+
+      - name: Check the live site
+        if: matrix.host != ''
+        env:
+          URL: https://${{ matrix.host }}/
+        run: |
+          # The new version can take a few seconds to reach every edge; retry before calling it broken.
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 20 "$URL" || true)
+            echo "Attempt $i: $URL -> $code"
+            if [ "$code" -ge 200 ] && [ "$code" -lt 400 ]; then exit 0; fi
+            sleep 10
+          done
+          echo "::error::$URL did not answer with 2xx/3xx after deploying."
+          exit 1
+
+      - name: Summary
+        if: always()
+        working-directory: apps/${{ matrix.app }}
+        run: |
+          {
+            echo "### ${{ matrix.worker }}"
+            echo ""
+            echo "- Commit: \`${{ github.sha }}\`"
+            echo "- Live: https://${{ matrix.host }}"
+            if [ -f deploy.log ]; then
+              echo ""
+              echo '```'
+              grep -E 'Uploaded|Deployed|Current Version ID|https://' deploy.log || true
+              echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

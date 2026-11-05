@@ -1,0 +1,71 @@
+# Pull requests: test and build every app site the change touches, and check that Wrangler could
+# deploy it (dry run, no Cloudflare credentials), so a broken site is caught before it reaches main
+# and the Deploy workflow.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.nvmrc'
+      - '.github/scripts/**'
+      - '.github/workflows/ci.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  plan:
+    name: Pick apps
+    runs-on: ubuntu-latest
+    outputs:
+      apps: ${{ steps.changed.outputs.apps }}
+      count: ${{ steps.changed.outputs.count }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - id: changed
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: node .github/scripts/changed-apps.mjs --base "$BASE" --head "$HEAD"
+
+  build:
+    name: ${{ matrix.app }}
+    needs: plan
+    if: needs.plan.outputs.count != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.apps) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Test
+        if: matrix.hasTest
+        run: npm test -w "${{ matrix.workspace }}"
+      - name: Build
+        if: matrix.hasBuild
+        run: npm run build -w "${{ matrix.workspace }}"
+      - name: Wrangler dry run
+        working-directory: apps/${{ matrix.app }}
+        run: npx wrangler deploy --dry-run

@@ -33,7 +33,7 @@ npm install                                   # once, at the repo root
 npm run dev:respite                           # local dev server for one site
 npm run build                                 # build every site
 npm run check                                 # build + type-check + wrangler dry-run, every site
-npm run deploy -w @intently/respite-site      # deploy one site (ask first: it is production)
+npm run deploy -w @intently/respite-site      # deploy one site by hand (production; CI normally does this)
 npm test -w @intently/hub-site                # hub unit tests (terrain, timeline, palettes, maths…)
 npm run test:e2e -w @intently/hub-site        # hub end-to-end: desktop Chrome/Safari, Android, iPhone, iPad
 npm test -w @intently/redirects               # alias redirects and their per-alias path maps
@@ -44,6 +44,21 @@ The hub's end-to-end tests need Playwright's browsers once: `npx playwright inst
 
 Node 22+ (`.nvmrc`). npm only runs the install scripts listed in `allowScripts` in the root
 `package.json`; workerd, esbuild and sharp need theirs to fetch native binaries.
+
+## Deploys (GitHub Actions)
+
+Pushing to `main` deploys the sites the push changed (`.github/workflows/deploy.yml`): each one is
+tested, built, deployed with Wrangler and then checked on its live domain, in its own job. A change
+to `packages/ui` or `packages/registry` redeploys every site that uses it, a policy in
+`packages/legal/policies/<dir>/` only the sites that import that folder, and `package-lock.json` or
+`.nvmrc` every site (`.github/scripts/changed-apps.mjs`). Editing the workflows deploys nothing.
+`apps/pawse` is never deployed: its domain belongs to `intently-redirects`.
+
+- Deploy by hand: Actions > Deploy > Run workflow, with `respite,hub` or `all`.
+- Pull requests run the same tests and builds plus `wrangler deploy --dry-run` (`ci.yml`), without deploying.
+- Needs the repository secret `CLOUDFLARE_API_TOKEN` (Cloudflare template "Edit Cloudflare Workers").
+- Roll back a bad deploy with `npx wrangler rollback` in the app's folder, or from the Worker's
+  Deployments tab in the Cloudflare dashboard, then revert the commit.
 
 ## Pawse is now Respite
 
