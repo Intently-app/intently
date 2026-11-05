@@ -1,8 +1,8 @@
 ---
 /**
- * "On this page" bar for the long product pages (styles in src/styles/info-pages.css).
- * It sticks to the top, moves below the site header while the header is showing (the header hides
- * on scroll down and returns on scroll up), and marks the section being read.
+ * "On this page" pill bar for the long product pages (styles: .m-jump in src/styles/info-pages.css).
+ * It sticks to the top, moves below the site header while the header shows (the header hides on
+ * scroll down and returns on scroll up), and marks the section being read.
  */
 interface Props {
 	links: { href: string; label: string }[];
@@ -10,28 +10,25 @@ interface Props {
 const { links } = Astro.props;
 ---
 
-<nav class="ip-jump" aria-label="On this page" data-jump>
-	{links.map((l) => <a href={l.href}>{l.label}</a>)}
+<nav class="m-jump" aria-label="On this page" data-jump>
+	{links.map((l) => <a class="m-jump-link" href={l.href}>{l.label}</a>)}
 </nav>
 
 <script>
 	const nav = document.querySelector<HTMLElement>('[data-jump]');
 	const header = document.querySelector<HTMLElement>('body > header');
 	if (nav) {
-		// Follow the header: while it is on screen, sit just below its bar.
-		// Layout values, not getBoundingClientRect: the header animates its transform, and a mid-animation
-		// reading would put the bar under it.
+		// Layout values, not getBoundingClientRect: the header animates its transform.
 		const place = () => {
 			const bar = header?.querySelector<HTMLElement>('nav');
 			const bottom = bar ? bar.offsetTop + bar.offsetHeight : 0;
 			const shown = !!header && !/translateY\(-100%\)/.test(header.style.transform);
-			nav.style.top = shown && bottom > 0 ? `${bottom + 8}px` : '0.75rem';
+			nav.style.top = shown && bottom > 0 ? `${bottom + 10}px` : '0.75rem';
 		};
 		if (header) new MutationObserver(place).observe(header, { attributes: true, attributeFilter: ['style'] });
 		addEventListener('resize', place);
 		place();
 
-		// Mark the section being read.
 		const links = new Map([...nav.querySelectorAll<HTMLAnchorElement>('a')].map((a) => [a.hash.slice(1), a]));
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -45,7 +42,7 @@ const { links } = Astro.props;
 					}
 				}
 			},
-			{ rootMargin: '-20% 0px -70% 0px' },
+			{ rootMargin: '-25% 0px -65% 0px' },
 		);
 		links.forEach((_, id) => {
 			const el = document.getElementById(id);

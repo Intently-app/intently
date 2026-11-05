@@ -1,17 +1,18 @@
 ---
 /**
- * /download/: get the right Respite onto the right device, fast.
+ * /download/: get the right Respite onto the right device, fast. Mist styles (src/styles/info-pages.css).
  *
- * The three platforms are always listed; a small script puts the one for this device first and
- * labels it. On a computer the phone cards show a QR code (public/qr/, static SVGs whose links
- * carry the same campaign tags as the site's store links, utm_content download__qr). Each card
- * says what it needs, how setup goes and which permissions it asks for, from the privacy policies.
+ * Centred and symmetric: three equal cards (store button, then a QR code on a computer for the phone
+ * apps, or the matching tile), this device's card marked; one three-step setup strip; Free or Plus;
+ * questions. QR codes are static SVGs in public/qr/ whose links carry the site's campaign tags
+ * (utm_content download__qr). Requirements and permissions come from the privacy policies.
  */
 import '../styles/info-pages.css';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Biscuit from '../components/ui/Biscuit.astro';
+import Icon from '../components/ui/Icon.astro';
 import StoreButton from '../components/ui/StoreButton.astro';
 import PlanCompare from '../components/ui/PlanCompare.astro';
 import ProductSchema from '../components/SEO/ProductSchema.astro';
@@ -23,45 +24,15 @@ const APP_STORE = 'https://apps.apple.com/us/app/respite-screen-time-control/id6
 const CWS = 'https://chromewebstore.google.com/detail/intently-intentful-browsi/acjndeeecacgplloeefjjhlnlpgnonop';
 
 const platforms = [
-	{
-		id: 'ios',
-		name: 'iPhone and iPad',
-		store: 'appstore' as const,
-		href: APP_STORE,
-		qr: '/qr/app-store.svg',
-		needs: 'iOS 17.4 or later',
-		setup: ['Install Respite from the App Store.', 'Allow Screen Time access when Respite asks.', "Pick the apps in Apple's own picker and set a daily limit if you want one."],
-		asks: ["Screen Time access, so Apple can show the pause. Apple doesn't tell Respite which apps you picked or what you do in them."],
-		features: ['A pause when you open an app you picked', 'Three ways to pause: every time, Smart timing, or a time budget', "Daily limits and an app lock once today's time is used", 'Schedules, focus sessions, acorns, quests and leagues'],
-		privacy: '/privacy/',
-		terms: '/terms/',
-	},
-	{
-		id: 'android',
-		name: 'Android',
-		store: 'playstore' as const,
-		href: PLAY,
-		qr: '/qr/google-play.svg',
-		needs: 'Android 8.0 or later',
-		setup: ['Install Respite from Google Play.', 'Allow Usage access and Display over other apps when Respite asks.', 'Pick the apps you want a pause before.'],
-		asks: ['Usage access, to see which app is in front and for how long.', 'Display over other apps, to show the pause.', 'Accessibility, only if you turn on Reels and Shorts blocking.'],
-		features: ['A pause before the apps you choose', 'Usage analytics and daily limits', 'Optional Reels and Shorts blocking', 'Streaks, home screen widgets, acorns, quests and leagues'],
-		privacy: '/privacy/android/',
-		terms: '/terms/android/',
-	},
-	{
-		id: 'chrome',
-		name: 'Chrome',
-		store: 'chromestore' as const,
-		href: CWS,
-		qr: '',
-		needs: 'Chrome or another Chromium browser on a computer',
-		setup: ['Add Respite from the Chrome Web Store.', 'Allow access to websites when Chrome asks.', 'Add the sites you want a pause before.'],
-		asks: ['Access to websites, to show the pause on the sites you choose. It never reads page content, forms or passwords.'],
-		features: ['The same pause for websites', 'Website time tracking and usage insights', 'Daily limits that can lock a site for the day', 'Focus mode and quick settings'],
-		privacy: '/privacy/chrome/',
-		terms: '',
-	},
+	{ id: 'ios', name: 'iPhone', icon: 'Smartphone', needs: 'iOS 17.4 or later', store: 'appstore' as const, href: APP_STORE, qr: '/qr/app-store.svg', privacy: '/privacy/' },
+	{ id: 'android', name: 'Android', icon: 'Smartphone', needs: 'Android 8.0 or later', store: 'playstore' as const, href: PLAY, qr: '/qr/google-play.svg', privacy: '/privacy/android/' },
+	{ id: 'chrome', name: 'Chrome', icon: 'Monitor', needs: 'Chrome or another Chromium browser', store: 'chromestore' as const, href: CWS, qr: '', privacy: '/privacy/chrome/' },
+];
+
+const steps = [
+	{ icon: 'Download', title: 'Install', text: 'From your store, free' },
+	{ icon: 'KeyRound', title: 'Allow access', text: 'Screen Time on iPhone, Usage access on Android, websites in Chrome' },
+	{ icon: 'Hourglass', title: 'Pick your apps', text: 'They get a gentle pause' },
 ];
 
 const faqs = [
@@ -69,6 +40,7 @@ const faqs = [
 	{ question: 'Does Respite need an account?', answer: 'No. You can install Respite and use its core features without signing in. An account (Google or Apple sign-in) is only needed if you want sync across devices with Respite Plus. Without one, your usage history stays on your device.' },
 	{ question: 'Does Respite work on iPhone?', answer: "Yes. Download Respite from the App Store for iPhone. It is built on Apple's Screen Time, so the pause appears as Apple's Screen Time shield before the apps you pick, with daily limits and an app lock that refreshes at midnight. By default, app names stay on your iPhone." },
 	{ question: 'Which devices can I install Respite on?', answer: 'Respite runs on iPhone, Android phones and Google Chrome. The Chrome extension also works in other Chromium browsers. Each version is its own app with its own settings and history; optional Respite Plus sync can bring your progress together across devices.' },
+	{ question: 'What permissions does Respite ask for?', answer: "On iPhone, Screen Time access: Apple shows the pause and doesn't tell Respite which apps you picked. On Android, Usage access and Display over other apps, plus Accessibility only if you turn on Reels and Shorts blocking. In Chrome, access to websites, to show the pause on the sites you choose; it never reads pages, forms or passwords." },
 	{ question: 'Does Respite collect my data?', answer: "Your usage history stays on your device unless you turn on sync. Respite shows no ads and never sells your data. Each version's privacy policy lists exactly what it collects, including any anonymous analytics or crash reports. On iPhone, Apple's Screen Time keeps the apps you pick private." },
 ];
 ---
@@ -103,292 +75,343 @@ const faqs = [
 		/>
 		<FAQSchema faqs={faqs} />
 	</head>
-	<body class="ip-page">
+	<body class="m-page">
 		<Header />
 
-		<main class="ip">
-			<header class="ip-head dl-head">
-				<Biscuit mood="hop_in" size={96} loop={false} label="Biscuit hopping in" class="dl-biscuit" />
-				<h1>Get Respite</h1>
-				<p class="ip-dek">A short, gentle pause before the apps and sites you pick, so you open them on purpose. Setup takes about a minute.</p>
-				<ul class="ip-facts" aria-label="At a glance">
-					<li>Free</li>
-					<li>No ads</li>
-					<li>No account needed</li>
-					<li>History stays on your device</li>
+		<main class="m">
+			<section class="dl-hero" aria-labelledby="dl-title">
+				<div class="dl-biscuit" aria-hidden="true"><Biscuit mood="hop_in" size={130} loop={false} label="Biscuit hopping in" /></div>
+				<h1 id="dl-title">Get Respite</h1>
+				<p class="m-dek">Free on iPhone, Android and Chrome.</p>
+				<ul class="m-pills dl-pills" aria-label="At a glance">
+					{['No ads', 'No account needed', 'History stays on your device'].map((t) => (
+						<li><span aria-hidden="true"><Icon name="Check" size={18} /></span>{t}</li>
+					))}
 				</ul>
-			</header>
+			</section>
 
-			<section class="ip-section" aria-labelledby="pick-title">
-				<h2 id="pick-title" class="ip-visually-hidden">Choose your device</h2>
-				<p class="dl-device" id="dl-device" hidden></p>
-				<div class="dl-grid" id="dl-grid" data-placement="download_cards">
+			<section aria-labelledby="pick-title" class="dl-pick">
+				<h2 id="pick-title" class="m-sr">Choose your device</h2>
+				<div class="dl-cards" data-placement="download_cards">
 					{platforms.map((p) => (
 						<article class="dl-card" data-platform={p.id} aria-labelledby={`dl-${p.id}`}>
-							<div class="dl-card-head">
-								<h3 id={`dl-${p.id}`}>{p.name}</h3>
-								<span class="dl-for-you" hidden>For this device</span>
-							</div>
+							<span class="dl-mine m-badge is-accent" hidden>For this device</span>
+							<span class="dl-icon" aria-hidden="true"><Icon name={p.icon} size={30} /></span>
+							<h3 id={`dl-${p.id}`}>{p.name}</h3>
 							<p class="dl-needs">{p.needs}</p>
-							<div class="dl-get">
-								<StoreButton store={p.store} href={p.href} />
-								{p.qr && (
-									<figure class="dl-qr" hidden>
-										<img src={p.qr} alt={`QR code that opens Respite on ${p.id === 'ios' ? 'the App Store' : 'Google Play'}`} width="112" height="112" loading="lazy" />
-										<figcaption>Scan with your phone's camera</figcaption>
+							<div class="dl-store"><StoreButton store={p.store} href={p.href} /></div>
+							<div class="dl-extra" hidden>
+								{p.qr ? (
+									<figure class="dl-qr">
+										<img src={p.qr} alt={`QR code for Respite on ${p.id === 'ios' ? 'the App Store' : 'Google Play'}`} width="120" height="120" loading="lazy" />
+										<figcaption>Scan with your phone</figcaption>
 									</figure>
+								) : (
+									<div class="dl-qr dl-here">
+										<span aria-hidden="true"><Icon name="MousePointerClick" size={44} /></span>
+										<p>Add it to this browser</p>
+									</div>
 								)}
 							</div>
-
-							<details class="dl-more">
-								<summary>Setup, permissions and features</summary>
-								<div class="dl-more-body">
-									<h4>Setup</h4>
-									<ol class="dl-steps">{p.setup.map((s) => <li>{s}</li>)}</ol>
-									<h4>What it asks for</h4>
-									<ul>{p.asks.map((s) => <li>{s}</li>)}</ul>
-									<h4>What it does</h4>
-									<ul>{p.features.map((s) => <li>{s}</li>)}</ul>
-								</div>
-							</details>
-							<p class="dl-legal">
-								<a href={p.privacy}>Privacy policy</a>
-								{p.terms && <a href={p.terms}>Terms</a>}
-							</p>
+							<a class="dl-policy" href={p.privacy}>Privacy policy</a>
 						</article>
 					))}
 				</div>
-				<p class="ip-note">Using more than one? Each device works on its own. To bring them together, sign in with the same Google or Apple account on each: <a href="/blog/sync-respite-android-iphone-chrome/">how to sync Respite</a>.</p>
 			</section>
 
-			<section class="ip-section" id="plans" aria-labelledby="plans-title">
-				<h2 id="plans-title">Free or Plus?</h2>
-				<p class="ip-lead">Respite is free, and the free version is complete: the pause, limits, tracking and the game. Plus is for people who use several devices or want more.</p>
+			<section class="m-section" aria-labelledby="setup-title">
+				<h2 id="setup-title" class="m-h2 dl-center">Set up in about a minute</h2>
+				<ol class="dl-steps">
+					{steps.map((s, i) => (
+						<li>
+							<span class="dl-step-icon" aria-hidden="true"><Icon name={s.icon} size={26} /><span class="dl-step-n">{i + 1}</span></span>
+							<p class="dl-step-title">{s.title}</p>
+							<p class="m-caption">{s.text}</p>
+						</li>
+					))}
+				</ol>
+				<p class="m-caption dl-center">Using more than one device? Sign in with the same account on each. <a href="/blog/sync-respite-android-iphone-chrome/">How to sync</a></p>
+			</section>
+
+			<section class="m-section" id="plans" aria-labelledby="plans-title">
+				<h2 id="plans-title" class="m-h2 dl-center">Free, or Plus</h2>
 				<PlanCompare />
 			</section>
 
-			<section class="ip-section ip-faq" aria-labelledby="faq-title">
-				<h2 id="faq-title">Questions before you install</h2>
-				{faqs.map((faq) => (
-					<details>
-						<summary>{faq.question}</summary>
-						<p>{faq.answer}</p>
-					</details>
-				))}
-			</section>
-
-			<section class="ip-end" aria-labelledby="end-title">
-				<h2 id="end-title">Not sure it's for you?</h2>
-				<p>See <a href="/features/">everything Respite does on each device</a>, take the <a href="/quiz/">2-minute phone habit quiz</a>, or read <a href="/about/">who makes Respite</a>.</p>
+			<section class="m-section" aria-labelledby="faq-title">
+				<h2 id="faq-title" class="m-h2 dl-center">Questions</h2>
+				<div class="m-group m-faq dl-faq">
+					{faqs.map((faq) => (
+						<details>
+							<summary>{faq.question}</summary>
+							<p>{faq.answer}</p>
+						</details>
+					))}
+				</div>
 			</section>
 		</main>
 
 		<Footer />
 
 		<script>
-			// Put this device's version first. iPadOS reports itself as a Mac, so touch support decides.
+			// Mark this device's card and, on a computer, show the QR codes (and the matching Chrome tile).
 			const ua = navigator.userAgent;
 			const isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
 			const isAndroid = /Android/.test(ua);
 			const brands = (navigator as Navigator & { userAgentData?: { brands: { brand: string }[] } }).userAgentData?.brands ?? [];
 			const isChromium = brands.some((b) => /Chromium|Google Chrome/.test(b.brand)) || /Chrome\/|Edg\/|OPR\//.test(ua);
-			const grid = document.getElementById('dl-grid');
-			const note = document.getElementById('dl-device');
-			const card = (id: string) => grid?.querySelector<HTMLElement>(`[data-platform="${id}"]`);
-
-			let mine: string | null = null;
-			let message = '';
-			if (isIOS) {
-				mine = 'ios';
-				message = 'You are on an iPhone or iPad, so the App Store version is first.';
-			} else if (isAndroid) {
-				mine = 'android';
-				message = 'You are on Android, so the Google Play version is first.';
-			} else {
-				// A computer: the extension if this browser can run it, and QR codes for the phone apps.
-				mine = isChromium ? 'chrome' : null;
-				message = isChromium
-					? 'You are on a computer: add the extension to this browser, and scan a code to put Respite on your phone.'
-					: 'You are on a computer. The extension needs Chrome or another Chromium browser; scan a code to put Respite on your phone.';
-				grid?.querySelectorAll<HTMLElement>('.dl-qr').forEach((q) => (q.hidden = false));
+			const mine = isIOS ? 'ios' : isAndroid ? 'android' : isChromium ? 'chrome' : '';
+			const card = mine && document.querySelector<HTMLElement>(`.dl-card[data-platform="${mine}"]`);
+			if (card) {
+				card.classList.add('is-mine');
+				card.querySelector<HTMLElement>('.dl-mine')!.hidden = false;
 			}
-			if (mine && grid) {
-				const c = card(mine)!;
-				grid.prepend(c);
-				c.classList.add('is-mine');
-				c.querySelector<HTMLElement>('.dl-for-you')!.hidden = false;
-			}
-			if (note) {
-				note.textContent = message;
-				note.hidden = false;
-			}
+			if (!isIOS && !isAndroid) document.querySelectorAll<HTMLElement>('.dl-extra').forEach((e) => (e.hidden = false));
 		</script>
 	</body>
 </html>
 
 <style>
-	.dl-head {
-		position: relative;
+	.dl-center {
+		text-align: center;
+		justify-self: center;
 	}
 
-	.dl-head :global(.dl-biscuit) {
-		margin-bottom: -0.5rem;
-	}
-
-	.dl-device {
-		margin: 0 0 1rem;
-		color: var(--ds-text-secondary);
-	}
-
-	.dl-grid {
+	/* Hero: centred */
+	.dl-hero {
 		display: grid;
-		gap: 1rem;
+		justify-items: center;
+		gap: 0.75rem;
+		text-align: center;
+	}
+
+	.dl-biscuit {
+		display: grid;
+		place-items: center;
+		width: 160px;
+		height: 160px;
+		border-radius: 50%;
+		background: var(--m-accent-soft);
+	}
+
+	.dl-hero h1 {
+		margin: 0.5rem 0 0;
+		font-size: clamp(2.4rem, 1.7rem + 3vw, 3.8rem);
+		font-weight: 800;
+		line-height: 1.05;
+		letter-spacing: -0.02em;
+	}
+
+	.dl-pills {
+		justify-content: center;
+		margin-top: 0.75rem;
+	}
+
+	/* Three equal cards */
+	.dl-pick {
+		margin-top: -1.5rem;
+	}
+
+	.dl-cards {
+		display: grid;
+		gap: 1.25rem;
 	}
 
 	@media (min-width: 860px) {
-		.dl-grid {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-			align-items: start;
+		.dl-cards {
+			grid-template-columns: repeat(3, 1fr);
 		}
 	}
 
 	.dl-card {
-		display: grid;
-		gap: 0.75rem;
-		padding: 1.25rem;
-		border: 1px solid var(--ip-rule);
-		border-radius: var(--ds-radius-lg);
-		background: var(--ds-bg-primary);
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 2rem 1.5rem 1.5rem;
+		border-radius: 28px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		text-align: center;
 	}
 
 	.dl-card.is-mine {
-		border-color: color-mix(in srgb, var(--ds-brand) 70%, transparent);
-		box-shadow: 0 0 0 1px color-mix(in srgb, var(--ds-brand) 50%, transparent);
-		background: color-mix(in srgb, var(--ds-bg-info) 45%, var(--ds-bg-primary));
+		box-shadow: var(--m-shadow-md), 0 0 0 3px var(--m-accent);
 	}
 
-	.dl-card-head {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.5rem;
+	/* On a phone the cards stack, so this device's comes first. Side by side they keep a fixed order. */
+	@media (max-width: 859px) {
+		.dl-card.is-mine {
+			order: -1;
+		}
+	}
+
+	.dl-mine {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+	}
+
+	.dl-icon {
+		display: grid;
+		place-items: center;
+		width: 64px;
+		height: 64px;
+		border-radius: 20px;
+		background: var(--m-accent-soft);
+		color: var(--m-accent-ink);
 	}
 
 	.dl-card h3 {
-		margin: 0;
-		font-size: 1.25rem;
-	}
-
-	.dl-for-you {
-		padding: 0.15rem 0.6rem;
-		border-radius: var(--ds-radius-full);
-		background: var(--ds-primary);
-		color: var(--ds-on-primary);
-		font-size: 0.75rem;
+		margin: 0.4rem 0 0;
+		font-size: 1.6rem;
 		font-weight: 800;
-		white-space: nowrap;
 	}
 
 	.dl-needs {
-		margin: -0.4rem 0 0;
-		font-size: 0.875rem;
-		color: var(--ds-text-hint);
+		margin: 0;
+		min-height: 1.5em;
+		font-size: 0.95rem;
+		color: var(--m-ink-soft);
 	}
 
-	.dl-get {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 1rem;
+	.dl-store {
+		margin-top: 0.5rem;
+	}
+
+	.dl-extra {
+		width: 100%;
+		margin-top: 0.5rem;
 	}
 
 	.dl-qr {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
+		display: grid;
+		justify-items: center;
+		align-content: center;
+		gap: 0.6rem;
 		margin: 0;
+		height: 190px;
+		border-radius: 20px;
+		background: var(--m-ground);
 	}
 
 	.dl-qr img {
 		display: block;
-		width: 112px;
-		height: 112px;
-		padding: 6px;
-		border-radius: var(--ds-radius-sm);
+		width: 120px;
+		height: 120px;
+		padding: 8px;
+		border-radius: 14px;
 		background: #fff;
 	}
 
-	.dl-qr figcaption {
-		max-width: 8rem;
-		font-size: 0.82rem;
-		line-height: 1.4;
-		color: var(--ds-text-secondary);
+	.dl-qr figcaption,
+	.dl-here p {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: 0.95rem;
+		font-weight: 800;
+		color: var(--m-ink-soft);
 	}
 
-	@media (min-width: 860px) {
-		.dl-qr {
-			flex-direction: column;
-			align-items: flex-start;
+	.dl-here span {
+		display: grid;
+		place-items: center;
+		width: 120px;
+		height: 120px;
+		border-radius: 14px;
+		background: var(--m-paper);
+		color: var(--m-accent);
+	}
+
+	.dl-policy {
+		margin-top: auto;
+		padding-top: 0.75rem;
+		font-size: 0.9rem;
+		font-weight: 700;
+		color: var(--m-ink-soft);
+	}
+
+	/* Setup strip */
+	.dl-steps {
+		display: grid;
+		gap: 1rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	@media (min-width: 760px) {
+		.dl-steps {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1.25rem;
 		}
 	}
 
-	.dl-more summary {
-		font-size: 0.95rem;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		min-height: 44px;
-		cursor: pointer;
-		list-style: none;
-		font-weight: 700;
-		color: var(--ds-primary);
-		border-top: 1px solid var(--ip-rule);
+	.dl-steps li {
+		display: grid;
+		justify-items: center;
+		align-content: start;
+		gap: 0.4rem;
+		padding: 1.75rem 1.25rem;
+		border-radius: 24px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		text-align: center;
 	}
 
-	.dl-more summary::-webkit-details-marker {
-		display: none;
+	.dl-step-icon {
+		position: relative;
+		display: grid;
+		place-items: center;
+		width: 64px;
+		height: 64px;
+		margin-bottom: 0.4rem;
+		border-radius: 50%;
+		background: var(--m-accent-soft);
+		color: var(--m-accent-ink);
 	}
 
-	.dl-more summary::after {
-		content: '';
-		width: 0.5rem;
-		height: 0.5rem;
-		margin-right: 0.3rem;
-		border-right: 2px solid currentColor;
-		border-bottom: 2px solid currentColor;
-		transform: rotate(45deg) translateY(-25%);
-		transition: transform var(--ds-transition-fast);
-	}
-
-	.dl-more[open] summary::after {
-		transform: rotate(-135deg);
-	}
-
-	.dl-more-body h4 {
-		margin: 0.75rem 0 0.35rem;
-		font-size: 0.9rem;
+	.dl-step-n {
+		position: absolute;
+		top: -4px;
+		right: -4px;
+		display: grid;
+		place-items: center;
+		width: 26px;
+		height: 26px;
+		border-radius: 50%;
+		background: var(--m-accent-strong);
+		color: var(--m-on-accent);
+		font-family: var(--font-heading);
+		font-size: 0.85rem;
 		font-weight: 800;
 	}
 
-	.dl-more-body ul,
-	.dl-more-body ol {
+	.dl-step-title {
 		margin: 0;
-		padding-left: 1.2rem;
-		display: grid;
-		gap: 0.3rem;
-		font-size: 0.9rem;
-		line-height: 1.45;
-		color: var(--ds-text-secondary);
+		font-family: var(--font-heading);
+		font-size: 1.2rem;
+		font-weight: 800;
 	}
 
-	.dl-legal {
-		display: flex;
-		gap: 1rem;
-		margin: 0;
-		font-size: 0.85rem;
+	.dl-steps .m-caption {
+		max-width: 16rem;
 	}
 
-	.dl-legal a {
-		color: var(--ds-text-secondary);
+	.dl-faq {
+		width: 100%;
+		max-width: 50rem;
+		justify-self: center;
+	}
+
+	#plans :global(.pc) {
+		max-width: 56rem;
+		width: 100%;
+		justify-self: center;
+	}
+
+	#plans :global(.pc-note) {
+		text-align: center;
 	}
 </style>

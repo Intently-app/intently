@@ -1,17 +1,21 @@
 ---
 /**
- * /features/: what Respite does, and on which device.
+ * /features/: what Respite does, shown more than told. Mist styles (src/styles/info-pages.css).
  *
- * Every feature row says which platforms have it, and a filter (?on=ios|android|chrome) shows only
- * one device's features. Platform facts come from src/content.ts, the privacy policies and the
- * feature posts on the blog; keep a row to what that platform's app actually does.
+ * A staggered (masonry) set of cards, each at its natural height: a drawn preview of the real UI
+ * or one of the site's own illustrations (decorative), a title, one line, and chips for the
+ * features in that area. A device switcher (?on=ios|android|chrome)
+ * hides the chips a device doesn't have, and any card left empty. Platform facts come from
+ * src/content.ts, the privacy policies and the feature posts on the blog.
  */
 import '../styles/info-pages.css';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Biscuit from '../components/ui/Biscuit.astro';
+import Icon from '../components/ui/Icon.astro';
+import Picture from '../components/ui/Picture.astro';
 import PlanCompare from '../components/ui/PlanCompare.astro';
-import JumpNav from '../components/ui/JumpNav.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
 
@@ -19,92 +23,112 @@ type P = 'ios' | 'android' | 'chrome';
 const ALL: P[] = ['ios', 'android', 'chrome'];
 const NAMES: Record<P, string> = { ios: 'iPhone', android: 'Android', chrome: 'Chrome' };
 
-interface Feature {
-	title: string;
-	body: string;
+interface Chip {
+	label: string;
 	on: P[];
-	plus?: 'only' | 'more';
-	link?: { href: string; label: string };
+	plus?: boolean;
 }
 
-const groups: { id: string; title: string; lead: string; features: Feature[] }[] = [
+// visual: 'ui' draws a preview of the app; otherwise one of the blog's illustrations (public/images/blog/).
+const cards: { id: string; title: string; line: string; visual: 'ui' | { art: string; ratio: string }; chips: Chip[]; link?: { href: string; label: string } }[] = [
 	{
 		id: 'pause',
-		title: 'The pause',
-		lead: 'The heart of Respite: a moment between the reflex and the app.',
-		features: [
-			{ title: 'A pause before the apps and sites you pick', body: "A short check-in covers the app or site as it opens. Leave, or continue after a moment. On iPhone it is Apple's Screen Time shield.", on: ALL },
-			{ title: 'Three ways to pause', body: 'Every time, Smart timing that spaces check-ins out, or a time budget you choose as you open the app.', on: ['ios', 'android'] },
-			{ title: 'Something to think about', body: 'The pause rotates reflection questions, a short guided breathing exercise, your own usage stats, quotes and activity suggestions.', on: ['android', 'chrome'] },
-		],
-	},
-	{
-		id: 'limits',
-		title: 'Limits and schedules',
-		lead: 'Boundaries you set once and can keep.',
-		features: [
-			{ title: 'Daily limits per app or site', body: 'Choose how much time feels right; Respite gives a gentle heads-up as you get close.', on: ALL },
-			{ title: "Lock it once today's time is used", body: 'An app or site stays covered for the rest of the day and opens again at midnight.', on: ALL },
-			{ title: 'Schedules', body: 'Block apps during the hours you choose, with Bedtime, Work hours and Morning ready-made. A pass or snooze does not lift a running schedule.', on: ['ios', 'android'], plus: 'more', link: { href: '/blog/schedule-app-blocking-iphone-android/', label: 'How schedules work' } },
-			{ title: 'Reels and Shorts blocking', body: 'Optional. On Android it uses the Accessibility service, only if you turn it on; in Chrome it blocks Shorts and Reels on the page.', on: ['android', 'chrome'] },
+		title: 'A pause before the scroll',
+		line: 'A moment to choose before the app opens.',
+		visual: 'ui',
+		chips: [
+			{ label: 'Pause before apps and sites', on: ALL },
+			{ label: 'Three ways to pause', on: ['ios', 'android'] },
+			{ label: 'Breathing and questions', on: ['android', 'chrome'] },
 		],
 	},
 	{
 		id: 'focus',
-		title: 'Focus',
-		lead: 'When you need an hour, not a nudge.',
-		features: [
-			{ title: 'Focus sessions', body: 'Block your tracked apps, or just some of them, for 15 to 90 minutes. Free sessions run up to 25 minutes. In Chrome this is focus mode.', on: ALL, plus: 'more', link: { href: '/blog/focus-session-app-iphone/', label: 'Focus sessions on iPhone' } },
-			{ title: 'Live Activity and Control Center', body: 'See a running session on the Lock Screen, and start or end one from Control Center.', on: ['ios'], plus: 'only' },
+		title: 'Focus when you need it',
+		line: '15 to 90 minutes with your apps blocked.',
+		visual: { art: '/images/blog/focus-session-app-iphone.jpg', ratio: '4 / 3' },
+		chips: [
+			{ label: 'Focus sessions', on: ALL, plus: true },
+			{ label: 'Live Activity', on: ['ios'], plus: true },
 		],
+		link: { href: '/blog/focus-session-app-iphone/', label: 'About focus sessions' },
 	},
 	{
-		id: 'insights',
-		title: 'Insights',
-		lead: 'See the pattern, not just the moment.',
-		features: [
-			{ title: 'Where your time goes', body: 'Per-app daily totals with weekly and monthly trends. Plus adds richer insights.', on: ALL, plus: 'more' },
-			{ title: 'Home screen widgets', body: "Your streak and today's progress at a glance, plus a quick settings toggle.", on: ['android'] },
-			{ title: 'Quick settings', body: "Open Respite's quick settings from the browser toolbar.", on: ['chrome'] },
+		id: 'limits',
+		title: 'Limits you can keep',
+		line: 'A heads-up as you get close.',
+		visual: 'ui',
+		chips: [
+			{ label: 'Daily limits', on: ALL },
+			{ label: 'Done for today lock', on: ALL },
+			{ label: 'Schedules', on: ['ios', 'android'], plus: true },
+			{ label: 'Reels and Shorts block', on: ['android', 'chrome'] },
 		],
+		link: { href: '/blog/schedule-app-blocking-iphone-android/', label: 'About schedules' },
 	},
 	{
 		id: 'game',
-		title: 'Streaks and the game',
-		lead: 'Rewards for days you keep, never for more screen time.',
-		features: [
-			{ title: 'Streaks', body: 'Every day you choose presence over scrolling, your streak grows, with milestone celebrations and gentle reminders. No lectures.', on: ALL },
-			{ title: 'Acorns, quests and a shop', body: 'Earn acorns for kept days and for walking away at the pause, finish three daily quests, and spend acorns on your garden and Biscuit. Needs a free sign-in.', on: ['ios', 'android'], link: { href: '/blog/introducing-acorns-quests-and-leagues/', label: 'How the game works' } },
-			{ title: 'Weekly leagues and friends', body: 'Optional. Others see only your display name and progress, never your apps, and you can hide from leagues at any time.', on: ['ios', 'android'], link: { href: '/blog/respite-leagues-and-friends/', label: 'What friends can see' } },
+		title: 'Streaks, not guilt',
+		line: 'Kept days add up. Acorns reward walking away.',
+		visual: { art: '/images/blog/introducing-acorns-quests-and-leagues.jpg', ratio: '16 / 10' },
+		chips: [
+			{ label: 'Streaks', on: ALL },
+			{ label: 'Acorns and quests', on: ['ios', 'android'] },
+			{ label: 'Leagues and friends', on: ['ios', 'android'] },
+		],
+		link: { href: '/blog/introducing-acorns-quests-and-leagues/', label: 'How the game works' },
+	},
+	{
+		id: 'insights',
+		title: 'See where your time goes',
+		line: 'Daily totals per app, with weekly and monthly trends.',
+		visual: 'ui',
+		chips: [
+			{ label: 'Usage by app and day', on: ALL },
+			{ label: 'Richer insights', on: ALL, plus: true },
+			{ label: 'Home screen widgets', on: ['android'] },
+			{ label: 'Toolbar quick settings', on: ['chrome'] },
 		],
 	},
 	{
 		id: 'sync',
-		title: 'Sync and AI',
-		lead: 'One account across your phone and computer, if you want it.',
-		features: [
-			{ title: 'Sync across devices', body: 'Sign in with the same Google or Apple account on each device. A free account syncs one device; Plus syncs them all, and one limit can cover your total time.', on: ALL, plus: 'more', link: { href: '/blog/sync-respite-android-iphone-chrome/', label: 'How to sync' } },
-			{ title: 'Bring your own AI', body: 'Connect Claude, ChatGPT or Cursor and ask about your real usage. It reads by default and can make limits stricter only if you opt in. Respite runs no AI of its own.', on: ALL, plus: 'only', link: { href: '/ai/', label: 'How it works' } },
+		title: 'Your devices, together',
+		line: 'One account on your phone and computer.',
+		visual: { art: '/images/blog/sync-respite-android-iphone-chrome.jpg', ratio: '16 / 9' },
+		chips: [
+			{ label: 'Sync one device free', on: ALL },
+			{ label: 'Sync every device', on: ALL, plus: true },
 		],
+		link: { href: '/blog/sync-respite-android-iphone-chrome/', label: 'How to sync' },
+	},
+	{
+		id: 'ai',
+		title: 'Bring your own AI',
+		line: 'Ask Claude or ChatGPT about your real usage.',
+		visual: { art: '/images/blog/bring-your-own-ai-to-respite.jpg', ratio: '4 / 3' },
+		chips: [{ label: 'Claude, ChatGPT, Cursor', on: ALL, plus: true }],
+		link: { href: '/ai/', label: 'How it works' },
 	},
 	{
 		id: 'privacy',
-		title: 'Privacy',
-		lead: 'Your data stays yours.',
-		features: [
-			{ title: 'No account needed', body: 'Everything except sync and the game works without signing in, and your history stays on your device.', on: ALL },
-			{ title: 'No ads, never sold', body: 'Respite shows no ads and never sells your data. Each privacy policy lists exactly what that version collects.', on: ALL },
-			{ title: 'App names stay on your iPhone', body: "Apple's Screen Time keeps the apps you pick private, even from Respite, unless you match an app for sync.", on: ['ios'] },
+		title: 'Private by design',
+		line: 'No account needed. History stays on your device.',
+		visual: { art: '/images/blog/privacy-first-screen-time-tracking.jpg', ratio: '16 / 10' },
+		chips: [
+			{ label: 'No account needed', on: ALL },
+			{ label: 'No ads, never sold', on: ALL },
+			{ label: 'App names stay private', on: ['ios'] },
 		],
 	},
 ];
 
-const counts = Object.fromEntries(ALL.map((p) => [p, groups.reduce((n, g) => n + g.features.filter((f) => f.on.includes(p)).length, 0)])) as Record<P, number>;
-const total = groups.reduce((n, g) => n + g.features.length, 0);
+const counts = Object.fromEntries(ALL.map((p) => [p, cards.reduce((n, c) => n + c.chips.filter((x) => x.on.includes(p)).length, 0)])) as Record<P, number>;
+const total = cards.reduce((n, c) => n + c.chips.length, 0);
+const week = [42, 55, 38, 61, 30, 22, 18];
 
 const featureFAQs = [
 	{ question: 'Is Respite free?', answer: 'Yes. Respite is free on iPhone, Android and Chrome, with no ads. The pause, usage tracking, daily limits and streaks all work without paying. An optional upgrade, Respite Plus, adds sync across your devices and extras such as more schedules, longer focus sessions and richer insights.' },
-	{ question: 'Does Respite need an account?', answer: 'No. You can use Respite\'s core features without signing in. An account (Google or Apple sign-in) is only needed if you want to sync across devices with Respite Plus. Without one, your usage history stays on your device.' },
+	{ question: 'Does Respite need an account?', answer: "No. You can use Respite's core features without signing in. An account (Google or Apple sign-in) is only needed if you want to sync across devices with Respite Plus. Without one, your usage history stays on your device." },
 	{ question: 'Does Respite work on iPhone?', answer: "Yes. Respite is available for iPhone, Android and Chrome. The iPhone app is built on Apple's Screen Time, so the pause appears as Apple's Screen Time shield before the apps you pick. It also offers daily limits and an app lock that covers an app once today's time is used, refreshing at midnight." },
 	{ question: 'How is Respite different from app blockers?', answer: 'Blockers shut an app down. Respite puts a short, gentle pause in front of the apps you pick, so you open them on purpose rather than by reflex. You can leave or continue after a moment. It also tracks your usage, keeps streaks and lets you set daily limits, so you see the pattern as well as interrupt it.' },
 	{ question: 'Does Respite collect my data?', answer: "Your usage history stays on your device unless you turn on sync. Respite shows no ads and never sells your data. On iPhone, Apple's Screen Time keeps the apps you pick private, even from Respite. Each version's privacy policy lists exactly what it collects, including any anonymous analytics or crash reports." },
@@ -124,104 +148,139 @@ const featureFAQs = [
 		/>
 		<FAQSchema faqs={featureFAQs} />
 	</head>
-	<body class="ip-page">
+	<body class="m-page">
 		<Header />
 
-		<main class="ip">
-			<header class="ip-head">
-				<h1>What Respite does</h1>
-				<p class="ip-dek">Respite puts a short, gentle pause before the apps and sites you pick, so you open them on purpose. Around it: limits you can keep, focus when you need it, and streaks instead of guilt.</p>
-				<ol class="ft-how" aria-label="How it works">
-					<li><strong>Notice.</strong> See which apps pull you in, within a day.</li>
-					<li><strong>Pause.</strong> A moment to ask: is this what I want right now?</li>
-					<li><strong>Choose.</strong> Leave or continue. Each kept day builds your streak.</li>
-				</ol>
-			</header>
-
-			<JumpNav links={[...groups.map((g) => ({ href: `#${g.id}`, label: g.title })), { href: '#plans', label: 'Free or Plus' }, { href: '#faq', label: 'Questions' }]} />
-
-			<section class="ft-filter" aria-labelledby="filter-title">
-				<h2 id="filter-title" class="ft-filter-title">Show features for</h2>
-				<div class="ft-seg" role="group" aria-labelledby="filter-title">
-					<button type="button" data-on="all" aria-pressed="true">Every device <span>{total}</span></button>
+		<main class="m">
+			<section class="ft-hero" aria-labelledby="ft-title">
+				<div class="ft-biscuit" aria-hidden="true"><Biscuit mood="wave" size={120} label="Biscuit waving" /></div>
+				<h1 id="ft-title">What Respite does</h1>
+				<p class="m-dek">A gentle pause, limits you can keep, and streaks instead of guilt.</p>
+				<div class="m-seg ft-seg" role="group" aria-label="Show features for">
+					<button type="button" data-on="all" aria-pressed="true">All <span class="m-count">{total}</span></button>
 					{ALL.map((p) => (
-						<button type="button" data-on={p} aria-pressed="false">{NAMES[p]} <span>{counts[p]}</span></button>
+						<button type="button" data-on={p} aria-pressed="false">{NAMES[p]} <span class="m-count">{counts[p]}</span></button>
 					))}
 				</div>
-				<p class="ft-filter-note" id="filter-note" aria-live="polite"></p>
 			</section>
 
-			{groups.map((g) => (
-				<section class="ip-section ft-group" id={g.id} aria-labelledby={`${g.id}-title`}>
-					<h2 id={`${g.id}-title`}>{g.title}</h2>
-					<p class="ip-lead">{g.lead}</p>
-					<ul class="ft-list">
-						{g.features.map((f) => (
-							<li class="ft-row" data-on={f.on.join(' ')}>
-								<div class="ft-text">
-									<h3>
-										{f.title}
-										{f.plus === 'only' && <span class="ip-badge ip-badge-plus">Plus</span>}
-										{f.plus === 'more' && <span class="ip-badge ip-badge-plus">More with Plus</span>}
-									</h3>
-									<p>{f.body}{f.link && <> <a href={f.link.href}>{f.link.label}</a></>}</p>
-								</div>
-								<ul class="ft-platforms" aria-label="Available on">
-									{ALL.map((p) => (
-										<li class={f.on.includes(p) ? 'has' : 'not'}>
-											<span class="ip-visually-hidden">{f.on.includes(p) ? '' : 'Not on '}</span>{NAMES[p]}
-										</li>
-									))}
-								</ul>
-							</li>
-						))}
-					</ul>
+			<div class="ft-masonry">
+				{cards.map((c) => (
+					<section class="ft-card" id={c.id} aria-labelledby={`${c.id}-title`}>
+						{c.visual === 'ui' ? (
+							<div class={`ft-visual v-${c.id}`} aria-hidden="true">
+								{c.id === 'pause' && (
+									<div class="v-phone">
+										<span class="v-hourglass"><Icon name="Hourglass" size={28} /></span>
+										<p class="v-big">Open Instagram?</p>
+										<p class="v-small">Opened 6 times today</p>
+										<span class="v-btn">I'll do something else</span>
+										<span class="v-btn is-soft">Continue in 5s</span>
+									</div>
+								)}
+								{c.id === 'limits' && (
+									<div class="v-list">
+										{[
+											{ l: 'I', name: 'Instagram', pct: 70, val: '42 of 60m', tone: '' },
+											{ l: 'Y', name: 'YouTube', pct: 88, val: '40 of 45m', tone: 'is-reward' },
+											{ l: 'T', name: 'TikTok', pct: 100, val: 'Done for today', tone: 'is-warning' },
+										].map((a) => (
+											<div class="v-app">
+												<span class={`v-letter ${a.tone}`}>{a.l}</span>
+												<div class="v-app-main">
+													<div class="v-app-top"><span>{a.name}</span><span class={a.tone}>{a.val}</span></div>
+													<span class="v-bar"><span class={a.tone} style={`width:${a.pct}%`}></span></span>
+												</div>
+											</div>
+										))}
+									</div>
+								)}
+								{c.id === 'insights' && (
+									<div class="v-chart">
+										<div class="v-chart-head">
+											<span class="v-chart-num">3h 17m</span>
+											<span class="m-badge is-live">18% less than last week</span>
+										</div>
+										<div class="v-bars">
+											{week.map((h, i) => (
+												<span class="v-col"><span class={`v-colbar ${i === 6 ? 'is-today' : ''}`} style={`height:${h + 30}%`}></span><span class="v-day">{['M', 'T', 'W', 'T', 'F', 'S', 'S'][i]}</span></span>
+											))}
+										</div>
+									</div>
+								)}
+							</div>
+						) : (
+							<div class="ft-art" style={`aspect-ratio: ${c.visual.ratio}`} aria-hidden="true">
+								<Picture src={c.visual.art} alt="" width={720} height={405} loading="lazy" />
+							</div>
+						)}
+						<div class="ft-copy">
+							<h2 id={`${c.id}-title`}>{c.title}</h2>
+							<p>{c.line}</p>
+							<ul class="ft-chips" aria-label="Includes">
+								{c.chips.map((x) => (
+									<li data-on={x.on.join(' ')}>
+										{x.label}
+										{x.plus && <span class="ft-plus">Plus</span>}
+										{x.on.length < 3 && <span class="ft-devs">{x.on.map((p) => NAMES[p]).join(', ')}</span>}
+									</li>
+								))}
+							</ul>
+							{c.link && <a class="ft-more" href={c.link.href}>{c.link.label}</a>}
+						</div>
+					</section>
+				))}
+				<section class="ft-card ft-cta" aria-labelledby="cta-title" data-placement="final_cta">
+					<div class="ft-art" style="aspect-ratio: 4 / 3" aria-hidden="true">
+						<Picture src="/images/blog/what-is-digital-wellbeing.jpg" alt="" width={720} height={405} loading="lazy" />
+					</div>
+					<div class="ft-copy">
+						<h2 id="cta-title">Try it on one app first</h2>
+						<p>Free on iPhone, Android and Chrome. No ads, no account needed.</p>
+						<a href="/download/" class="m-btn">Download Respite</a>
+					</div>
 				</section>
-			))}
+			</div>
+			<p class="m-caption ft-note" id="ft-note">Features without a device name work everywhere.</p>
 
-			<section class="ip-section" id="plans" aria-labelledby="plans-title">
-				<h2 id="plans-title">Free or Plus?</h2>
-				<p class="ip-lead">Everything above is free unless it is marked Plus. Plus raises a few limits and adds sync for every device.</p>
+			<section class="m-section" id="plans" aria-labelledby="plans-title">
+				<div class="m-section-head">
+					<h2 id="plans-title">Free, or Plus</h2>
+					<p class="m-caption">Everything is free unless it says Plus</p>
+				</div>
 				<PlanCompare />
 			</section>
 
-			<section class="ip-section ip-faq" id="faq" aria-labelledby="faq-title">
-				<h2 id="faq-title">Questions</h2>
-				{featureFAQs.map((faq) => (
-					<details>
-						<summary>{faq.question}</summary>
-						<p>{faq.answer}</p>
-					</details>
-				))}
-			</section>
-
-			<section class="ip-end" aria-labelledby="end-title" data-placement="final_cta">
-				<h2 id="end-title">Try it on one app first</h2>
-				<p>Pick the app you open most without meaning to, and give it a pause for a week. Free, no ads, no account needed.</p>
-				<div class="ip-actions">
-					<a href="/download/" class="ip-button">Download Respite</a>
-					<a href="/support/" class="ip-button ip-button-quiet">Get help</a>
+			<section class="m-section" id="faq" aria-labelledby="faq-title">
+				<h2 id="faq-title" class="m-h2">Questions</h2>
+				<div class="m-group m-faq">
+					{featureFAQs.map((faq) => (
+						<details>
+							<summary>{faq.question}</summary>
+							<p>{faq.answer}</p>
+						</details>
+					))}
 				</div>
 			</section>
+
 		</main>
 
 		<Footer />
 
 		<script>
-			// Platform filter: shows one device's features, kept in ?on= so a link can point at it.
+			// Device switcher: hides the chips a device doesn't have, kept in ?on= so a link can point at it.
 			const NAMES: Record<string, string> = { ios: 'iPhone', android: 'Android', chrome: 'Chrome' };
 			const buttons = [...document.querySelectorAll<HTMLButtonElement>('.ft-seg button')];
-			const rows = [...document.querySelectorAll<HTMLElement>('.ft-row')];
-			const groups = [...document.querySelectorAll<HTMLElement>('.ft-group')];
-			const note = document.getElementById('filter-note')!;
+			const chips = [...document.querySelectorAll<HTMLElement>('.ft-chips li')];
+			const cards = [...document.querySelectorAll<HTMLElement>('.ft-card:not(.ft-cta)')];
+			const note = document.getElementById('ft-note')!;
 
 			function show(on: string, write: boolean) {
 				buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.on === on)));
-				rows.forEach((r) => (r.hidden = on !== 'all' && !(r.dataset.on ?? '').split(' ').includes(on)));
-				groups.forEach((g) => (g.hidden = !g.querySelector('.ft-row:not([hidden])')));
+				chips.forEach((c) => (c.hidden = on !== 'all' && !(c.dataset.on ?? '').split(' ').includes(on)));
+				cards.forEach((c) => (c.hidden = !c.querySelector('.ft-chips li:not([hidden])')));
 				document.body.dataset.on = on;
-				const n = rows.filter((r) => !r.hidden).length;
-				note.textContent = on === 'all' ? '' : `${n} features on ${NAMES[on]}. Rows show where else each one works.`;
+				note.textContent = on === 'all' ? 'Features without a device name work everywhere.' : `Showing what Respite does on ${NAMES[on]}.`;
 				if (write) {
 					const url = new URL(location.href);
 					if (on === 'all') url.searchParams.delete('on');
@@ -229,7 +288,6 @@ const featureFAQs = [
 					history.replaceState(null, '', url);
 				}
 			}
-
 			buttons.forEach((b) => b.addEventListener('click', () => show(b.dataset.on ?? 'all', true)));
 			const initial = new URL(location.href).searchParams.get('on');
 			show(initial && NAMES[initial] ? initial : 'all', false);
@@ -238,181 +296,387 @@ const featureFAQs = [
 </html>
 
 <style>
-	.ft-how {
+	/* ------------------------------------------------------------ hero: centred */
+	.ft-hero {
 		display: grid;
-		gap: 0.5rem;
-		margin: 0.5rem 0 0;
-		padding: 0;
-		list-style: none;
-		counter-reset: how;
+		justify-items: center;
+		gap: 1rem;
+		text-align: center;
 	}
 
-	.ft-how li {
-		counter-increment: how;
-		display: flex;
-		gap: 0.75rem;
-		align-items: baseline;
-		line-height: 1.5;
-		color: var(--ds-text-secondary);
-	}
-
-	.ft-how li::before {
-		content: counter(how);
-		flex: none;
+	.ft-biscuit {
 		display: grid;
 		place-items: center;
-		width: 1.6rem;
-		height: 1.6rem;
+		width: 150px;
+		height: 150px;
 		border-radius: 50%;
-		background: var(--ds-bg-info);
-		color: var(--ds-primary);
+		background: var(--m-accent-soft);
+	}
+
+	.ft-hero h1 {
+		margin: 0.5rem 0 0;
+		font-size: clamp(2.3rem, 1.6rem + 2.8vw, 3.6rem);
 		font-weight: 800;
-		font-size: 0.85rem;
+		line-height: 1.05;
+		letter-spacing: -0.02em;
 	}
 
-	.ft-how strong {
-		color: var(--ds-text-primary);
-	}
-
-	@media (min-width: 760px) {
-		.ft-how {
-			grid-template-columns: repeat(3, 1fr);
-			gap: 1.25rem;
-		}
-	}
-
-	/* Platform filter */
-	.ft-filter {
-		display: grid;
-		gap: 0.75rem;
-	}
-
-	.ft-filter-title {
-		margin: 0;
-		font-size: 1rem;
-		font-weight: 800;
+	.ft-hero .m-dek {
+		margin-bottom: 0.75rem;
 	}
 
 	.ft-seg {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
+		justify-content: center;
 	}
 
-	.ft-seg button {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.45rem;
-		min-height: 44px;
-		padding: 0 1rem;
-		border: 1px solid var(--ip-rule);
-		border-radius: var(--ds-radius-full);
-		background: transparent;
-		color: var(--ds-text-secondary);
-		font: inherit;
-		font-weight: 700;
-		cursor: pointer;
+	/* ------------------------------------------------------------ staggered cards */
+	.ft-masonry {
+		margin-top: -1.5rem;
+		columns: 1;
+		column-gap: 1.25rem;
 	}
 
-	.ft-seg button span {
-		font-size: 0.8rem;
-		opacity: 0.75;
-		font-variant-numeric: tabular-nums;
-	}
-
-	.ft-seg button:hover {
-		border-color: var(--ds-primary);
-		color: var(--ds-text-primary);
-	}
-
-	.ft-seg button[aria-pressed='true'] {
-		background: var(--ds-primary);
-		border-color: var(--ds-primary);
-		color: var(--ds-on-primary);
-	}
-
-	.ft-filter-note {
-		margin: 0;
-		font-size: 0.9rem;
-		color: var(--ds-text-secondary);
-	}
-
-	.ft-filter-note:empty {
-		display: none;
-	}
-
-	/* Feature rows */
-	.ft-list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		border-top: 1px solid var(--ip-rule);
-	}
-
-	.ft-row {
-		display: grid;
-		gap: 0.6rem;
-		padding: 1.1rem 0;
-		border-bottom: 1px solid var(--ip-rule);
-	}
-
-	@media (min-width: 760px) {
-		.ft-row {
-			grid-template-columns: 1fr auto;
-			gap: 2rem;
-			align-items: start;
+	@media (min-width: 680px) {
+		.ft-masonry {
+			columns: 2;
 		}
 	}
 
-	.ft-text h3 {
+	@media (min-width: 1040px) {
+		.ft-masonry {
+			columns: 3;
+		}
+	}
+
+	.ft-card {
+		display: flex;
+		flex-direction: column;
+		margin: 0 0 1.25rem;
+		break-inside: avoid;
+		border-radius: 28px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		overflow: hidden;
+		scroll-margin-top: 6rem;
+	}
+
+	.ft-visual {
+		display: grid;
+		place-items: center;
+		margin: 0.6rem 0.6rem 0;
+		padding: 1.5rem 1.25rem;
+		border-radius: 22px;
+		background: var(--m-ground);
+	}
+
+	.ft-art {
+		margin: 0.6rem 0.6rem 0;
+		border-radius: 22px;
+		overflow: hidden;
+		background: var(--m-ground);
+	}
+
+	.ft-art :global(img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.ft-copy {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.6rem;
+		padding: 1.25rem 1.5rem 1.5rem;
+	}
+
+	.ft-cta .m-btn {
+		margin-top: 0.4rem;
+	}
+
+	.ft-copy h2 {
+		margin: 0;
+		font-size: 1.45rem;
+		font-weight: 800;
+		line-height: 1.2;
+	}
+
+	.ft-copy > p {
+		margin: 0;
+		line-height: 1.5;
+		color: var(--m-ink-soft);
+	}
+
+	.ft-chips {
 		display: flex;
 		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.25rem 0.6rem;
-		margin: 0 0 0.3rem;
-		font-size: 1.08rem;
-	}
-
-	.ft-text p {
-		margin: 0;
-		max-width: 38rem;
-		line-height: 1.55;
-		color: var(--ds-text-secondary);
-	}
-
-	.ft-platforms {
-		display: flex;
-		gap: 0.35rem;
-		margin: 0;
+		gap: 0.4rem;
+		margin: 0.4rem 0 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.ft-platforms li {
-		padding: 0.2rem 0.6rem;
-		border-radius: var(--ds-radius-full);
-		font-size: 0.8rem;
-		font-weight: 700;
+	.ft-chips li {
 		white-space: nowrap;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.35rem 0.75rem;
+		border-radius: 999px;
+		background: var(--m-fog);
+		font-size: 0.88rem;
+		font-weight: 700;
+		line-height: 1.3;
 	}
 
-	.ft-platforms .has {
-		background: var(--ds-bg-info);
-		color: var(--ds-text-primary);
+	.ft-devs {
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: var(--m-ink-soft);
 	}
 
-	.ft-platforms .not {
-		color: var(--ds-text-hint);
-		text-decoration: line-through;
-		text-decoration-color: color-mix(in srgb, var(--ds-text-hint) 60%, transparent);
-		opacity: 0.7;
+	:global(body[data-on]:not([data-on='all'])) .ft-devs {
+		display: none;
 	}
 
-	/* With a platform chosen, its chip stands out in every row. */
-	:global(body[data-on='ios']) .ft-platforms li:nth-child(1).has,
-	:global(body[data-on='android']) .ft-platforms li:nth-child(2).has,
-	:global(body[data-on='chrome']) .ft-platforms li:nth-child(3).has {
-		background: var(--ds-primary);
-		color: var(--ds-on-primary);
+	.ft-plus {
+		padding: 0.05rem 0.45rem;
+		border-radius: 999px;
+		background: var(--m-reward-soft);
+		color: var(--m-reward-ink);
+		font-size: 0.75rem;
+		font-weight: 800;
+	}
+
+	.ft-more {
+		padding-top: 0.2rem;
+		color: var(--m-accent);
+		font-family: var(--font-heading);
+		font-weight: 800;
+		text-decoration: none;
+	}
+
+	.ft-more:hover {
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+
+	.ft-note {
+		margin-top: -4rem;
+		text-align: center;
+	}
+
+	/* ------------------------------------------------------------ the drawn previews (decorative) */
+	.ft-visual p {
+		margin: 0;
+	}
+
+	.v-small {
+		font-size: 0.85rem;
+		color: var(--m-ink-soft);
+	}
+
+	/* Pause */
+	.v-phone {
+		display: grid;
+		justify-items: center;
+		gap: 0.5rem;
+		width: min(250px, 100%);
+		padding: 1.5rem 1.1rem 1.1rem;
+		border-radius: 30px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-md);
+		text-align: center;
+	}
+
+	.v-hourglass {
+		display: grid;
+		place-items: center;
+		width: 56px;
+		height: 56px;
+		border-radius: 50%;
+		background: var(--m-accent-soft);
+		color: var(--m-accent-ink);
+		animation: breathe 4s ease-in-out infinite;
+	}
+
+	@keyframes breathe {
+		50% {
+			transform: scale(1.08);
+		}
+	}
+
+	.v-big {
+		font-family: var(--font-heading);
+		font-size: 1.2rem;
+		font-weight: 800;
+	}
+
+	.v-btn {
+		display: block;
+		width: 100%;
+		padding: 0.6rem;
+		border-radius: 999px;
+		background: var(--m-accent-strong);
+		color: var(--m-on-accent);
+		font-family: var(--font-heading);
+		font-size: 0.9rem;
+		font-weight: 800;
+	}
+
+	.v-btn.is-soft {
+		background: var(--m-fog);
+		color: var(--m-ink-soft);
+	}
+
+	/* Limits */
+	.v-list {
+		display: grid;
+		gap: 0.9rem;
+		width: 100%;
+		padding: 1rem;
+		border-radius: 20px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+	}
+
+	.v-app {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.v-letter {
+		display: grid;
+		place-items: center;
+		flex: none;
+		width: 36px;
+		height: 36px;
+		border-radius: 10px;
+		background: var(--m-accent-soft);
+		color: var(--m-accent-ink);
+		font-family: var(--font-heading);
+		font-weight: 800;
+	}
+
+	.v-letter.is-reward {
+		background: var(--m-reward-soft);
+		color: var(--m-reward-ink);
+	}
+
+	.v-letter.is-warning {
+		background: var(--m-warning-soft);
+		color: var(--m-warning-ink);
+	}
+
+	.v-app-main {
+		flex: 1;
+		display: grid;
+		gap: 0.35rem;
+	}
+
+	.v-app-top {
+		display: flex;
+		justify-content: space-between;
+		gap: 0.5rem;
+		font-size: 0.85rem;
+		font-weight: 700;
+	}
+
+	.v-app-top span:last-child {
+		color: var(--m-ink-soft);
+	}
+
+	.v-app-top .is-warning {
+		color: var(--m-warning-ink) !important;
+	}
+
+	.v-bar {
+		display: block;
+		height: 8px;
+		border-radius: 999px;
+		background: var(--m-fog);
+		overflow: hidden;
+	}
+
+	.v-bar span {
+		display: block;
+		height: 100%;
+		border-radius: 999px;
+		background: var(--m-accent);
+	}
+
+	.v-bar .is-reward {
+		background: #f2b880;
+	}
+
+	.v-bar .is-warning {
+		background: #ee8a7a;
+	}
+
+	/* Insights */
+	.v-chart {
+		display: grid;
+		gap: 1rem;
+		width: 100%;
+		padding: 1.25rem;
+		border-radius: 20px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+	}
+
+	.v-chart-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+	}
+
+	.v-chart-num {
+		font-family: var(--font-heading);
+		font-size: 1.8rem;
+		font-weight: 800;
+	}
+
+	.v-bars {
+		display: grid;
+		grid-template-columns: repeat(7, 1fr);
+		align-items: end;
+		gap: 0.6rem;
+		height: 120px;
+	}
+
+	.v-col {
+		display: grid;
+		grid-template-rows: 1fr auto;
+		justify-items: center;
+		height: 100%;
+		gap: 0.35rem;
+	}
+
+	.v-colbar {
+		align-self: end;
+		width: 100%;
+		max-width: 28px;
+		border-radius: 8px 8px 4px 4px;
+		background: var(--m-accent-soft);
+	}
+
+	.v-colbar.is-today {
+		background: var(--m-accent);
+	}
+
+	.v-day {
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: var(--m-ink-soft);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.v-hourglass {
+			animation: none;
+		}
 	}
 </style>

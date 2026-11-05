@@ -6,6 +6,8 @@ import '../styles/info-pages.css';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
 import JumpNav from '../components/ui/JumpNav.astro';
+import Biscuit from '../components/ui/Biscuit.astro';
+import Icon from '../components/ui/Icon.astro';
 
 const MCP_URL = 'https://respite-api.liveintently.app/mcp';
 const PAGE_URL = 'https://respite.liveintently.app/ai/';
@@ -72,16 +74,17 @@ const writeTools = [
 	{ name: 'undo_change', what: 'Lets an AI undo a change it made itself.' },
 ];
 
+// Short on purpose: the details are in the FAQ and in /blog/let-ai-change-your-limits/.
 const live = [
-	['Connect Claude, ChatGPT, Cursor or another remote MCP client with OAuth sign-in', 'Live'],
-	['Read your usage, insights, limits, schedules, sessions, interventions and game progress', 'Live (Respite Plus)'],
-	['Resources respite://today and respite://week with ready-made summaries', 'Live (Respite Plus)'],
-	['Connections are read-only unless you tick \"Also let it make my limits stricter\" on the approval page; connections made before this update stay read-only until you reconnect', 'Live'],
-	['AI makes your limits stricter: lower a limit or add a schedule, applied at once and synced to your devices (opt-in)', 'Live (Respite Plus)'],
-	['Loosening (raising or removing a limit, removing a schedule) never applies on its own: it becomes a request, which expires after 7 days', 'Live'],
-	['A log of every AI change (which AI, what, before and after, the reason it gave), kept 90 days, with undo for the AI\'s own changes; at most 30 changes per connection per hour', 'Live'],
-	['A Connected AI screen in the Respite app to approve requests and remove connections; until it arrives you change limits yourself in the app', 'Coming in app updates'],
-	['An AI changing your pause messages or custom rules', 'Planned'],
+	['Connect Claude, ChatGPT, Cursor and other MCP apps', 'Live'],
+	['Read usage, insights, limits and progress', 'Live, Plus'],
+	['Ready-made today and week summaries', 'Live, Plus'],
+	['Read-only unless you opt in to stricter limits', 'Live'],
+	['AI lowers a limit or adds a schedule, synced to your devices', 'Live, Plus'],
+	['Loosening becomes a request that expires in 7 days', 'Live'],
+	['A 90-day log of AI changes, with undo', 'Live'],
+	['Approve requests in the Respite app', 'Coming soon'],
+	['AI edits pause messages or rules', 'Planned'],
 ];
 
 const compare = [
@@ -241,241 +244,250 @@ const setups = [
 		<script type="application/ld+json" set:html={JSON.stringify(webPage)} />
 		<FAQSchema faqs={faqs} />
 	</head>
-	<body class="ip-page">
+	<body class="m-page">
 		<Header />
 
-		<main class="ip">
-			<header class="ip-head">
-				<h1>AI Screen Time App: Connect Claude or ChatGPT to Your Real Phone Data</h1>
-				<p class="ip-dek">{answer}</p>
-				<ul class="ip-facts" aria-label="At a glance">
-					<li>Reads by default</li>
-					<li>Stricter limits only if you opt in</li>
-					<li>Respite runs no AI</li>
-					<li>Disconnect any time</li>
-				</ul>
-				<p class="ai-meta"><span class="ip-badge ip-badge-plus">Respite Plus</span> Updated November 2026.</p>
-			</header>
+		<main class="m">
+			<section class="m-hero" aria-labelledby="ai-title">
+				<div>
+					<p class="ai-kicker"><span class="m-badge is-plus">Respite Plus</span> <span class="m-caption">Updated November 2026</span></p>
+					<h1 id="ai-title">AI Screen Time App: Connect Claude or ChatGPT to Your Real Phone Data</h1>
+					<p class="m-dek">Ask your own Claude, ChatGPT or Cursor about your real usage, limits and progress.</p>
+					<ul class="m-pills" aria-label="At a glance">
+						{['Reads by default', 'Stricter limits only if you opt in', 'Respite runs no AI'].map((t) => (
+							<li><span aria-hidden="true"><Icon name="Check" size={18} /></span>{t}</li>
+						))}
+					</ul>
+				</div>
+				<div class="m-biscuit" aria-hidden="true">
+					<div class="m-biscuit-disc"><Biscuit mood="read_chart" size={190} label="Biscuit reading a chart" /></div>
+					<p class="m-bubble">Your AI, your data, your rules.</p>
+				</div>
+			</section>
+
+			<section class="m-paper ai-short" aria-labelledby="short-title">
+				<span class="m-tile" aria-hidden="true"><Icon name="Sparkles" size={22} /></span>
+				<div>
+					<h2 id="short-title" class="ai-short-title">In short</h2>
+					<p>{answer}</p>
+				</div>
+			</section>
 
 			<JumpNav links={[{ href: '#setup', label: 'Set it up' }, { href: '#ask', label: 'What to ask' }, { href: '#can', label: 'What it can do' }, { href: '#status', label: "What's live" }, { href: '#privacy', label: 'Privacy' }, { href: '#compare', label: 'Compared' }, { href: '#faq', label: 'Questions' }]} />
 
-			<section class="ip-section" id="setup" aria-labelledby="setup-title">
-				<h2 id="setup-title">Set it up in about two minutes</h2>
-				<p class="ip-lead">Every assistant uses the same address. Add it as a custom connector, sign in with the Google or Apple account you use in Respite, and allow access.</p>
-
-				<div class="ai-address">
-					<label for="mcp-url">Respite's MCP server</label>
-					<div class="ai-copyline">
-						<input id="mcp-url" type="text" value={MCP_URL} readonly />
-						<button type="button" class="ip-copy" data-copy={MCP_URL}>Copy address</button>
-					</div>
+			<section class="m-section" id="setup" aria-labelledby="setup-title">
+				<div class="m-section-head">
+					<h2 id="setup-title">Set it up in two minutes</h2>
+					<p class="m-caption">Same address in every assistant</p>
 				</div>
+				<div class="ai-setup">
+					<div class="ai-address">
+						<span class="m-tile" aria-hidden="true"><Icon name="Link" size={22} /></span>
+						<div class="ai-address-text">
+							<label for="mcp-url">Respite's MCP server</label>
+							<input id="mcp-url" type="text" value={MCP_URL} readonly />
+						</div>
+						<button type="button" class="m-btn" data-copy={MCP_URL} data-done="Copied">Copy</button>
+					</div>
 
-				<div class="ai-tabs" data-tabs>
-					<div class="ai-tablist" role="tablist" aria-label="Your AI app">
+					<div class="m-seg ai-tablist" role="tablist" aria-label="Your AI app">
 						{setups.map((s, i) => (
 							<button type="button" role="tab" id={`tab-${s.id}`} aria-controls={`panel-${s.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{s.name}</button>
 						))}
 					</div>
 					{setups.map((s, i) => (
 						<div class="ai-panel" role="tabpanel" id={`panel-${s.id}`} aria-labelledby={`tab-${s.id}`} hidden={i !== 0}>
-							<ol class="ai-steps">
-								{s.steps.map((step) => <li><span set:html={step} /></li>)}
+							<ol class="m-group ai-steps">
+								{s.steps.map((step, n) => (
+									<li class="m-row">
+										<span class="m-tile is-number" aria-hidden="true">{n + 1}</span>
+										<p class="ai-step" set:html={step} />
+									</li>
+								))}
 							</ol>
 							{s.command && (
-								<div class="ai-copyline ai-command">
+								<div class="ai-command">
 									<code>{s.command}</code>
-									<button type="button" class="ip-copy" data-copy={s.command}>Copy command</button>
+									<button type="button" class="m-icon-btn" data-copy={s.command} aria-label="Copy command"><Icon name="Copy" size={20} /></button>
 								</div>
 							)}
-							<p class="ip-note">{s.note} <a href={s.guide}>Full {s.name} guide</a></p>
+							<p class="m-caption ai-panel-note">{s.note} <a href={s.guide}>Full guide</a></p>
 						</div>
 					))}
 				</div>
 			</section>
 
-			<section class="ip-section" id="ask" aria-labelledby="ask-title">
-				<h2 id="ask-title">What can I ask?</h2>
-				<p class="ip-lead">Copy one to start. Your AI picks the right tool; you just ask in plain language.</p>
-				<ul class="ai-prompts">
+			<section class="m-section" id="ask" aria-labelledby="ask-title">
+				<div class="m-section-head">
+					<h2 id="ask-title">What can I ask?</h2>
+					<p class="m-caption">Copy one and paste it into your AI</p>
+				</div>
+				<ul class="m-group">
 					{prompts.map((p) => (
-						<li>
-							<p class="ai-prompt">{p.prompt}</p>
-							<span class="ai-tool">{p.tool}</span>
-							<button type="button" class="ip-copy" data-copy={p.prompt} aria-label={`Copy prompt: ${p.prompt}`}>Copy</button>
+						<li class="m-row">
+							<span class="m-tile" aria-hidden="true"><Icon name="MessageSquareText" size={22} /></span>
+							<div>
+								<p class="ai-prompt">{p.prompt}</p>
+								<p class="ai-tool">{p.tool}</p>
+							</div>
+							<button type="button" class="m-icon-btn" data-copy={p.prompt} aria-label={`Copy: ${p.prompt}`}><Icon name="Copy" size={20} /></button>
 						</li>
 					))}
 				</ul>
-				<p class="ip-note">With the opt-in, try "Lower my Instagram limit to 20 minutes on weekdays" or "Add a schedule that blocks TikTok and YouTube 10pm to 7am". More in <a href="/blog/chatgpt-claude-screen-time-prompts/">30 prompts for your screen time</a>.</p>
+				<p class="m-caption">More in <a href="/blog/chatgpt-claude-screen-time-prompts/">30 prompts for your screen time</a>.</p>
 			</section>
 
-			<section class="ip-section" id="can" aria-labelledby="can-title">
-				<h2 id="can-title">What your AI can and can't do</h2>
-				<p class="ip-lead">Reading is part of every connection. Changing anything is a separate choice, and loosening a limit is never automatic.</p>
-				<div class="ai-perms">
-					<div class="ai-perm">
-						<h3>Always, once connected</h3>
-						<ul>
-							<li>Read your usage, insights, limits and schedules</li>
-							<li>Read your sessions and the moments you were paused</li>
-							<li>Read your streak, acorns, quests and league tier</li>
-						</ul>
-					</div>
-					<div class="ai-perm">
-						<h3>Only if you tick the box</h3>
-						<ul>
-							<li>Lower a daily limit, applied at once</li>
-							<li>Add a blocking schedule, applied at once</li>
-							<li>Undo a change it made itself</li>
-						</ul>
-					</div>
-					<div class="ai-perm">
-						<h3>Only with your approval</h3>
-						<ul>
-							<li>Raise or remove a limit</li>
-							<li>Remove a schedule</li>
-							<li>Requests expire after 7 days</li>
-						</ul>
-					</div>
-					<div class="ai-perm ai-perm-never">
-						<h3>Never</h3>
-						<ul>
-							<li>Change pause messages or custom rules</li>
-							<li>Write usage history, earn or spend acorns</li>
-							<li>Block apps outside your limits and schedules</li>
-						</ul>
-					</div>
+			<section class="m-section" id="can" aria-labelledby="can-title">
+				<div class="m-section-head">
+					<h2 id="can-title">What your AI can and can't do</h2>
+					<p class="m-caption">Loosening a limit is never automatic</p>
 				</div>
-				<p class="ip-note">Every AI change is logged for 90 days with which AI, what changed and the reason it gave, and each connection can make at most 30 changes an hour. <a href="/blog/let-ai-change-your-limits/">How AI changes to limits work</a>.</p>
+				<div class="ai-perms">
+					{[
+						{ tone: '', icon: 'Eye', title: 'Always, once connected', items: ['Read usage, insights, limits and schedules', 'Read the moments you were paused', 'Read your streak, acorns and quests'] },
+						{ tone: 'is-success', icon: 'ShieldCheck', title: 'Only if you tick the box', items: ['Lower a daily limit', 'Add a blocking schedule', 'Undo its own change'] },
+						{ tone: 'is-reward', icon: 'Hand', title: 'Only with your approval', items: ['Raise or remove a limit', 'Remove a schedule', 'Requests expire after 7 days'] },
+						{ tone: 'is-warning', icon: 'Ban', title: 'Never', items: ['Change pause messages or rules', 'Touch usage history or acorns', 'Block outside your limits'] },
+					].map((c) => (
+						<div class="ai-perm">
+							<span class={`m-tile ${c.tone}`} aria-hidden="true"><Icon name={c.icon} size={22} /></span>
+							<h3>{c.title}</h3>
+							<ul>{c.items.map((i) => <li>{i}</li>)}</ul>
+						</div>
+					))}
+				</div>
+				<p class="m-caption">Every AI change is logged for 90 days, at most 30 changes an hour per connection. <a href="/blog/let-ai-change-your-limits/">How it works</a></p>
 
-				<details class="ai-ref">
-					<summary>Tool reference for the technically curious</summary>
-					<h3>Read tools</h3>
-					<div class="ip-table-wrap" role="region" aria-label="Read tools" tabindex="0">
-						<table class="ip-table">
-							<thead><tr><th>Tool</th><th>What it returns</th><th>Plan</th></tr></thead>
-							<tbody>
-								{tools.map((t) => (
-									<tr><td><code>{t.name}</code></td><td>{t.what}</td><td>{t.plus ? 'Plus' : 'Free'}</td></tr>
-								))}
-							</tbody>
-						</table>
+				<details class="m-paper ai-ref">
+					<summary>Tool reference</summary>
+					<div class="ai-ref-body">
+						<h3>Read tools</h3>
+						<ul class="ai-tools">
+							{tools.map((t) => (
+								<li><code>{t.name}</code> <span class={`m-badge ${t.plus ? 'is-plus' : ''}`}>{t.plus ? 'Plus' : 'Free'}</span><p>{t.what}</p></li>
+							))}
+						</ul>
+						<h3>Opt-in tools that make limits stricter</h3>
+						<ul class="ai-tools">
+							{writeTools.map((t) => (
+								<li><code>{t.name}</code><p>{t.what}</p></li>
+							))}
+						</ul>
+						<p class="m-caption">Resources <code>respite://today</code> and <code>respite://week</code> give ready-made summaries. New to MCP? <a href="/blog/what-is-an-mcp-server/">What an MCP server is</a></p>
 					</div>
-					<h3>Opt-in tools that make limits stricter</h3>
-					<div class="ip-table-wrap" role="region" aria-label="Opt-in tools" tabindex="0">
-						<table class="ip-table">
-							<thead><tr><th>Tool</th><th>What it does</th></tr></thead>
-							<tbody>
-								{writeTools.map((t) => (
-									<tr><td><code>{t.name}</code></td><td>{t.what}</td></tr>
-								))}
-							</tbody>
-						</table>
-					</div>
-					<p class="ip-note">Resources <code>respite://today</code> and <code>respite://week</code> give ready-made summaries. New to the term? <a href="/blog/what-is-an-mcp-server/">What an MCP server is, in plain English</a>.</p>
 				</details>
 			</section>
 
-			<section class="ip-section" id="status" aria-labelledby="status-title">
-				<h2 id="status-title">What is live and what is coming?</h2>
-				<p class="ip-lead">We describe a tool as available only when it is.</p>
-				<ul class="ai-status">
+			<section class="m-section" id="status" aria-labelledby="status-title">
+				<div class="m-section-head">
+					<h2 id="status-title">What's live and what's coming</h2>
+					<p class="m-caption">Only what works today is called live</p>
+				</div>
+				<ul class="m-group">
 					{live.map(([what, state]) => (
-						<li>
-							<span class={`ip-badge ${state.startsWith('Live') ? 'ip-badge-live' : 'ip-badge-soon'}`}>{state}</span>
-							<span>{what}</span>
+						<li class="m-row">
+							<span class={`m-tile ${state.startsWith('Live') ? 'is-success' : 'is-fog'}`} aria-hidden="true"><Icon name={state.startsWith('Live') ? 'CircleCheckBig' : 'CircleDashed'} size={22} /></span>
+							<p class="ai-status-text">{what}</p>
+							<span class={`m-badge ${state.startsWith('Live') ? 'is-live' : ''}`}>{state}</span>
 						</li>
 					))}
 				</ul>
-				<p class="ip-note">The <a href="/whats-new/">What's new</a> page says when each one ships. Background: <a href="/blog/bring-your-own-ai-to-respite/">bring your own AI to Respite</a>.</p>
+				<p class="m-caption">Dates are on <a href="/whats-new/">What's new</a>. Background: <a href="/blog/bring-your-own-ai-to-respite/">bring your own AI to Respite</a>.</p>
 			</section>
 
-			<section class="ip-section" id="privacy" aria-labelledby="privacy-title">
-				<h2 id="privacy-title">Is it private?</h2>
-				<ul class="ai-plain">
-					<li><strong>Your AI provider handles the data.</strong> What a tool returns goes into your chat, so the assistant's provider (Anthropic, OpenAI, Cursor or another) processes it under its own policy and your account settings there.</li>
-					<li><strong>Respite runs no AI</strong> on your data and does not train models on it. Respite only answers the calls your connected AI makes.</li>
-					<li><strong>You choose the permissions</strong> on the consent screen, and tools that need a permission you did not grant return an error instead of data.</li>
-					<li><strong>You can disconnect</strong> in your AI app's connector settings. Deleting your Respite account ends every connection.</li>
-					<li><strong>Only synced data.</strong> The AI sees what your devices sync to your account, not what stays on a device.</li>
+			<section class="m-section" id="privacy" aria-labelledby="privacy-title">
+				<h2 id="privacy-title" class="m-h2">Is it private?</h2>
+				<ul class="m-group">
+					{[
+						{ icon: 'Building2', title: 'Your AI provider handles the answers', text: 'What a tool returns goes into your chat, under your AI provider’s own policy.' },
+						{ icon: 'Bot', title: 'Respite runs no AI', text: 'No model runs on your data, and none is trained on it.' },
+						{ icon: 'KeyRound', title: 'You choose the permissions', text: 'A tool without permission returns an error, not data.' },
+						{ icon: 'Unplug', title: 'Disconnect any time', text: 'In your AI app’s connector settings. Deleting your account ends every connection.' },
+						{ icon: 'RefreshCw', title: 'Only synced data', text: 'The AI sees what your devices sync, not what stays on a device.' },
+					].map((r) => (
+						<li class="m-row">
+							<span class="m-tile is-success" aria-hidden="true"><Icon name={r.icon} size={22} /></span>
+							<div>
+								<p class="m-row-title">{r.title}</p>
+								<p class="m-row-text">{r.text}</p>
+							</div>
+						</li>
+					))}
 				</ul>
-				<p class="ip-note">
-					Read <a href="/blog/is-it-safe-to-give-ai-your-screen-time-data/">is it safe to give an AI your screen time data?</a>
-					Policies: <a href="/privacy/">iPhone</a>, <a href="/privacy/android/">Android</a>, <a href="/privacy/chrome/">Chrome</a>.
-				</p>
+				<p class="m-caption">Read <a href="/blog/is-it-safe-to-give-ai-your-screen-time-data/">is it safe to give an AI your screen time data?</a> Policies: <a href="/privacy/">iPhone</a>, <a href="/privacy/android/">Android</a>, <a href="/privacy/chrome/">Chrome</a>.</p>
 			</section>
 
-			<section class="ip-section" id="compare" aria-labelledby="compare-title">
-				<h2 id="compare-title">Respite vs in-app AI coaches</h2>
-				<p class="ip-lead">Two different ideas of "AI screen time". Facts checked November 2026; sources in our <a href="/blog/ai-screen-time-coach-apps-compared/">coach comparison</a>.</p>
-				<div class="ip-table-wrap" role="region" aria-label="Respite compared with AI coach apps and LockIn MCP" tabindex="0">
-					<table class="ip-table ai-compare">
+			<section class="m-section" id="compare" aria-labelledby="compare-title">
+				<div class="m-section-head">
+					<h2 id="compare-title">Respite vs in-app AI coaches</h2>
+					<p class="m-caption">Checked November 2026. <a href="/blog/ai-screen-time-coach-apps-compared/">Sources</a></p>
+				</div>
+				<div class="ai-compare-wrap" role="region" aria-label="Respite compared with AI coach apps and LockIn MCP" tabindex="0">
+					<table class="ai-compare">
 						<thead>
-							<tr><th scope="col"><span class="ip-visually-hidden">Question</span></th><th scope="col" class="ip-col-hi">Respite (bring your own AI)</th><th scope="col">In-app AI coach apps</th><th scope="col">LockIn MCP</th></tr>
+							<tr><th scope="col"><span class="m-sr">Question</span></th><th scope="col" class="is-us">Respite</th><th scope="col">In-app AI coaches</th><th scope="col">LockIn MCP</th></tr>
 						</thead>
 						<tbody>
 							{compare.map((row) => (
-								<tr><th scope="row">{row[0]}</th><td class="ip-col-hi">{row[1]}</td><td>{row[2]}</td><td>{row[3]}</td></tr>
+								<tr><th scope="row">{row[0]}</th><td class="is-us">{row[1]}</td><td>{row[2]}</td><td>{row[3]}</td></tr>
 							))}
 						</tbody>
 					</table>
 				</div>
-				<p class="ip-note">
-					Coach apps are not worse: if you want an AI to talk you out of an app at the moment you tap it, that is exactly what they do and Respite does not (yet).
-					LockIn MCP is a desktop website blocker; see <a href="/blog/respite-vs-lockin-mcp/">Respite vs LockIn MCP</a>. For the full picture, read
-					<a href="/blog/best-ai-app-blockers-screen-time-apps-2026/">best AI app blockers and screen time apps in 2026</a>.
-				</p>
+				<p class="m-caption">Coach apps aren't worse: if you want an AI to talk you out of an app as you tap it, that's what they do and Respite doesn't (yet). See <a href="/blog/respite-vs-lockin-mcp/">Respite vs LockIn MCP</a> and <a href="/blog/best-ai-app-blockers-screen-time-apps-2026/">the best AI app blockers in 2026</a>.</p>
 			</section>
 
-			<section class="ip-end" aria-labelledby="end-title">
-				<h2 id="end-title">Try it with your own data</h2>
-				<p>Respite is free to start on Android, iPhone and Chrome. Plus adds sync and bring your own AI.</p>
-				<div class="ip-actions">
-					<a href="/download/" class="ip-button">Download Respite</a>
-					<a href="/blog/respite-plus-whats-included/" class="ip-button ip-button-quiet">What Plus includes</a>
+			<section class="m-section" id="faq" aria-labelledby="faq-title">
+				<h2 id="faq-title" class="m-h2">Questions</h2>
+				<div class="m-group m-faq">
+					{faqs.map((faq) => (
+						<details>
+							<summary>{faq.question}</summary>
+							<p>{faq.answer}</p>
+						</details>
+					))}
 				</div>
 			</section>
 
-			<section class="ip-section ip-faq" id="faq" aria-labelledby="faq-title">
-				<h2 id="faq-title">Frequently asked questions</h2>
-				{faqs.map((faq) => (
-					<details>
-						<summary>{faq.question}</summary>
-						<p>{faq.answer}</p>
-					</details>
-				))}
+			<section class="m-end" aria-labelledby="end-title">
+				<h2 id="end-title">Try it with your own data</h2>
+				<p>Respite is free to start. Plus adds sync and bring your own AI.</p>
+				<div class="m-actions">
+					<a href="/download/" class="m-btn">Download Respite</a>
+					<a href="/blog/respite-plus-whats-included/" class="m-btn is-soft">What Plus includes</a>
+				</div>
 			</section>
 		</main>
 
 		<Footer />
-		<p class="ip-visually-hidden" id="copy-status" role="status" aria-live="polite"></p>
+		<p class="m-sr" id="copy-status" role="status" aria-live="polite"></p>
 
 		<script>
-			// Copy buttons: address, commands and prompts.
+			// Copy buttons: the address, commands and prompts.
 			const status = document.getElementById('copy-status');
+			const CHECK = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
 			document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((b) => {
-				const label = b.textContent;
+				const original = b.innerHTML;
 				b.addEventListener('click', async () => {
 					try {
 						await navigator.clipboard.writeText(b.dataset.copy ?? '');
-						b.dataset.copied = '';
-						b.textContent = 'Copied';
-						if (status) status.textContent = 'Copied to the clipboard';
-						setTimeout(() => {
-							delete b.dataset.copied;
-							b.textContent = label;
-						}, 1600);
 					} catch {
-						const input = document.getElementById('mcp-url') as HTMLInputElement | null;
-						if (input && b.dataset.copy === input.value) input.select();
+						(document.getElementById('mcp-url') as HTMLInputElement | null)?.select();
+						return;
 					}
+					b.dataset.copied = '';
+					b.innerHTML = b.dataset.done ?? CHECK;
+					if (status) status.textContent = 'Copied';
+					setTimeout(() => {
+						delete b.dataset.copied;
+						b.innerHTML = original;
+					}, 1600);
 				});
 			});
 			document.getElementById('mcp-url')?.addEventListener('focus', (e) => (e.target as HTMLInputElement).select());
 
-			// Tabs (WAI-ARIA pattern): click or arrow keys; the choice is remembered in the URL hash.
-			const tablist = document.querySelector<HTMLElement>('[role="tablist"]');
-			const tabs = [...(tablist?.querySelectorAll<HTMLButtonElement>('[role="tab"]') ?? [])];
+			// Tabs (WAI-ARIA pattern): click or arrow keys.
+			const tabs = [...document.querySelectorAll<HTMLButtonElement>('.ai-tablist [role="tab"]')];
 			function select(tab: HTMLButtonElement, focus = false) {
 				tabs.forEach((t) => {
 					const on = t === tab;
@@ -502,270 +514,299 @@ const setups = [
 </html>
 
 <style>
-	.ai-meta {
+	.ai-kicker {
 		display: flex;
 		align-items: center;
-		gap: 0.6rem;
-		margin: 0;
-		font-size: 0.875rem;
-		color: var(--ds-text-hint);
+		gap: 0.75rem;
+		margin: 0 0 1rem;
 	}
 
-	/* The address */
+	.ai-short {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		margin-top: -1.5rem;
+	}
+
+	.ai-short-title {
+		margin: 0 0 0.35rem;
+		font-size: 1.15rem;
+		font-weight: 800;
+	}
+
+	.ai-short p {
+		margin: 0;
+		max-width: 52rem;
+		line-height: 1.6;
+		color: var(--m-ink-soft);
+	}
+
+	/* Setup */
+	.ai-setup {
+		display: grid;
+		gap: 1.25rem;
+		padding: 1.5rem;
+		border-radius: 28px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-md);
+	}
+
+	@media (min-width: 760px) {
+		.ai-setup {
+			padding: 2rem;
+		}
+	}
+
 	.ai-address {
 		display: grid;
-		gap: 0.4rem;
-		margin-bottom: 1.5rem;
+		grid-template-columns: auto 1fr auto;
+		align-items: center;
+		gap: 1rem;
+		padding: 0.75rem 0.75rem 0.75rem 1rem;
+		border-radius: 20px;
+		background: var(--m-ground);
+	}
+
+	.ai-address-text {
+		display: grid;
+		gap: 0.15rem;
+		min-width: 0;
 	}
 
 	.ai-address label {
+		font-family: var(--font-heading);
 		font-weight: 800;
 		font-size: 0.95rem;
+		color: var(--m-ink-soft);
 	}
 
-	.ai-copyline {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		padding: 0.4rem 0.4rem 0.4rem 0.9rem;
-		border: 1px solid var(--ip-rule);
-		border-radius: var(--ds-radius-md);
-		background: var(--ds-bg-secondary);
-	}
-
-	.ai-copyline input,
-	.ai-copyline code {
-		flex: 1;
+	.ai-address input {
+		width: 100%;
 		min-width: 0;
 		border: 0;
 		padding: 0;
 		background: transparent;
-		color: var(--ds-text-primary);
+		color: var(--m-ink);
 		font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-		font-size: 0.95rem;
-		overflow-x: auto;
-		white-space: nowrap;
+		font-size: 1.05rem;
+		text-overflow: ellipsis;
 	}
 
-	.ai-copyline input:focus {
+	.ai-address input:focus {
 		outline: none;
 	}
 
-	.ai-copyline:focus-within {
-		border-color: var(--ds-primary);
+	@media (max-width: 560px) {
+		.ai-address {
+			grid-template-columns: 1fr;
+		}
+		.ai-address .m-tile {
+			display: none;
+		}
 	}
 
-	/* Tabs */
 	.ai-tablist {
-		display: flex;
-		gap: 0.25rem;
-		overflow-x: auto;
-		border-bottom: 1px solid var(--ip-rule);
-		scrollbar-width: none;
-	}
-
-	.ai-tablist [role='tab'] {
-		flex: none;
-		min-height: 44px;
-		padding: 0 1rem;
-		border: 0;
-		border-bottom: 3px solid transparent;
-		background: transparent;
-		color: var(--ds-text-secondary);
-		font: inherit;
-		font-weight: 700;
-		cursor: pointer;
-	}
-
-	.ai-tablist [role='tab']:hover {
-		color: var(--ds-text-primary);
-	}
-
-	.ai-tablist [role='tab'][aria-selected='true'] {
-		border-bottom-color: var(--ds-brand);
-		color: var(--ds-text-primary);
+		justify-self: start;
 	}
 
 	.ai-panel {
-		padding-top: 1.25rem;
+		display: grid;
+		gap: 1rem;
 	}
 
 	.ai-steps {
-		display: grid;
-		gap: 0.75rem;
+		background: var(--m-ground);
+		box-shadow: none;
+	}
+
+	.ai-step {
 		margin: 0;
-		padding: 0;
-		list-style: none;
-		counter-reset: step;
-	}
-
-	.ai-steps li {
-		counter-increment: step;
-		display: grid;
-		grid-template-columns: 1.8rem 1fr;
-		gap: 0.75rem;
-		line-height: 1.55;
-	}
-
-	.ai-steps li::before {
-		content: counter(step);
-		display: grid;
-		place-items: center;
-		width: 1.8rem;
-		height: 1.8rem;
-		border-radius: 50%;
-		background: var(--ds-bg-info);
-		color: var(--ds-primary);
-		font-weight: 800;
-		font-size: 0.9rem;
+		font-size: 1.02rem;
+		line-height: 1.5;
 	}
 
 	.ai-command {
-		margin-top: 1rem;
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.6rem 0.6rem 0.6rem 1.1rem;
+		border-radius: 16px;
+		background: var(--ds-text-primary);
+		color: var(--m-paper);
+	}
+
+	.ai-command code {
+		flex: 1;
+		min-width: 0;
+		padding: 0;
+		background: none;
+		color: inherit;
+		font-size: 0.95rem;
+		white-space: nowrap;
+		overflow-x: auto;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.ai-command {
+			background: #0a141b;
+			color: var(--m-ink);
+		}
+	}
+
+	.ai-panel-note {
+		margin: 0;
 	}
 
 	/* Prompts */
-	.ai-prompts {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		border-top: 1px solid var(--ip-rule);
-	}
-
-	.ai-prompts li {
-		display: grid;
-		grid-template-columns: 1fr auto;
-		grid-template-areas: 'prompt copy' 'tool copy';
-		gap: 0.25rem 1rem;
-		align-items: center;
-		padding: 0.85rem 0;
-		border-bottom: 1px solid var(--ip-rule);
-	}
-
 	.ai-prompt {
-		grid-area: prompt;
 		margin: 0;
-		font-family: 'Source Serif 4', Georgia, serif;
+		font-family: var(--font-heading);
 		font-size: 1.05rem;
-		line-height: 1.45;
+		font-weight: 700;
+		line-height: 1.4;
 	}
 
 	.ai-tool {
-		grid-area: tool;
+		margin: 0.2rem 0 0;
 		font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-		font-size: 0.78rem;
-		color: var(--ds-text-hint);
+		font-size: 0.82rem;
+		color: var(--m-ink-soft);
 	}
 
-	.ai-prompts .ip-copy {
-		grid-area: copy;
-	}
-
-	/* Permissions */
+	/* Can and can't */
 	.ai-perms {
 		display: grid;
 		gap: 1rem;
 	}
 
-	@media (min-width: 720px) {
+	@media (min-width: 760px) {
 		.ai-perms {
 			grid-template-columns: repeat(2, 1fr);
+			gap: 1.25rem;
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.ai-perms {
+			grid-template-columns: repeat(4, 1fr);
 		}
 	}
 
 	.ai-perm {
-		padding: 1.1rem 1.25rem;
-		border-radius: var(--ds-radius-md);
-		background: var(--ds-bg-secondary);
-		border-top: 3px solid var(--ds-brand);
-	}
-
-	.ai-perm:nth-child(2) {
-		border-top-color: var(--ds-green);
-	}
-
-	.ai-perm:nth-child(3) {
-		border-top-color: var(--ds-orange);
-	}
-
-	.ai-perm-never {
-		border-top-color: var(--ds-text-hint);
+		display: grid;
+		align-content: start;
+		gap: 0.75rem;
+		padding: 1.4rem;
+		border-radius: 20px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
 	}
 
 	.ai-perm h3 {
-		margin: 0 0 0.5rem;
-		font-size: 1rem;
+		margin: 0;
+		font-size: 1.12rem;
+		font-weight: 800;
 	}
 
 	.ai-perm ul {
+		display: grid;
+		gap: 0.45rem;
 		margin: 0;
 		padding-left: 1.1rem;
-		display: grid;
-		gap: 0.3rem;
 		line-height: 1.45;
-		color: var(--ds-text-secondary);
-	}
-
-	.ai-ref {
-		margin-top: 1.5rem;
+		color: var(--m-ink-soft);
 	}
 
 	.ai-ref summary {
-		display: inline-flex;
-		align-items: center;
-		min-height: 44px;
 		cursor: pointer;
-		font-weight: 700;
-		color: var(--ds-primary);
+		font-family: var(--font-heading);
+		font-weight: 800;
+		color: var(--m-accent);
 	}
 
-	.ai-ref h3 {
-		margin: 1rem 0 0.6rem;
+	.ai-ref-body h3 {
+		margin: 1.25rem 0 0.5rem;
+		font-size: 1.05rem;
+	}
+
+	.ai-tools {
+		display: grid;
+		gap: 0.75rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.ai-tools p {
+		margin: 0.2rem 0 0;
+		line-height: 1.45;
+		color: var(--m-ink-soft);
 	}
 
 	/* Status */
-	.ai-status {
-		list-style: none;
+	.ai-status-text {
 		margin: 0;
-		padding: 0;
-		border-top: 1px solid var(--ip-rule);
+		line-height: 1.45;
 	}
 
-	.ai-status li {
-		display: grid;
-		grid-template-columns: 9.5rem 1fr;
-		gap: 1rem;
-		align-items: baseline;
-		padding: 0.75rem 0;
-		border-bottom: 1px solid var(--ip-rule);
-		line-height: 1.5;
-	}
-
-	.ai-status .ip-badge {
-		justify-self: start;
-	}
-
-	@media (max-width: 560px) {
-		.ai-status li {
-			grid-template-columns: 1fr;
-			gap: 0.35rem;
+	@media (max-width: 600px) {
+		#status .m-row {
+			grid-template-columns: auto 1fr;
+		}
+		#status .m-row .m-badge {
+			grid-column: 2;
+			justify-self: start;
 		}
 	}
 
-	.ai-plain {
-		margin: 0;
-		padding-left: 1.2rem;
-		display: grid;
-		gap: 0.6rem;
-		line-height: 1.6;
-		color: var(--ds-text-secondary);
-	}
-
-	.ai-plain strong {
-		color: var(--ds-text-primary);
+	/* Comparison */
+	.ai-compare-wrap {
+		overflow-x: auto;
+		border-radius: 20px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
 	}
 
 	.ai-compare {
-		min-width: 44rem;
+		width: 100%;
+		min-width: 46rem;
+		border-collapse: collapse;
+		font-size: 0.95rem;
+		line-height: 1.45;
+	}
+
+	.ai-compare th,
+	.ai-compare td {
+		padding: 1rem 1.1rem;
+		text-align: left;
+		vertical-align: top;
+	}
+
+	.ai-compare tbody tr + tr > * {
+		border-top: 1px solid var(--m-line);
+	}
+
+	.ai-compare thead th {
+		font-family: var(--font-heading);
+		font-weight: 800;
+		color: var(--m-ink-soft);
+	}
+
+	.ai-compare tbody th {
+		font-family: var(--font-heading);
+		font-weight: 800;
+	}
+
+	.ai-compare td {
+		color: var(--m-ink-soft);
+	}
+
+	.ai-compare .is-us {
+		background: var(--m-accent-soft);
+		color: var(--m-ink);
+	}
+
+	.ai-compare thead .is-us {
+		color: var(--m-accent-ink);
 	}
 </style>
