@@ -4,6 +4,7 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
 import cloudflare from "@astrojs/cloudflare";
+import slashRedirects from "./scripts/slash-redirects.mjs";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { readdirSync, readFileSync } from "node:fs";
@@ -40,6 +41,7 @@ export default defineConfig({
 	},
 	integrations: [
 		mdx(),
+		slashRedirects(),
 		sitemap({
 			changefreq: 'weekly',
 			priority: 0.7,
