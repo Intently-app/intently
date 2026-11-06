@@ -1,8 +1,8 @@
 ---
-title: 'Best Digital Wellbeing Apps 2026: 11 Apps Compared'
-description: 'The best digital wellbeing apps of 2026, reviewed. Compare 11 apps for Android, iPhone and Chrome on features, price and privacy to find your fit.'
+title: 'Best Digital Wellbeing Apps 2026: 11 Free and Paid Picks'
+description: 'The 11 best digital wellbeing apps for Android, iPhone and Chrome in 2026: what each costs, what it limits and who it suits, in one comparison table.'
 pubDate: "Jan 12 2026"
-updatedDate: 2026-11-01
+updatedDate: 2026-11-06
 heroImage: '/images/blog/best-digital-wellbeing-apps-2026.jpg'
 heroImageAlt: 'Eleven differently shaped apothecary jars on a diagonal shelf; one glows softly with a small acorn inside.'
 author: "Respite Team"

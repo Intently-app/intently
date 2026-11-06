@@ -1,8 +1,8 @@
 ---
-title: 'Best Screen Time Apps 2026: The Complete Roundup'
-description: 'The best screen time apps of 2026 for Android, iPhone and Chrome, from mindful pause tools to hard blockers. Free and paid options compared.'
+title: 'Best Screen Time Apps 2026: 9 Free and Paid Apps Compared'
+description: 'The 9 best apps to limit screen time on Android, iPhone and Chrome in 2026, from gentle pauses to hard blockers and free built-ins, with prices.'
 pubDate: 2026-02-28
-updatedDate: 2026-11-03
+updatedDate: 2026-11-06
 author: 'Respite Team'
 answer: 'The best screen time app in 2026 depends on your approach. Respite is the top free pick for a mindful pause before distracting apps on iPhone, Android and Chrome. One Sec is the research-backed paid pause, Freedom and Cold Turkey are the strongest blockers, and Apple Screen Time and Google Digital Wellbeing are the free built-in baselines.'
 keyTakeaways:
