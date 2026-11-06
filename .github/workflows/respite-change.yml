@@ -1,0 +1,52 @@
+name: Respite change event
+# Sends one respite.change/v1 event to Intently-app/respite-docs for every push to main and every
+# published release. Self-contained on purpose: it only knows the event format, not who consumes it.
+# Setup per repo: copy this file, set PLATFORM below, and make sure the org secret
+# RESPITE_PIPELINE_TOKEN is visible to this repo. Without the secret it skips quietly.
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]
+permissions:
+  contents: read
+  pull-requests: read
+env:
+  PLATFORM: website   # android | ios | extension | api | website
+jobs:
+  emit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send the change event
+        uses: actions/github-script@v7
+        env:
+          RESPITE_PIPELINE_TOKEN: ${{ secrets.RESPITE_PIPELINE_TOKEN }}
+        with:
+          script: |
+            if (!process.env.RESPITE_PIPELINE_TOKEN) { core.notice('RESPITE_PIPELINE_TOKEN not set; skipping'); return; }
+            const { owner, repo } = context.repo;
+            const isRelease = context.eventName === 'release';
+            const sha = isRelease ? (await github.rest.repos.getCommit({ owner, repo, ref: context.payload.release.tag_name })).data.sha : context.sha;
+            const pulls = (await github.rest.repos.listPullRequestsAssociatedWithCommit({ owner, repo, commit_sha: sha })).data;
+            const pr = pulls.find((p) => p.merged_at && p.merge_commit_sha === sha) || null;
+            const commit = (await github.rest.repos.getCommit({ owner, repo, ref: sha })).data;
+            const message = commit.commit.message || '';
+            const body = (isRelease ? context.payload.release.body : null) || pr?.body || message;
+            const declared = [...new Set([...body.matchAll(/^\s*[-*]\s*\[[xX]\]\s*\**(docs|design|article|changelog|none)\b/gim)].map((m) => m[1].toLowerCase()))];
+            const event = {
+              schema: 'respite.change/v1',
+              id: `${owner}/${repo}@${sha}` + (isRelease ? `#${context.payload.release.tag_name}` : ''),
+              source: { repo: `${owner}/${repo}`, platform: process.env.PLATFORM, sha, ref: context.ref, pr: pr?.number ?? null, url: isRelease ? context.payload.release.html_url : (pr?.html_url || commit.html_url) },
+              trigger: isRelease ? 'release' : 'merge',
+              occurred_at: isRelease ? context.payload.release.published_at : (commit.commit.committer?.date || new Date().toISOString()),
+              title: (isRelease ? (context.payload.release.name || context.payload.release.tag_name) : (pr?.title || message.split('\n')[0])).slice(0, 300),
+              summary: (body || '').slice(0, 4000),
+              files: (commit.files || []).map((f) => f.filename).slice(0, 300),
+              release: isRelease ? { version: context.payload.release.tag_name } : null,
+              user_visible: null,
+              impact: { declared, inferred: [] },
+            };
+            const docs = getOctokit(process.env.RESPITE_PIPELINE_TOKEN);
+            await docs.rest.repos.createDispatchEvent({ owner: 'Intently-app', repo: 'respite-docs', event_type: 'respite.change', client_payload: { event } });
+            core.summary.addHeading('Sent respite.change', 3).addCodeBlock(JSON.stringify({ ...event, summary: undefined, files: `${event.files.length} files` }, null, 2), 'json');
+            await core.summary.write();
