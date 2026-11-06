@@ -46,7 +46,12 @@ jobs:
               user_visible: null,
               impact: { declared, inferred: [] },
             };
-            const docs = getOctokit(process.env.RESPITE_PIPELINE_TOKEN);
-            await docs.rest.repos.createDispatchEvent({ owner: 'Intently-app', repo: 'respite-docs', event_type: 'respite.change', client_payload: { event } });
+            // Plain fetch: github-script versions differ in what they expose (getOctokit is not in v7).
+            const res = await fetch('https://api.github.com/repos/Intently-app/respite-docs/dispatches', {
+              method: 'POST',
+              headers: { Authorization: `Bearer ${process.env.RESPITE_PIPELINE_TOKEN}`, Accept: 'application/vnd.github+json', 'User-Agent': 'respite-change' },
+              body: JSON.stringify({ event_type: 'respite.change', client_payload: { event } }),
+            });
+            if (res.status !== 204) { core.setFailed(`dispatch to respite-docs failed: HTTP ${res.status} ${await res.text()}`); return; }
             core.summary.addHeading('Sent respite.change', 3).addCodeBlock(JSON.stringify({ ...event, summary: undefined, files: `${event.files.length} files` }, null, 2), 'json');
             await core.summary.write();
