@@ -37,10 +37,9 @@ account's identifier. We keep sign-in sessions so you stay signed in.
 
 ### Your ledger
 
-We store what you record: accounts, transactions, amounts, dates, payees, notes, the reports you save,
-and the people you share a ledger with. Every change is written to a log with who made it, whether that
-was you, another member or a connected AI, along with the values before and after. That log is how undo
-and the activity list work.
+We store what you record: accounts, transactions, amounts, dates, payees, notes and the reports you
+save. Every change is written to a log with who made it, whether that was you or a connected AI, along
+with the values before and after. That log is how undo and the activity list work.
 
 ### Receipts, statements and forwarded email
 
