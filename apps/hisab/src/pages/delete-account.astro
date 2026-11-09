@@ -1,0 +1,34 @@
+---
+import Site from '../layouts/Site.astro';
+import { SITE } from '../lib/site';
+---
+
+<Site title="Delete your account" description="How to delete your Hisab account and everything in it, in the app or by email.">
+	<div class="plain">
+		<h1>Delete your Hisab account</h1>
+		<p>You can delete your account yourself at any time. It happens straight away and can’t be undone, so download a copy first if you want one.</p>
+
+		<h2 class="plain-h2">On the web</h2>
+		<p>Open Hisab, go to <strong>Settings</strong>, choose <strong>Delete my account</strong>, type DELETE and confirm.</p>
+
+		<h2 class="plain-h2">In the Android app</h2>
+		<p>Open the <strong>⋮</strong> menu, choose <strong>Delete account</strong>, type DELETE and confirm.</p>
+
+		<h2 class="plain-h2">If you can’t sign in</h2>
+		<p>Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> from the address on your account, and we’ll finish within 30 days.</p>
+
+		<h2 class="plain-h2">What gets deleted</h2>
+		<ul class="plain-list">
+			<li>Your account, sign-in details and sessions.</li>
+			<li>Every ledger you own, with its entries, accounts, saved views, history of changes, receipts and statements.</li>
+			<li>Your connections to AI apps. What an AI app already showed you stays in your chats with it, under that company’s terms.</li>
+		</ul>
+
+		<h2 class="plain-h2">What to know</h2>
+		<ul class="plain-list">
+			<li>Your data leaves our live systems straight away. Our hosting provider’s automatic recovery history can hold a copy for up to 30 days before it ages out, and it’s only used to recover from a failure.</li>
+			<li>If other people use a ledger you own, Hisab asks you to remove them first, so that their records aren’t erased with your account.</li>
+			<li>Your text messages stay in your phone’s messages app. Hisab never copied them.</li>
+		</ul>
+	</div>
+</Site>

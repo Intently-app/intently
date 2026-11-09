@@ -265,6 +265,9 @@ img { max-width: 100%; height: auto; display: block; }
 .plain { max-width: 44rem; margin: 0 auto; padding: 48px 28px 0; }
 .plain h1 { font-size: clamp(2.2rem, 5vw, 3rem); font-weight: 800; }
 .plain p { margin-top: 1rem; }
+.plain-h2 { margin-top: 2rem; font-size: 1.4rem; }
+.plain-list { margin: 0.75rem 0 0; padding-left: 1.2rem; }
+.plain-list li + li { margin-top: 0.4rem; }
 .legal-wrap { --ds-text-primary: var(--ink); --ds-text-secondary: var(--ink-2); --ds-primary-light: var(--rule); --ds-primary: var(--go); --ds-bg-secondary: var(--sheet); --ds-gray-200: var(--rule); --legal-top: 2.75rem; padding: 0 28px; }
 .legal-wrap h1, .legal-wrap h2, .legal-wrap h3 { font-family: var(--display); }
 .legal-wrap p { margin: 0.8em 0; }
