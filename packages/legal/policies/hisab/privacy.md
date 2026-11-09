@@ -87,9 +87,17 @@ or PIN.
 ## How long it's kept, and how to delete it
 
 Your ledger is kept for as long as you have an account. A proposed AI change that nobody approves
-expires after 7 days. To delete your account and everything in it, or to get a copy of your data, email
-[support@liveintently.app](mailto:support@liveintently.app). We'll finish within 30 days. A way to do
-both inside the app is being built.
+expires after 7 days.
+
+You can download a copy of any ledger, and delete your account, in Hisab's settings on the web or from
+the menu in the Android app. [Deleting your account](/delete-account/) erases your account, every ledger
+you own and its files from our live systems straight away, and it can't be undone. Our hosting provider's
+automatic recovery history can hold a copy for up to 30 days before it ages out, and it's only used to
+recover from a failure. The download lists your receipts but doesn't
+include the files, so email us if you need those.
+
+If you can't sign in, email [support@liveintently.app](mailto:support@liveintently.app) from your
+account's address and we'll finish within 30 days.
 
 ## Your rights
 
