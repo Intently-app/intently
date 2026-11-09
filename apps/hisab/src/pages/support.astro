@@ -1,13 +1,14 @@
 ---
-import '@fontsource-variable/inter/wght.css';
-import AppLayout from '@intently/ui/AppLayout.astro';
-import Support from '@intently/ui/Support.astro';
-import { app } from '@intently/registry';
-import { content } from '../content';
-
-const a = app('hisab');
+import Site from '../layouts/Site.astro';
+import { SITE } from '../lib/site';
 ---
 
-<AppLayout app={a} content={content} title="Support" description={`Get help with ${a.name}.`}>
-	<Support app={a} content={content} />
-</AppLayout>
+<Site title="Support" description="Get help with Hisab, or ask to be removed from the waitlist.">
+	<div class="plain">
+		<h1>Hisab support</h1>
+		<p>Questions, bug reports or ideas? Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. We usually reply within two days.</p>
+		<p>To leave the waitlist or have your account and data deleted, send us an email from that address and we’ll take care of it.</p>
+		<p>If something isn’t working, tell us your phone model and Android version, or your browser.</p>
+		<p>How we handle your data is in the <a href="/privacy/">privacy policy</a>.</p>
+	</div>
+</Site>

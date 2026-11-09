@@ -1,0 +1,9 @@
+---
+import Site from '../layouts/Site.astro';
+import LegalArticle from '@intently/legal/LegalArticle.astro';
+import * as policy from '@intently/legal/policies/hisab/terms.md';
+---
+
+<Site title="Terms" description="The terms for using Hisab, including that it keeps records and is not financial advice.">
+	<div class="legal-wrap"><LegalArticle policy={policy} links={[{ label: 'Privacy policy', href: '/privacy/' }]} /></div>
+</Site>

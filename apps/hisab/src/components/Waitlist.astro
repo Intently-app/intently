@@ -1,0 +1,52 @@
+---
+/** Posts normally without JavaScript (the Worker answers with /joined/); with it, the answer shows in place. */
+interface Props {
+	id: string;
+}
+const { id } = Astro.props;
+const from = Astro.url.pathname;
+---
+
+<form class="waitlist" method="post" action="/api/waitlist" data-waitlist>
+	<div class="waitlist-row">
+		<label class="sr" for={id}>Email address</label>
+		<input id={id} type="email" name="email" required maxlength="254" autocomplete="email" placeholder="you@example.com" />
+		<button class="btn" type="submit">Join the waitlist</button>
+	</div>
+	<input type="hidden" name="from" value={from} />
+	<div class="pot" aria-hidden="true">
+		<label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+	</div>
+	<p class="waitlist-note" role="status" data-status>One email when it opens, nothing else. <a href="/privacy/">Privacy policy</a></p>
+</form>
+
+<script>
+	for (const form of document.querySelectorAll<HTMLFormElement>('[data-waitlist]')) {
+		const status = form.querySelector<HTMLElement>('[data-status]')!;
+		const button = form.querySelector<HTMLButtonElement>('button')!;
+		const row = form.querySelector<HTMLElement>('.waitlist-row')!;
+
+		form.addEventListener('submit', async (event) => {
+			event.preventDefault();
+			button.disabled = true;
+			button.textContent = 'Joining';
+			status.classList.remove('is-bad');
+			try {
+				const reply = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+				const body: { ok: boolean; error?: string } = await reply.json();
+				if (body.ok) {
+					row.hidden = true;
+					status.textContent = 'You’re on the list. We’ll email you when Hisab opens.';
+					status.classList.add('is-good');
+					return;
+				}
+				status.textContent = body.error ?? 'That didn’t save. Try again.';
+			} catch {
+				status.textContent = 'That didn’t reach us. Check your connection and try again.';
+			}
+			status.classList.add('is-bad');
+			button.disabled = false;
+			button.textContent = 'Join the waitlist';
+		});
+	}
+</script>

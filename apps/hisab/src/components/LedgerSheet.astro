@@ -1,0 +1,127 @@
+---
+/**
+ * The opening: one sentence written on a ledger page becomes a balanced entry, closed with the accountant's double
+ * rule. It plays once on load and again when someone picks another way in. Without JavaScript, or with reduced
+ * motion, the finished entry is simply there.
+ */
+import { EXAMPLES } from '../lib/examples';
+
+const first = EXAMPLES[0]!;
+---
+
+<section class="sheet" aria-label="How one sentence becomes an entry" data-sheet data-examples={JSON.stringify(EXAMPLES)}>
+	<div class="sheet-tabs" role="tablist" aria-label="Ways an entry gets in">
+		{EXAMPLES.map((e, i) => (
+			<button type="button" role="tab" id={`way-${i}`} aria-controls="sheet-panel" aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-way={i}>{e.tab}</button>
+		))}
+	</div>
+
+	<div id="sheet-panel" role="tabpanel" aria-labelledby="way-0" class="sheet-panel" data-panel>
+		<p class="sheet-who" data-who>{first.who}</p>
+		<p class="sheet-said" data-said><span data-typed>{first.said}</span><span class="sheet-rest" data-rest aria-hidden="true"></span></p>
+
+		<table class="postings">
+			<caption class="sr">The entry Hisab records</caption>
+			<thead>
+				<tr><th scope="col">Account</th><th scope="col" class="num">Debit</th><th scope="col" class="num">Credit</th></tr>
+			</thead>
+			<tbody data-rows>
+				{first.lines.map((line) => (
+					<tr><td>{line.account}</td><td class="num">{line.debit ?? ''}</td><td class="num">{line.credit ?? ''}</td></tr>
+				))}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th scope="row">Balanced</th>
+					<td class="num" data-total>{first.total}</td>
+					<td class="num" data-total>{first.total}</td>
+				</tr>
+			</tfoot>
+		</table>
+		<p class="sheet-note" data-note>{first.note}</p>
+	</div>
+</section>
+
+<script>
+	import type { Example } from '../lib/examples';
+
+	const sheet = document.querySelector<HTMLElement>('[data-sheet]')!;
+	const examples: Example[] = JSON.parse(sheet.dataset.examples!);
+	const tabs = [...sheet.querySelectorAll<HTMLButtonElement>('[role=tab]')];
+	const panel = sheet.querySelector<HTMLElement>('[data-panel]')!;
+	const get = (name: string) => sheet.querySelector<HTMLElement>(`[data-${name}]`)!;
+	const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const wait = (ms: number) => new Promise((done) => setTimeout(done, ms));
+	let playing = 0;
+
+	function fill(example: Example) {
+		get('who').textContent = example.who;
+		sheet.querySelector('[data-said]')!.classList.toggle('is-message', example.message);
+		const rows = get('rows');
+		rows.replaceChildren(
+			...example.lines.map((line) => {
+				const row = document.createElement('tr');
+				for (const [text, numeric] of [[line.account, false], [line.debit ?? '', true], [line.credit ?? '', true]] as const) {
+					const cell = document.createElement('td');
+					cell.textContent = text;
+					if (numeric) cell.className = 'num';
+					row.append(cell);
+				}
+				return row;
+			}),
+		);
+		for (const total of sheet.querySelectorAll('[data-total]')) total.textContent = example.total;
+		get('note').textContent = example.note;
+	}
+
+	async function play(index: number) {
+		const run = ++playing;
+		const example = examples[index]!;
+		fill(example);
+		const typed = get('typed');
+		const rest = get('rest');
+		if (still) {
+			typed.textContent = example.said;
+			rest.textContent = '';
+			sheet.dataset.stage = 'done';
+			return;
+		}
+		sheet.dataset.stage = 'writing';
+		// The unwritten part keeps its place, so nothing below moves while the line is written.
+		const step = Math.min(26, 900 / example.said.length);
+		for (let shown = 0; shown <= example.said.length; shown++) {
+			if (run !== playing) return;
+			typed.textContent = example.said.slice(0, shown);
+			rest.textContent = example.said.slice(shown);
+			await wait(step);
+		}
+		if (run !== playing) return;
+		sheet.dataset.stage = 'posting';
+		await wait(620);
+		if (run !== playing) return;
+		sheet.dataset.stage = 'done';
+	}
+
+	function select(index: number, focus: boolean) {
+		tabs.forEach((tab, i) => {
+			tab.setAttribute('aria-selected', i === index ? 'true' : 'false');
+			tab.tabIndex = i === index ? 0 : -1;
+		});
+		panel.setAttribute('aria-labelledby', `way-${index}`);
+		if (focus) tabs[index]!.focus();
+		void play(index);
+	}
+
+	tabs.forEach((tab, index) => {
+		tab.addEventListener('click', () => select(index, false));
+		tab.addEventListener('keydown', (event) => {
+			const move = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
+			if (move === 0) return;
+			event.preventDefault();
+			select((index + move + tabs.length) % tabs.length, true);
+		});
+	});
+
+	sheet.classList.add('is-live');
+	void play(0);
+</script>

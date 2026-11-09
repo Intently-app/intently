@@ -1,0 +1,9 @@
+---
+import Site from '../layouts/Site.astro';
+import LegalArticle from '@intently/legal/LegalArticle.astro';
+import * as policy from '@intently/legal/policies/hisab/privacy.md';
+---
+
+<Site title="Privacy policy" description="What Hisab collects, why, where it goes, and how to have it removed.">
+	<div class="legal-wrap"><LegalArticle policy={policy} links={[{ label: 'Terms', href: '/terms/' }]} /></div>
+</Site>

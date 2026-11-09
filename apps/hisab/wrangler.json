@@ -1,10 +1,19 @@
 {
   "name": "hisab-site",
+  "main": "./worker.ts",
   "compatibility_date": "2025-10-08",
   "assets": {
+    "binding": "ASSETS",
     "directory": "./dist",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
   },
+  "kv_namespaces": [
+    { "binding": "WAITLIST", "id": "29aac9e7744d42c19330c0eac0b2abac" }
+  ],
+  "ratelimits": [
+    { "name": "WAITLIST_LIMIT", "namespace_id": "1801", "simple": { "limit": 5, "period": 60 } }
+  ],
   "workers_dev": true,
   "routes": [
     {
