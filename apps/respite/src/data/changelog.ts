@@ -18,6 +18,15 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
 	{
+		date: '2026-11-09',
+		title: 'Setup that gets your pauses working',
+		summary:
+			'Setting up Respite now asks for the permissions pauses need right after Welcome, says why, and lets you choose Not now; Home asks again later. The steps and words are the same on iPhone, Android and Chrome.',
+		platforms: ['iPhone', 'Android', 'Chrome'],
+		link: '/download/',
+		draft: true,
+	},
+	{
 		date: '2026-11-03',
 		title: 'Let your AI make your limits stricter',
 		summary:
