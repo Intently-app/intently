@@ -1,4 +1,53 @@
+# Hisab: everything is crawlable, including AI search and assistant crawlers.
+# The explicit groups keep that deliberate if the default group ever changes.
+
 User-agent: *
+Disallow: /api/
+
+# OpenAI: ChatGPT search and user-initiated fetches
+User-agent: OAI-SearchBot
 Allow: /
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /api/
+
+# Google AI
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+
+# Bing, which feeds Copilot
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+
+# Apple
+User-agent: Applebot
+Allow: /
+Disallow: /api/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
 
 Sitemap: https://hisab.liveintently.app/sitemap-index.xml

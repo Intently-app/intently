@@ -1,0 +1,12 @@
+---
+/** Two ledger columns joined by the double rule that closes a balanced entry. */
+interface Props {
+	size?: number;
+}
+const { size = 30 } = Astro.props;
+---
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width={size} height={size} aria-hidden="true">
+	<rect width="32" height="32" rx="7" fill="#B3261E"></rect>
+	<path fill="#F6FAF2" d="M8 7h4.5v18H8zM19.5 7H24v18h-4.5zM12.5 13.6h7v1.5h-7zM12.5 16.9h7v1.5h-7z"></path>
+</svg>

@@ -1,0 +1,123 @@
+---
+import { render } from 'astro:content';
+import Site from '../../layouts/Site.astro';
+import Waitlist from '../../components/Waitlist.astro';
+import { SITE, STUDIO, TOPICS } from '../../lib/site';
+import { minutesToRead, publishedArticles, shortDate, wordCount, type Article } from '../../lib/articles';
+
+export async function getStaticPaths() {
+	const articles = await publishedArticles();
+	return articles.map((article) => ({ params: { slug: article.id }, props: { article, all: articles } }));
+}
+
+interface Props {
+	article: Article;
+	all: Article[];
+}
+
+const { article, all } = Astro.props;
+const { Content } = await render(article);
+const { title, description, pubDate, updatedDate, topic, answer, keyTakeaways, faq, tags } = article.data;
+const url = `${SITE.url}/articles/${article.id}/`;
+const image = `/og/${article.id}.png`;
+const topicLabel = TOPICS.find((t) => t.id === topic)!.label;
+const shownDate = updatedDate ?? pubDate;
+
+// Same topic first, then the newest of the rest.
+const more = all
+	.filter((a) => a.id !== article.id)
+	.sort((a, b) => Number(b.data.topic === topic) - Number(a.data.topic === topic))
+	.slice(0, 3);
+
+const schema: object[] = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'Article',
+		'@id': `${url}#article`,
+		headline: title,
+		description,
+		abstract: answer,
+		image: new URL(image, SITE.url).href,
+		datePublished: pubDate.toISOString(),
+		dateModified: shownDate.toISOString(),
+		author: { '@type': 'Organization', '@id': `${STUDIO.url}/#organization`, name: STUDIO.name },
+		publisher: { '@id': `${STUDIO.url}/#organization` },
+		mainEntityOfPage: url,
+		articleSection: topicLabel,
+		keywords: tags.join(', '),
+		inLanguage: 'en',
+		wordCount: wordCount(article.body),
+	},
+	{
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		itemListElement: [
+			{ '@type': 'ListItem', position: 1, name: 'Hisab', item: `${SITE.url}/` },
+			{ '@type': 'ListItem', position: 2, name: 'Articles', item: `${SITE.url}/articles/` },
+			{ '@type': 'ListItem', position: 3, name: title, item: url },
+		],
+	},
+];
+if (faq.length > 0) {
+	schema.push({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })),
+	});
+}
+---
+
+<Site title={title} description={description} image={image} schema={schema} article={{ published: pubDate, modified: updatedDate, tags }} hasWaitlist>
+	<article class="read">
+		<nav class="crumbs" aria-label="Breadcrumb"><a href="/articles/">Articles</a> / <a href={`/articles/#${topic}`}>{topicLabel}</a></nav>
+		<h1>{title}</h1>
+		<p class="read-meta">
+			By the Hisab team. {updatedDate ? 'Updated' : 'Published'} <time datetime={shownDate.toISOString().slice(0, 10)}>{shortDate(shownDate)}</time>. {minutesToRead(article.body)} min read.
+		</p>
+
+		<section class="answer" aria-labelledby="short-answer">
+			<h2 id="short-answer">The short answer</h2>
+			<p>{answer}</p>
+			<ul>
+				{keyTakeaways.map((point) => <li>{point}</li>)}
+			</ul>
+		</section>
+
+		<div class="prose"><Content /></div>
+
+		{faq.length > 0 && (
+			<section class="read-faq" aria-labelledby="faq">
+				<h2 id="faq">Common questions</h2>
+				{faq.map((f) => (
+					<>
+						<h3>{f.question}</h3>
+						<p>{f.answer}</p>
+					</>
+				))}
+			</section>
+		)}
+
+		<section id="waitlist" class="read-close">
+			<h2>Hisab is in private testing</h2>
+			<p>It’s a ledger you fill in by talking to your AI or letting your bank’s texts do it. We’ll send one email when it opens.</p>
+			<Waitlist id="email-article" />
+		</section>
+		<p class="read-small">This article is general information, not financial advice. Prices and features of other products were checked on the date shown and can change. We make Hisab, so weigh our view of it accordingly.</p>
+	</article>
+
+	{more.length > 0 && (
+		<section class="more">
+			<h2>Read next</h2>
+			<ul class="rows">
+				{more.map((a) => (
+					<li style="grid-template-columns:minmax(0,1fr)">
+						<div>
+							<a href={`/articles/${a.id}/`}>{a.data.title}</a>
+							<p>{a.data.description}</p>
+						</div>
+					</li>
+				))}
+			</ul>
+		</section>
+	)}
+</Site>

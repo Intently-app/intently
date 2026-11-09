@@ -1,0 +1,64 @@
+---
+import Site from '../../layouts/Site.astro';
+import Waitlist from '../../components/Waitlist.astro';
+import { SITE, STUDIO, TOPICS } from '../../lib/site';
+import { minutesToRead, publishedArticles, shortDate } from '../../lib/articles';
+
+const articles = await publishedArticles();
+const groups = TOPICS.map((topic) => ({ ...topic, articles: articles.filter((a) => a.data.topic === topic.id) })).filter((g) => g.articles.length > 0);
+const description = 'Practical guides to tracking money with Claude and ChatGPT, turning bank and wallet texts into records, and keeping books that add up.';
+
+const schema = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'CollectionPage',
+		name: 'Hisab articles',
+		description,
+		url: `${SITE.url}/articles/`,
+		publisher: { '@id': `${STUDIO.url}/#organization` },
+		mainEntity: {
+			'@type': 'ItemList',
+			itemListElement: articles.map((article, index) => ({ '@type': 'ListItem', position: index + 1, url: `${SITE.url}/articles/${article.id}/`, name: article.data.title })),
+		},
+	},
+];
+---
+
+<Site title="Articles" description={description} schema={schema} hasWaitlist>
+	<div class="page list-head">
+		<h1>Articles</h1>
+		<p>{description}</p>
+		{groups.length > 1 && (
+			<nav class="list-jump" aria-label="Topics">
+				{groups.map((group) => <a href={`#${group.id}`}>{group.label}</a>)}
+			</nav>
+		)}
+	</div>
+
+	{groups.map((group) => (
+		<section id={group.id} class="page list-part">
+			<h2>{group.label}</h2>
+			<p>{group.blurb}</p>
+			<ul class="rows">
+				{group.articles.map((article) => (
+					<li>
+						<time datetime={article.data.pubDate.toISOString().slice(0, 10)}>{shortDate(article.data.pubDate)}</time>
+						<div>
+							<a href={`/articles/${article.id}/`}>{article.data.title}</a>
+							<p>{article.data.description}</p>
+						</div>
+						<span class="mins">{minutesToRead(article.body)} min</span>
+					</li>
+				))}
+			</ul>
+		</section>
+	))}
+
+	<section id="waitlist" class="close">
+		<div class="page">
+			<h2>Hear when Hisab opens</h2>
+			<p class="close-lead">We’ll send one email when you can start using it.</p>
+			<Waitlist id="email-list" />
+		</div>
+	</section>
+</Site>
