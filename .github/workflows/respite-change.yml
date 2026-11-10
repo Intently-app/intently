@@ -15,7 +15,7 @@ env:
   PLATFORM: website   # android | ios | extension | api | website
 jobs:
   emit:
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
     steps:
       - name: Send the change event
         uses: actions/github-script@v7
