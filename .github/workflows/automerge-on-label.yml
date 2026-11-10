@@ -1,0 +1,41 @@
+name: Auto-merge on label
+
+# CI's own "automerge" job reads the PR labels when it runs, so a PR opened with its label needs nothing
+# from this workflow (and CI no longer runs a second time for the "labeled" event).
+# This workflow covers the other case: the label is added to a PR whose CI run already finished. It re-runs
+# only the automerge job of that run (the tests are not repeated); the job then sees the label and merges.
+# If CI is still running, or failed, there is nothing to do: the run's own automerge job decides.
+on:
+  pull_request:
+    types: [labeled]
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  recheck:
+    name: Re-check auto-merge
+    if: >-
+      (github.event.label.name == 'auto:merge') &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: automerge-label-${{ github.event.pull_request.number }}
+      cancel-in-progress: false
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - name: Re-run the automerge job of the finished CI run
+        run: |
+          RUN=$(gh run list -R "$GITHUB_REPOSITORY" --workflow ci.yml --event pull_request --commit "$SHA" --limit 1 --json databaseId,status,conclusion --jq '.[0] // empty')
+          if [ -z "$RUN" ]; then echo "::notice::No CI run for $SHA (yet); its automerge job will read the label."; exit 0; fi
+          STATUS=$(echo "$RUN" | jq -r .status); CONCLUSION=$(echo "$RUN" | jq -r .conclusion); ID=$(echo "$RUN" | jq -r .databaseId)
+          if [ "$STATUS" != "completed" ]; then echo "::notice::CI run $ID is still $STATUS; its automerge job will read the label when the checks finish."; exit 0; fi
+          if [ "$CONCLUSION" != "success" ]; then echo "::notice::CI run $ID ended $CONCLUSION; nothing to merge."; exit 0; fi
+          JOB=$(gh run view "$ID" -R "$GITHUB_REPOSITORY" --json jobs | jq -r '.jobs[] | select(.name == "automerge" or .name == "Auto-merge") | .databaseId' | head -n1)
+          if [ -z "$JOB" ]; then echo "::notice::CI run $ID has no automerge job."; exit 0; fi
+          gh run rerun "$ID" -R "$GITHUB_REPOSITORY" --job "$JOB"
+          echo "Re-ran the automerge job ($JOB) of CI run $ID."

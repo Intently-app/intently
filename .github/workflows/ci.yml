@@ -5,7 +5,7 @@ name: CI
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, labeled]
+    types: [opened, synchronize, reopened]
     branches: [main]
     paths:
       - 'apps/**'
@@ -77,12 +77,9 @@ jobs:
   automerge:
     name: Auto-merge
     needs: [plan, build]
-    if: >-
-      github.event_name == 'pull_request' &&
-      github.event.pull_request.head.repo.full_name == github.repository &&
-      contains(github.event.pull_request.labels.*.name, 'auto:merge')
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    # Opening a PR with its label fires both "opened" and "labeled": one merge per PR at a time.
+    # One merge per PR at a time (a run and a label re-check can overlap).
     concurrency:
       group: automerge-${{ github.event.pull_request.number }}
       cancel-in-progress: false
@@ -93,14 +90,23 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       PR: ${{ github.event.pull_request.number }}
     steps:
+      - name: Read the PR labels
+        id: gate
+        run: |
+          # Read the labels now, not from the event: a label added while CI ran is not in the event payload.
+          LABELS=",$(gh pr view "$PR" -R "$GITHUB_REPOSITORY" --json labels --jq '[.labels[].name] | join(",")'),"
+          case "$LABELS" in *,auto:merge,*) echo "go=true" >> "$GITHUB_OUTPUT" ;; *) echo "::notice::No auto:merge label on the PR (yet); not merging." ;; esac
       - name: Refuse PRs that change the workflows
+        if: steps.gate.outputs.go == 'true'
         run: |
           FILES=$(gh pr diff "$PR" -R "$GITHUB_REPOSITORY" --name-only)
           GATE=$(echo "$FILES" | grep -E '^\.github/' || true)
           if [ -n "$GATE" ]; then echo "::error::auto:merge PR changes .github/; the owner merges those by hand:"; echo "$GATE"; exit 1; fi
       - name: Production deploy notice
+        if: steps.gate.outputs.go == 'true'
         run: echo "::notice::Merging this PR will deploy to production - a push to main runs deploy.yml for the sites it changed."
       - name: Merge
+        if: steps.gate.outputs.go == 'true'
         env:
           PIPELINE_TOKEN: ${{ secrets.RESPITE_PIPELINE_TOKEN }}
         run: |
@@ -113,6 +119,7 @@ jobs:
           gh pr merge "$PR" -R "$GITHUB_REPOSITORY" --squash --delete-branch
           echo "::warning::Merged with the workflow token, so the Deploy workflow will NOT run for this merge. Start it by hand: Actions > Deploy > Run workflow."
       - name: Close the tracker issues the PR names
+        if: steps.gate.outputs.go == 'true'
         env:
           GH_TOKEN: ${{ secrets.RESPITE_PIPELINE_TOKEN }}
         run: |
