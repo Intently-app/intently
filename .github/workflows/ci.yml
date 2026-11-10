@@ -26,7 +26,7 @@ concurrency:
 jobs:
   plan:
     name: Pick apps
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
     outputs:
       apps: ${{ steps.changed.outputs.apps }}
       count: ${{ steps.changed.outputs.count }}
@@ -47,7 +47,7 @@ jobs:
     name: ${{ matrix.app }}
     needs: plan
     if: needs.plan.outputs.count != '0'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
     timeout-minutes: 20
     strategy:
       fail-fast: false
@@ -78,7 +78,7 @@ jobs:
     name: Auto-merge
     needs: [plan, build]
     if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
     # One merge per PR at a time (a run and a label re-check can overlap).
     concurrency:
       group: automerge-${{ github.event.pull_request.number }}

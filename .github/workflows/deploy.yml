@@ -37,7 +37,7 @@ env:
 jobs:
   plan:
     name: Pick apps
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
     outputs:
       apps: ${{ steps.changed.outputs.apps }}
       count: ${{ steps.changed.outputs.count }}
@@ -65,7 +65,7 @@ jobs:
     name: ${{ matrix.app }}
     needs: plan
     if: needs.plan.outputs.count != '0'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
     timeout-minutes: 20
     strategy:
       fail-fast: false
