@@ -18,6 +18,24 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
 	{
+		date: '2026-11-10',
+		title: 'Badge and quest art, and real app icons',
+		summary:
+			'Badges, quests, the weekly chest and celebrations now have illustrated art on Android, iPhone and Chrome. In Insights, iPhone shows each app\'s own icon, and Chrome shows a site\'s icon when your browser already has it.',
+		platforms: ['iPhone', 'Android', 'Chrome'],
+		link: '/download/',
+		draft: true,
+	},
+	{
+		date: '2026-11-10',
+		title: 'See how often you walked away',
+		summary:
+			'On Android, Insights now has a card like "You walked away 12 times from Instagram in the last 7 days", so you can see your pauses working.',
+		platforms: ['Android'],
+		link: '/download/',
+		draft: true,
+	},
+	{
 		date: '2026-11-09',
 		title: 'Setup that gets your pauses working',
 		summary:
