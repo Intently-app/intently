@@ -7,14 +7,8 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     branches: [main]
-    paths:
-      - 'apps/**'
-      - 'packages/**'
-      - 'package.json'
-      - 'package-lock.json'
-      - '.nvmrc'
-      - '.github/scripts/**'
-      - '.github/workflows/ci.yml'
+    # No paths filter: a PR that touches no app (say a root README) still starts a run, so its
+    # Auto-merge job can merge it. The plan job then finds no app changed and build is skipped.
 
 permissions:
   contents: read
@@ -77,7 +71,17 @@ jobs:
   automerge:
     name: Auto-merge
     needs: [plan, build]
-    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    # always(): without it a skipped build skips this job too. The rest is explicit, because always()
+    # also runs the job after a failure or a cancel. plan must have succeeded, and build must have
+    # either passed (needs.build.result is 'success' only when every matrix leg passed; one red leg
+    # makes it 'failure') or been skipped because plan found no app changed (count 0).
+    if: >-
+      always()
+      && github.event_name == 'pull_request'
+      && github.event.pull_request.head.repo.full_name == github.repository
+      && needs.plan.result == 'success'
+      && (needs.build.result == 'success'
+          || (needs.build.result == 'skipped' && needs.plan.outputs.count == '0'))
     runs-on: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
     # One merge per PR at a time (a run and a label re-check can overlap).
     concurrency:
