@@ -5,6 +5,7 @@ name: CI
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
     branches: [main]
     paths:
       - 'apps/**'
@@ -69,3 +70,58 @@ jobs:
       - name: Wrangler dry run
         working-directory: apps/${{ matrix.app }}
         run: npx wrangler deploy --dry-run
+
+  # A pull request labelled auto:merge merges itself (squash) once the checks above pass, then the
+  # tracker issues it names ("Closes Intently-app/tracker#N") are closed. A merge to main DEPLOYS
+  # the sites to production (deploy.yml). PRs that change .github/ are refused: the owner merges those.
+  automerge:
+    name: Auto-merge
+    needs: [plan, build]
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      contains(github.event.pull_request.labels.*.name, 'auto:merge')
+    runs-on: ubuntu-latest
+    # Opening a PR with its label fires both "opened" and "labeled": one merge per PR at a time.
+    concurrency:
+      group: automerge-${{ github.event.pull_request.number }}
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PR: ${{ github.event.pull_request.number }}
+    steps:
+      - name: Refuse PRs that change the workflows
+        run: |
+          FILES=$(gh pr diff "$PR" -R "$GITHUB_REPOSITORY" --name-only)
+          GATE=$(echo "$FILES" | grep -E '^\.github/' || true)
+          if [ -n "$GATE" ]; then echo "::error::auto:merge PR changes .github/; the owner merges those by hand:"; echo "$GATE"; exit 1; fi
+      - name: Production deploy notice
+        run: echo "::notice::Merging this PR will deploy to production - a push to main runs deploy.yml for the sites it changed."
+      - name: Merge
+        env:
+          PIPELINE_TOKEN: ${{ secrets.RESPITE_PIPELINE_TOKEN }}
+        run: |
+          if [ "$(gh pr view "$PR" -R "$GITHUB_REPOSITORY" --json state --jq .state)" = "MERGED" ]; then echo "already merged"; exit 0; fi
+          # A merge made with the workflow's own token does not start other workflows on main, so
+          # try the pipeline token first: that is what lets deploy.yml and respite-change.yml run.
+          if [ -n "$PIPELINE_TOKEN" ] && GH_TOKEN="$PIPELINE_TOKEN" gh pr merge "$PR" -R "$GITHUB_REPOSITORY" --squash --delete-branch; then
+            exit 0
+          fi
+          gh pr merge "$PR" -R "$GITHUB_REPOSITORY" --squash --delete-branch
+          echo "::warning::Merged with the workflow token, so the Deploy workflow will NOT run for this merge. Start it by hand: Actions > Deploy > Run workflow."
+      - name: Close the tracker issues the PR names
+        env:
+          GH_TOKEN: ${{ secrets.RESPITE_PIPELINE_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then echo "::warning::RESPITE_PIPELINE_TOKEN not set; tracker issues were not closed"; exit 0; fi
+          PRJSON=$(gh pr view "$PR" -R "$GITHUB_REPOSITORY" --json body,url,mergeCommit,state)
+          [ "$(echo "$PRJSON" | jq -r .state)" = "MERGED" ] || { echo "not merged; nothing to close"; exit 0; }
+          URL=$(echo "$PRJSON" | jq -r .url); SHA=$(echo "$PRJSON" | jq -r '.mergeCommit.oid[0:7]')
+          for N in $(echo "$PRJSON" | jq -r .body | grep -oiE '\b(close[sd]?|fix(e[sd])?|resolve[sd]?)[[:space:]]+Intently-app/tracker#[0-9]+' | grep -oE '[0-9]+$' | sort -u); do
+            if [ "$(gh issue view "$N" -R Intently-app/tracker --json state --jq .state)" = "OPEN" ]; then
+              gh issue close "$N" -R Intently-app/tracker --comment "Closed by the merge of $URL (commit $SHA on main of $GITHUB_REPOSITORY). The checks passed before the merge."
+            fi
+          done
