@@ -18,6 +18,42 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
 	{
+		date: '2026-11-11',
+		title: 'Pause history',
+		summary:
+			'Insights now has a Pause history that lists your recent pauses and what you chose at each one, such as walking away or continuing, grouped by day.',
+		platforms: ['Android', 'iPhone', 'Chrome'],
+		link: '/download/',
+		draft: true,
+	},
+	{
+		date: '2026-11-11',
+		title: 'Say why you continued',
+		summary:
+			'When you continue past a pause, you can say why: a task, a break or habit. Your own AI can read those reasons through Respite Plus, to help you spot patterns.',
+		platforms: ['Android', 'iPhone', 'Chrome'],
+		link: '/download/',
+		draft: true,
+	},
+	{
+		date: '2026-11-11',
+		title: '5 minutes left',
+		summary:
+			'On iPhone, Respite now sends a calm "5 minutes left" notification shortly before an app, site or category locks or pauses for the day. You can switch it off in You, then Notifications.',
+		platforms: ['iPhone'],
+		link: '/download/',
+		draft: true,
+	},
+	{
+		date: '2026-11-11',
+		title: 'Pause messages from your AI',
+		summary:
+			'With Respite Plus, your connected AI can add short messages that appear on your launch pause as "A note from" your AI, and you can remove them in Connected AI.',
+		platforms: ['iPhone', 'Chrome'],
+		link: '/download/',
+		draft: true,
+	},
+	{
 		date: '2026-11-10',
 		title: 'Badge and quest art, and real app icons',
 		summary:
@@ -30,8 +66,8 @@ export const changelog: ChangelogEntry[] = [
 		date: '2026-11-10',
 		title: 'See how often you walked away',
 		summary:
-			'On Android, Insights now has a card like "You walked away 12 times from Instagram in the last 7 days", so you can see your pauses working.',
-		platforms: ['Android'],
+			'Insights now has a card like "You walked away 12 times from Instagram in the last 7 days", so you can see your pauses working.',
+		platforms: ['Android', 'iPhone', 'Chrome'],
 		link: '/download/',
 		draft: true,
 	},
