@@ -17,6 +17,7 @@ import Picture from '../components/ui/Picture.astro';
 import AppShot from '../components/ui/AppShot.astro';
 import ToolCard from '../components/ui/ToolCard.astro';
 import HeroPhone from '../components/home/HeroPhone.astro';
+import PhoneJourney from '../components/home/PhoneJourney.astro';
 import StoreButton from '../components/ui/StoreButton.astro';
 import WebSiteSchema from '../components/SEO/WebSiteSchema.astro';
 import ProductSchema from '../components/SEO/ProductSchema.astro';
@@ -124,8 +125,9 @@ const latestPosts = (await getPublishedPosts())
 				<div class="hm-hero-spacer" data-story-spacer aria-hidden="true"></div>
 			</section>
 
-			<!-- How it works: a real sequence, so numbered -->
-			<section class="m-section" id="how" aria-labelledby="how-title">
+			<!-- How it works: a real sequence, so numbered. With the 3D phone it becomes a scroll track:
+			     the phone (left) plays setup, the pause and the three choices while the steps light up. -->
+			<section class="m-section hm-how" id="how" aria-labelledby="how-title" data-story-track>
 				<h2 id="how-title" class="m-h2 hm-center">How it works</h2>
 				<ol class="hm-steps">
 					{steps.map((s, i) => (
@@ -137,6 +139,25 @@ const latestPosts = (await getPublishedPosts())
 						</li>
 					))}
 				</ol>
+				<div class="hm-3d hm-how3d" data-story-sticky>
+					<div class="hm-slot" data-phone-slot="how" aria-hidden="true"></div>
+					<ol class="hm-beats">
+						<li class="hm-beat is-1"><span class="m-tile is-number">1</span><div><h3>Pick your apps</h3><p>Add the ones that eat your day, and give each a limit.</p></div></li>
+						<li class="hm-beat is-2"><span class="m-tile is-number">2</span><div><h3>Get a short pause</h3><p>Open one, and a pause comes first: a breath and a question.</p></div></li>
+						<li class="hm-beat is-3">
+							<span class="m-tile is-number">3</span>
+							<div>
+								<h3>Choose</h3>
+								<ul class="hm-choices">
+									<li class="is-a"><Icon name="House" size={16} />Walk away, and earn acorns</li>
+									<li class="is-b"><Icon name="Hourglass" size={16} />Snooze pauses for 10 minutes</li>
+									<li class="is-c"><Icon name="ArrowRight" size={16} />Or carry on, on purpose</li>
+								</ul>
+							</div>
+						</li>
+					</ol>
+				</div>
+				<div class="hm-3d hm-track" data-story-spacer aria-hidden="true"></div>
 			</section>
 
 			<!-- Before and after, as pairs -->
@@ -169,7 +190,7 @@ const latestPosts = (await getPublishedPosts())
 			</section>
 
 			<!-- Feature areas, as illustrations -->
-			<section class="m-section" aria-labelledby="more-title">
+			<section class="m-section hm-more" aria-labelledby="more-title" data-story-track>
 				<div class="m-section-head">
 					<h2 id="more-title">More than a pause</h2>
 					<a class="hm-link" href="/features/">Every feature <Icon name="ArrowRight" size={16} /></a>
@@ -187,6 +208,20 @@ const latestPosts = (await getPublishedPosts())
 						</a>
 					))}
 				</div>
+				<div class="hm-3d hm-more3d" data-story-sticky>
+					<ol class="hm-feats">
+						{areas.map((a, i) => (
+							<li class={`hm-feat is-${i + 1}`}>
+								<a href={a.href}>
+									<span class="hm-area-title">{a.title}{a.plus && <span class="m-badge is-plus">Plus</span>}</span>
+									<span class="hm-area-line">{a.line}</span>
+								</a>
+							</li>
+						))}
+					</ol>
+					<div class="hm-slot" data-phone-slot="features" aria-hidden="true"></div>
+				</div>
+				<div class="hm-3d hm-track is-long" data-story-spacer aria-hidden="true"></div>
 			</section>
 
 			<!-- Where to get it -->
@@ -290,12 +325,14 @@ const latestPosts = (await getPublishedPosts())
 			</section>
 
 			<section class="m-end hm-end" aria-labelledby="end-title" data-placement="final_cta">
-				<Biscuit mood="cheer" size={120} label="Biscuit cheering" />
+				<div class="hm-3d hm-slot is-end" data-phone-slot="end" aria-hidden="true"></div>
+				<span class="hm-end-biscuit"><Biscuit mood="cheer" size={120} label="Biscuit cheering" /></span>
 				<h2 id="end-title">Try it on one app first</h2>
 				<p>Free, no ads, about a minute to set up.</p>
 				<a href="/download/" class="m-btn">Download Respite</a>
 			</section>
 		</main>
+		<PhoneJourney />
 
 		<Footer />
 	</body>
@@ -714,6 +751,388 @@ const latestPosts = (await getPublishedPosts())
 	/* ------------------------------------------------------------ end */
 	.hm-end {
 		padding-top: 2rem;
+	}
+
+	/* ------------------------------------------------------------ with the 3D phone (PhoneJourney) */
+	/* Off unless the WebGL phone runs (html.phone-3d); then the cards give way to scroll tracks. */
+	.hm-3d {
+		display: none;
+	}
+
+	:global(html.phone-3d) .hm-steps,
+	:global(html.phone-3d) .hm-areas,
+	:global(html.phone-3d) .hm-end-biscuit {
+		display: none;
+	}
+
+	:global(html.phone-3d) .hm-track {
+		display: block;
+		height: 230vh;
+	}
+
+	:global(html.phone-3d) .hm-track.is-long {
+		height: 260vh;
+	}
+
+	.hm-slot {
+		width: 340px;
+		height: min(620px, calc(100vh - 11rem));
+	}
+
+	:global(html.phone-3d) .hm-how3d,
+	:global(html.phone-3d) .hm-more3d {
+		position: sticky;
+		top: 5.5rem;
+		display: grid;
+		grid-template-columns: 340px minmax(0, 1fr);
+		align-items: center;
+		gap: 4rem;
+		min-height: calc(100vh - 7rem);
+	}
+
+	:global(html.phone-3d) .hm-more3d {
+		grid-template-columns: minmax(0, 1fr) 340px;
+	}
+
+	/* Steps and features light up as the phone reaches them (--p comes from the phone script). */
+	.hm-how,
+	.hm-more {
+		--p: 0;
+	}
+
+	.hm-beat,
+	.hm-choices li,
+	.hm-feat {
+		animation-duration: 1s;
+		animation-timing-function: linear;
+		animation-fill-mode: both;
+		animation-play-state: paused;
+		animation-delay: calc(var(--p) * -1s);
+	}
+
+	.hm-beats,
+	.hm-feats {
+		display: grid;
+		gap: 0.9rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.hm-beat {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		padding: 1.25rem 1.4rem;
+		border-radius: 24px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+	}
+
+	.hm-beat .m-tile.is-number {
+		flex: none;
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+	}
+
+	.hm-beat h3 {
+		margin: 0.25rem 0 0.3rem;
+		font-size: 1.35rem;
+		font-weight: 800;
+	}
+
+	.hm-beat p {
+		margin: 0;
+		color: var(--m-ink-soft);
+		line-height: 1.5;
+	}
+
+	.hm-beat.is-1 {
+		animation-name: hm-on-1;
+	}
+	.hm-beat.is-2 {
+		animation-name: hm-on-2;
+	}
+	.hm-beat.is-3 {
+		animation-name: hm-on-3;
+	}
+
+	@keyframes hm-on-1 {
+		0%,
+		33% {
+			opacity: 1;
+			transform: none;
+		}
+		36%,
+		100% {
+			opacity: 0.45;
+			transform: scale(0.97);
+		}
+	}
+	@keyframes hm-on-2 {
+		0%,
+		31% {
+			opacity: 0.45;
+			transform: scale(0.97);
+		}
+		34%,
+		59% {
+			opacity: 1;
+			transform: none;
+		}
+		62%,
+		100% {
+			opacity: 0.45;
+			transform: scale(0.97);
+		}
+	}
+	@keyframes hm-on-3 {
+		0%,
+		58% {
+			opacity: 0.45;
+			transform: scale(0.97);
+		}
+		61%,
+		100% {
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	.hm-choices {
+		display: grid;
+		gap: 0.4rem;
+		margin: 0.5rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.hm-choices li {
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		padding: 0.55rem 0.8rem;
+		border-radius: 14px;
+		font-weight: 700;
+		color: var(--m-ink-soft);
+	}
+
+	.hm-choices .is-a {
+		animation-name: hm-choice-a;
+	}
+	.hm-choices .is-b {
+		animation-name: hm-choice-b;
+	}
+	.hm-choices .is-c {
+		animation-name: hm-choice-c;
+	}
+
+	@keyframes hm-choice-a {
+		0%,
+		59% {
+			background: transparent;
+			color: var(--m-ink-soft);
+		}
+		61%,
+		73% {
+			background: var(--m-accent-soft);
+			color: var(--m-ink);
+		}
+		75%,
+		100% {
+			background: transparent;
+			color: var(--m-ink-soft);
+		}
+	}
+	@keyframes hm-choice-b {
+		0%,
+		73% {
+			background: transparent;
+			color: var(--m-ink-soft);
+		}
+		75%,
+		86% {
+			background: var(--m-accent-soft);
+			color: var(--m-ink);
+		}
+		88%,
+		100% {
+			background: transparent;
+			color: var(--m-ink-soft);
+		}
+	}
+	@keyframes hm-choice-c {
+		0%,
+		86% {
+			background: transparent;
+			color: var(--m-ink-soft);
+		}
+		88%,
+		100% {
+			background: var(--m-accent-soft);
+			color: var(--m-ink);
+		}
+	}
+
+	.hm-feat a {
+		display: grid;
+		gap: 0.2rem;
+		padding: 1rem 1.3rem;
+		border-radius: 22px;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.hm-feat a:hover .hm-area-title {
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+
+	/* Six features, a sixth of the track each. */
+	.hm-feat.is-1 {
+		animation-name: hm-feat-1;
+	}
+	.hm-feat.is-2 {
+		animation-name: hm-feat-2;
+	}
+	.hm-feat.is-3 {
+		animation-name: hm-feat-3;
+	}
+	.hm-feat.is-4 {
+		animation-name: hm-feat-4;
+	}
+	.hm-feat.is-5 {
+		animation-name: hm-feat-5;
+	}
+	.hm-feat.is-6 {
+		animation-name: hm-feat-6;
+	}
+
+	@keyframes hm-feat-1 {
+		0%,
+		16% {
+			background: var(--m-paper);
+			box-shadow: var(--m-shadow-sm);
+			opacity: 1;
+		}
+		17.5%,
+		100% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+	}
+	@keyframes hm-feat-2 {
+		0%,
+		16% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+		17.5%,
+		32.5% {
+			background: var(--m-paper);
+			box-shadow: var(--m-shadow-sm);
+			opacity: 1;
+		}
+		34%,
+		100% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+	}
+	@keyframes hm-feat-3 {
+		0%,
+		32.5% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+		34%,
+		49% {
+			background: var(--m-paper);
+			box-shadow: var(--m-shadow-sm);
+			opacity: 1;
+		}
+		50.5%,
+		100% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+	}
+	@keyframes hm-feat-4 {
+		0%,
+		49% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+		50.5%,
+		65.5% {
+			background: var(--m-paper);
+			box-shadow: var(--m-shadow-sm);
+			opacity: 1;
+		}
+		67%,
+		100% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+	}
+	@keyframes hm-feat-5 {
+		0%,
+		65.5% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+		67%,
+		82.5% {
+			background: var(--m-paper);
+			box-shadow: var(--m-shadow-sm);
+			opacity: 1;
+		}
+		84%,
+		100% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+	}
+	@keyframes hm-feat-6 {
+		0%,
+		82.5% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+		84%,
+		100% {
+			background: var(--m-paper);
+			box-shadow: var(--m-shadow-sm);
+			opacity: 1;
+		}
+	}
+
+	/* The end card: the phone parks beside the last call to action. */
+	:global(html.phone-3d) .hm-end {
+		grid-template-columns: 300px auto;
+		justify-content: center;
+		align-items: center;
+		column-gap: 3rem;
+		text-align: left;
+		justify-items: start;
+	}
+
+	:global(html.phone-3d) .hm-slot.is-end {
+		display: block;
+		grid-row: 1 / span 3;
+		width: 300px;
+		height: 440px;
 	}
 
 	@media (prefers-reduced-motion: reduce) {

@@ -55,7 +55,7 @@ let failed = false;
 
 for (const shot of shots) {
 	for (const theme of ['light', 'dark']) {
-		const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, deviceScaleFactor: DPR });
+		const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, deviceScaleFactor: shot.dpr ?? DPR });
 		await page.route('http://board.local/**', async (route) => {
 			const u = new URL(route.request().url());
 			if (u.pathname.endsWith('support.js')) return route.fulfill({ body: '', contentType: 'text/javascript' });
@@ -82,6 +82,11 @@ for (const shot of shots) {
 			async ({ theme, shot, icons, respiteIcon }) => {
 				if (theme === 'dark') document.documentElement.dataset.theme = 'mist-dark';
 				const board = document.querySelector('x-dc > div');
+				// Transparent shots (sheets, toasts) keep only their own paint.
+				if (shot.transparent) {
+					document.documentElement.style.background = board.style.background = 'transparent';
+					document.body.style.background = 'transparent';
+				}
 				for (const sel of shot.hide ?? []) for (const el of document.querySelectorAll(sel)) el.style.visibility = 'hidden';
 				if (shot.hide?.length && shot.clipTo) for (const sel of shot.hide) for (const el of document.querySelectorAll(sel)) el.style.display = 'none';
 				if (shot.expand) {
@@ -94,7 +99,9 @@ for (const shot of shots) {
 					const letter = el.textContent.trim();
 					if (el.children.length || !/^[A-Za-z]$/.test(letter)) continue;
 					// The app name sits right after the tile ("Instagram", "x.com", "WhatsApp24m today").
-					const name = (el.nextElementSibling?.textContent ?? '').trim().toLowerCase().replace(/\d.*$/, '').trim();
+					// …or plain text right after it ("<div>I</div>Instagram").
+					const next = el.nextSibling?.textContent?.trim() ? el.nextSibling : el.nextElementSibling;
+					const name = (next?.textContent ?? '').trim().toLowerCase().replace(/\d.*$/, '').trim();
 					let html = null;
 					let bg = null;
 					let ring = false;
@@ -148,7 +155,7 @@ for (const shot of shots) {
 			const [x, y, w, h] = shot.clip;
 			clip = { x: b.x + x, y: b.y + y, width: w, height: h };
 		}
-		const png = await page.screenshot({ clip, fullPage: true, animations: 'disabled' });
+		const png = await page.screenshot({ clip, fullPage: true, animations: 'disabled', omitBackground: !!shot.transparent });
 		await page.close();
 
 		const name = theme === 'dark' ? `${shot.slug}-dark` : shot.slug;

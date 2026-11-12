@@ -31,7 +31,7 @@ const dock = ['Phone', 'MessageCircle', 'Camera', 'Image'];
 	role="img"
 	aria-label="A phone, slightly turned. On the home screen, Facebook is tapped. As it opens, Respite's pause rises over the feed: What were you hoping to find when you opened this? I'll do something else is tapped, Facebook closes, and the home screen shows Walked away, plus 10 acorns."
 >
-	<div class="hp-scene" aria-hidden="true">
+	<div class="hp-scene" aria-hidden="true" data-phone-slot="hero">
 		<div class="hp-shadow hp-a"></div>
 		<div class="hp-phone hp-a">
 			<span class="hp-side"><i class="hp-key is-power"></i><i class="hp-key is-volume"></i></span>
@@ -948,6 +948,11 @@ const dock = ['Phone', 'MessageCircle', 'Camera', 'Image'];
 		.hp-shadow {
 			background: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), transparent);
 		}
+	}
+
+	/* The WebGL phone (PhoneJourney) takes over this spot; the steps and hint stay. */
+	:global(html.phone-3d) .hp-scene > * {
+		visibility: hidden;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
