@@ -1281,5 +1281,21 @@
       "The hill is a steep path; the ramp is a spiral stroke wrapping the hill with partial clipping behind it.",
       "Depth: stack 4 to 6 paper layers back to front, each with feDropShadow (dy 6, stdDeviation 6, 25%) so edges lift; light from directly above."
     ]
+  },
+  {
+    "slug": "revenge-bedtime-procrastination",
+    "title": "Revenge Bedtime Procrastination: Why You Scroll Late",
+    "family": "mind",
+    "draft": false,
+    "intent": "Understand why they stay up scrolling to reclaim free time, and why a phone-free bedroom beats a bedtime limit.",
+    "concept": "A night landscape of layered paper-cut hills seen side-on, under a dusk-to-night sky with a pale layered paper moon at upper right. On the middle hill stands a freestanding white doorframe (x≈640–860), its door swung open. Through the opening is a different, paler place: a calm bedroom-landscape of sage duvet waves, a white pillow and a tiny crescent moon. Just outside the door, on a small paper side table, the phone is tucked into its own tiny bed, pillow and all, under a #E8A317 blanket, the single warm accent; its charging cord trails away from the door along the grass. Pale light spills from the doorway across stepping stones. The one-second feeling: the bedroom is a place, and the phone sleeps outside it.",
+    "palette_note": "Night blues and sea-glass sage layers, a pale doorway, one orange blanket.",
+    "alt": "A paper-cut doorway glows on a night hillside while, just outside it, a phone is tucked into its own tiny bed under an orange blanket.",
+    "twist": "The phone has its own little bed with a pillow, outside the door, and its cord runs away from the bedroom rather than into it.",
+    "avoid": "Clocks, numbers, alarm bells, faces in bed, glowing screens, notification badges, angry or vengeful imagery.",
+    "build_notes": [
+      "The doorway interior is a clipPath rect holding its own small paper landscape (pillow ellipse, three duvet waves) so it reads as another place.",
+      "Hills are six stacked paths with feDropShadow (dy 6, stdDeviation 8, 18%); the phone bed pieces use the tighter sh2 shadow; the blanket gets a soft #FCEBC4 halo."
+    ]
   }
 ]

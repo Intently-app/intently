@@ -100,7 +100,7 @@ items:
     cluster: sleep-night
     target_query: revenge bedtime procrastination
     intent: informational
-    status: idea
+    status: written
     notes: Explain the idea without invented studies; practical fixes; link stop-scrolling-at-night.
   - topic: 'Where to Charge Your Phone at Night (and Why It Matters)'
     cluster: sleep-night

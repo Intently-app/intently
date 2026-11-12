@@ -13,7 +13,20 @@
 # plan-week.mjs reads this for cluster coverage and for the "last weeks' results" table (GSC clicks,
 # impressions and position for each on-site slug; off-site pieces are measured by utm_campaign in GA4).
 
-entries: []
+entries:
+  - date: 2026-11-12
+    week: '2026-46'
+    kind: onsite
+    slug: revenge-bedtime-procrastination
+    cluster: sleep-night
+    target_query: revenge bedtime procrastination
+  - date: 2026-11-12
+    week: '2026-46'
+    kind: offsite
+    url: TBD
+    draft_path: /Users/faddy/MyLab/WellbeingApps/Respite/marketing/offsite/2026-46/article.md
+    cluster: parents-teens
+    target_query: 'Co-pilot, not warden: how to set phone limits with a teenager instead of for them'
 #  - date: 2026-11-16
 #    week: 2026-47
 #    kind: onsite
