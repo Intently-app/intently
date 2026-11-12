@@ -73,7 +73,7 @@ The pause, tracking, streaks and Chrome extension are free. An optional Plus upg
 **Privacy:** Data stays on device, but tied to Google account
 **Platforms:** Android
 
-Digital Wellbeing comes pre-installed on most Android phones running Android 9+. It provides basic screen time stats, app timers, Wind Down mode (grayscale at bedtime), and Focus mode to temporarily pause distracting apps.
+Digital Wellbeing comes pre-installed on most Android phones running Android 9+. It provides basic screen time stats, app timers, Wind Down mode (grayscale at bedtime), and Focus mode to temporarily pause distracting apps. For app timers on a specific app, see the [block an app guides](/block/).
 
 ### What it does well:
 

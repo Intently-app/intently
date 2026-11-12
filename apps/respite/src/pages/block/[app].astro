@@ -1,0 +1,13 @@
+---
+// /block/<app>/: one page per app in src/data/blockApps.ts, all drawn by src/layouts/BlockAppPage.astro.
+import BlockAppPage from '../../layouts/BlockAppPage.astro';
+import { BLOCK_APPS } from '../../data/blockApps';
+
+export function getStaticPaths() {
+	return BLOCK_APPS.map((app) => ({ params: { app: app.id }, props: { app } }));
+}
+
+const { app } = Astro.props;
+---
+
+<BlockAppPage app={app} />

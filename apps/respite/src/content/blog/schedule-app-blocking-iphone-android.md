@@ -47,7 +47,7 @@ A daily limit is good at one thing: telling you when you have had enough. It is 
 5. **Choose what to block.** Under **Blocks**, pick the apps this schedule closes during its hours.
 6. **Save.** It switches on and runs by itself.
 
-On iPhone, schedules use Apple's Screen Time, so the block holds even when Respite is not open. See [how to block apps on iPhone](/blog/how-to-block-apps-iphone/) for the wider picture of what iPhone can and cannot block.
+On iPhone, schedules use Apple's Screen Time, so the block holds even when Respite is not open. See [how to block apps on iPhone](/blog/how-to-block-apps-iphone/) for the wider picture of what iPhone can and cannot block, and the [block an app guides](/block/) for TikTok, Instagram, YouTube and others.
 
 ## What are the ready-made schedules?
 

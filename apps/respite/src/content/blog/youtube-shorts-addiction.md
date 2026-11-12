@@ -83,7 +83,7 @@ The good news is that it tends to reverse. Your attention span isn't permanently
 
 ## What actually breaks the Shorts cycle?
 
-There's no single fix here. The strategies that work best depend on whether your Shorts problem is mostly on desktop, mobile, or both. Here's what helps.
+There's no single fix here. The strategies that work best depend on whether your Shorts problem is mostly on desktop, mobile, or both. Here's what helps. (For phone and in-app limits, step by step, see [how to block YouTube on iPhone and Android](/block/youtube/).)
 
 ### Remove Shorts from desktop YouTube with a browser extension
 
