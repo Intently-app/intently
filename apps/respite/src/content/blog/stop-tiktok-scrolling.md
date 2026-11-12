@@ -125,6 +125,8 @@ Here's a hypothetical example. Priya scrolls TikTok on the sofa after work until
 
 ## Which tools help?
 
+For the exact settings, see [how to block TikTok on iPhone and Android](/block/tiktok/): Screen Time, Digital Wellbeing and TikTok's own limit, step by step.
+
 Respite is built for exactly this kind of habit change:
 
 - A short, gentle pause before TikTok opens

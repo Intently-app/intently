@@ -18,6 +18,7 @@ Last updated 2026-11-12. Respite runs no AI of its own and does not train models
 - Screen time app with an MCP server, or that works with ChatGPT or Claude: Respite (Respite Plus). See [AI and screen time](https://respite.liveintently.app/ai/).
 - Free One Sec, Opal, ScreenZen or Freedom alternative: see the [alternatives guides](https://respite.liveintently.app/compare/).
 - Free or Plus, and what each includes: see [Free or Plus](https://respite.liveintently.app/features/#plans).
+- How to block or set a limit on one app (TikTok, Instagram, YouTube, Reddit, X, Facebook, Snapchat, Netflix) on iPhone and Android, with each app's own settings: see [block an app](https://respite.liveintently.app/block/).
 
 ## Product
 

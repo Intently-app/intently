@@ -99,6 +99,28 @@ Landing pages and tools:
 |---|---|---|---|
 | `/download/` | KEEP | screen time app for iphone / android; respite app review | |
 
+## Block-an-app pages (2026-11-12)
+
+Practical settings pages, one per app (`src/data/blockApps.ts`, layout `src/layouts/BlockAppPage.astro`). They own the
+"how to block / set a limit on <app>" intent with iPhone and Android step lists and the app's own settings. The per-app
+posts (`stop-tiktok-scrolling`, `reduce-instagram-usage`, `instagram-reels-addiction`, `stop-youtube-binge`,
+`youtube-shorts-addiction`, `stop-reddit-scrolling`, `stop-twitter-doomscrolling`) keep the habit and psychology intent;
+each links to its page and back. `/blog/how-to-block-apps-iphone/` keeps the generic "block apps on iphone" query, and
+`/blog/schedule-app-blocking-iphone-android/` the generic Android one. A new post must not target an app's
+blocking or time-limit settings: extend the page in `blockApps.ts` instead.
+
+| URL | Status | Primary keywords | Secondary keywords |
+|---|---|---|---|
+| `/block/` | NEW | block a specific app; block an app guides | which apps have their own time limit |
+| `/block/tiktok/` | NEW | how to block tiktok on iphone; block tiktok android; tiktok time limit; how to set a time limit on tiktok | tiktok daily screen time; tiktok sleep reminders |
+| `/block/instagram/` | NEW | how to block instagram on iphone; block instagram android; instagram time limit; instagram daily limit | instagram take a break; instagram sleep mode |
+| `/block/youtube/` | NEW | how to block youtube on iphone; block youtube app android; youtube time limit; youtube shorts limit | youtube take a break reminder; turn off youtube autoplay |
+| `/block/reddit/` | NEW | how to block reddit on iphone; block reddit android; reddit time limit; block reddit website | does reddit have a time limit |
+| `/block/x/` | NEW | how to block twitter on iphone; block x app android; twitter time limit | x screen time limit; stop x autoplay |
+| `/block/facebook/` | NEW | how to block facebook on iphone; block facebook android; facebook time limit; facebook daily time reminder | facebook quiet mode |
+| `/block/snapchat/` | NEW | how to block snapchat on iphone; block snapchat android; snapchat time limit | snapchat screen time limit; snapchat family center screen time |
+| `/block/netflix/` | NEW | how to block netflix on iphone; block netflix android; netflix time limit; turn off netflix autoplay | block netflix at bedtime |
+
 ## Reasons some keywords are not targeted with new content
 
 - **Head terms owned by authority or vendor sites** (phone addiction, phone addiction symptoms / treatment / help,

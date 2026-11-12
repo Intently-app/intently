@@ -1,0 +1,150 @@
+---
+/**
+ * /block/: the index of the "how to block <app>" pages (src/data/blockApps.ts). Linked from the footer and the
+ * blog index. The general "block apps on iPhone / Android" queries belong to the blog posts linked below, so this
+ * page stays a picker: the apps, the three layers, and a few questions.
+ */
+import '../../styles/info-pages.css';
+import '../../styles/block.css';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import AppIcon from '../../components/ui/AppIcon.astro';
+import Biscuit from '../../components/ui/Biscuit.astro';
+import Icon from '../../components/ui/Icon.astro';
+import FAQSchema from '../../components/SEO/FAQSchema.astro';
+import BreadcrumbSchema from '../../components/SEO/BreadcrumbSchema.astro';
+import CollectionPageSchema from '../../components/SEO/CollectionPageSchema.astro';
+import { BLOCK_APPS } from '../../data/blockApps';
+
+const SITE = 'https://respite.liveintently.app';
+const title = 'Block a Specific App on iPhone or Android: 8 Guides';
+const description = "Step-by-step guides to block or limit TikTok, Instagram, YouTube, Reddit, X, Facebook, Snapchat and Netflix on iPhone and Android, and in each app.";
+
+const guides = [
+	{ href: '/blog/how-to-block-apps-iphone/', label: 'Block social media apps on iPhone', line: 'Screen Time, Focus and Shortcuts in one place.' },
+	{ href: '/blog/schedule-app-blocking-iphone-android/', label: 'Schedule app blocking', line: 'Bedtime, work hours and mornings, on iPhone and Android.' },
+	{ href: '/blog/free-screen-time-app-android/', label: 'Free screen time apps for Android', line: 'Digital Wellbeing and the free apps that add to it.' },
+];
+
+const faqs = [
+	{ question: 'Can I block an app without deleting it?', answer: 'Yes. On iPhone, Settings › Screen Time › Time Allowances caps a category of apps each day (App Limits on iOS 26 or earlier, where you can pick one app), and a Screen Time Schedule blocks apps during set hours. On Android, Digital Wellbeing sets an app timer, and Focus mode pauses apps on a schedule. The app, your account and your data stay as they are.' },
+	{ question: 'Why do app limits stop working?', answer: "Because the person who sets the limit can also skip it: iPhone lets you change or ignore a limit unless a Screen Time passcode is on, Android lifts a timer when you delete it, and an app's own limit is usually a reminder you can close. A passcode someone else picks helps, and so does a pause before the app opens." },
+	{ question: 'Which apps have their own time limit?', answer: 'TikTok, Instagram and YouTube have daily limits or reminders in their settings, and Facebook has a daily time reminder. Reddit, X, Snapchat and Netflix have none, as far as we could find. In every case the limit is one you can dismiss, so the phone’s tools are the firmer option.' },
+	{ question: 'What does Respite add to Screen Time and Digital Wellbeing?', answer: 'A short pause each time an app you picked opens, so opening it is a choice. Respite also has daily limits that lock an app until midnight, schedules (1 free, unlimited with Respite Plus), streaks, and a Chrome extension for the websites. It is free on iPhone, Android and Chrome, with no ads.' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead {title} {description} image="/images/blog/how-to-block-apps-iphone.jpg" />
+		<BreadcrumbSchema
+			items={[
+				{ name: 'Home', url: `${SITE}/` },
+				{ name: 'Block an app', url: `${SITE}/block/` },
+			]}
+		/>
+		<CollectionPageSchema name="Block a specific app" {description} url="/block/" items={BLOCK_APPS.map((a) => ({ name: a.h1, url: `/block/${a.id}/`, description: a.description }))} />
+		<FAQSchema {faqs} />
+	</head>
+	<body class="m-page">
+		<Header />
+
+		<main class="m bk">
+			<section class="bk-hero" aria-labelledby="bk-title">
+				<div class="bk-cluster" aria-hidden="true">
+					{BLOCK_APPS.map((a) => <AppIcon app={a.id} size={60} />)}
+				</div>
+				<h1 id="bk-title">Block a specific app</h1>
+				<p class="m-dek">Pick the app. Each guide covers iPhone, Android and the app's own settings.</p>
+			</section>
+
+			<section class="m-section" aria-label="Apps">
+				<ul class="bk-grid">
+					{BLOCK_APPS.map((a) => (
+						<li>
+							<a class="bk-app" href={`/block/${a.id}/`}>
+								<AppIcon app={a.id} size={64} />
+								<span class="bk-app-name">{a.name}</span>
+								<span class:list={['m-badge', a.ownLimit ? 'is-accent' : 'is-warning']}>{a.ownLimit ? 'Built-in reminder' : 'No built-in limit'}</span>
+								<span class="bk-app-line">{a.card}</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<section class="m-section" aria-labelledby="layers-title">
+				<div class="bk-center bk-head">
+					<h2 id="layers-title" class="m-h2">Three layers, each with a catch</h2>
+					<p class="m-caption bk-lead">Every guide walks through all three.</p>
+				</div>
+				<ul class="bk-layers">
+					<li class="bk-layer">
+						<span class="bk-layer-art" aria-hidden="true">
+							<span class="m-tile"><Icon name="Hourglass" size={22} /></span>
+							<span class="m-tile"><Icon name="Timer" size={22} /></span>
+						</span>
+						<h3>Your phone</h3>
+						<p>Screen Time on iPhone, Digital Wellbeing on Android. Firm, until you tap past them.</p>
+					</li>
+					<li class="bk-layer">
+						<span class="bk-layer-art" aria-hidden="true">
+							<AppIcon app="tiktok" size={44} />
+							<AppIcon app="instagram" size={44} />
+							<AppIcon app="youtube" size={44} />
+						</span>
+						<h3>The app itself</h3>
+						<p>Reminders, autoplay switches, sleep modes. Helpful, and easy to dismiss.</p>
+					</li>
+					<li class="bk-layer">
+						<span class="bk-layer-art" aria-hidden="true">
+							<AppIcon app="respite" size={48} />
+						</span>
+						<h3>A pause first</h3>
+						<p>Respite asks for a moment before the app opens, so the limit isn't your only line.</p>
+					</li>
+				</ul>
+			</section>
+
+			<section class="m-section" aria-labelledby="guides-title">
+				<h2 id="guides-title" class="m-h2 bk-center">Blocking in general</h2>
+				<ul class="bk-related">
+					{guides.map((g) => (
+						<li>
+							<a class="bk-related-link" href={g.href}>
+								<span class="bk-related-title">{g.label}</span>
+								<span class="bk-related-line">{g.line}</span>
+								<span class="bk-related-go" aria-hidden="true"><Icon name="ArrowRight" size={18} /></span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<section class="m-section" id="faq" aria-labelledby="faq-title">
+				<h2 id="faq-title" class="m-h2 bk-center">Questions</h2>
+				<div class="m-group m-faq">
+					{faqs.map((f) => (
+						<details>
+							<summary>{f.question}</summary>
+							<p>{f.answer}</p>
+						</details>
+					))}
+				</div>
+			</section>
+
+			<section class="m-end" aria-labelledby="end-title" data-placement="final_cta">
+				<Biscuit mood="wave" size={120} label="Biscuit waving" />
+				<h2 id="end-title">Start with the one app</h2>
+				<p>Free on iPhone, Android and Chrome. No ads, no account needed.</p>
+				<div class="m-actions">
+					<a href="/download/" class="m-btn" data-cta="download">Download Respite</a>
+				</div>
+			</section>
+		</main>
+
+		<Footer />
+	</body>
+</html>

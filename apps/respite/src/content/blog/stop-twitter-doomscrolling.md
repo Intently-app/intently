@@ -141,6 +141,8 @@ Here's how doomscrolling mode compares with a bounded one:
 
 ## Which tools help?
 
+X has no time limit of its own; [how to block X (Twitter) on iPhone and Android](/block/x/) has the phone settings that do the job, step by step.
+
 Respite supports the strategies above by creating a moment of awareness before you open Twitter or any other app that tends to pull you into autopilot scrolling.
 
 - Gentle pause screens before each session
