@@ -208,7 +208,7 @@ if [ "$DRY" = 1 ] || [ "$SKIP_WRITE" = 1 ]; then
   step "No commit, push or PR ($([ "$DRY" = 1 ] && echo dry run || echo skip-write run))"
   git status --short apps/respite
   save_patch ""
-  say "done: plan $BRIEF, on-site \"$TITLE\" ($SLUG); off-site drafts in $OFFDIR"
+  say "done: plan $BRIEF, on-site \"$TITLE\" ($SLUG)$([ "$SKIP_WRITE" = 1 ] || echo "; off-site drafts in $OFFDIR")"
   exit 0
 fi
 
