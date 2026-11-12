@@ -1,0 +1,186 @@
+# Candidate on-site topics. plan-week.mjs picks one `status: idea` item a week (least recently covered cluster
+# first, GSC demand breaks ties within the three stalest clusters) and re-checks it against every existing post
+# with the cannibalisation guard, so an item that a later post covers is skipped automatically.
+#
+#   topic         working title (the writer may refine it; the title rules in docs/content-guide.md apply)
+#   cluster       an id from clusters.yml
+#   target_query  the one primary query the post is written to win (must not belong to an existing URL)
+#   intent        how-to | informational | comparison | listicle (also picks the hero family)
+#   status        idea → written (set by the weekly run) | dropped (owner)
+#   notes         facts to respect, angles, links to make
+#
+# Seeded 2026-11-12: every item passes the guard against the 80 posts and docs/ai-keyword-map.md
+# (`node content-pipeline/plan-week.mjs --dry-run --check-backlog` lists the result per item).
+
+items:
+  # students
+  - topic: 'How to Stop Using Your Phone in Class'
+    cluster: students
+    target_query: how to stop using phone in class
+    intent: how-to
+    status: idea
+    notes: Class rules, phone placement, a pause before social apps during school hours (schedules are 1 free, more with Plus).
+  - topic: 'Pomodoro Studying With Your Phone Nearby: A Setup That Works'
+    cluster: students
+    target_query: pomodoro technique phone
+    intent: how-to
+    status: idea
+    notes: Focus sessions up to 25 minutes are free (longer with Plus); the 25-minute cap matches a classic pomodoro.
+
+  # parents and teens
+  - topic: 'Screen Time Rules for Teenagers They Will Actually Follow'
+    cluster: parents-teens
+    target_query: screen time rules for teenagers
+    intent: how-to
+    status: idea
+    notes: Teen co-pilot angle; agree limits together. Respite is not a parental-control or monitoring app; say so.
+  - topic: 'How to Talk to Your Teen About Phone Use (Without a Fight)'
+    cluster: parents-teens
+    target_query: how to talk to teenager about phone use
+    intent: how-to
+    status: idea
+    notes: Conversation scripts, no surveillance. No invented stats about teens; cite only well-known guidance already in screen-time-for-parents.
+  - topic: 'Family Phone Agreement: What to Put in It (Free Template)'
+    cluster: parents-teens
+    target_query: family phone agreement
+    intent: how-to
+    status: idea
+    notes: An in-post template (markdown list), no downloadable file.
+
+  # professionals / Calm mode
+  - topic: 'How to Stop Checking Your Phone in Meetings'
+    cluster: professionals
+    target_query: stop checking phone in meetings
+    intent: how-to
+    status: idea
+    notes: Calm mode audience. Schedules for work hours; pause before social apps, not before Slack.
+  - topic: 'A Calm Phone Setup for Busy Professionals'
+    cluster: professionals
+    target_query: calm phone setup
+    intent: how-to
+    status: idea
+    notes: Home screen, notifications, focus sessions; keep work apps reachable.
+
+  # ADHD and attention
+  - topic: 'An ADHD-Friendly Phone Setup: Friction That Helps'
+    cluster: adhd-attention
+    target_query: adhd phone setup
+    intent: how-to
+    status: idea
+    notes: No diagnosis or medical claims; point to professionals. Forgiving streaks (streak freezes) are a real feature.
+  - topic: 'Time Blindness and Scrolling: How to Notice Where the Hour Went'
+    cluster: adhd-attention
+    target_query: time blindness phone
+    intent: informational
+    status: idea
+    notes: Usage stats shown in the pause (Android, Chrome) are a real cue; keep iPhone wording general.
+
+  # per-app
+  - topic: 'How to Hide YouTube Recommendations and Shorts'
+    cluster: per-app
+    target_query: hide youtube recommendations
+    intent: how-to
+    status: idea
+    notes: YouTube's own settings first (watch history off, Shorts "not interested"); extensions only generically. No logos in the hero.
+  - topic: 'How to Use Instagram Only for Messages'
+    cluster: per-app
+    target_query: use instagram only for messages
+    intent: how-to
+    status: idea
+    notes: Feed-free Instagram; pause before the app, DMs on desktop. Link reduce-instagram-usage and instagram-reels-addiction.
+  - topic: 'How to Take a Break From Reddit (Without Deleting Your Account)'
+    cluster: per-app
+    target_query: take a break from reddit
+    intent: how-to
+    status: idea
+    notes: Different intent from stop-reddit-scrolling (a set break, not daily habits).
+
+  # sleep and night
+  - topic: 'Revenge Bedtime Procrastination: Why You Scroll Late'
+    cluster: sleep-night
+    target_query: revenge bedtime procrastination
+    intent: informational
+    status: idea
+    notes: Explain the idea without invented studies; practical fixes; link stop-scrolling-at-night.
+  - topic: 'Where to Charge Your Phone at Night (and Why It Matters)'
+    cluster: sleep-night
+    target_query: where to charge phone at night
+    intent: how-to
+    status: idea
+    notes: Place rule over time rule. No medical claims about radiation.
+
+  # AI and screen time (check docs/ai-keyword-map.md first; add the new row there in the same commit)
+  - topic: 'How to Read Your Screen Time Report (and What to Ask an AI)'
+    cluster: ai-screen-time
+    target_query: how to read screen time report
+    intent: how-to
+    status: idea
+    notes: Built-in reports on iPhone and Android first; then optional Respite Plus + own AI over MCP (live read tools only). Link /ai/.
+
+  # Android
+  - topic: 'How to Set App Timers on Android'
+    cluster: android
+    target_query: android app timer
+    intent: how-to
+    status: idea
+    notes: Digital Wellbeing walkthrough; menu names vary by phone maker, say so.
+  - topic: 'Android Bedtime Mode: Setup, Limits and a Better Night'
+    cluster: android
+    target_query: android bedtime mode
+    intent: how-to
+    status: idea
+    notes: Bedtime mode is part of Digital Wellbeing; verify menu names generically.
+  - topic: 'How to Block Apps on Samsung Galaxy'
+    cluster: android
+    target_query: block apps on samsung
+    intent: how-to
+    status: idea
+    notes: Samsung's Digital Wellbeing and Modes; no Samsung logo or UI copy in the hero.
+
+  # iPhone
+  - topic: 'How to Use Downtime on iPhone'
+    cluster: iphone
+    target_query: iphone downtime
+    intent: how-to
+    status: idea
+    notes: Downtime vs App Limits; where it falls short; schedules in Respite (1 free).
+  - topic: 'iPhone Focus Modes That Cut Scrolling'
+    cluster: iphone
+    target_query: iphone focus mode for social media
+    intent: how-to
+    status: idea
+    notes: Focus filters and home screen pages; keep iPhone pause wording general.
+
+  # Chrome and desktop
+  - topic: 'How to Block YouTube on Chrome During Work Hours'
+    cluster: chrome-desktop
+    target_query: block youtube on chrome
+    intent: how-to
+    status: idea
+    notes: The Chrome extension pauses websites; also works in other Chromium browsers.
+  - topic: 'Too Many Tabs? How Browser Tabs Wreck Focus'
+    cluster: chrome-desktop
+    target_query: too many tabs open focus
+    intent: informational
+    status: idea
+    notes: Practical, no invented research.
+
+  # Digital detox and habits
+  - topic: 'Dopamine Detox: What It Is and What Actually Helps'
+    cluster: detox-habits
+    target_query: dopamine detox
+    intent: informational
+    status: idea
+    notes: Explain the popular idea fairly, no medical claims; link psychology-of-app-addiction and phone-addiction-adhd.
+  - topic: 'A Phone-Free Weekend Plan (That Does Not Feel Like Punishment)'
+    cluster: detox-habits
+    target_query: phone free weekend
+    intent: how-to
+    status: idea
+    notes: Shorter than the 30-day challenge; link digital-detox-challenge as the next step.
+  - topic: 'Habit Stacking to Use Your Phone Less'
+    cluster: detox-habits
+    target_query: habit stacking phone
+    intent: how-to
+    status: idea
+    notes: Pair existing routines with phone-free actions; the pause as a cue.

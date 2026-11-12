@@ -1,0 +1,232 @@
+# Topic clusters for the weekly content pipeline (README.md). Each week's on-site post goes to the least recently
+# covered cluster with `rotate: true`; the off-site piece goes to a different cluster.
+#
+#   id              stable key, used in backlog.yml and published.yml
+#   audience        who the posts in this cluster are written for
+#   angle           the stance Respite takes for that audience
+#   seed_queries    searches this audience makes; used to guess a cluster for new GSC queries
+#   match           words that put an unlisted post into this cluster (all words of one entry must appear in its
+#                   slug or tags); new posts are mapped through published.yml instead
+#   posts           explicit mapping of every existing post (each post in exactly one cluster)
+#   offsite_angles  angles for original off-site articles (used once each, in order)
+#   offsite_sites   where an off-site article in this cluster fits best
+#   rotate          false = tracked for coverage, never picked for a new weekly topic
+#
+# Coverage on 2026-11-12: 80 posts, all mapped (plan-week.mjs prints any unmapped post).
+
+clusters:
+  - id: students
+    label: Students
+    audience: High-school and university students who study with a phone on the desk
+    angle: Keep the phone for what school needs (messages, timers, notes) and put a pause before the apps that eat study time
+    seed_queries: [how to stop using phone while studying, study focus app, phone addiction students, focus app for exams, pomodoro study app]
+    match: [student, study, studying, exam, college, homework]
+    posts: [screen-time-apps-for-students]
+    offsite_angles:
+      - 'What a semester of studying with a pause before social apps taught me about attention (first-person, practical)'
+      - 'The study-desk setup: phone placement, timers and the two apps worth keeping'
+    offsite_sites: [medium, hashnode, linkedin, student newspapers, study-tips blogs (guest post)]
+
+  - id: parents-teens
+    label: Parents and teens
+    audience: Parents of 13–17 year olds, and teens who want a say in their own limits (Teen co-pilot segment)
+    angle: Limits a teen agrees to hold up better than limits imposed; a pause and shared rules over spyware-style control
+    seed_queries: [screen time rules for teenagers, how to limit teen phone use, teen phone addiction, family screen time rules, phone contract for teens]
+    match: [parent, parents, teen, teens, kids, family, child]
+    posts: [screen-time-for-parents, how-much-screen-time-is-too-much]
+    offsite_angles:
+      - 'Co-pilot, not warden: how to set phone limits with a teenager instead of for them'
+      - 'A one-page family phone agreement that survives the first week'
+    offsite_sites: [medium, linkedin, parenting blogs (guest post), school newsletters]
+
+  - id: professionals
+    label: Professionals and Calm mode
+    audience: Knowledge workers and managers whose phone is a work tool and a distraction at once (Calm mode segment)
+    angle: You cannot delete Slack or email; you can make the leisure apps a deliberate choice during work hours
+    seed_queries: [how to stop checking phone at work, phone distraction at work, focus at work without blocking apps, notification overload work, deep work phone]
+    match: [work, workplace, productivity, productive, meeting, office]
+    posts: [digital-wellbeing-at-work, productive-without-deleting-social]
+    offsite_angles:
+      - 'The calm phone: a knowledge worker''s setup for fewer reflex checks during the workday'
+      - 'Why managers should stop measuring screen time and start designing pauses'
+    offsite_sites: [linkedin, medium, dev.to (for developers), hashnode, productivity newsletters (pitch)]
+
+  - id: adhd-attention
+    label: ADHD and attention
+    audience: Adults with ADHD or attention struggles who find blockers too rigid and willpower unreliable
+    angle: Friction and visible cues beat willpower; no diagnosis or medical claims, point to professionals
+    seed_queries: [adhd phone addiction, app blocker for adhd, adhd doomscrolling, attention span phone, how to focus with adhd phone]
+    match: [adhd, attention, focus span, dopamine]
+    posts: [phone-addiction-adhd, attention-span-rebuild-focus]
+    offsite_angles:
+      - 'Designing your phone for an ADHD brain: friction, cues and forgiving streaks'
+      - 'Why hard app blocks often backfire for ADHD, and what a gentle pause changes'
+    offsite_sites: [medium, adhd community blogs (guest post), linkedin]
+
+  - id: per-app
+    label: Per-app habits (TikTok, Instagram, YouTube, Reddit, X)
+    audience: People hooked on one specific app who want to keep it but use it less
+    angle: Keep the app, lose the autopilot; app-specific settings plus a pause before it opens
+    apps: [tiktok, instagram, youtube, reddit, x]
+    seed_queries: [how to stop scrolling tiktok, reduce instagram usage, stop watching youtube, reddit addiction, twitter doomscrolling, hide youtube shorts]
+    match: [tiktok, instagram, reels, youtube, shorts, reddit, twitter]
+    posts:
+      - stop-tiktok-scrolling
+      - reduce-instagram-usage
+      - instagram-reels-addiction
+      - stop-youtube-binge
+      - youtube-shorts-addiction
+      - stop-reddit-scrolling
+      - stop-twitter-doomscrolling
+      - apps-that-make-you-pause-before-opening-instagram-tiktok
+    offsite_angles:
+      - 'Short-form video has no last page: building your own stopping cues for Reels, Shorts and TikTok'
+      - 'Keep Reddit, lose the rabbit holes: an engineer''s approach to one app'
+    offsite_sites: [medium, dev.to, hashnode, reddit-adjacent blogs (guest post)]
+
+  - id: sleep-night
+    label: Sleep, night and morning scrolling
+    audience: People who scroll in bed at night or reach for the phone first thing in the morning
+    angle: The bedroom is a place rule, not a time limit; make the last and first tap of the day deliberate
+    seed_queries: [how to stop scrolling at night, phone before bed, revenge bedtime procrastination, stop checking phone in the morning, where to charge phone at night]
+    match: [night, sleep, bed, bedtime, morning]
+    posts: [stop-scrolling-at-night, stop-checking-phone-morning]
+    offsite_angles:
+      - 'The last tap of the day: a bedtime routine for people who scroll in bed'
+      - 'Mornings without the feed: what changes when the first app you open is not social'
+    offsite_sites: [medium, linkedin, sleep and wellness blogs (guest post)]
+
+  - id: ai-screen-time
+    label: AI and screen time
+    audience: People who use Claude, ChatGPT or Cursor and want an assistant to help with phone habits (Respite Plus, MCP)
+    angle: Your own AI reads your Respite data over MCP; check docs/ai-keyword-map.md before any new AI post
+    seed_queries: [ai screen time app, connect claude to screen time, chatgpt screen time, ai app blocker, screen time mcp]
+    match: [ai, mcp, claude, chatgpt, cursor]
+    posts:
+      - ai-screen-time-coach-apps-compared
+      - best-ai-app-blockers-screen-time-apps-2026
+      - bring-your-own-ai-to-respite
+      - chatgpt-claude-screen-time-prompts
+      - connect-chatgpt-to-phone-usage
+      - connect-claude-chatgpt-cursor-to-respite-mcp
+      - connect-claude-to-screen-time
+      - is-it-safe-to-give-ai-your-screen-time-data
+      - let-ai-change-your-limits
+      - respite-vs-lockin-mcp
+      - use-chatgpt-claude-to-reduce-screen-time
+      - what-is-an-mcp-server
+    offsite_angles:
+      - 'Building a consumer MCP server for screen time: what we exposed, what we refused to, and why (dev.to / Hashnode)'
+      - 'Your AI already knows your calendar; should it know your screen time? A privacy-first take'
+    offsite_sites: [dev.to, hashnode, medium, linkedin, mcp community newsletters (pitch)]
+
+  - id: android
+    label: Android how-tos
+    audience: Android users who want limits and pauses without paying or rooting
+    angle: Digital Wellbeing covers the numbers; a pause covers the habit
+    seed_queries: [how to limit screen time on android, android app timer, digital wellbeing android, block apps on samsung, android bedtime mode]
+    match: [android, samsung, digital wellbeing android, google digital wellbeing]
+    posts: [free-screen-time-app-android, google-digital-wellbeing-alternatives, respite-vs-google-digital-wellbeing]
+    offsite_angles:
+      - 'Everything Android already gives you to use your phone less (and the one gap it leaves)'
+    offsite_sites: [medium, android enthusiast blogs (guest post), hashnode]
+
+  - id: iphone
+    label: iPhone how-tos
+    audience: iPhone users who find Screen Time easy to bypass and want a setup that sticks
+    angle: Screen Time is the base layer; Focus modes, Downtime and a pause make it stick
+    seed_queries: [how to block apps on iphone, iphone screen time tips, iphone focus mode, iphone downtime, screen time passcode bypass]
+    match: [iphone, ios, apple screen time]
+    posts: [how-to-block-apps-iphone, apple-screen-time-alternatives, focus-session-app-iphone, schedule-app-blocking-iphone-android]
+    offsite_angles:
+      - 'The iPhone Screen Time settings most people never touch, ranked by how much they help'
+    offsite_sites: [medium, apple-focused blogs (guest post), linkedin]
+
+  - id: chrome-desktop
+    label: Chrome and desktop focus
+    audience: 'People who lose hours to websites on a laptop: students, developers, remote workers'
+    angle: A pause before distracting sites in Chrome, synced with the phone, instead of a hard blocklist you disable
+    seed_queries: [block websites chrome, chrome extension focus, website time limit chrome, block youtube on chrome, too many tabs focus]
+    match: [chrome, extension, website, browser, desktop]
+    posts: [best-chrome-extensions-focus, stayfocusd-alternatives]
+    offsite_angles:
+      - 'A developer''s browser setup for fewer context switches (dev.to)'
+      - 'Why hard website blockers get disabled within a week, and what to try instead'
+    offsite_sites: [dev.to, hashnode, medium, chrome extension roundups (pitch)]
+
+  - id: detox-habits
+    label: Digital detox and habits
+    audience: 'Anyone who wants to use their phone less in general: detox, habits, doomscrolling, phone addiction'
+    angle: Behaviour change through friction and replacement, not willpower or quitting
+    seed_queries: [digital detox, how to stop doomscrolling, how to reduce screen time, phone addiction help, dopamine detox, habit stacking phone]
+    match: [detox, doomscrolling, habit, habits, willpower, psychology, friction, addiction, digital wellbeing]
+    posts:
+      - digital-detox-benefits
+      - digital-detox-challenge
+      - healthy-alternatives-scrolling
+      - how-to-reduce-screen-time
+      - how-to-stop-doomscrolling
+      - what-is-doomscrolling
+      - how-to-stop-phone-addiction
+      - phone-addiction-help
+      - phone-addiction-anxiety
+      - screen-time-and-mental-health
+      - social-media-addiction-signs
+      - why-willpower-fails-phone-addiction
+      - psychology-of-app-addiction
+      - science-of-friction
+      - mindful-tech-interventions-vs-blocking
+      - what-is-digital-wellbeing
+      - do-app-blockers-work
+    offsite_angles:
+      - 'Friction is a design tool: what a few seconds before an app does to a habit loop'
+      - 'Stop counting screen time, start counting opens'
+    offsite_sites: [medium, linkedin, hashnode, psychology and habits blogs (guest post)]
+
+  # Not rotated: tracked so coverage is complete, but new weekly topics come from the audience clusters above.
+  - id: comparisons
+    label: Comparisons and alternatives
+    rotate: false
+    audience: People choosing between screen time apps
+    angle: Honest comparisons; facts only from docs/competitor-facts.md
+    seed_queries: [opal alternative, one sec alternative, best screen time app, best app blocker]
+    match: [alternative, alternatives, vs, comparison, best]
+    posts:
+      - best-app-blocker
+      - best-digital-wellbeing-apps-2026
+      - best-screen-time-apps-2026
+      - forest-app-alternatives
+      - freedom-alternatives
+      - one-sec-alternatives
+      - opal-alternatives
+      - screenzen-alternatives
+      - gamified-screen-time-apps
+      - respite-vs-brick
+      - respite-vs-clearspace
+      - respite-vs-flowbuddy
+      - respite-vs-forest
+      - respite-vs-freedom
+      - respite-vs-one-sec
+      - respite-vs-opal
+      - respite-vs-refocus
+      - respite-vs-screenzen
+    offsite_angles: []
+    offsite_sites: []
+
+  - id: product
+    label: Respite product and help
+    rotate: false
+    audience: Respite users
+    angle: Announcements and help articles; written with releases, not by this pipeline
+    seed_queries: [respite app, respite plus, respite acorns]
+    match: [respite plus, acorns, leagues, sync, announcement]
+    posts:
+      - how-acorns-streaks-streak-freezes-work
+      - introducing-acorns-quests-and-leagues
+      - one-respite-account-phone-and-browser
+      - respite-leagues-and-friends
+      - respite-plus-whats-included
+      - sync-respite-android-iphone-chrome
+      - privacy-first-screen-time-tracking
+    offsite_angles: []
+    offsite_sites: []
