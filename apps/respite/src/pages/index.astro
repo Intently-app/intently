@@ -14,6 +14,10 @@ import Footer from '../components/Footer.astro';
 import Icon from '../components/ui/Icon.astro';
 import Biscuit from '../components/ui/Biscuit.astro';
 import Picture from '../components/ui/Picture.astro';
+import AppShot from '../components/ui/AppShot.astro';
+import ToolCard from '../components/ui/ToolCard.astro';
+import HeroPhone from '../components/home/HeroPhone.astro';
+import PhoneJourney from '../components/home/PhoneJourney.astro';
 import StoreButton from '../components/ui/StoreButton.astro';
 import WebSiteSchema from '../components/SEO/WebSiteSchema.astro';
 import ProductSchema from '../components/SEO/ProductSchema.astro';
@@ -32,9 +36,9 @@ const homeFaqs = [
 ];
 
 const steps = [
-	{ title: 'Pick your apps', line: 'Choose the ones that eat your day.' },
-	{ title: 'Get a short pause', line: 'A moment before they open.' },
-	{ title: 'Choose', line: 'Leave, or carry on, on purpose.' },
+	{ title: 'Pick your apps', line: 'Choose the ones that eat your day.', shot: 'step-pick' },
+	{ title: 'Get a short pause', line: 'A moment before they open.', shot: 'step-pause' },
+	{ title: 'Choose', line: 'Leave, or carry on, on purpose.', shot: 'step-choose' },
 ];
 
 const pairs = [
@@ -44,26 +48,20 @@ const pairs = [
 	{ before: { icon: 'Frown', text: 'Guilty, but unable to stop' }, after: { icon: 'Trophy', text: 'Proud of small wins that add up' } },
 ];
 
-// The blog's own illustrations (public/images/blog/), each linking to the matching part of /features/.
+// Real app screens (public/images/app/), each linking to the matching part of /features/.
 const areas = [
-	{ title: 'Limits and schedules', line: 'Daily limits and quiet hours you can keep.', art: 'schedule-app-blocking-iphone-android', href: '/features/#limits' },
-	{ title: 'Focus sessions', line: 'Block your apps for 15 to 90 minutes.', art: 'focus-session-app-iphone', href: '/features/#focus' },
-	{ title: 'Streaks and acorns', line: 'Kept days add up. Walking away earns acorns.', art: 'introducing-acorns-quests-and-leagues', href: '/features/#game' },
-	{ title: 'Insights', line: 'Time per app, by day, week and month.', art: 'how-much-screen-time-is-too-much', href: '/features/#insights' },
-	{ title: 'Sync', line: 'One account on your phone and computer.', art: 'sync-respite-android-iphone-chrome', href: '/features/#sync' },
-	{ title: 'Bring your own AI', line: 'Ask Claude or ChatGPT about your real usage.', art: 'bring-your-own-ai-to-respite', href: '/ai/', plus: true },
+	{ title: 'Limits and schedules', line: 'Daily limits and quiet hours you can keep.', shot: 'limits-android', href: '/features/#limits' },
+	{ title: 'Focus sessions', line: 'Block your apps for 15 to 90 minutes.', shot: 'area-focus', href: '/features/#focus' },
+	{ title: 'Streaks and acorns', line: 'Kept days add up. Walking away earns acorns.', shot: 'game', href: '/features/#game' },
+	{ title: 'Insights', line: 'Time per app, by day, week and month.', shot: 'insights-android', href: '/features/#insights' },
+	{ title: 'Sync', line: 'One account on your phone and computer.', shot: 'sync', href: '/features/#sync' },
+	{ title: 'Bring your own AI', line: 'Ask Claude or ChatGPT about your real usage.', shot: 'ai', href: '/ai/', plus: true },
 ];
 
 const devices = [
 	{ id: 'ios', name: 'iPhone', icon: 'Smartphone', needs: 'iOS 17.4 or later', store: 'appstore' as const, href: r.stores.appStore!, chips: ['Built on Screen Time', 'Three ways to pause', 'App lock at your limit'] },
 	{ id: 'android', name: 'Android', icon: 'Smartphone', needs: 'Android 8.0 or later', store: 'playstore' as const, href: r.stores.play!, chips: ['Pause before apps', 'Reels and Shorts block', 'Home screen widgets'] },
 	{ id: 'chrome', name: 'Chrome', icon: 'Monitor', needs: 'On your computer', store: 'chromestore' as const, href: r.stores.chrome!, chips: ['Pause before sites', 'Focus mode', 'Time per website'] },
-];
-
-const tools = [
-	{ icon: 'ClipboardList', title: 'Phone addiction quiz', line: '8 questions, a clear next step.', href: '/quiz/' },
-	{ icon: 'Calculator', title: 'Screen time calculator', line: 'Your daily scroll, over a lifetime.', href: '/screen-time-calculator/' },
-	{ icon: 'Gauge', title: 'App addiction score', line: 'How hard your apps pull, scored.', href: '/app-addiction-score/' },
 ];
 
 const latestPosts = (await getPublishedPosts())
@@ -104,7 +102,10 @@ const latestPosts = (await getPublishedPosts())
 
 		<main class="m">
 			<!-- Hero: the pause itself -->
-			<section class="hm-hero" aria-labelledby="hm-title">
+			<!-- The hero is a scroll track: while it scrolls by, the copy and the phone stay put (sticky)
+			     and the phone plays the pause story (components/home/HeroPhone.astro). -->
+			<section class="hm-hero" aria-labelledby="hm-title" data-story-track>
+				<div class="hm-hero-sticky" data-story-sticky>
 				<div class="hm-hero-copy">
 					<h1 id="hm-title">Pause before the scroll.</h1>
 					<p class="m-dek">A gentle pause before the apps you pick, so opening them is a choice. Free on iPhone, Android and Chrome.</p>
@@ -119,65 +120,44 @@ const latestPosts = (await getPublishedPosts())
 					</ul>
 				</div>
 
-				<div class="hm-stage" role="img" aria-label="Respite's pause screen asking Open Instagram?, with Biscuit the fox waving, a 7-day streak and a daily limit at 42 of 60 minutes">
-					<div class="hm-phone" aria-hidden="true">
-						<span class="hm-hourglass"><Icon name="Hourglass" size={30} /></span>
-						<p class="hm-phone-big">Open Instagram?</p>
-						<p class="hm-phone-small">Opened 6 times today</p>
-						<span class="hm-phone-btn">I'll do something else</span>
-						<span class="hm-phone-btn is-soft">Continue in 5s</span>
-					</div>
-					<div class="hm-float hm-float-streak" aria-hidden="true">
-						<span class="m-tile is-reward"><Icon name="Flame" size={20} /></span>
-						<span><strong>7 days</strong><small>Streak</small></span>
-					</div>
-					<div class="hm-float hm-float-limit" aria-hidden="true">
-						<span class="hm-float-row"><strong>Instagram</strong><small>42 of 60m</small></span>
-						<span class="hm-meter"><span style="width:70%"></span></span>
-					</div>
-					<div class="hm-stage-biscuit" aria-hidden="true">
-						<Biscuit mood="wave" size={150} label="Biscuit the fox waving" />
-					</div>
+				<HeroPhone />
 				</div>
+				<div class="hm-hero-spacer" data-story-spacer aria-hidden="true"></div>
 			</section>
 
-			<!-- How it works: a real sequence, so numbered -->
-			<section class="m-section" id="how" aria-labelledby="how-title">
+			<!-- How it works: a real sequence, so numbered. With the 3D phone it becomes a scroll track:
+			     the phone (left) plays setup, the pause and the three choices while the steps light up. -->
+			<section class="m-section hm-how" id="how" aria-labelledby="how-title" data-story-track>
 				<h2 id="how-title" class="m-h2 hm-center">How it works</h2>
 				<ol class="hm-steps">
 					{steps.map((s, i) => (
 						<li class="hm-step">
-							<div class={`hm-step-art s-${i + 1}`} aria-hidden="true">
-								{i === 0 && (
-									<div class="hm-apps">
-										{['I', 'Y', 'T', 'R', 'S', 'N'].map((l, j) => (
-											<span class={`hm-app ${j === 0 || j === 2 ? 'is-on' : ''}`}>
-												{l}
-												{(j === 0 || j === 2) && <span class="hm-app-check"><Icon name="Check" size={12} /></span>}
-											</span>
-										))}
-									</div>
-								)}
-								{i === 1 && (
-									<div class="hm-breath">
-										<span class="hm-breath-ring"></span>
-										<span class="hm-breath-dot"><Icon name="Hourglass" size={26} /></span>
-									</div>
-								)}
-								{i === 2 && (
-									<div class="hm-choice">
-										<span class="hm-phone-btn">I'll do something else</span>
-										<span class="hm-phone-btn is-soft">Continue</span>
-										<span class="m-badge is-live"><Icon name="Check" size={14} />Streak kept</span>
-									</div>
-								)}
-							</div>
+							<AppShot slug={s.shot} class="hm-step-art" />
 							<span class="m-tile is-number">{i + 1}</span>
 							<h3>{s.title}</h3>
 							<p>{s.line}</p>
 						</li>
 					))}
 				</ol>
+				<div class="hm-3d hm-how3d" data-story-sticky>
+					<div class="hm-slot" data-phone-slot="how" aria-hidden="true"></div>
+					<ol class="hm-beats">
+						<li class="hm-beat is-1"><span class="m-tile is-number">1</span><div><h3>Pick your apps</h3><p>Add the ones that eat your day, and give each a limit.</p></div></li>
+						<li class="hm-beat is-2"><span class="m-tile is-number">2</span><div><h3>Get a short pause</h3><p>Open one, and a pause comes first: a breath and a question.</p></div></li>
+						<li class="hm-beat is-3">
+							<span class="m-tile is-number">3</span>
+							<div>
+								<h3>Choose</h3>
+								<ul class="hm-choices">
+									<li class="is-a"><Icon name="House" size={16} />Walk away, and earn acorns</li>
+									<li class="is-b"><Icon name="Hourglass" size={16} />Snooze pauses for 10 minutes</li>
+									<li class="is-c"><Icon name="ArrowRight" size={16} />Or carry on, on purpose</li>
+								</ul>
+							</div>
+						</li>
+					</ol>
+				</div>
+				<div class="hm-3d hm-track" data-story-spacer aria-hidden="true"></div>
 			</section>
 
 			<!-- Before and after, as pairs -->
@@ -210,7 +190,7 @@ const latestPosts = (await getPublishedPosts())
 			</section>
 
 			<!-- Feature areas, as illustrations -->
-			<section class="m-section" aria-labelledby="more-title">
+			<section class="m-section hm-more" aria-labelledby="more-title" data-story-track>
 				<div class="m-section-head">
 					<h2 id="more-title">More than a pause</h2>
 					<a class="hm-link" href="/features/">Every feature <Icon name="ArrowRight" size={16} /></a>
@@ -219,7 +199,7 @@ const latestPosts = (await getPublishedPosts())
 					{areas.map((a) => (
 						<a class="hm-area" href={a.href}>
 							<span class="hm-area-art" aria-hidden="true">
-								<Picture src={`/images/blog/${a.art}.jpg`} alt="" width={720} height={405} loading="lazy" />
+								<AppShot slug={a.shot} alt="" />
 							</span>
 							<span class="hm-area-copy">
 								<span class="hm-area-title">{a.title}{a.plus && <span class="m-badge is-plus">Plus</span>}</span>
@@ -228,6 +208,20 @@ const latestPosts = (await getPublishedPosts())
 						</a>
 					))}
 				</div>
+				<div class="hm-3d hm-more3d" data-story-sticky>
+					<ol class="hm-feats">
+						{areas.map((a, i) => (
+							<li class={`hm-feat is-${i + 1}`}>
+								<a href={a.href}>
+									<span class="hm-area-title">{a.title}{a.plus && <span class="m-badge is-plus">Plus</span>}</span>
+									<span class="hm-area-line">{a.line}</span>
+								</a>
+							</li>
+						))}
+					</ol>
+					<div class="hm-slot" data-phone-slot="features" aria-hidden="true"></div>
+				</div>
+				<div class="hm-3d hm-track is-long" data-story-spacer aria-hidden="true"></div>
 			</section>
 
 			<!-- Where to get it -->
@@ -287,17 +281,10 @@ const latestPosts = (await getPublishedPosts())
 					<h2 id="tools-title" class="m-h2">Where do you stand?</h2>
 					<p class="m-caption">Free, private, nothing stored.</p>
 				</div>
-				<div class="hm-tools">
-					{tools.map((t) => (
-						<a class="hm-tool" href={t.href}>
-							<span class="m-tile"><Icon name={t.icon} size={22} /></span>
-							<span class="hm-tool-copy">
-								<span class="hm-tool-title">{t.title}</span>
-								<span class="hm-tool-line">{t.line}</span>
-							</span>
-							<span class="hm-tool-go" aria-hidden="true"><Icon name="ArrowRight" size={18} /></span>
-						</a>
-					))}
+				<div class="m-tool-more" style="--cols:3">
+					<ToolCard id="quiz" />
+					<ToolCard id="calculator" />
+					<ToolCard id="score" />
 				</div>
 			</section>
 
@@ -338,12 +325,14 @@ const latestPosts = (await getPublishedPosts())
 			</section>
 
 			<section class="m-end hm-end" aria-labelledby="end-title" data-placement="final_cta">
-				<Biscuit mood="cheer" size={120} label="Biscuit cheering" />
+				<div class="hm-3d hm-slot is-end" data-phone-slot="end" aria-hidden="true"></div>
+				<span class="hm-end-biscuit"><Biscuit mood="cheer" size={120} label="Biscuit cheering" /></span>
 				<h2 id="end-title">Try it on one app first</h2>
 				<p>Free, no ads, about a minute to set up.</p>
 				<a href="/download/" class="m-btn">Download Respite</a>
 			</section>
 		</main>
+		<PhoneJourney />
 
 		<Footer />
 	</body>
@@ -376,18 +365,11 @@ const latestPosts = (await getPublishedPosts())
 		text-underline-offset: 0.18em;
 	}
 
-	/* ------------------------------------------------------------ hero */
-	.hm-hero {
+	/* ------------------------------------------------------------ hero (a scroll track) */
+	.hm-hero-sticky {
 		display: grid;
-		gap: 2.5rem;
+		gap: 1.5rem;
 		align-items: center;
-	}
-
-	@media (min-width: 920px) {
-		.hm-hero {
-			grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-			gap: 3.5rem;
-		}
 	}
 
 	.hm-hero h1 {
@@ -403,181 +385,45 @@ const latestPosts = (await getPublishedPosts())
 		margin-top: 1.75rem;
 	}
 
-	.hm-stage {
-		position: relative;
-		display: grid;
-		place-items: center;
-		min-height: 470px;
-		padding: 2.5rem 1.5rem;
-		border-radius: 36px;
-		background: var(--m-accent-soft);
+	/* The track only exists once the script runs and motion is welcome. */
+	.hm-hero-spacer {
+		display: none;
 	}
 
-	.hm-phone {
-		display: grid;
-		justify-items: center;
-		gap: 0.55rem;
-		width: min(270px, 78%);
-		padding: 1.75rem 1.2rem 1.2rem;
-		border-radius: 34px;
-		background: var(--m-paper);
-		box-shadow: var(--m-shadow-md);
-		text-align: center;
-	}
-
-	.hm-phone p {
-		margin: 0;
-	}
-
-	.hm-hourglass {
-		display: grid;
-		place-items: center;
-		width: 62px;
-		height: 62px;
-		margin-bottom: 0.25rem;
-		border-radius: 50%;
-		background: var(--m-accent-soft);
-		color: var(--m-accent-ink);
-		animation: hm-breathe 4s ease-in-out infinite;
-	}
-
-	@keyframes hm-breathe {
-		50% {
-			transform: scale(1.1);
+	@media (prefers-reduced-motion: no-preference) {
+		.hm-hero:global(.is-playing) .hm-hero-spacer {
+			display: block;
+			height: 140vh;
 		}
 	}
 
-	.hm-phone-big {
-		font-family: var(--font-heading);
-		font-size: 1.35rem;
-		font-weight: 800;
-	}
-
-	.hm-phone-small {
-		margin-bottom: 0.5rem !important;
-		font-size: 0.9rem;
-		color: var(--m-ink-soft);
-	}
-
-	.hm-phone-btn {
-		display: block;
-		width: 100%;
-		padding: 0.65rem;
-		border-radius: 999px;
-		background: var(--m-accent-strong);
-		color: var(--m-on-accent);
-		font-family: var(--font-heading);
-		font-size: 0.92rem;
-		font-weight: 800;
-		text-align: center;
-	}
-
-	.hm-phone-btn.is-soft {
-		background: var(--m-fog);
-		color: var(--m-ink-soft);
-	}
-
-	.hm-float {
-		position: absolute;
-		display: flex;
-		align-items: center;
-		gap: 0.65rem;
-		padding: 0.65rem 0.9rem;
-		border-radius: 18px;
-		background: var(--m-paper);
-		box-shadow: var(--m-shadow-md);
-		font-size: 0.85rem;
-	}
-
-	.hm-float strong {
-		display: block;
-		font-family: var(--font-heading);
-		font-size: 1rem;
-		font-weight: 800;
-		line-height: 1.2;
-	}
-
-	.hm-float small {
-		color: var(--m-ink-soft);
-		font-size: 0.8rem;
-		font-weight: 700;
-	}
-
-	.hm-float .m-tile {
-		width: 38px;
-		height: 38px;
-		border-radius: 11px;
-	}
-
-	.hm-float-streak {
-		top: 1.75rem;
-		right: 1.25rem;
-	}
-
-	.hm-float-limit {
-		bottom: 2rem;
-		right: 1.25rem;
-		flex-direction: column;
-		align-items: stretch;
-		gap: 0.45rem;
-		width: 170px;
-	}
-
-	.hm-float-row {
-		display: flex;
-		align-items: baseline;
-		justify-content: space-between;
-		gap: 0.5rem;
-	}
-
-	.hm-float-row strong {
-		font-size: 0.9rem;
-	}
-
-	.hm-meter {
-		display: block;
-		height: 8px;
-		border-radius: 999px;
-		background: var(--m-fog);
-		overflow: hidden;
-	}
-
-	.hm-meter span {
-		display: block;
-		height: 100%;
-		border-radius: 999px;
-		background: var(--m-accent);
-	}
-
-	.hm-stage-biscuit {
-		position: absolute;
-		left: 0.25rem;
-		bottom: -0.5rem;
-	}
-
-	@media (max-width: 600px) {
-		.hm-stage {
-			min-height: 430px;
-			padding: 2rem 1rem 6.5rem;
+	@media (min-width: 920px) {
+		.hm-hero-sticky {
+			grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+			gap: 3rem;
 		}
-		.hm-phone {
-			width: min(250px, 86%);
+	}
+
+	@media (min-width: 920px) and (prefers-reduced-motion: no-preference) {
+		.hm-hero:global(.is-playing) .hm-hero-sticky {
+			position: sticky;
+			top: 5.5rem;
+			min-height: calc(100svh - 7rem);
 		}
-		.hm-float-streak {
-			top: 1rem;
-			right: 0.75rem;
+	}
+
+	/* Phones: the copy scrolls away first, then the phone alone holds while the story plays. */
+	@media (max-width: 919px) and (prefers-reduced-motion: no-preference) {
+		.hm-hero:global(.is-playing) .hm-hero-sticky {
+			display: contents;
 		}
-		.hm-float-limit {
-			right: 0.75rem;
-			bottom: 1.25rem;
-			width: 165px;
+		.hm-hero:global(.is-playing) :global(.hp) {
+			position: sticky;
+			top: 4.5rem;
+			margin-top: 1rem;
 		}
-		.hm-float-row {
-			white-space: nowrap;
-		}
-		.hm-stage-biscuit :global(*) {
-			max-width: 120px;
-			max-height: 120px;
+		.hm-hero:global(.is-playing) .hm-hero-spacer {
+			height: 120vh;
 		}
 	}
 
@@ -628,92 +474,8 @@ const latestPosts = (await getPublishedPosts())
 		border-radius: 50%;
 	}
 
-	.hm-step-art {
-		display: grid;
-		place-items: center;
+	.hm-step :global(.hm-step-art) {
 		justify-self: stretch;
-		height: 200px;
-		border-radius: 22px;
-		background: var(--m-ground);
-	}
-
-	.hm-apps {
-		display: grid;
-		grid-template-columns: repeat(3, 52px);
-		gap: 0.75rem;
-	}
-
-	.hm-app {
-		position: relative;
-		display: grid;
-		place-items: center;
-		width: 52px;
-		height: 52px;
-		border-radius: 15px;
-		background: var(--m-paper);
-		box-shadow: var(--m-shadow-sm);
-		color: var(--m-ink-soft);
-		font-family: var(--font-heading);
-		font-size: 1.2rem;
-		font-weight: 800;
-	}
-
-	.hm-app.is-on {
-		background: var(--m-accent-strong);
-		color: var(--m-on-accent);
-	}
-
-	.hm-app-check {
-		position: absolute;
-		top: -6px;
-		right: -6px;
-		display: grid;
-		place-items: center;
-		width: 22px;
-		height: 22px;
-		border-radius: 50%;
-		background: var(--m-success-soft);
-		color: var(--m-success-ink);
-		box-shadow: 0 0 0 3px var(--m-ground);
-	}
-
-	.hm-breath {
-		position: relative;
-		display: grid;
-		place-items: center;
-		width: 140px;
-		height: 140px;
-	}
-
-	.hm-breath-ring {
-		position: absolute;
-		inset: 0;
-		border-radius: 50%;
-		background: var(--m-accent-soft);
-		animation: hm-breathe 4s ease-in-out infinite;
-	}
-
-	.hm-breath-dot {
-		position: relative;
-		display: grid;
-		place-items: center;
-		width: 76px;
-		height: 76px;
-		border-radius: 50%;
-		background: var(--m-paper);
-		box-shadow: var(--m-shadow-sm);
-		color: var(--m-accent-ink);
-	}
-
-	.hm-choice {
-		display: grid;
-		justify-items: center;
-		gap: 0.55rem;
-		width: min(220px, 80%);
-	}
-
-	.hm-choice .m-badge {
-		margin-top: 0.3rem;
 	}
 
 	/* ------------------------------------------------------------ before and after */
@@ -842,6 +604,19 @@ const latestPosts = (await getPublishedPosts())
 		border-radius: 22px;
 		overflow: hidden;
 		background: var(--m-ground);
+	}
+
+	.hm-area-art {
+		aspect-ratio: 390 / 300;
+	}
+
+	.hm-area-art :global(.m-shot) {
+		height: 100%;
+		border-radius: 0;
+	}
+
+	.hm-area-art :global(img) {
+		object-position: top center;
 	}
 
 	.hm-area-art :global(img),
@@ -973,78 +748,394 @@ const latestPosts = (await getPublishedPosts())
 		display: none;
 	}
 
-	/* ------------------------------------------------------------ tools */
-	.hm-tools {
-		display: grid;
-		gap: 1rem;
-	}
-
-	@media (min-width: 860px) {
-		.hm-tools {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-			gap: 1.25rem;
-		}
-	}
-
-	.hm-tool {
-		display: grid;
-		grid-template-columns: auto 1fr auto;
-		align-items: center;
-		gap: 1rem;
-		padding: 1.25rem;
-		border-radius: 22px;
-		background: var(--m-paper);
-		box-shadow: var(--m-shadow-sm);
-		color: inherit;
-		text-decoration: none;
-		transition: box-shadow 0.2s ease;
-	}
-
-	.hm-tool:hover {
-		box-shadow: var(--m-shadow-md);
-	}
-
-	.hm-tool-copy {
-		display: grid;
-		gap: 0.15rem;
-	}
-
-	.hm-tool-title {
-		font-family: var(--font-heading);
-		font-size: 1.08rem;
-		font-weight: 800;
-	}
-
-	.hm-tool-line {
-		font-size: 0.92rem;
-		color: var(--m-ink-soft);
-	}
-
-	.hm-tool-go {
-		display: grid;
-		place-items: center;
-		width: 36px;
-		height: 36px;
-		border-radius: 50%;
-		background: var(--m-fog);
-		color: var(--m-ink-soft);
-	}
-
-	.hm-tool:hover .hm-tool-go {
-		background: var(--m-accent-soft);
-		color: var(--m-accent-ink);
-	}
-
 	/* ------------------------------------------------------------ end */
 	.hm-end {
 		padding-top: 2rem;
 	}
 
-	@media (prefers-reduced-motion: reduce) {
-		.hm-hourglass,
-		.hm-breath-ring {
-			animation: none;
+	/* ------------------------------------------------------------ with the 3D phone (PhoneJourney) */
+	/* Off unless the WebGL phone runs (html.phone-3d); then the cards give way to scroll tracks. */
+	.hm-3d {
+		display: none;
+	}
+
+	:global(html.phone-3d) .hm-steps,
+	:global(html.phone-3d) .hm-areas,
+	:global(html.phone-3d) .hm-end-biscuit {
+		display: none;
+	}
+
+	:global(html.phone-3d) .hm-track {
+		display: block;
+		height: 230vh;
+	}
+
+	:global(html.phone-3d) .hm-track.is-long {
+		height: 260vh;
+	}
+
+	.hm-slot {
+		width: 340px;
+		height: min(620px, calc(100vh - 11rem));
+	}
+
+	:global(html.phone-3d) .hm-how3d,
+	:global(html.phone-3d) .hm-more3d {
+		position: sticky;
+		top: 5.5rem;
+		display: grid;
+		grid-template-columns: 340px minmax(0, 1fr);
+		align-items: center;
+		gap: 4rem;
+		min-height: calc(100vh - 7rem);
+	}
+
+	:global(html.phone-3d) .hm-more3d {
+		grid-template-columns: minmax(0, 1fr) 340px;
+	}
+
+	/* Steps and features light up as the phone reaches them (--p comes from the phone script). */
+	.hm-how,
+	.hm-more {
+		--p: 0;
+	}
+
+	.hm-beat,
+	.hm-choices li,
+	.hm-feat {
+		animation-duration: 1s;
+		animation-timing-function: linear;
+		animation-fill-mode: both;
+		animation-play-state: paused;
+		animation-delay: calc(var(--p) * -1s);
+	}
+
+	.hm-beats,
+	.hm-feats {
+		display: grid;
+		gap: 0.9rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.hm-beat {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		padding: 1.25rem 1.4rem;
+		border-radius: 24px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+	}
+
+	.hm-beat .m-tile.is-number {
+		flex: none;
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+	}
+
+	.hm-beat h3 {
+		margin: 0.25rem 0 0.3rem;
+		font-size: 1.35rem;
+		font-weight: 800;
+	}
+
+	.hm-beat p {
+		margin: 0;
+		color: var(--m-ink-soft);
+		line-height: 1.5;
+	}
+
+	.hm-beat.is-1 {
+		animation-name: hm-on-1;
+	}
+	.hm-beat.is-2 {
+		animation-name: hm-on-2;
+	}
+	.hm-beat.is-3 {
+		animation-name: hm-on-3;
+	}
+
+	@keyframes hm-on-1 {
+		0%,
+		33% {
+			opacity: 1;
+			transform: none;
 		}
+		36%,
+		100% {
+			opacity: 0.45;
+			transform: scale(0.97);
+		}
+	}
+	@keyframes hm-on-2 {
+		0%,
+		31% {
+			opacity: 0.45;
+			transform: scale(0.97);
+		}
+		34%,
+		59% {
+			opacity: 1;
+			transform: none;
+		}
+		62%,
+		100% {
+			opacity: 0.45;
+			transform: scale(0.97);
+		}
+	}
+	@keyframes hm-on-3 {
+		0%,
+		58% {
+			opacity: 0.45;
+			transform: scale(0.97);
+		}
+		61%,
+		100% {
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	.hm-choices {
+		display: grid;
+		gap: 0.4rem;
+		margin: 0.5rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.hm-choices li {
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		padding: 0.55rem 0.8rem;
+		border-radius: 14px;
+		font-weight: 700;
+		color: var(--m-ink-soft);
+	}
+
+	.hm-choices .is-a {
+		animation-name: hm-choice-a;
+	}
+	.hm-choices .is-b {
+		animation-name: hm-choice-b;
+	}
+	.hm-choices .is-c {
+		animation-name: hm-choice-c;
+	}
+
+	@keyframes hm-choice-a {
+		0%,
+		59% {
+			background: transparent;
+			color: var(--m-ink-soft);
+		}
+		61%,
+		73% {
+			background: var(--m-accent-soft);
+			color: var(--m-ink);
+		}
+		75%,
+		100% {
+			background: transparent;
+			color: var(--m-ink-soft);
+		}
+	}
+	@keyframes hm-choice-b {
+		0%,
+		73% {
+			background: transparent;
+			color: var(--m-ink-soft);
+		}
+		75%,
+		86% {
+			background: var(--m-accent-soft);
+			color: var(--m-ink);
+		}
+		88%,
+		100% {
+			background: transparent;
+			color: var(--m-ink-soft);
+		}
+	}
+	@keyframes hm-choice-c {
+		0%,
+		86% {
+			background: transparent;
+			color: var(--m-ink-soft);
+		}
+		88%,
+		100% {
+			background: var(--m-accent-soft);
+			color: var(--m-ink);
+		}
+	}
+
+	.hm-feat a {
+		display: grid;
+		gap: 0.2rem;
+		padding: 1rem 1.3rem;
+		border-radius: 22px;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.hm-feat a:hover .hm-area-title {
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+
+	/* Six features, a sixth of the track each. */
+	.hm-feat.is-1 {
+		animation-name: hm-feat-1;
+	}
+	.hm-feat.is-2 {
+		animation-name: hm-feat-2;
+	}
+	.hm-feat.is-3 {
+		animation-name: hm-feat-3;
+	}
+	.hm-feat.is-4 {
+		animation-name: hm-feat-4;
+	}
+	.hm-feat.is-5 {
+		animation-name: hm-feat-5;
+	}
+	.hm-feat.is-6 {
+		animation-name: hm-feat-6;
+	}
+
+	@keyframes hm-feat-1 {
+		0%,
+		16% {
+			background: var(--m-paper);
+			box-shadow: var(--m-shadow-sm);
+			opacity: 1;
+		}
+		17.5%,
+		100% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+	}
+	@keyframes hm-feat-2 {
+		0%,
+		16% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+		17.5%,
+		32.5% {
+			background: var(--m-paper);
+			box-shadow: var(--m-shadow-sm);
+			opacity: 1;
+		}
+		34%,
+		100% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+	}
+	@keyframes hm-feat-3 {
+		0%,
+		32.5% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+		34%,
+		49% {
+			background: var(--m-paper);
+			box-shadow: var(--m-shadow-sm);
+			opacity: 1;
+		}
+		50.5%,
+		100% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+	}
+	@keyframes hm-feat-4 {
+		0%,
+		49% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+		50.5%,
+		65.5% {
+			background: var(--m-paper);
+			box-shadow: var(--m-shadow-sm);
+			opacity: 1;
+		}
+		67%,
+		100% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+	}
+	@keyframes hm-feat-5 {
+		0%,
+		65.5% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+		67%,
+		82.5% {
+			background: var(--m-paper);
+			box-shadow: var(--m-shadow-sm);
+			opacity: 1;
+		}
+		84%,
+		100% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+	}
+	@keyframes hm-feat-6 {
+		0%,
+		82.5% {
+			background: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+		84%,
+		100% {
+			background: var(--m-paper);
+			box-shadow: var(--m-shadow-sm);
+			opacity: 1;
+		}
+	}
+
+	/* The end card: the phone parks beside the last call to action. */
+	:global(html.phone-3d) .hm-end {
+		grid-template-columns: 300px auto;
+		justify-content: center;
+		align-items: center;
+		column-gap: 3rem;
+		text-align: left;
+		justify-items: start;
+	}
+
+	:global(html.phone-3d) .hm-slot.is-end {
+		display: block;
+		grid-row: 1 / span 3;
+		width: 300px;
+		height: 440px;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
 		.hm-area:hover,
 		.hm-post:hover {
 			transform: none;

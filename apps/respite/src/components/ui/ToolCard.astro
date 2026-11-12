@@ -1,0 +1,40 @@
+---
+// A free tool as a card with a small drawing of what it does (Home, and "More free tools" on each tool).
+import Icon from './Icon.astro';
+import AppIcon from './AppIcon.astro';
+import { TOOLS, type ToolId } from '../../data/tools';
+
+interface Props {
+	id: ToolId;
+}
+const tool = TOOLS.find((t) => t.id === Astro.props.id)!;
+---
+
+<a class="m-toolcard" href={tool.href}>
+	<span class="m-toolcard-art" aria-hidden="true">
+		{tool.id === 'quiz' && (
+			<span class="tcard-quiz">
+				<span class="tcard-pill is-on">Within 5 minutes</span>
+				<span class="tcard-pill">After my routine</span>
+			</span>
+		)}
+		{tool.id === 'calculator' && (
+			<span class="tcard-calc">
+				<span class="tcard-num">4h</span>
+				<Icon name="ArrowRight" size={18} />
+				<span class="tcard-num is-big">10 yrs</span>
+			</span>
+		)}
+		{tool.id === 'score' && (
+			<span class="tcard-score">
+				<AppIcon app="tiktok" size={40} />
+				<AppIcon app="instagram" size={40} />
+				<AppIcon app="youtube" size={40} />
+			</span>
+		)}
+	</span>
+	<span class="m-toolcard-copy">
+		<span class="m-toolcard-title">{tool.title}</span>
+		<span class="m-toolcard-line">{tool.line}</span>
+	</span>
+</a>

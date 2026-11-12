@@ -1,0 +1,31 @@
+---
+// A real app icon: the brand glyph (Simple Icons, CC0) on its brand tile, as in the rendered app screens.
+// Specs live in art/app-screens/manifest.json so the site and the screen renders draw icons the same way.
+import manifest from '../../../art/app-screens/manifest.json';
+
+interface Props {
+	app: string;
+	size?: number;
+	class?: string;
+	label?: string;
+}
+
+const { app, size = 40, class: className, label } = Astro.props;
+const svgs = import.meta.glob<string>('../../../art/app-screens/icons/*.svg', { query: '?raw', import: 'default', eager: true });
+const svg = svgs[`../../../art/app-screens/icons/${app}.svg`];
+const spec = (manifest.icons as Record<string, { bg: string; fg: string; ring?: boolean; full?: boolean }>)[app];
+if (!svg || !spec) throw new Error(`AppIcon: no icon "${app}"`);
+// `full` icons (Respite's own) carry their tile in the SVG; the rest are glyphs on a brand tile.
+const glyph = svg
+	.replace(/<title>.*?<\/title>/, '')
+	.replace('<svg ', spec.full ? '<svg width="100%" height="100%" aria-hidden="true" focusable="false" ' : `<svg fill="${spec.fg}" width="58%" height="58%" aria-hidden="true" focusable="false" `);
+---
+
+<span
+	class:list={['m-appicon', className, { 'is-ring': spec.ring }]}
+	style={`--size:${size}px;background:${spec.bg}`}
+	role={label ? 'img' : undefined}
+	aria-label={label}
+	aria-hidden={label ? undefined : 'true'}
+	set:html={glyph}
+/>

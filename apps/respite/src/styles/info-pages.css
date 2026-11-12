@@ -348,6 +348,7 @@ html:has(> body.m-page),
 }
 
 .m-btn:hover {
+	color: var(--m-on-accent); /* beats global.css a:hover, which hid the label on link buttons */
 	transform: translateY(-1px);
 }
 
@@ -359,6 +360,10 @@ html:has(> body.m-page),
 	background: var(--m-accent-soft);
 	color: var(--m-accent-ink);
 	box-shadow: none;
+}
+
+.m-btn.is-soft:hover {
+	color: var(--m-accent-ink);
 }
 
 .m-icon-btn {
@@ -455,6 +460,358 @@ html:has(> body.m-page),
 	aspect-ratio: 1;
 	border-radius: 50%;
 	background: var(--m-accent-soft);
+}
+
+/* A real app screen (components/ui/AppShot.astro): rounded, no outline, the app's own ground behind it. */
+.m-shot {
+	display: block;
+	border-radius: 22px;
+	overflow: hidden;
+	background: var(--m-ground);
+}
+
+.m-shot img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.m-shot[hidden] {
+	display: none;
+}
+
+/* A real app icon (components/ui/AppIcon.astro). */
+.m-appicon {
+	display: inline-grid;
+	place-items: center;
+	flex: 0 0 auto;
+	width: var(--size, 40px);
+	height: var(--size, 40px);
+	border-radius: calc(var(--size, 40px) * 0.26);
+	overflow: hidden;
+}
+
+.m-appicon.is-ring {
+	box-shadow: inset 0 0 0 1px rgba(19, 34, 45, 0.1);
+}
+
+/* ------------------------------------------------------------ free tools (quiz, calculator, score) */
+.m-tool-hero {
+	display: grid;
+	justify-items: center;
+	gap: 0.75rem;
+	text-align: center;
+}
+
+.m-tool-hero h1 {
+	margin: 0.5rem 0 0;
+	font-size: clamp(2.3rem, 1.6rem + 2.8vw, 3.5rem);
+	font-weight: 800;
+	line-height: 1.05;
+	letter-spacing: -0.02em;
+	text-wrap: balance;
+}
+
+.m-tool-hero .m-biscuit-disc {
+	width: 150px;
+}
+
+.m-tool-card {
+	width: 100%;
+	max-width: 46rem;
+	box-sizing: border-box;
+	margin: 0 auto;
+	padding: clamp(1.4rem, 1rem + 2vw, 2.5rem);
+	border-radius: 32px;
+	background: var(--m-paper);
+	box-shadow: var(--m-shadow-md);
+}
+
+.m-tool-progress {
+	height: 8px;
+	margin-bottom: 1.5rem;
+	border-radius: 999px;
+	background: var(--m-ground);
+	overflow: hidden;
+}
+
+.m-tool-progress > span {
+	display: block;
+	width: 0;
+	height: 100%;
+	border-radius: inherit;
+	background: var(--m-accent);
+	transition: width 0.35s ease;
+}
+
+.m-tool-step {
+	margin: 0 0 0.5rem;
+	color: var(--m-ink-soft);
+	font-family: var(--font-heading);
+	font-size: 0.9rem;
+	font-weight: 800;
+}
+
+.m-tool-q {
+	margin: 0 0 1.25rem;
+	font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.8rem);
+	font-weight: 800;
+	line-height: 1.2;
+	text-wrap: balance;
+	outline: none;
+}
+
+.m-tool-options {
+	display: grid;
+	gap: 0.6rem;
+}
+
+.m-tool-option {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	width: 100%;
+	padding: 1rem 1.2rem;
+	border: 2px solid transparent;
+	border-radius: 18px;
+	background: var(--m-ground);
+	color: var(--m-ink);
+	font: inherit;
+	font-weight: 700;
+	text-align: left;
+	cursor: pointer;
+	transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.m-tool-option:hover {
+	border-color: var(--m-accent);
+	background: var(--m-paper);
+}
+
+.m-tool-option:active {
+	transform: scale(0.99);
+}
+
+.m-tool-option:focus-visible {
+	outline: 3px solid var(--m-accent);
+	outline-offset: 2px;
+}
+
+.m-tool-result {
+	display: grid;
+	justify-items: center;
+	gap: 0.75rem;
+	text-align: center;
+}
+
+.m-tool-result h2 {
+	margin: 0;
+	font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.2rem);
+	font-weight: 800;
+	outline: none;
+}
+
+.m-tool-result > p {
+	max-width: 34rem;
+	margin: 0;
+	color: var(--m-ink-soft);
+	line-height: 1.55;
+}
+
+.m-tool-big {
+	font-family: var(--font-heading);
+	font-size: clamp(2.6rem, 2rem + 3vw, 4rem);
+	font-weight: 800;
+	line-height: 1;
+	font-variant-numeric: tabular-nums;
+}
+
+.m-tool-biscuit {
+	display: grid;
+	place-items: center;
+	min-height: 130px;
+}
+
+.m-tool-meter {
+	position: relative;
+	width: min(100%, 26rem);
+	height: 12px;
+	margin: 0.5rem 0 0.25rem;
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--m-teal, #3aa88f), var(--m-apricot, #f0a64a) 55%, var(--m-coral, #e0715c));
+}
+
+.m-tool-meter > span {
+	position: absolute;
+	top: 50%;
+	width: 22px;
+	height: 22px;
+	border: 4px solid var(--m-paper);
+	border-radius: 50%;
+	background: var(--m-ink);
+	box-shadow: var(--m-shadow-sm);
+	transform: translate(-50%, -50%);
+	transition: left 0.5s ease;
+}
+
+.m-tool-tips {
+	display: grid;
+	gap: 0.5rem;
+	width: 100%;
+	margin: 0.75rem 0 0;
+	padding: 0;
+	list-style: none;
+	text-align: left;
+}
+
+.m-tool-tips li {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.75rem;
+	padding: 0.85rem 1rem;
+	border-radius: 16px;
+	background: var(--m-ground);
+	line-height: 1.45;
+}
+
+.m-tool-tips li::before {
+	content: '';
+	flex: none;
+	width: 20px;
+	height: 20px;
+	margin-top: 1px;
+	border-radius: 50%;
+	background: var(--m-teal, #3aa88f) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 13px no-repeat;
+}
+
+.m-tool-retake {
+	padding: 0.5rem 1rem;
+	border: 0;
+	background: none;
+	color: var(--m-accent);
+	font: inherit;
+	font-weight: 800;
+	cursor: pointer;
+}
+
+.m-tool-retake:hover {
+	text-decoration: underline;
+}
+
+.m-tool-more {
+	display: grid;
+	gap: 1rem;
+}
+
+@media (min-width: 720px) {
+	.m-tool-more {
+		grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr));
+		gap: 1.25rem;
+	}
+}
+
+/* A tool as a card (components/ui/ToolCard.astro). */
+.m-toolcard {
+	display: flex;
+	flex-direction: column;
+	border-radius: 28px;
+	background: var(--m-paper);
+	box-shadow: var(--m-shadow-sm);
+	color: inherit;
+	text-decoration: none;
+	overflow: hidden;
+	transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.m-toolcard:hover {
+	box-shadow: var(--m-shadow-md);
+	transform: translateY(-2px);
+}
+
+.m-toolcard-art {
+	display: grid;
+	place-items: center;
+	height: 130px;
+	margin: 0.6rem 0.6rem 0;
+	border-radius: 22px;
+	background: var(--m-ground);
+}
+
+.m-toolcard-copy {
+	display: grid;
+	gap: 0.25rem;
+	padding: 1rem 1.4rem 1.3rem;
+}
+
+.m-toolcard-title {
+	font-family: var(--font-heading);
+	font-size: 1.15rem;
+	font-weight: 800;
+}
+
+.m-toolcard-line {
+	color: var(--m-ink-soft);
+	font-size: 0.95rem;
+}
+
+.tcard-quiz {
+	display: grid;
+	gap: 0.4rem;
+}
+
+.tcard-pill {
+	padding: 0.45rem 0.9rem;
+	border-radius: 12px;
+	background: var(--m-paper);
+	box-shadow: var(--m-shadow-sm);
+	font-size: 0.85rem;
+	font-weight: 700;
+}
+
+.tcard-pill.is-on {
+	background: var(--m-accent);
+	color: var(--m-on-accent);
+}
+
+.tcard-calc {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	color: var(--m-ink-soft);
+}
+
+.tcard-num {
+	font-family: var(--font-heading);
+	font-size: 1.5rem;
+	font-weight: 800;
+	color: var(--m-ink);
+}
+
+.tcard-num.is-big {
+	font-size: 2.1rem;
+	color: var(--m-accent);
+}
+
+.tcard-score {
+	display: flex;
+}
+
+.tcard-score .m-appicon {
+	margin: 0 -6px;
+	box-shadow: 0 0 0 3px var(--m-ground), var(--m-shadow-sm);
+}
+
+.tcard-score .m-appicon:nth-child(2) {
+	transform: translateY(-8px) rotate(4deg);
+	z-index: 1;
+}
+
+.tcard-score .m-appicon:first-child {
+	transform: rotate(-6deg);
+}
+
+.tcard-score .m-appicon:last-child {
+	transform: rotate(6deg);
 }
 
 .m-bubble {

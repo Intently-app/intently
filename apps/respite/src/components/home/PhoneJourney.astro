@@ -1,0 +1,60 @@
+---
+/**
+ * Loads the 3D phone that travels down Home (scripts/phone-journey.ts), only where it can run well:
+ * a wide screen, motion allowed, WebGL2 and a few CPU cores. When it starts, <html> gets
+ * .phone-3d, which hides the CSS phone and switches How it works and More than a pause to their
+ * sticky, phone-beside-the-words layouts. Everyone else keeps the CSS phone and the cards.
+ */
+---
+
+<canvas class="pj-canvas" aria-hidden="true"></canvas>
+
+<script>
+	const canvas = document.querySelector<HTMLCanvasElement>('.pj-canvas');
+	const fits = matchMedia('(min-width: 1000px) and (prefers-reduced-motion: no-preference)');
+	const webgl2 = () => {
+		try {
+			return !!document.createElement('canvas').getContext('webgl2');
+		} catch {
+			return false;
+		}
+	};
+
+	let stop: (() => void) | undefined;
+	async function start() {
+		if (stop || !canvas || !fits.matches || (navigator.hardwareConcurrency ?? 4) < 4 || !webgl2()) return;
+		try {
+			const { startPhoneJourney } = await import('../../scripts/phone-journey');
+			stop = await startPhoneJourney(canvas);
+			document.documentElement.classList.add('phone-3d');
+		} catch (e) {
+			console.warn('3D phone unavailable, keeping the CSS phone', e);
+			document.documentElement.classList.remove('phone-3d');
+		}
+	}
+	fits.addEventListener('change', () => {
+		if (fits.matches) void start();
+		else if (stop) {
+			stop();
+			stop = undefined;
+			document.documentElement.classList.remove('phone-3d');
+		}
+	});
+	void start();
+</script>
+
+<style>
+	.pj-canvas {
+		position: fixed;
+		inset: 0;
+		z-index: 40;
+		display: none;
+		width: 100vw;
+		height: 100vh;
+		pointer-events: none;
+	}
+
+	:global(html.phone-3d) .pj-canvas {
+		display: block;
+	}
+</style>
