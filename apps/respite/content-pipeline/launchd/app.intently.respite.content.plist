@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  TEMPLATE. Do not load this file as is: content-pipeline/install-launchd.sh fills the __PLACEHOLDERS__ and installs
+  the result in ~/Library/LaunchAgents. Runs the weekly Respite content pipeline (weekly.sh) on this Mac, Mondays at
+  09:00 local time by default (change it with the at option of install-launchd.sh).
+  launchd schedules in local time. A local time follows daylight saving by itself; only a time given with the utc option is
+  converted with the Mac's current UTC offset, and then install-launchd.sh must be run again after each change.
+  If the Mac is asleep at that time the job runs when it wakes; if it is shut down, the run is skipped (run weekly.sh
+  by hand).
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>app.intently.respite.content</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>__SCRIPT_DIR__/weekly.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key>
+    <integer>__WEEKDAY__</integer>
+    <key>Hour</key>
+    <integer>__HOUR__</integer>
+    <key>Minute</key>
+    <integer>__MINUTE__</integer>
+  </dict>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>__PATH__</string>
+    <key>CLAUDE_BIN</key>
+    <string>__CLAUDE_BIN__</string>
+    <key>CONTENT_CHECKOUT</key>
+    <string>__CHECKOUT__</string>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>__LOG_DIR__/content.launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>__LOG_DIR__/content.launchd.log</string>
+  <key>RunAtLoad</key>
+  <false/>
+  <key>ProcessType</key>
+  <string>Background</string>
+</dict>
+</plist>

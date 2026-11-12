@@ -1,0 +1,29 @@
+# What the weekly pipeline has produced. The weekly run appends two entries per week; the owner replaces an
+# off-site `url: TBD` with the live URL once the article is published somewhere.
+#
+#   date          run date (YYYY-MM-DD); for on-site posts also the post's pubDate
+#   week          ISO week, YYYY-WW
+#   kind          onsite | offsite
+#   slug          on-site: the post slug (src/content/blog/<slug>.md)
+#   url           off-site: the live URL, or TBD until it is published
+#   draft_path    off-site: where the draft was written
+#   cluster       an id from clusters.yml
+#   target_query  on-site: the primary query; off-site: the angle
+#
+# plan-week.mjs reads this for cluster coverage and for the "last weeks' results" table (GSC clicks,
+# impressions and position for each on-site slug; off-site pieces are measured by utm_campaign in GA4).
+
+entries: []
+#  - date: 2026-11-16
+#    week: 2026-47
+#    kind: onsite
+#    slug: revenge-bedtime-procrastination
+#    cluster: sleep-night
+#    target_query: revenge bedtime procrastination
+#  - date: 2026-11-16
+#    week: 2026-47
+#    kind: offsite
+#    url: TBD
+#    draft_path: /Users/faddy/MyLab/WellbeingApps/Respite/marketing/offsite/2026-47/article.md
+#    cluster: per-app
+#    target_query: 'Short-form video has no last page: ...'
