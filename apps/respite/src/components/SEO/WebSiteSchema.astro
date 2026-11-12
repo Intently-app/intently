@@ -1,8 +1,7 @@
 ---
 /**
- * WebSite Schema with SearchAction
- * Enables site search box in Google search results
- * Usage: Add to homepage and/or globally in BaseHead
+ * WebSite schema for the home page: the site, its publisher (Intently) and what it is about (the
+ * Respite entity from RespiteAppSchema.astro).
  */
 const websiteSchema = {
   "@context": "https://schema.org",
@@ -10,25 +9,13 @@ const websiteSchema = {
   "@id": "https://respite.liveintently.app/#website",
   "name": "Respite",
   "alternateName": "Respite: Screen Time Control",
-  "url": "https://respite.liveintently.app",
+  "url": "https://respite.liveintently.app/",
   "description": "Respite: Screen Time Control is a free screen time app for Android, iPhone and Chrome by Intently. It puts a short pause before the apps and sites you pick, with limits, streaks and a free game layer. Respite Plus adds sync and lets you connect your own AI (Claude, ChatGPT, Cursor) over MCP.",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Respite",
-    "url": "https://respite.liveintently.app",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://respite.liveintently.app/logo.png"
-    }
-  },
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://www.google.com/search?q=site:respite.liveintently.app+{search_term_string}"
-    },
-    "query-input": "required name=search_term_string"
-  }
+  "inLanguage": "en-US",
+  // The maker is Intently (OrganizationSchema.astro, in every page's head); the site is about the app.
+  "publisher": { "@id": "https://liveintently.app/#organization" },
+  "about": { "@id": "https://respite.liveintently.app/#software" }
+  // No SearchAction: the site has no search page, and Google retired the sitelinks search box in 2024.
 };
 ---
 

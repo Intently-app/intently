@@ -18,6 +18,7 @@ import AppShot from '../components/ui/AppShot.astro';
 import PlanCompare from '../components/ui/PlanCompare.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
+import RespiteAppSchema from '../components/SEO/RespiteAppSchema.astro';
 import { ctaForHref } from '../lib/analytics-core';
 
 type P = 'ios' | 'android' | 'chrome';
@@ -50,7 +51,8 @@ const cards: { id: string; title: string; line: string; shots: Shots; chips: Chi
 		line: '15 to 90 minutes with your apps blocked.',
 		shots: { all: 'focus' },
 		chips: [
-			{ label: 'Focus sessions', on: ALL, plus: true },
+			{ label: 'Focus up to 25 minutes', on: ALL },
+			{ label: 'Up to 90 minutes', on: ALL, plus: true },
 			{ label: 'Live Activity', on: ['ios'], plus: true },
 		],
 		link: { href: '/blog/focus-session-app-iphone/', label: 'About focus sessions' },
@@ -127,13 +129,16 @@ const cards: { id: string; title: string; line: string; shots: Shots; chips: Chi
 const counts = Object.fromEntries(ALL.map((p) => [p, cards.reduce((n, c) => n + c.chips.filter((x) => x.on.includes(p)).length, 0)])) as Record<P, number>;
 const total = cards.reduce((n, c) => n + c.chips.length, 0);
 
+// Visible below (Questions) and in FAQPage schema. The first answer is the entity description from docs/content-guide.md.
 const featureFAQs = [
-	{ question: 'Is Respite free?', answer: 'Yes. Respite is free on iPhone, Android and Chrome, with no ads. The pause, usage tracking, daily limits and streaks all work without paying. An optional upgrade, Respite Plus, adds sync across your devices and extras such as more schedules, longer focus sessions and richer insights.' },
+	{ question: 'What is Respite?', answer: 'Respite: Screen Time Control is a free screen time app for Android, iPhone and Chrome by Intently. It puts a short pause before the apps and sites you pick, with limits, streaks and a free game layer. Respite Plus adds sync and lets you connect your own AI (Claude, ChatGPT, Cursor) over MCP.' },
+	{ question: 'Is Respite free?', answer: 'Yes. Respite is free on iPhone, Android and Chrome, with no ads. The pause, usage tracking, daily limits, 1 schedule, focus sessions up to 25 minutes and streaks all work without paying. Respite Plus adds sync on every device, unlimited schedules, focus up to 90 minutes, richer insights and bring your own AI: at the time of writing $4.99 a month, $29.99 a year or $59.99 once.' },
 	{ question: 'Does Respite need an account?', answer: "No. You can use Respite's core features without signing in. An account (Google or Apple sign-in) is only needed if you want to sync across devices with Respite Plus. Without one, your usage history stays on your device." },
 	{ question: 'Does Respite work on iPhone?', answer: "Yes. Respite is available for iPhone, Android and Chrome. The iPhone app is built on Apple's Screen Time, so the pause appears as Apple's Screen Time shield before the apps you pick. It also offers daily limits and an app lock that covers an app once today's time is used, refreshing at midnight." },
 	{ question: 'How is Respite different from app blockers?', answer: 'Blockers shut an app down. Respite puts a short, gentle pause in front of the apps you pick, so you open them on purpose rather than by reflex. You can leave or continue after a moment. It also tracks your usage, keeps streaks and lets you set daily limits, so you see the pattern as well as interrupt it.' },
 	{ question: 'Does Respite collect my data?', answer: "Your usage history stays on your device unless you turn on sync. Respite shows no ads and never sells your data. On iPhone, Apple's Screen Time keeps the apps you pick private, even from Respite. Each version's privacy policy lists exactly what it collects, including any anonymous analytics or crash reports." },
-	{ question: 'Can I use Respite on multiple devices?', answer: 'Yes. Respite runs on iPhone, Android and Chrome, and each device works on its own with its own history and settings. If you want your progress synced across devices, the optional Respite Plus upgrade adds sync, which requires signing in with Google or Apple.' },
+	{ question: 'Can I use Respite on multiple devices?', answer: 'Yes. Respite runs on iPhone, Android and Chrome, and each device works on its own with its own history and settings. To sync, sign in with Google or Apple: a free account syncs one device, and Respite Plus syncs every device, so your limits and history follow you between phone and computer.' },
+	{ question: 'Can I connect ChatGPT or Claude to Respite?', answer: 'Yes, with Respite Plus. Respite has a built-in MCP server, so you can add it as a connector in Claude, ChatGPT or Cursor and ask about your real usage. If you allow it, your AI can also make your limits stricter; anything looser waits for your approval in the app. Respite runs no AI of its own.' },
 ];
 ---
 
@@ -147,6 +152,7 @@ const featureFAQs = [
 				{ name: 'Features', url: 'https://respite.liveintently.app/features/' },
 			]}
 		/>
+		<RespiteAppSchema />
 		<FAQSchema faqs={featureFAQs} />
 	</head>
 	<body class="m-page">

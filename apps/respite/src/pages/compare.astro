@@ -6,6 +6,7 @@ import Button from '../components/ui/Button.astro';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
 import CollectionPageSchema from '../components/SEO/CollectionPageSchema.astro';
+import RespiteAppSchema from '../components/SEO/RespiteAppSchema.astro';
 
 const comparisons = [
 	{
@@ -122,6 +123,14 @@ const faqs = [
 		answer: "It depends on how you want to change your habits. Respite is a free option that puts a short pause before the apps you pick, tracks your usage and keeps streaks, on iPhone, Android and Chrome. Built-in tools like Apple Screen Time and Google Digital Wellbeing are also free but more basic."
 	},
 	{
+		question: "Which apps make you pause before opening Instagram or TikTok?",
+		answer: "Respite, One Sec and ScreenZen all put a short pause in front of the apps you pick. Respite is free on iPhone, Android and Chrome; ScreenZen is free on iPhone and Android; One Sec is free for one app, with One Sec Pro around $20 a year at the time of writing. Apple Screen Time and Google Digital Wellbeing set limits but don't add a pause."
+	},
+	{
+		question: "Which screen time app works with ChatGPT or Claude?",
+		answer: "Respite does, with Respite Plus. It has a built-in MCP server, so you can connect Claude, ChatGPT or Cursor to your Respite account, ask about your real usage and, if you allow it, make your limits stricter. To our knowledge it is the first mobile screen time app with a built-in MCP server (November 2026)."
+	},
+	{
 		question: "Is Respite better than Opal?",
 		answer: "They take different approaches. Respite adds a short pause before an app opens so you choose to continue, while Opal focuses on stricter blocking and is a paid subscription for its full features. If you want a gentle nudge and a free start, try Respite. If you want hard blocks, Opal may suit you better."
 	},
@@ -149,11 +158,12 @@ const faqs = [
 				{ name: "Compare Apps", url: "https://respite.liveintently.app/compare/" }
 			]}
 		/>
+		<RespiteAppSchema />
 		<FAQSchema faqs={faqs} />
 		<CollectionPageSchema
 			name="Screen Time App Comparisons"
 			description="Compare Respite with popular screen time apps. Head-to-head reviews of features, privacy, pricing, and effectiveness."
-			url="/compare"
+			url="/compare/"
 			items={[...comparisons, ...alternatives].map(c => ({
 				name: c.title,
 				url: c.href,
@@ -252,7 +262,7 @@ const faqs = [
 							<tbody>
 								<tr>
 									<td>Price</td>
-									<td class="highlight">Free</td>
+									<td class="highlight">Free; optional Plus $4.99/mo</td>
 									<td>Pro ~$100/yr</td>
 									<td>Free for one app; Pro ~$20/yr</td>
 									<td>~$40/yr (lifetime also sold)</td>

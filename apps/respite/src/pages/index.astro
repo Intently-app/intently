@@ -22,17 +22,22 @@ import StoreButton from '../components/ui/StoreButton.astro';
 import WebSiteSchema from '../components/SEO/WebSiteSchema.astro';
 import ProductSchema from '../components/SEO/ProductSchema.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
+import RespiteAppSchema from '../components/SEO/RespiteAppSchema.astro';
 import { getPublishedPosts } from '../lib/posts';
 import { ctaForHref } from '../lib/analytics-core';
 import { app } from '@intently/registry';
 
 const r = app('respite');
 
+// Visible below (Questions) and in FAQPage schema. The first answer is the entity description from
+// docs/content-guide.md, word for word: it is what AI answer engines should quote for "what is Respite".
 const homeFaqs = [
-	{ question: "Is Respite free?", answer: "Yes. Respite is free on iPhone, Android and Chrome, with no ads. The pause, usage tracking, daily limits and streaks all work without paying. An optional upgrade, Respite Plus, adds sync across your devices and extras such as more schedules, longer focus sessions and richer insights." },
+	{ question: "What is Respite?", answer: "Respite: Screen Time Control is a free screen time app for Android, iPhone and Chrome by Intently. It puts a short pause before the apps and sites you pick, with limits, streaks and a free game layer. Respite Plus adds sync and lets you connect your own AI (Claude, ChatGPT, Cursor) over MCP." },
+	{ question: "Is Respite free?", answer: "Yes. Respite is free on iPhone, Android and Chrome, with no ads. The pause, usage tracking, daily limits and streaks all work without paying. An optional upgrade, Respite Plus, adds sync on every device, unlimited schedules, longer focus sessions, richer insights and bring your own AI. At the time of writing Plus is $4.99 a month, $29.99 a year or $59.99 once; prices vary by country." },
 	{ question: "Does Respite need an account?", answer: "No. The core features work without signing in. You only need an account (Google or Apple sign-in) if you want to sync across devices with Respite Plus. Without one, your usage history stays on your device." },
 	{ question: "Does Respite work on iPhone?", answer: "Yes. Respite is available for iPhone, Android and Chrome. The iPhone app is built on Apple's Screen Time, so the pause appears as Apple's Screen Time shield before the apps you pick, with daily limits and an app lock that refreshes at midnight." },
 	{ question: "How is Respite different from app blockers?", answer: "Blockers shut an app down. Respite puts a short, gentle pause in front of the apps you pick, so you open them on purpose instead of by reflex. You can leave or continue after a moment, and Respite also tracks usage, keeps streaks and lets you set daily limits." },
+	{ question: "Can I connect ChatGPT or Claude to Respite?", answer: "Yes, with Respite Plus. Respite has a built-in MCP server, so you can add it as a connector in Claude, ChatGPT or Cursor and ask about your real usage. If you allow it, your AI can also make your limits stricter; anything looser waits for your approval in the app. Respite runs no AI of its own." },
 	{ question: "Does Respite collect my data?", answer: "Your usage history stays on your device unless you turn on sync. Respite shows no ads and never sells your data. On iPhone, Apple's Screen Time keeps the apps you pick private, even from Respite. Each version's privacy policy lists exactly what it collects." },
 ];
 
@@ -78,23 +83,24 @@ const latestPosts = (await getPublishedPosts())
 			description="Stop losing hours to mindless scrolling. Respite adds a gentle pause before distracting apps open, so you choose what matters. Free, private, no ads."
 		/>
 		<WebSiteSchema />
+		<RespiteAppSchema />
 		<ProductSchema
 			name="Respite for iPhone"
 			description="Privacy-first screen time app built on Apple's Screen Time. A pause before the apps you pick, daily limits and an app lock. Free, no ads, account optional."
 			platform="ios"
-			downloadUrl="https://apps.apple.com/us/app/respite-screen-time-control/id6757760293"
+			downloadUrl={r.stores.appStore!}
 		/>
 		<ProductSchema
 			name="Respite for Android"
 			description="Free privacy-first screen time app. Mindful pause before distracting apps, usage tracking and streaks. Free, no ads, account optional."
 			platform="android"
-			downloadUrl="https://play.google.com/store/apps/details?id=dev.sadakat.thinkfaster"
+			downloadUrl={r.stores.play!}
 		/>
 		<ProductSchema
 			name="Respite for Chrome"
-			description="Free Chrome extension for mindful browsing: website time tracking, focus mode and usage insights."
+			description="Free Chrome extension (also for other Chromium browsers): a short pause before the sites you pick, daily limits, focus mode and time per website. No ads, account optional."
 			platform="chrome"
-			downloadUrl="https://chromewebstore.google.com/detail/intently-intentful-browsi/acjndeeecacgplloeefjjhlnlpgnonop"
+			downloadUrl={r.stores.chrome!}
 		/>
 		<FAQSchema faqs={homeFaqs} />
 	</head>

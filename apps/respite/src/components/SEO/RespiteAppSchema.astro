@@ -1,0 +1,53 @@
+---
+/**
+ * The one Respite entity (SoftwareApplication, @id .../#software) that every key page points at, so search
+ * engines and AI answer engines see the same name, platforms, price and maker everywhere. The wording is the
+ * entity description from docs/content-guide.md ("Entity name and description"); public/llms.txt and
+ * llms-full.txt use the same facts. Change them together. Used on /, /features/, /compare/ and /ai/; the
+ * per-store MobileApplication entries (ProductSchema.astro) point back here with isPartOf.
+ */
+import { app } from '@intently/registry';
+
+const r = app('respite');
+const SITE = 'https://respite.liveintently.app/';
+
+const RESPITE_APP_ID = `${SITE}#software`;
+const RESPITE_DESCRIPTION =
+	'Respite: Screen Time Control is a free screen time app for Android, iPhone and Chrome by Intently. It puts a short pause before the apps and sites you pick, with limits, streaks and a free game layer. Respite Plus adds sync and lets you connect your own AI (Claude, ChatGPT, Cursor) over MCP.';
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@type': 'SoftwareApplication',
+	'@id': RESPITE_APP_ID,
+	name: 'Respite: Screen Time Control',
+	alternateName: ['Respite', 'Respite screen time app'],
+	description: RESPITE_DESCRIPTION,
+	url: SITE,
+	image: `${SITE}logo.png`,
+	applicationCategory: 'HealthApplication',
+	applicationSubCategory: 'Screen time and digital wellbeing',
+	operatingSystem: 'iOS 17.4 or later, Android 8.0 or later, Chrome (and other Chromium browsers)',
+	isAccessibleForFree: true,
+	sameAs: [r.stores.appStore, r.stores.play, r.stores.chrome],
+	author: { '@type': 'Organization', '@id': 'https://liveintently.app/#organization', name: 'Intently', url: 'https://liveintently.app' },
+	publisher: { '@id': 'https://liveintently.app/#organization' },
+	offers: [
+		{ '@type': 'Offer', name: 'Respite (free)', price: '0', priceCurrency: 'USD' },
+		{ '@type': 'Offer', name: 'Respite Plus, monthly', price: '4.99', priceCurrency: 'USD', description: 'Sync on every device, unlimited schedules, longer focus sessions, richer insights and bring your own AI. Store prices vary by country.' },
+		{ '@type': 'Offer', name: 'Respite Plus, yearly', price: '29.99', priceCurrency: 'USD', description: 'One-week free trial. Store prices vary by country.' },
+		{ '@type': 'Offer', name: 'Respite Plus, lifetime', price: '59.99', priceCurrency: 'USD', description: 'One-time purchase. Store prices vary by country.' },
+	],
+	featureList: [
+		'A short pause before the apps and websites you pick, so you open them on purpose',
+		'Daily limits per app, website or category, with a lock when the time is used',
+		'Schedules (1 free, unlimited with Plus) and focus sessions (up to 25 minutes free, 90 with Plus)',
+		'Usage insights by day, week and month',
+		'Streaks, plus a free game layer on iPhone and Android: acorns, quests and leagues',
+		'Blocks Reels and Shorts on Android and Chrome',
+		'No ads; account optional (sign in only for sync); usage history stays on your device unless you turn on sync',
+		'Bring your own AI (Respite Plus): connect Claude, ChatGPT or Cursor over MCP to ask about your usage and make your limits stricter; anything looser needs your approval in the app',
+	],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

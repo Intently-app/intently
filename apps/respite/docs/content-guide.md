@@ -25,20 +25,22 @@ into installs (conversion). Never trade truth for any of them.
   reflection questions, a short guided breathing exercise, your own usage stats, quotes and activity
   suggestions. On iPhone the pause is Apple's Screen Time shield, so keep iPhone wording general
   ("a short, gentle pause"). There is no journaling and no intention-setting feature.
-- You **cannot** write your own pause messages or customize prompts per app. Don't promise custom
-  messages, custom prompts or per-app prompt text.
+- You **cannot** type your own pause messages or customize prompts per app in the app. Don't promise custom
+  messages, custom prompts or per-app prompt text. (A connected AI can add short pause messages; see below.)
 - The game layer is **free** and live on **iPhone and Android** (Journey tab): acorns, daily quests, streak
   milestones, a weekly chest, streak freezes, a shop (garden, Biscuit outfits), friends and weekly leagues. It needs a
   free sign-in (Google or Apple) because the server keeps the ledger. Numbers: see
   `src/content/blog/how-acorns-streaks-streak-freezes-work.md`. The browser extension does not show it until the
   extension release with sign-in ships. Never reward-more-use framing.
-- Bring your own AI (MCP) is a staged rollout, Respite Plus only. **Live (read-only):** get_account (free plan too),
-  get_usage, get_insights, list_limits, list_events, get_progress, and the resources respite://today and
-  respite://week. **Not live, write as "coming":** an AI changing limits or schedules (tightening applies at once,
-  loosening needs approval on the phone), a change log with undo, the in-app Connected AI screen (iPhone first),
-  AI-written pause messages and rules. Disconnect today = the AI app's connector settings; deleting the Respite
-  account ends every connection. Never describe a coming tool as available. The draft post
-  `let-ai-change-your-limits` goes live only when the write tools ship (checklist inside the file).
+- Bring your own AI (MCP) is Respite Plus only (get_account also works on the free plan). **Live (checked 2026-11-12
+  against intently-api main and `/ai/`):** reading usage, insights, limits, pause history, reasons for continuing and
+  progress; opt-in "stricter" changes that apply at once (add or lower a limit, add a schedule, start a focus session);
+  opt-in pause messages from the AI; anything looser (raise or remove a limit or schedule, end a focus session early,
+  unblock an app for a few minutes) is a request the person approves in You › Connected AI; every change is logged
+  and can be undone. **Not live, write as "coming":** custom trigger and action rules. On marketing pages describe what
+  it does, not tool names (`/ai/` is the reference); tool names belong in llms-full.txt and the connect guides.
+  Disconnect: You › Connected AI, or the AI app's connector settings; deleting the Respite account ends every
+  connection.
 - **The "first" claim, exact wording only:** "to our knowledge, the first mobile screen time app with a built-in MCP
   server (November 2026)". Never "only", never "the first screen time MCP": LockIn MCP (a desktop blocker) exists, and
   community MCP servers read Mac Screen Time, RescueTime and ActivityWatch. Re-check the registries monthly.
@@ -122,10 +124,13 @@ set `pubDate`, flip the matching entry in `src/data/changelog.ts`.
 - **Sources on comparison posts:** posts that state competitor AI facts end with a "Sources (accessed ...)" list of
   links, above "Next step" / "Related articles".
 - **Structured data:** posts get BlogPosting, BreadcrumbList, FAQPage and (with `howToSteps`) HowTo from the
-  layout. `/ai/` adds SoftwareApplication (with the free and Plus offers), WebPage, BreadcrumbList and FAQPage.
-  Product schema for the three apps is `components/SEO/ProductSchema.astro`; Organization is site-wide in BaseHead.
-- **Crawlers:** `public/robots.txt` allows OAI-SearchBot, ChatGPT-User, PerplexityBot, ClaudeBot, Claude-SearchBot,
-  Google-Extended, Bingbot and Applebot(-Extended) explicitly. `public/llms.txt` and `llms-full.txt` are concise
+  layout. The Respite entity (SoftwareApplication `#software`, with the free and Plus offers and the entity
+  description) is `components/SEO/RespiteAppSchema.astro`, on `/`, `/features/`, `/compare/` and `/ai/`. `/ai/` adds
+  WebPage, BreadcrumbList and FAQPage. Per-store MobileApplication entries are `components/SEO/ProductSchema.astro`
+  (they point at `#software`); Organization is site-wide in BaseHead. Home and Features open their FAQ with "What is
+  Respite?" answered by the entity description word for word: keep it that way.
+- **Crawlers:** `public/robots.txt` allows OAI-SearchBot, ChatGPT-User, GPTBot, PerplexityBot, Perplexity-User,
+  ClaudeBot, Claude-SearchBot, Claude-User, Google-Extended, Bingbot and Applebot(-Extended) explicitly. `public/llms.txt` and `llms-full.txt` are concise
   site maps for AI tools (measurable effect is unproven; keep them accurate, not long). Check Cloudflare's AI bot
   blocking setting is off for this zone after deploys.
 - **IndexNow (Bing, and engines that share it):** the key file is `public/<32 hex>.txt` (content = the same 32 hex).
