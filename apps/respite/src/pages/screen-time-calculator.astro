@@ -266,9 +266,21 @@ const howToSteps = [
 										</div>
 									</div>
 
-									<div class="share-section">
-										<button id="share-twitter" class="m-btn is-soft share-btn" aria-label="Share on X / Twitter">Share on 𝕏</button>
-										<button id="share-copy" class="m-btn is-soft share-btn" aria-label="Copy link">Copy Link</button>
+									<button class="m-btn reveal-next-btn" data-next="card-report">See my report card</button>
+								</div>
+
+								<!-- Card 5: the report card to share (src/lib/report-card.ts) -->
+								<div class="reveal-card" id="card-report" style="display:none;">
+									<div class="reveal-overline">Your report card</div>
+									<figure id="report-card" class="m-reportcard" role="img" aria-label="Your screen time report card"></figure>
+
+									<div class="share-section" data-placement="result">
+										<button id="share-native" class="m-btn share-main" hidden><Icon name="Share2" size={20} />Share my card</button>
+										<div class="share-row">
+											<button id="share-download" class="m-btn is-soft share-btn"><Icon name="Download" size={22} />Save image</button>
+											<button id="share-copy" class="m-btn is-soft share-btn"><Icon name="Link" size={22} /><span>Copy link</span></button>
+											<button id="share-twitter" class="m-btn is-soft share-btn" aria-label="Share on X / Twitter"><span class="share-x" aria-hidden="true">𝕏</span>Post</button>
+										</div>
 									</div>
 
 									<div class="m-actions calc-cta" data-placement="result">
@@ -307,7 +319,9 @@ const howToSteps = [
 		<Footer />
 
 		<script>
-			import { calculatorBand, page, shareParams, toolCompleteParams, track } from '../lib/analytics';
+			import { calculatorBand, toolCompleteParams, toolShareParams, track } from '../lib/analytics';
+			import { cardQuery, cardSentence, cardStats, cardSvg, normalize, SIZES, type CardInput, type Theme } from '../lib/report-card';
+			import { ART } from '../lib/report-card-art';
 
 			// ===== STATE =====
 			let dailyHours = 4;
@@ -430,13 +444,14 @@ const howToSteps = [
 			document.getElementById('step2-back')!.addEventListener('click', () => showStep(1));
 			document.getElementById('step2-next')!.addEventListener('click', () => showStep(3));
 			document.getElementById('step3-back')!.addEventListener('click', () => showStep(2));
-			document.getElementById('step3-calculate')!.addEventListener('click', calculate);
+			document.getElementById('step3-calculate')!.addEventListener('click', () => calculate());
 
 			// ===== CALCULATE =====
-			function calculate() {
-				const yearsWithPhone = Math.max(currentAge - firstPhoneAge, 1);
-				const lifetimeHours = Math.round(dailyHours * 365 * yearsWithPhone);
-				const futureHours = Math.round(dailyHours * 365 * Math.max(80 - currentAge, 1));
+			// restored: the result comes back from a link (#…), so it isn't a new tool_complete.
+			function calculate(restored = false) {
+				// The inputs as the controls allow them (an emptied or out-of-range age field included).
+				const input = normalize({ h: dailyHours, age: currentAge, first: firstPhoneAge });
+				const { lifetimeHours } = cardStats(input);
 				const lifetimeDays = Math.round(lifetimeHours / 24);
 				const lifetimeYears = (lifetimeHours / 8760).toFixed(1);
 
@@ -447,8 +462,9 @@ const howToSteps = [
 				});
 				document.getElementById('calc-progress')!.style.width = '100%';
 				document.getElementById('results-container')!.style.display = '';
+				document.querySelectorAll<HTMLElement>('.reveal-card').forEach((card, i) => { card.style.display = i === 0 ? '' : 'none'; });
 				// Only a wide band of daily hours, never the hours or ages entered.
-				track('tool_complete', toolCompleteParams('calculator', calculatorBand(dailyHours)));
+				if (!restored) track('tool_complete', toolCompleteParams('calculator', calculatorBand(input.h)));
 
 				// Card 1: Lifetime
 				animateCountUp('lifetime-hours', lifetimeHours);
@@ -515,10 +531,13 @@ const howToSteps = [
 				document.getElementById('pledge-5y')!.textContent = (365 * 5).toLocaleString();
 				document.getElementById('pledge-10y')!.textContent = (365 * 10).toLocaleString();
 
-				// URL hash for sharing
+				// URL hash, so a reload keeps the result (d, age, first: the inputs, for the report card)
 				const appCodes = selectedApps.join(',');
-				const hash = `#h=${lifetimeHours}&y=${lifetimeYears}&apps=${appCodes}`;
+				const hash = `#h=${lifetimeHours}&y=${lifetimeYears}&apps=${appCodes}&d=${input.h}&age=${input.age}&first=${input.first}`;
 				history.replaceState(null, '', hash);
+
+				// Card 5: the report card
+				showReport(input);
 			}
 
 			// ===== COUNT-UP ANIMATION =====
@@ -549,31 +568,143 @@ const howToSteps = [
 				});
 			});
 
+			// ===== REPORT CARD =====
+			// Drawn from the inputs (src/lib/report-card.ts), shown in both themes, and turned into a PNG in
+			// the browser for the share sheet and "Save image". Nothing leaves the device unless shared.
+			const reportFig = document.getElementById('report-card')!;
+			const nativeBtn = document.getElementById('share-native') as HTMLButtonElement;
+			const downloadBtn = document.getElementById('share-download') as HTMLButtonElement;
+			const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+			const FILE_NAME = 'my-screen-time-report.png';
+			let cardInput: CardInput | null = null;
+			let cardPng: Promise<File> | null = null;
+			let cardFile: File | null = null;
+
+			function showReport(input: CardInput | null) {
+				cardInput = input;
+				cardPng = null;
+				cardFile = null;
+				// A result restored from an older link has no inputs: no card, the link still shares.
+				reportFig.hidden = !input;
+				downloadBtn.hidden = !input;
+				nativeBtn.hidden = typeof navigator.share !== 'function';
+				if (!input) return;
+				reportFig.setAttribute('aria-label', cardSentence(input));
+				reportFig.innerHTML =
+					`<div class="is-light">${cardSvg(input, { format: 'post', theme: 'light', art: ART, idPrefix: 'cl-' })}</div>` +
+					`<div class="is-dark">${cardSvg(input, { format: 'post', theme: 'dark', art: ART, idPrefix: 'cd-' })}</div>`;
+				// Ready before the tap: a share sheet must open straight from the tap, with no wait in between.
+				preparePng();
+			}
+
+			function preparePng() {
+				if (!cardInput) return;
+				const input = cardInput;
+				const png = makePng(input, darkQuery.matches ? 'dark' : 'light').then((blob) => new File([blob], FILE_NAME, { type: 'image/png' }));
+				cardPng = png;
+				png.then((file) => { if (cardPng === png) cardFile = file; }).catch(() => {});
+			}
+			darkQuery.addEventListener('change', preparePng);
+
+			// The page's fonts can't reach an SVG drawn as an image, so the card's two are embedded.
+			let fontCss: Promise<string> | null = null;
+			function loadFontCss(): Promise<string> {
+				fontCss ??= Promise.all([700, 800].map(async (weight) => {
+					const res = await fetch(`/fonts/card/nunito-${weight}.ttf`);
+					if (!res.ok) throw new Error(`font ${res.status}`);
+					const bytes = new Uint8Array(await res.arrayBuffer());
+					let bin = '';
+					for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+					return `@font-face{font-family:Nunito;font-weight:${weight};src:url(data:font/ttf;base64,${btoa(bin)}) format("truetype")}`;
+				})).then((rules) => rules.join(''), (e) => { fontCss = null; throw e; });
+				return fontCss;
+			}
+
+			async function makePng(input: CardInput, theme: Theme): Promise<Blob> {
+				const { w, h } = SIZES.post;
+				const svg = cardSvg(input, { format: 'post', theme, art: ART, idPrefix: 'png-', fontCss: await loadFontCss() });
+				const img = new Image(w, h);
+				img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+				await img.decode();
+				// Give the embedded fonts a frame to apply (Safari can draw the first frame without them).
+				await new Promise((r) => requestAnimationFrame(() => r(null)));
+				const canvas = document.createElement('canvas');
+				canvas.width = w;
+				canvas.height = h;
+				canvas.getContext('2d')!.drawImage(img, 0, 0, w, h);
+				return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob'))), 'image/png'));
+			}
+
 			// ===== SHARE =====
-			document.getElementById('share-twitter')!.addEventListener('click', () => {
-				const hours = document.getElementById('lifetime-hours')!.textContent;
-				const years = document.getElementById('lifetime-years')!.textContent;
-				const text = encodeURIComponent(`I've spent ${hours} hours (${years} years) of my life on screens 😱\n\nFind out yours:`);
-				const url = encodeURIComponent(window.location.href);
-				track('share', shareParams('x', 'tool', page()));
-				window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'noopener');
+			// The link to share: the result page, whose preview is the card. Only the three inputs ride in it.
+			function shareUrl(): string {
+				return cardInput ? `${location.origin}/screen-time-calculator/r/?${cardQuery(cardInput)}` : location.href;
+			}
+
+			const shareText = () => (cardInput ? `${cardSentence(cardInput)} Work out yours:` : 'My screen time, added up. Work out yours:');
+			const aborted = (e: unknown) => e instanceof DOMException && e.name === 'AbortError';
+
+			async function copyLink(): Promise<boolean> {
+				try {
+					await navigator.clipboard.writeText(shareUrl());
+				} catch {
+					return false;
+				}
+				track('share', toolShareParams('copy_link', 'calculator'));
+				const label = document.querySelector('#share-copy span')!;
+				label.textContent = 'Copied';
+				setTimeout(() => { label.textContent = 'Copy link'; }, 2000);
+				return true;
+			}
+
+			nativeBtn.addEventListener('click', async () => {
+				const url = shareUrl();
+				const file = cardFile;
+				try {
+					if (file && navigator.canShare?.({ files: [file] })) {
+						// The picture, with the link in the text (some apps drop a separate url next to a file).
+						await navigator.share({ files: [file], title: 'My screen time report', text: `${shareText()} ${url}` });
+						track('share', toolShareParams('native_image', 'calculator'));
+					} else {
+						await navigator.share({ title: 'My screen time report', text: shareText(), url });
+						track('share', toolShareParams('native_link', 'calculator'));
+					}
+				} catch (e) {
+					if (!aborted(e)) await copyLink();
+				}
 			});
 
-			document.getElementById('share-copy')!.addEventListener('click', async () => {
+			downloadBtn.addEventListener('click', async () => {
+				if (!cardInput) return;
+				if (!cardPng) preparePng();
+				let file: File;
 				try {
-					await navigator.clipboard.writeText(window.location.href);
-					track('share', shareParams('copy_link', 'tool', page()));
-					const btn = document.getElementById('share-copy')!;
-					btn.textContent = 'Copied!';
-					setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
+					file = cardFile ?? (await cardPng!);
 				} catch {
-					// Fallback: select text
+					return;
 				}
+				const href = URL.createObjectURL(file);
+				const a = Object.assign(document.createElement('a'), { href, download: FILE_NAME });
+				document.body.append(a);
+				a.click();
+				a.remove();
+				setTimeout(() => URL.revokeObjectURL(href), 10_000);
+				track('share', toolShareParams('download', 'calculator'));
+			});
+
+			document.getElementById('share-copy')!.addEventListener('click', () => { copyLink(); });
+
+			document.getElementById('share-twitter')!.addEventListener('click', () => {
+				const text = encodeURIComponent(`${shareText()}\n`);
+				const url = encodeURIComponent(shareUrl());
+				track('share', toolShareParams('x', 'calculator'));
+				window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'noopener');
 			});
 
 			// ===== RETAKE =====
 			document.getElementById('retake-calc')!.addEventListener('click', () => {
 				document.getElementById('results-container')!.style.display = 'none';
+				showReport(null);
 				selectedApps.length = 0;
 				document.querySelectorAll('.app-card').forEach(c => {
 					c.classList.remove('selected');
@@ -589,6 +720,29 @@ const howToSteps = [
 				const hash = window.location.hash;
 				if (!hash || !hash.includes('h=')) return;
 				const params = new URLSearchParams(hash.slice(1));
+				const restoredApps = (params.get('apps') || '').split(',').filter((app) => appLabels[app]);
+				// Links from now on carry the inputs: set the controls and work the result out again.
+				const d = parseFloat(params.get('d') ?? '');
+				const age = parseInt(params.get('age') ?? '');
+				const first = parseInt(params.get('first') ?? '');
+				if (restoredApps.length && Number.isFinite(d) && Number.isFinite(age) && Number.isFinite(first)) {
+					({ h: dailyHours, age: currentAge, first: firstPhoneAge } = normalize({ h: d, age, first }));
+					slider.value = String(dailyHours);
+					slider.dispatchEvent(new Event('input'));
+					(document.getElementById('current-age') as HTMLInputElement).value = String(currentAge);
+					(document.getElementById('first-phone-age') as HTMLInputElement).value = String(firstPhoneAge);
+					restoredApps.slice(0, 5).forEach((app) => {
+						selectedApps.push(app);
+						const card = document.querySelector(`[data-app="${app}"]`);
+						card?.classList.add('selected');
+						card?.setAttribute('aria-pressed', 'true');
+					});
+					(document.getElementById('step3-calculate') as HTMLButtonElement).disabled = false;
+					calculate(true);
+					return;
+				}
+
+				// Older links: only the totals.
 				const h = parseInt(params.get('h') || '0');
 				const y = params.get('y') || '0';
 				const apps = (params.get('apps') || '').split(',').filter(Boolean);
@@ -673,6 +827,8 @@ const howToSteps = [
 				document.getElementById('pledge-1y')!.textContent = (365).toLocaleString();
 				document.getElementById('pledge-5y')!.textContent = (1825).toLocaleString();
 				document.getElementById('pledge-10y')!.textContent = (3650).toLocaleString();
+
+				showReport(null);
 			}
 
 			restoreFromHash();
@@ -1076,10 +1232,37 @@ const howToSteps = [
 	}
 
 	.share-section {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
+		display: grid;
+		justify-items: center;
+		gap: 0.75rem;
+		width: 100%;
+	}
+
+	.share-main {
+		width: min(100%, 26rem);
+	}
+
+	.share-row {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 0.5rem;
+		width: min(100%, 26rem);
+	}
+
+	/* Three equal tiles: icon over a short label. */
+	.share-btn {
+		flex-direction: column;
+		gap: 0.3rem;
+		min-height: 78px;
+		padding: 0.6rem 0.4rem;
+		border-radius: 20px;
+		font-size: 0.92rem;
+		line-height: 1.15;
+	}
+
+	.share-x {
+		font-size: 1.3rem;
+		line-height: 22px;
 	}
 
 	.calc-cta {

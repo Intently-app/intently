@@ -938,6 +938,34 @@ html:has(> body.m-page),
 	color: var(--m-ink-soft);
 }
 
+/* The calculator's report card (src/lib/report-card.ts): one SVG per theme, the one that fits is shown.
+   The drawing brings its own ground and white surface, so it needs no frame here. */
+.m-reportcard {
+	width: min(100%, 26rem);
+	margin: 0;
+	border-radius: 28px;
+	overflow: hidden;
+}
+
+.m-reportcard svg {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.m-reportcard > .is-dark {
+	display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+	.m-reportcard > .is-light {
+		display: none;
+	}
+	.m-reportcard > .is-dark {
+		display: block;
+	}
+}
+
 /* ------------------------------------------------------------ closing */
 .m-end {
 	display: grid;

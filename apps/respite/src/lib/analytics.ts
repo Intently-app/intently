@@ -35,7 +35,7 @@ import {
 } from './analytics-core';
 import { rewriteInstallLinks } from './smart-install';
 
-export { calculatorBand, shareParams, toolCompleteParams } from './analytics-core';
+export { calculatorBand, shareParams, toolCompleteParams, toolShareParams } from './analytics-core';
 
 const KEY = 'respite_utm';
 

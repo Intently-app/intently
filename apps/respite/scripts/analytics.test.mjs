@@ -12,6 +12,7 @@ import {
 	storeOf,
 	tagStoreHref,
 	toolCompleteParams,
+	toolShareParams,
 	utmFromReferrer,
 	utmFromSearch,
 } from "../src/lib/analytics-core.ts";
@@ -113,6 +114,11 @@ test("cta_click: the visitor's source and medium, as store_click reports them", 
 test("share follows GA4's recommended parameters", () => {
 	assert.deepEqual(shareParams("copy_link", "article", blog), { method: "copy_link", content_type: "article", item_id: "how_to_stop_doomscrolling" });
 	assert.deepEqual(shareParams("x", "tool", pageFromPath("/screen-time-calculator/")), { method: "x", content_type: "tool", item_id: "screen_time_calculator" });
+});
+
+test("a tool's result share is named by the tool", () => {
+	for (const method of ["native_image", "native_link", "download", "copy_link", "x"])
+		assert.deepEqual(toolShareParams(method, "calculator"), { method, content_type: "tool", item_id: "calculator" });
 });
 
 test("tool_complete bands are coarse", () => {
