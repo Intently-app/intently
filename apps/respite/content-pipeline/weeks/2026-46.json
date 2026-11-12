@@ -1,0 +1,558 @@
+{
+	"week": "2026-46",
+	"run_date": "2026-11-12",
+	"generated_at": "2026-11-12T05:43:53.712Z",
+	"gsc": {
+		"site": "sc-domain:liveintently.app",
+		"start": "2026-10-13",
+		"end": "2026-11-09",
+		"ok": true,
+		"query_rows": 446,
+		"queries": 231
+	},
+	"onsite": {
+		"topic": "Revenge Bedtime Procrastination: Why You Scroll Late",
+		"cluster": "sleep-night",
+		"cluster_label": "Sleep, night and morning scrolling",
+		"audience": "People who scroll in bed at night or reach for the phone first thing in the morning",
+		"angle": "The bedroom is a place rule, not a time limit; make the last and first tap of the day deliberate",
+		"target_query": "revenge bedtime procrastination",
+		"intent": "informational",
+		"notes": "Explain the idea without invented studies; practical fixes; link stop-scrolling-at-night.",
+		"source": "backlog",
+		"backlog_index": 12,
+		"slug": "revenge-bedtime-procrastination",
+		"hero_family": "mind",
+		"reason": "GSC demand (1 impression in 28 days on 1 related query) in the cluster ranked #1 least recently covered",
+		"gsc_demand": {
+			"impressions": 1,
+			"weighted": 1,
+			"queries": [
+				{
+					"query": "scrolling in bed",
+					"impressions": 1,
+					"position": 88,
+					"similarity": 0.4
+				}
+			]
+		},
+		"guard": {
+			"nearest": {
+				"score": 0.2,
+				"slug": "what-is-doomscrolling",
+				"field": "slug",
+				"value": "what is doomscrolling"
+			}
+		},
+		"internal_link_candidates": [
+			{
+				"url": "/blog/stop-scrolling-at-night/",
+				"title": "How to Stop Scrolling at Night: A Sleep-Saving Guide",
+				"same_cluster": true,
+				"impressions": 8
+			},
+			{
+				"url": "/blog/stop-checking-phone-morning/",
+				"title": "Stop Checking Your Phone First Thing in the Morning",
+				"same_cluster": true,
+				"impressions": 1
+			},
+			{
+				"url": "/blog/what-is-doomscrolling/",
+				"title": "What Is Doomscrolling? Meaning, Causes and How to Stop",
+				"same_cluster": false,
+				"impressions": 0
+			},
+			{
+				"url": "/blog/stop-reddit-scrolling/",
+				"title": "How to Stop Reddit Scrolling (Without Quitting Reddit)",
+				"same_cluster": false,
+				"impressions": 45
+			},
+			{
+				"url": "/blog/psychology-of-app-addiction/",
+				"title": "The Psychology of App Addiction: Why You Keep Scrolling",
+				"same_cluster": false,
+				"impressions": 29
+			}
+		]
+	},
+	"offsite": {
+		"cluster": "parents-teens",
+		"cluster_label": "Parents and teens",
+		"audience": "Parents of 13–17 year olds, and teens who want a say in their own limits (Teen co-pilot segment)",
+		"angle": "Co-pilot, not warden: how to set phone limits with a teenager instead of for them",
+		"reason": "least recently used off-site (no off-site piece yet), different cluster from the on-site post",
+		"target_sites": [
+			"medium",
+			"linkedin",
+			"parenting blogs (guest post)",
+			"school newsletters"
+		],
+		"utm_campaign": "offsite_2026_46",
+		"utm_rule": "utm_source=<site, lowercase, underscores: medium | dev_to | hashnode | linkedin | <blog_name>>&utm_medium=partner&utm_campaign=offsite_2026_46",
+		"link_targets": [
+			{
+				"url": "/blog/screen-time-for-parents/",
+				"title": "Screen Time for Parents: Age Guidelines and Family Rules",
+				"example": "https://respite.liveintently.app/blog/screen-time-for-parents/?utm_source=medium&utm_medium=partner&utm_campaign=offsite_2026_46"
+			},
+			{
+				"url": "/blog/how-much-screen-time-is-too-much/",
+				"title": "How Much Screen Time Is Too Much? Guidelines by Age",
+				"example": "https://respite.liveintently.app/blog/how-much-screen-time-is-too-much/?utm_source=medium&utm_medium=partner&utm_campaign=offsite_2026_46"
+			},
+			{
+				"url": "/blog/screen-time-apps-for-students/",
+				"title": "Screen Time Apps for Students: Stay Focused (2026)",
+				"example": "https://respite.liveintently.app/blog/screen-time-apps-for-students/?utm_source=medium&utm_medium=partner&utm_campaign=offsite_2026_46"
+			},
+			{
+				"url": "/blog/phone-addiction-adhd/",
+				"title": "Phone Addiction and ADHD: Why It's Hard and What Helps",
+				"example": "https://respite.liveintently.app/blog/phone-addiction-adhd/?utm_source=medium&utm_medium=partner&utm_campaign=offsite_2026_46"
+			},
+			{
+				"url": "/download/",
+				"title": "Download Respite",
+				"example": "https://respite.liveintently.app/download/?utm_source=medium&utm_medium=partner&utm_campaign=offsite_2026_46"
+			}
+		],
+		"output_dir": "/Users/faddy/MyLab/WellbeingApps/Respite/marketing/offsite/2026-46"
+	},
+	"results": [],
+	"refresh_opportunities": [
+		{
+			"query": "one sec alternative",
+			"clicks": 0,
+			"impressions": 30,
+			"position": 8.8,
+			"page": "/blog/one-sec-alternatives/",
+			"owner": "/blog/one-sec-alternatives/",
+			"why": "overlaps slug of /blog/one-sec-alternatives/ (\"one sec alternatives\", Jaccard 1)"
+		},
+		{
+			"query": "how to stop instagram reels addiction",
+			"clicks": 0,
+			"impressions": 24,
+			"position": 21.1,
+			"page": "/blog/instagram-reels-addiction/",
+			"owner": "/blog/instagram-reels-addiction/",
+			"why": "overlaps slug of /blog/instagram-reels-addiction/ (\"instagram reels addiction\", Jaccard 0.75)"
+		},
+		{
+			"query": "one sec alternatives",
+			"clicks": 0,
+			"impressions": 22,
+			"position": 9.2,
+			"page": "/blog/one-sec-alternatives/",
+			"owner": "/blog/one-sec-alternatives/",
+			"why": "overlaps slug of /blog/one-sec-alternatives/ (\"one sec alternatives\", Jaccard 1)"
+		},
+		{
+			"query": "how to stop watching youtube",
+			"clicks": 0,
+			"impressions": 16,
+			"position": 28.9,
+			"page": "/blog/stop-youtube-binge/",
+			"owner": "/blog/stop-youtube-binge/",
+			"why": "ranking page overlaps the query (0.6)"
+		},
+		{
+			"query": "one sec free alternative",
+			"clicks": 0,
+			"impressions": 16,
+			"position": 8.9,
+			"page": "/blog/one-sec-alternatives/",
+			"owner": "/blog/one-sec-alternatives/",
+			"why": "overlaps tag of /blog/one-sec-alternatives/ (\"one sec alternative free\", Jaccard 1)"
+		},
+		{
+			"query": "how to stop watching instagram reels",
+			"clicks": 0,
+			"impressions": 15,
+			"position": 24.3,
+			"page": "/blog/instagram-reels-addiction/",
+			"owner": "/blog/instagram-reels-addiction/",
+			"why": "overlaps tag of /blog/instagram-reels-addiction/ (\"stop watching reels\", Jaccard 0.75)"
+		},
+		{
+			"query": "apps like freedom",
+			"clicks": 0,
+			"impressions": 11,
+			"position": 8.1,
+			"page": "/blog/freedom-alternatives/",
+			"owner": "/blog/freedom-alternatives/",
+			"why": "ranking page overlaps the query (0.5)"
+		},
+		{
+			"query": "how to stop watching so much youtube",
+			"clicks": 0,
+			"impressions": 10,
+			"position": 28.2,
+			"page": "/blog/stop-youtube-binge/",
+			"owner": "/blog/stop-youtube-binge/",
+			"why": "ranking page overlaps the query (0.6)"
+		},
+		{
+			"query": "programs like freedom",
+			"clicks": 0,
+			"impressions": 10,
+			"position": 38.4,
+			"page": "/blog/freedom-alternatives/",
+			"owner": "/blog/freedom-alternatives/",
+			"why": "ranking page overlaps the query (0.4)"
+		},
+		{
+			"query": "apps like one sec but free",
+			"clicks": 0,
+			"impressions": 8,
+			"position": 11,
+			"page": "/blog/one-sec-alternatives/",
+			"owner": "/blog/one-sec-alternatives/",
+			"why": "overlaps title of /blog/one-sec-alternatives/ (\"Best One Sec Alternatives 2026 (Free Apps Like One Sec)\", Jaccard 0.67)"
+		},
+		{
+			"query": "apps like screenzen",
+			"clicks": 0,
+			"impressions": 8,
+			"position": 9,
+			"page": "/blog/screenzen-alternatives/",
+			"owner": "/blog/screenzen-alternatives/",
+			"why": "overlaps tag of /blog/screenzen-alternatives/ (\"apps like screenzen\", Jaccard 1)"
+		},
+		{
+			"query": "how do i stop watching youtube",
+			"clicks": 0,
+			"impressions": 8,
+			"position": 25.8,
+			"page": "/blog/stop-youtube-binge/",
+			"owner": "/blog/stop-youtube-binge/",
+			"why": "ranking page overlaps the query (0.6)"
+		},
+		{
+			"query": "opal moments alternatives",
+			"clicks": 0,
+			"impressions": 8,
+			"position": 18,
+			"page": "/blog/opal-alternatives/",
+			"owner": "/blog/opal-alternatives/",
+			"why": "overlaps slug of /blog/opal-alternatives/ (\"opal alternatives\", Jaccard 0.67)"
+		},
+		{
+			"query": "how to stop watching videos on youtube",
+			"clicks": 0,
+			"impressions": 7,
+			"position": 23.6,
+			"page": "/blog/stop-youtube-binge/",
+			"owner": "/blog/stop-youtube-binge/",
+			"why": "ranking page overlaps the query (0.5)"
+		},
+		{
+			"query": "screenzen alternative",
+			"clicks": 0,
+			"impressions": 7,
+			"position": 27.6,
+			"page": "/blog/screenzen-alternatives/",
+			"owner": "/blog/screenzen-alternatives/",
+			"why": "overlaps slug of /blog/screenzen-alternatives/ (\"screenzen alternatives\", Jaccard 1)"
+		}
+	],
+	"gsc_gap_queries": [
+		{
+			"query": "freedom vs cold turkey",
+			"impressions": 41,
+			"position": 59.5,
+			"page": "/blog/freedom-alternatives/",
+			"striking": false,
+			"cluster_guess": null
+		},
+		{
+			"query": "social media blocker market",
+			"impressions": 17,
+			"position": 58.9,
+			"page": "/blog/do-app-blockers-work/",
+			"striking": false,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "what are the benefits of blocking distracting apps",
+			"impressions": 9,
+			"position": 20.9,
+			"page": "/blog/do-app-blockers-work/",
+			"striking": true,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "best chrome extensionsfocus",
+			"impressions": 6,
+			"position": 76.8,
+			"page": "/blog/best-chrome-extensions-focus/",
+			"striking": false,
+			"cluster_guess": "chrome-desktop"
+		},
+		{
+			"query": "cold turkey vs freedom",
+			"impressions": 4,
+			"position": 55,
+			"page": "/blog/freedom-alternatives/",
+			"striking": false,
+			"cluster_guess": null
+		},
+		{
+			"query": "focusme vs freedom",
+			"impressions": 4,
+			"position": 52.8,
+			"page": "/blog/freedom-alternatives/",
+			"striking": false,
+			"cluster_guess": null
+		},
+		{
+			"query": "freedom application",
+			"impressions": 4,
+			"position": 78.5,
+			"page": "/blog/freedom-alternatives/",
+			"striking": false,
+			"cluster_guess": null
+		},
+		{
+			"query": "benefits of blocking distracting apps",
+			"impressions": 3,
+			"position": 23,
+			"page": "/blog/do-app-blockers-work/",
+			"striking": true,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "digital well-being",
+			"impressions": 3,
+			"position": 88.3,
+			"page": "/blog/what-is-digital-wellbeing/",
+			"striking": false,
+			"cluster_guess": "detox-habits"
+		},
+		{
+			"query": "how to spend less time on tiktok",
+			"impressions": 3,
+			"position": 29,
+			"page": "/blog/stop-tiktok-scrolling/",
+			"striking": true,
+			"cluster_guess": "per-app"
+		},
+		{
+			"query": "how to stay in the same subreddit while scrolling",
+			"impressions": 3,
+			"position": 8.3,
+			"page": "/blog/stop-reddit-scrolling/",
+			"striking": true,
+			"cluster_guess": null
+		},
+		{
+			"query": "stay focused plugin",
+			"impressions": 3,
+			"position": 59,
+			"page": "/blog/best-chrome-extensions-focus/",
+			"striking": false,
+			"cluster_guess": null
+		},
+		{
+			"query": "1 second everyday alternative",
+			"impressions": 2,
+			"position": 54.5,
+			"page": "/blog/one-sec-alternatives/",
+			"striking": false,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "behavior blocker",
+			"impressions": 2,
+			"position": 55,
+			"page": "/blog/do-app-blockers-work/",
+			"striking": false,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "breaking doomscrolling habit",
+			"impressions": 2,
+			"position": 68.5,
+			"page": "/blog/how-to-stop-doomscrolling/",
+			"striking": false,
+			"cluster_guess": "detox-habits"
+		},
+		{
+			"query": "build me a list of the top screen time management apps that work across ios and android devices with parental dashboards.",
+			"impressions": 2,
+			"position": 9.5,
+			"page": "/blog/best-screen-time-apps-2026/",
+			"striking": true,
+			"cluster_guess": "iphone"
+		},
+		{
+			"query": "how to limit instagram use",
+			"impressions": 2,
+			"position": 66.5,
+			"page": "/blog/reduce-instagram-usage/",
+			"striking": false,
+			"cluster_guess": "parents-teens"
+		},
+		{
+			"query": "screen time calculator for pc",
+			"impressions": 2,
+			"position": 52,
+			"page": "/screen-time-calculator/",
+			"striking": false,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "stay focused extension",
+			"impressions": 2,
+			"position": 83.5,
+			"page": "/blog/best-chrome-extensions-focus/",
+			"striking": false,
+			"cluster_guess": "chrome-desktop"
+		},
+		{
+			"query": "stayfocusd extension",
+			"impressions": 2,
+			"position": 92.5,
+			"page": "/blog/best-chrome-extensions-focus/",
+			"striking": false,
+			"cluster_guess": "chrome-desktop"
+		},
+		{
+			"query": "12 hours screen time per day",
+			"impressions": 1,
+			"position": 100,
+			"page": "/blog/how-much-screen-time-is-too-much/",
+			"striking": false,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "app blockieren iphone",
+			"impressions": 1,
+			"position": 93,
+			"page": "/blog/how-to-block-apps-iphone/",
+			"striking": false,
+			"cluster_guess": "iphone"
+		},
+		{
+			"query": "appaware app blocking",
+			"impressions": 1,
+			"position": 16,
+			"page": "/blog/do-app-blockers-work/",
+			"striking": true,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "apps to keep you off your phone while studying",
+			"impressions": 1,
+			"position": 96,
+			"page": "/blog/screen-time-apps-for-students/",
+			"striking": false,
+			"cluster_guess": "students"
+		},
+		{
+			"query": "data wellbeing",
+			"impressions": 1,
+			"position": 43,
+			"page": "/blog/what-is-digital-wellbeing/",
+			"striking": false,
+			"cluster_guess": "detox-habits"
+		}
+	],
+	"coverage": [
+		{
+			"cluster": "students",
+			"rotate": true,
+			"posts": 1,
+			"last_onsite": "2026-02-01",
+			"last_offsite": null
+		},
+		{
+			"cluster": "parents-teens",
+			"rotate": true,
+			"posts": 2,
+			"last_onsite": "2026-02-28",
+			"last_offsite": null
+		},
+		{
+			"cluster": "professionals",
+			"rotate": true,
+			"posts": 2,
+			"last_onsite": "2026-02-28",
+			"last_offsite": null
+		},
+		{
+			"cluster": "adhd-attention",
+			"rotate": true,
+			"posts": 2,
+			"last_onsite": "2026-02-28",
+			"last_offsite": null
+		},
+		{
+			"cluster": "per-app",
+			"rotate": true,
+			"posts": 8,
+			"last_onsite": "2026-11-03",
+			"last_offsite": null
+		},
+		{
+			"cluster": "sleep-night",
+			"rotate": true,
+			"posts": 2,
+			"last_onsite": "2026-01-23",
+			"last_offsite": null
+		},
+		{
+			"cluster": "ai-screen-time",
+			"rotate": true,
+			"posts": 12,
+			"last_onsite": "2026-11-03",
+			"last_offsite": null
+		},
+		{
+			"cluster": "android",
+			"rotate": true,
+			"posts": 3,
+			"last_onsite": "2026-02-28",
+			"last_offsite": null
+		},
+		{
+			"cluster": "iphone",
+			"rotate": true,
+			"posts": 4,
+			"last_onsite": "2026-11-03",
+			"last_offsite": null
+		},
+		{
+			"cluster": "chrome-desktop",
+			"rotate": true,
+			"posts": 2,
+			"last_onsite": "2026-02-28",
+			"last_offsite": null
+		},
+		{
+			"cluster": "detox-habits",
+			"rotate": true,
+			"posts": 17,
+			"last_onsite": "2026-02-28",
+			"last_offsite": null
+		},
+		{
+			"cluster": "comparisons",
+			"rotate": false,
+			"posts": 18,
+			"last_onsite": "2026-11-03",
+			"last_offsite": null
+		},
+		{
+			"cluster": "product",
+			"rotate": false,
+			"posts": 7,
+			"last_onsite": "2026-11-03",
+			"last_offsite": null
+		}
+	],
+	"rejected_backlog": [],
+	"summary_md": "## Content plan 2026-46\n\n**On-site:** Revenge Bedtime Procrastination: Why You Scroll Late  \ncluster `sleep-night` (Sleep, night and morning scrolling), target query \"revenge bedtime procrastination\", intent informational, slug `revenge-bedtime-procrastination`  \nwhy: GSC demand (1 impression in 28 days on 1 related query) in the cluster ranked #1 least recently covered\n\n**Off-site:** Co-pilot, not warden: how to set phone limits with a teenager instead of for them  \ncluster `parents-teens` (Parents and teens), utm_campaign `offsite_2026_46`, sites: medium, linkedin, parenting blogs (guest post), school newsletters  \nwhy: least recently used off-site (no off-site piece yet), different cluster from the on-site post\n\n### Last weeks' results (GSC, last 28 days)\n\n_No pipeline posts yet._\n\n### Refresh opportunities (striking distance on a page that owns the query)\n\n| Query | Page | Impressions | Position |\n|---|---|---:|---:|\n| one sec alternative | /blog/one-sec-alternatives/ | 30 | 8.8 |\n| how to stop instagram reels addiction | /blog/instagram-reels-addiction/ | 24 | 21.1 |\n| one sec alternatives | /blog/one-sec-alternatives/ | 22 | 9.2 |\n| how to stop watching youtube | /blog/stop-youtube-binge/ | 16 | 28.9 |\n| one sec free alternative | /blog/one-sec-alternatives/ | 16 | 8.9 |\n| how to stop watching instagram reels | /blog/instagram-reels-addiction/ | 15 | 24.3 |\n| apps like freedom | /blog/freedom-alternatives/ | 11 | 8.1 |\n| how to stop watching so much youtube | /blog/stop-youtube-binge/ | 10 | 28.2 |\n\n### Queries with no dedicated page (backlog ideas)\n\n| Query | Impressions | Position | Cluster guess |\n|---|---:|---:|---|\n| freedom vs cold turkey | 41 | 59.5 | – |\n| social media blocker market | 17 | 58.9 | comparisons |\n| what are the benefits of blocking distracting apps | 9 | 20.9 | comparisons |\n| best chrome extensionsfocus | 6 | 76.8 | chrome-desktop |\n| cold turkey vs freedom | 4 | 55 | – |\n| focusme vs freedom | 4 | 52.8 | – |\n| freedom application | 4 | 78.5 | – |\n| benefits of blocking distracting apps | 3 | 23 | comparisons |\n| digital well-being | 3 | 88.3 | detox-habits |\n| how to spend less time on tiktok | 3 | 29 | per-app |\n\n### Cluster coverage\n\n| Cluster | Posts | Last on-site | Last off-site |\n|---|---:|---|---|\n| students | 1 | 2026-02-01 | – |\n| parents-teens | 2 | 2026-02-28 | – |\n| professionals | 2 | 2026-02-28 | – |\n| adhd-attention | 2 | 2026-02-28 | – |\n| per-app | 8 | 2026-11-03 | – |\n| sleep-night | 2 | 2026-01-23 | – |\n| ai-screen-time | 12 | 2026-11-03 | – |\n| android | 3 | 2026-02-28 | – |\n| iphone | 4 | 2026-11-03 | – |\n| chrome-desktop | 2 | 2026-02-28 | – |\n| detox-habits | 17 | 2026-02-28 | – |\n| comparisons (not rotated) | 18 | 2026-11-03 | – |\n| product (not rotated) | 7 | 2026-11-03 | – |"
+}
