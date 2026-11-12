@@ -1,9 +1,9 @@
 ---
 title: Privacy Policy for Respite
-updated: 2026-11-03
+updated: 2026-11-12
 ---
 
-> **Updated 3 November 2026.** This version adds connecting an AI app that you choose (optional, Respite Plus), including letting it make your limits stricter, and corrects and completes earlier wording, including analytics and crash reports, sign-in options, sync across devices, purchases, and rewards, friends and leagues. The changes are also listed on [What's new](/whats-new/).
+> **Updated 12 November 2026.** This version covers the reason you can give when you continue past a pause, the Pause history screen, short messages and focus sessions that an AI app you connect can add, and corrects what we said about managing connections in the app. The changes are also listed on [What's new](/whats-new/).
 
 Respite helps you notice and cut back on compulsive app use by
 showing a short pause before the apps you choose. This policy explains what the iPhone and iPad
@@ -23,7 +23,7 @@ app collects, why, and where it goes. The [Android app](/privacy/android/) and t
   across your devices. Your game progress, friends and leagues use the same account.
 - Respite sends **anonymous usage and crash data** to Google Firebase. It is on until you turn it
   off in You › Help and about › Share usage and crash data.
-- **Optional, Respite Plus:** you can connect an **AI app that you choose** so it can read your Respite data and, if you allow it, make your limits stricter. Nothing is shared until you approve it, and the AI provider's own privacy policy
+- **Optional, Respite Plus:** you can connect an **AI app that you choose** so it can read your Respite data and, if you allow it, make your limits stricter and add short messages to your pauses. Nothing is shared until you approve it, and the AI provider's own privacy policy
   then applies to what it receives. See
   [Connecting an AI app](#connecting-an-ai-app-optional-respite-plus).
 - We don't show ads and we don't sell your data.
@@ -41,8 +41,14 @@ which pages you visit on a website you limit.
 
 - **The apps you chose** (as Screen Time tokens) and the limits, locks, schedules and settings you
   set.
-- **Daily minutes** per chosen app, and how you answered each pause (left, continued, snoozed)
-  and whether you rated its timing.
+- **Daily minutes** per chosen app, and how you answered each pause (left, continued, snoozed),
+  why you continued if you said (see below) and whether you rated its timing.
+- **The reason you give when you continue** past a pause, if you give one: one of "Something
+  specific", "A short break" or "Out of habit". You choose it from a menu on the pause, and you can
+  turn the question off in Limits and pauses › "Ask why I'm continuing". Walking away never asks.
+  Respite keeps it with that pause answer.
+- **Pause history** (in Insights) lists those pause answers on this iPhone. It is a view of data
+  already listed here and collects nothing new.
 - **Streaks, achievements, your wellbeing score** and your answers to the optional "Smart timing"
   questions, plus what Respite learned about which kind of pause helps you.
 
@@ -75,7 +81,9 @@ While you are signed in, Respite saves this to our server:
 - **Your goals and streaks:** the daily limit, whether it locks, how the pause is shown, streaks
   and recovery progress.
 - **Daily minutes per app, and your pause answers:** the time and day, what the pause was and what
-  you chose, and the timing rating if you gave one.
+  you chose, and the timing rating if you gave one. With **Respite Plus**, the reason you gave
+  when you continued goes up with the answer too. Answers you gave without Plus are never sent
+  with a reason afterwards.
 - **Your settings**, such as theme, reminders and blocking schedules (a schedule's name, days,
   times and which apps it covers).
 - **Your Screen Time selection and shield settings** for this iPhone. These are Apple's opaque
@@ -137,6 +145,8 @@ reports.
   installation ID that Respite creates. If you are signed in, that ID is also kept in your
   account settings, so it survives a restore.
 
+The reason you give when you continue past a pause, and the text of any AI pause message, are never sent to Firebase.
+
 We use this only to fix bugs and improve Respite. It isn't used for advertising.
 
 ### Purchases (RevenueCat)
@@ -180,21 +190,15 @@ Allow.** If you tap Deny, nothing is shared.
 - **Your limits and schedules:** per-app limits, locks, how each pause is shown, streaks,
   blocking schedules (name, days, times and apps) and your other synced settings.
 - **Sessions and pauses:** when you used an app (start, end, minutes) and what Respite showed you
-  at a limit and what you chose, including any timing rating you gave.
+  at a limit and what you chose, including any timing rating you gave and the reason you gave
+  when you continued (one of the three above), with a count of the reasons by app.
+- **Your AI's own changes:** the pause messages, focus session and unblocks described below.
 - **Your game progress:** acorns, level, streak, streak freezes, today's quests, items you own,
   recent acorn entries, and your own weekly league tier and rank. Never other people.
 
-**What the AI can change, if you allow it.** On the approval page you choose whether the AI may
-also manage your limits. With that permission it can add a daily limit for an app, lower a
-limit, or add a blocking schedule. These take effect at once and sync to your devices like a
-change you made yourself. **It can't loosen anything on its own:** raising or removing a limit,
-or removing a schedule, becomes a request that waits for you to approve it in Respite and
-expires after 7 days. An AI can undo changes it made, and you can approve, reject or undo AI
-changes in Respite's Connected AI screen as it arrives in app updates; until then you can change
-any limit yourself. A connection can make at most 30 changes an hour. An AI can't change pause
-messages or rules, write your usage history, or earn or spend acorns. The approval page may list
-permissions for pause messages and rules; no tool uses them yet, and we'll update this policy
-before that changes.
+**What the AI can change, if you allow it.** On the approval page you choose, with a box that is not ticked for you, whether the AI may manage your limits, and, with another box, whether it may add short messages to your pauses. With the limits permission it can add a daily limit for an app, lower a limit, add a blocking schedule, or start a focus session of 5 to 180 minutes. These take effect at once and sync to your devices like a change you made yourself. **It can't loosen anything on its own:** raising or removing a limit, removing a schedule, ending a focus session early, or opening an app for 5 to 30 minutes ("unblocking" it) becomes a request that waits for you to approve it in Respite. Requests to end a session early or unblock an app expire after 1 hour, other requests after 7 days. An approved unblock never lifts a blocking schedule, a focus session or strict mode. An AI can undo changes it made, and you can approve, reject or undo AI changes in Respite's Connected AI screen. A connection can make at most 30 changes an hour. An AI can't write rules, write your usage history, or earn or spend acorns.
+
+**Pause messages and focus sessions.** If you allow pause messages, the AI can add and remove short messages (1 to 140 characters of plain text, no links, up to 10 at a time) for some of your apps or all of them. We store each message's text, the name of the AI that wrote it, the apps it covers and when it was added, as a setting on your account, and it syncs to your devices. With Respite Plus your devices show one of them on a pause for a covered app. Respite doesn't write or review these messages; the AI does. You can remove any message, or all of them, in Connected AI. They are kept if Plus ends but not shown, and they are never sent to usage and crash data. A focus session an AI starts is also saved as a setting on your account (the apps it covers, when it ends and the AI's name) so that your devices can start it, and so is an unblock you approved (the app, the AI's name and when it ends). You can end a focus session on any of your devices at any time. Focus sessions you start yourself stay on your device, as before.
 
 **Where the data goes.** When your AI app uses Respite's tools, the answers are sent to that AI
 provider so it can read them and reply to you. From then on the provider handles that data under
@@ -204,17 +208,18 @@ AI provider pays us.** Read your AI provider's policy and settings before you co
 
 **What Respite does not do.** Respite doesn't run an AI of its own on your data, doesn't send your
 data to an AI provider on its own, and doesn't use your data to train AI models. We don't keep a
-copy of what your AI asked or was told; we keep only the facts about the connection below.
+copy of what your AI asked or was told; we keep only the pause messages, focus sessions and
+unblocks described above and the facts about the connection below.
 
 **What we store about a connection:**
 
 - the AI app's name and the web addresses it registered to receive your approval;
-- a log of each change an AI made or asked for: which connection, the app or schedule affected
-  (including the app's name), the value before and after, the short reason the AI gave (up to
+- a log of each change an AI made or asked for (limits, schedules, pause messages, focus sessions and unblocks): which connection, the app or schedule affected
+  (including the app's name) or the message text, the value before and after, the short reason the AI gave (up to
   280 characters, written by the AI), and when it was made, approved, rejected or undone.
   Entries are deleted 90 days after they were made, and all of them when you delete your
   account;
-- which permissions you allowed, when you connected, when it was last used, and when it was
+- which permissions you allowed (including whether it may add pause messages), when you connected, when it was last used, and when it was
   disconnected;
 - the access and refresh tokens it uses, saved only as one-way hashes. Access tokens last one
   hour. Refresh tokens last 30 days and are replaced each time they are used;
@@ -222,10 +227,10 @@ copy of what your AI asked or was told; we keep only the facts about the connect
   (10 minutes), tied to your browser with a short-lived cookie. The cookie only makes sure that
   the person who started the request is the person who approves it.
 
-**Disconnecting.** Remove Respite from your AI app's connections. If your AI app tells us
+**Disconnecting.** You can disconnect an AI in Respite (You › Connected AI), or remove Respite from your AI app's connections. If your AI app tells us
 when you remove it, access ends at once and its tokens are deleted. Otherwise its access
-token expires within an hour and its refresh token stops working 30 days after it was last used. Respite doesn't yet list your connections in
-the app. If you can't disconnect from your AI app, email us and we'll end the connection. A
+token expires within an hour and its refresh token stops working 30 days after it was last used.
+If you can't disconnect either way, email us and we'll end the connection. A
 disconnected connection leaves a record of its name, permissions and dates (and its change log entries until they are 90 days old) until you delete your
 account. **Deleting your account removes all your AI connections.**
 
@@ -233,7 +238,9 @@ account. **Deleting your account removes all your AI connections.**
 
 - **Screen Time:** to pause and lock the apps and websites you choose and count your time in them,
   as above.
-- **Notifications (optional):** for daily reminders, your goals summary and the lock-override
+- **Notifications (optional):** for daily reminders, your goals summary, a "5 minutes left" heads-up
+  shortly before an app locks or pauses for the day (on once you allow notifications; you can turn
+  it off in You › Notifications), and the lock-override
   prompt.
 
 ## Sharing
