@@ -4,7 +4,7 @@ import Postcard from '../components/world/Postcard.astro';
 import AppMark from '@intently/ui/AppMark.astro';
 import { STUDIO } from '@intently/registry';
 import { CHAPTERS } from '../data/chapters.ts';
-import { siteUrl } from '../data/apps.ts';
+import { ctaFor, siteUrl } from '../data/apps.ts';
 ---
 
 <Base title="About" sky="night" description="Intently is a small independent studio making calm, private apps for living each part of the day on purpose.">
@@ -35,7 +35,7 @@ import { siteUrl } from '../data/apps.ts';
 						<a class="aspect" href={c.path}><span class="star" aria-hidden="true"></span>{c.name}</a>
 						<span class="list">
 							{c.apps.map((a) => (
-								<a class="app" href={siteUrl(a)}><AppMark app={a} size={28} /> {a.name}</a>
+								<a class="app" href={siteUrl(a)} data-cta={ctaFor(a)} data-placement="apps_list"><AppMark app={a} size={28} /> {a.name}</a>
 							))}
 						</span>
 					</li>

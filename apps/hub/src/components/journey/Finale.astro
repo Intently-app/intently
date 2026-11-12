@@ -8,7 +8,7 @@ import AppMark from '@intently/ui/AppMark.astro';
 import { CHAPTERS, type ChapterId } from '../../data/chapters.ts';
 import Postcard from '../world/Postcard.astro';
 import Hour from '../world/Hour.astro';
-import { siteUrl, statusLabel } from '../../data/apps.ts';
+import { ctaFor, siteUrl, statusLabel } from '../../data/apps.ts';
 
 interface Props {
 	/** The ground colour of the scene above it. */
@@ -78,7 +78,7 @@ const SPOTS: Record<ChapterId, [number, number, 'left' | 'right' | 'top']> = {
 								const status = statusLabel(a);
 								return (
 									<li>
-										<a class="app" href={siteUrl(a)}>
+										<a class="app" href={siteUrl(a)} data-cta={ctaFor(a)} data-placement="apps_list">
 											<AppMark app={a} size={46} />
 											<span class="text">
 												<strong>{a.name}</strong>

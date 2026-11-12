@@ -1,6 +1,6 @@
 ---
 title: Privacy Policy for the Respite website
-updated: 2026-11-05
+updated: 2026-11-12
 ---
 
 This policy covers the Respite website at **respite.liveintently.app** only. The apps have their
@@ -12,24 +12,31 @@ own policies: [iPhone](/privacy/), [Android](/privacy/android/) and [Chrome](/pr
 ## The short version
 
 - The site shows no ads and doesn't sell data.
-- We measure visits with Ahrefs Web Analytics, which sets no cookies, and Google Analytics.
-- In the EEA, the UK and Switzerland, Google Analytics sets no cookies either.
+- We measure visits and clicks with Google Analytics. Nothing you type or answer on the site is
+  sent to it.
+- In the EEA, the UK and Switzerland, Google Analytics sets no cookies.
 - The contact form and the account deletion page send only what you type into them.
 
 ## Visit statistics
 
-**Ahrefs Web Analytics** counts page views, referrers and clicks on store buttons. It sets no
-cookies and doesn't identify you.
-
 **Google Analytics 4** measures which pages are read, how visitors arrive (search, links,
-campaign tags), the device type, browser, rough location (country and city, from the IP address,
-which Google doesn't store) and clicks on App Store, Google Play and Chrome Web Store buttons.
+campaign tags), the device type, browser and rough location (country and city, from the IP
+address, which Google doesn't store). It also counts a few actions on the site:
+
+- clicks on App Store, Google Play and Chrome Web Store buttons, and on the site's main buttons
+  (such as "Download" or "Take the quiz"), with the page and the part of the page they were on;
+- shares of an article or tool with the site's share buttons;
+- a finished quiz, calculator or app score, with only a broad result band (for example "mild",
+  or "2 to 4 hours a day"), never your answers, ages, hours or chosen apps;
+- a contact message sent, without anything you wrote in it.
 
 - **In the EEA, the UK and Switzerland** it runs in Google's Consent Mode with analytics storage
   denied. It sets no cookies, keeps no identifier between pages or visits, and sends only
   cookieless pings that Google uses for aggregate estimates.
 - **Elsewhere** it sets first-party cookies (`_ga`, `_ga_*`) that last up to 2 years. These cookies
-  recognise a returning browser, so that visits and visitors can be counted.
+  recognise a returning browser, so that visits and visitors can be counted. They belong to
+  liveintently.app, because our studio site there uses the same measurement: a visit that goes on
+  from one site to the other counts as one visit.
 - **Everywhere**, advertising storage, ad personalisation and Google signals are off. Nothing is
   used for advertising or linked to a Google account.
 

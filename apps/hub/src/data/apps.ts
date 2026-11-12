@@ -18,6 +18,13 @@ export function stores(app: App): { label: string; href: string }[] {
 
 export const siteUrl = (app: App) => `https://${app.host}`;
 
+/**
+ * The data-cta id for links to an app's site or stores, counted as GA4 cta_click by the script in
+ * layouts/Base.astro. Only Respite is measured for now. Never add UTMs to these links: the hub and
+ * respite.liveintently.app share one GA4 stream and one session (docs/utm.md).
+ */
+export const ctaFor = (app: App): string | undefined => (app.id === 'respite' ? 'respite_card' : undefined);
+
 /** "Respite", "Loop and Respite", "A, B and C". */
 export function names(apps: App[]): string {
 	const n = apps.map((a) => a.name);

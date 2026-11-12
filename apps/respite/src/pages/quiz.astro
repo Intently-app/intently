@@ -170,8 +170,8 @@ const questions = [
 						<div class="m-tool-meter" aria-hidden="true"><span id="result-meter"></span></div>
 						<p class="m-tool-step" id="result-score"></p>
 						<ul id="recommendations-list" class="m-tool-tips" aria-label="What to try"></ul>
-						<div class="m-actions">
-							<a href="/download/" class="m-btn">Try Respite on one app</a>
+						<div class="m-actions" data-placement="result">
+							<a href="/download/" class="m-btn" data-cta="download">Try Respite on one app</a>
 							<a href="/blog/how-to-stop-phone-addiction/" class="m-btn is-soft">How to cut back</a>
 						</div>
 						<button type="button" id="retake-quiz" class="m-tool-retake">Take it again</button>
@@ -204,6 +204,8 @@ const questions = [
 		<Footer />
 
 		<script>
+			import { toolCompleteParams, track } from '../lib/analytics';
+
 			let currentQuestion = 1;
 			let totalScore = 0;
 			const totalQuestions = 8;
@@ -291,6 +293,8 @@ const questions = [
 				document.getElementById('result-score')!.textContent = `${totalScore} out of 24`;
 				document.getElementById('result-meter')!.style.left = `${(totalScore / 24) * 100}%`;
 				showBiscuit({ severe: 'concerned', moderate: 'thinking', mild: 'happy', healthy: 'cheer' }[level as string] ?? 'idle');
+				// Only the level (healthy … severe), never the answers.
+				track('tool_complete', toolCompleteParams('quiz', level));
 
 
 				const recList = document.getElementById('recommendations-list')!;

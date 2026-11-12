@@ -168,9 +168,9 @@ const faqs = [
 									<button id="share-copy-score" class="m-btn is-soft share-btn" aria-label="Copy link">Copy Link</button>
 								</div>
 
-								<div class="m-actions score-cta">
-									<a href="/download/" class="m-btn">Try Respite on one app</a>
-									<a href="/screen-time-calculator/" class="m-btn is-soft">Add up your screen time</a>
+								<div class="m-actions score-cta" data-placement="result">
+									<a href="/download/" class="m-btn" data-cta="download">Try Respite on one app</a>
+									<a href="/screen-time-calculator/" class="m-btn is-soft" data-cta="calculator">Add up your screen time</a>
 								</div>
 
 								<button id="retake-score" class="m-tool-retake">Start Over</button>
@@ -203,6 +203,8 @@ const faqs = [
 		<Footer />
 
 		<script>
+			import { page, shareParams, toolCompleteParams, track } from '../lib/analytics';
+
 			// ===== APP DATABASE =====
 			interface AppData {
 				name: string;
@@ -414,10 +416,11 @@ const faqs = [
 				}
 
 				await new Promise(r => setTimeout(r, prefersReducedMotion ? 200 : 600));
-				showResults();
+				showResults(true);
 			}
 
-			function showResults() {
+			/** fresh: the visitor just ran the scan (a result restored from a shared link isn't a completion). */
+			function showResults(fresh = false) {
 				document.getElementById('phase-scan')!.style.display = 'none';
 				document.getElementById('phase-results')!.style.display = '';
 
@@ -455,6 +458,8 @@ const faqs = [
 				}
 				gaugeLabel.textContent = level.label;
 				gaugeLabel.style.fill = level.color;
+				// Only the level (Low … Critical), never the apps picked.
+				if (fresh) track('tool_complete', toolCompleteParams('addiction_score', level.label));
 
 				// Nutrition labels
 				renderNutritionCards();
@@ -662,6 +667,7 @@ const faqs = [
 			document.getElementById('share-copy-score')!.addEventListener('click', async () => {
 				try {
 					await navigator.clipboard.writeText(window.location.href);
+					track('share', shareParams('copy_link', 'tool', page()));
 					const btn = document.getElementById('share-copy-score')!;
 					btn.textContent = 'Copied!';
 					setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);

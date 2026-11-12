@@ -53,8 +53,6 @@ const {
 <link rel="preload" href="/fonts/atkinson-bold.woff2" as="font" type="font/woff2" crossorigin />
 
 <!-- Preconnect to external domains for faster loading -->
-<link rel="preconnect" href="https://analytics.ahrefs.com" />
-<link rel="dns-prefetch" href="https://analytics.ahrefs.com" />
 <link rel="preconnect" href="https://www.googletagmanager.com" />
 
 <!-- Canonical URL (none on noindex pages: the 404 page is served at every missing path) -->
@@ -119,19 +117,11 @@ const {
 <!-- Organization Schema -->
 <OrganizationSchema />
 
-<!-- Store-link attribution: UTMs and campaign tokens on store links, store_click events (src/lib/attribution.ts) -->
+<!-- Analytics: campaign tags on store links, and the GA4 events store_click, cta_click and the rest
+     (src/lib/analytics.ts; event table in docs/utm.md) -->
 <script>
-  import { initAttribution } from '../lib/attribution';
-  initAttribution();
-</script>
-
-<!-- Ahrefs Web Analytics -->
-<script is:inline>
-  var ahrefs_analytics_script = document.createElement('script');
-  ahrefs_analytics_script.async = true;
-  ahrefs_analytics_script.src = 'https://analytics.ahrefs.com/analytics.js';
-  ahrefs_analytics_script.setAttribute('data-key', 'Sd2CQ7ks44YVx4SUPYYfRw');
-  document.getElementsByTagName('head')[0].appendChild(ahrefs_analytics_script);
+  import { initAnalytics } from '../lib/analytics';
+  initAnalytics();
 </script>
 
 <!-- Google Analytics 4, web stream "Respite Website" (G-40F2MVBEQE), with Consent Mode v2.

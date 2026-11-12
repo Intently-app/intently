@@ -6,6 +6,7 @@ import Button from '../components/ui/Button.astro';
 import Biscuit from '../components/ui/Biscuit.astro';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
 import { getChangelog } from '../data/changelog';
+import { ctaForHref } from '../lib/analytics-core';
 
 const entries = getChangelog().map((entry) => ({
 	...entry,
@@ -58,20 +59,20 @@ const entries = getChangelog().map((entry) => ({
 								<ul class="platforms" aria-label="Available on">
 									{entry.platforms.map((platform) => <li>{platform}</li>)}
 								</ul>
-								<a href={entry.link} class="entry-link">Read the details →</a>
+								<a href={entry.link} class="entry-link" data-cta={ctaForHref(entry.link)} data-placement="changelog">Read the details →</a>
 							</div>
 						</article>
 					))}
 				</div>
 			</section>
 
-			<section class="cta-section">
+			<section class="cta-section" data-placement="final_cta">
 				<div class="container">
 					<h2>Try it for yourself</h2>
 					<p>Respite is free, with no ads. An account is optional.</p>
 					<div class="cta-buttons">
-						<Button href="/download/" variant="primary" size="lg">Download Free</Button>
-						<Button href="/features/" variant="secondary" size="lg">See all features</Button>
+						<Button href="/download/" variant="primary" size="lg" data-cta="download">Download Free</Button>
+						<Button href="/features/" variant="secondary" size="lg" data-cta="features">See all features</Button>
 					</div>
 				</div>
 			</section>

@@ -100,6 +100,46 @@ const listed = APPS.filter((a) => a.status !== 'soon');
 		})} />
 		{schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
 		<SkyStyles />
+		<!-- Google Analytics 4: the same web stream as respite.liveintently.app ("Respite Website",
+		     G-40F2MVBEQE) on purpose. Both sit under liveintently.app, so the first-party cookie is
+		     shared and hub → Respite stays one session; never put UTMs on hub links to Respite.
+		     Consent Mode v2, no banner: in the EEA, the UK and Switzerland analytics_storage stays
+		     denied, so GA4 sets no cookies there and sends cookieless pings only. Elsewhere it uses
+		     first-party cookies. Ads storage, ad user data and personalisation are denied everywhere,
+		     and Google signals is off. Disclosed at /legal/privacy/. Keep in step with the Respite
+		     site's BaseHead.astro. -->
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() { dataLayer.push(arguments); }
+			var noAds = { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' };
+			gtag('consent', 'default', Object.assign({ analytics_storage: 'denied', region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'] }, noAds));
+			gtag('consent', 'default', Object.assign({ analytics_storage: 'granted' }, noAds));
+			gtag('js', new Date());
+			gtag('config', 'G-40F2MVBEQE', { allow_google_signals: false, allow_ad_personalization_signals: false });
+
+			// cta_click for links marked data-cta (src/data/apps.ts ctaFor): one listener for the page.
+			// Only the link's id, page and placement go with it (docs/utm.md, "Events").
+			(function () {
+				function onClick(e) {
+					if (e.type === 'auxclick' && e.button !== 1) return;
+					var el = e.target && e.target.closest ? e.target.closest('[data-cta]') : null;
+					if (!el) return;
+					var placed = el.closest('[data-placement]');
+					var parts = location.pathname.split('/').filter(Boolean);
+					gtag('event', 'cta_click', {
+						cta: el.getAttribute('data-cta'),
+						page: (parts[parts.length - 1] || 'home').replace(/[^a-z0-9]+/gi, '_').toLowerCase(),
+						section: 'hub',
+						placement: placed ? placed.getAttribute('data-placement') : 'body',
+						link_url: el.href || '',
+						transport_type: 'beacon',
+					});
+				}
+				document.addEventListener('click', onClick, true);
+				document.addEventListener('auxclick', onClick, true);
+			})();
+		</script>
+		<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-40F2MVBEQE"></script>
 	</head>
 	<body>
 		<MarkSymbol />

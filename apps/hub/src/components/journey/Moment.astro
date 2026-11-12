@@ -3,7 +3,7 @@
 import AppMark from '@intently/ui/AppMark.astro';
 import Postcard from '../world/Postcard.astro';
 import type { Chapter } from '../../data/chapters.ts';
-import { siteUrl } from '../../data/apps.ts';
+import { ctaFor, siteUrl } from '../../data/apps.ts';
 
 interface Props {
 	chapter: Chapter;
@@ -25,7 +25,7 @@ const many = c.apps.length > 1;
 			<span class="marks" aria-hidden="true">{c.apps.map((a) => <AppMark app={a} size={28} />)}</span>
 			<span>{many ? 'Our apps for this' : 'Our app for this'}:
 				{c.apps.map((a, i) => (
-					<>{i > 0 && ' and '}<a href={siteUrl(a)}>{a.name}</a></>
+					<>{i > 0 && ' and '}<a href={siteUrl(a)} data-cta={ctaFor(a)} data-placement="moment">{a.name}</a></>
 				))}
 			</span>
 		</p>

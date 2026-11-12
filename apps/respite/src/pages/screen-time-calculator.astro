@@ -271,9 +271,9 @@ const howToSteps = [
 										<button id="share-copy" class="m-btn is-soft share-btn" aria-label="Copy link">Copy Link</button>
 									</div>
 
-									<div class="m-actions calc-cta">
-										<a href="/download/" class="m-btn">Try Respite on one app</a>
-										<a href="/app-addiction-score/" class="m-btn is-soft">Score your apps</a>
+									<div class="m-actions calc-cta" data-placement="result">
+										<a href="/download/" class="m-btn" data-cta="download">Try Respite on one app</a>
+										<a href="/app-addiction-score/" class="m-btn is-soft" data-cta="addiction_score">Score your apps</a>
 									</div>
 
 									<button id="retake-calc" class="m-tool-retake">Start Over</button>
@@ -307,6 +307,8 @@ const howToSteps = [
 		<Footer />
 
 		<script>
+			import { calculatorBand, page, shareParams, toolCompleteParams, track } from '../lib/analytics';
+
 			// ===== STATE =====
 			let dailyHours = 4;
 			let currentAge = 28;
@@ -445,6 +447,8 @@ const howToSteps = [
 				});
 				document.getElementById('calc-progress')!.style.width = '100%';
 				document.getElementById('results-container')!.style.display = '';
+				// Only a wide band of daily hours, never the hours or ages entered.
+				track('tool_complete', toolCompleteParams('calculator', calculatorBand(dailyHours)));
 
 				// Card 1: Lifetime
 				animateCountUp('lifetime-hours', lifetimeHours);
@@ -551,12 +555,14 @@ const howToSteps = [
 				const years = document.getElementById('lifetime-years')!.textContent;
 				const text = encodeURIComponent(`I've spent ${hours} hours (${years} years) of my life on screens 😱\n\nFind out yours:`);
 				const url = encodeURIComponent(window.location.href);
+				track('share', shareParams('x', 'tool', page()));
 				window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'noopener');
 			});
 
 			document.getElementById('share-copy')!.addEventListener('click', async () => {
 				try {
 					await navigator.clipboard.writeText(window.location.href);
+					track('share', shareParams('copy_link', 'tool', page()));
 					const btn = document.getElementById('share-copy')!;
 					btn.textContent = 'Copied!';
 					setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
