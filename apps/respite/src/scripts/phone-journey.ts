@@ -6,12 +6,13 @@
  * - Each slot has a story. Its progress comes from the slot's scroll track ([data-story-track]), or,
  *   for the hero, from HeroPhone's --p. The story is drawn as layers (real app screens from
  *   public/images/app/3d-*.webp) into a texture that is the phone's screen.
- * - The phone body is built here (an extruded rounded rectangle), no model file.
+ * - The phone body is built here (buildPhone: metal frame, glass front, frosted back, camera visor), no
+ *   model file, and lit by a small studio (studioScene) for its reflections.
  *
  * index.astro loads this only when the device can take it; otherwise the CSS phone stays.
  */
 import * as THREE from 'three';
-import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 
 type SlotName = 'hero' | 'how' | 'features' | 'end';
 type LayerState = { x?: number; y?: number; s?: number; o?: number };
@@ -68,106 +69,233 @@ const POSE: Record<SlotName, { y: number; x: number }> = {
 	end: { y: 0.3, x: 0.12 },
 };
 
+// The phone's finish: a polished metal frame and visor, a frosted glass back.
+const FINISH = { metal: 0xd3d9de, back: 0x6a7986 };
+
+function rounded(w: number, h: number, r: number) {
+	const s = new THREE.Shape();
+	s.moveTo(-w / 2 + r, -h / 2);
+	s.lineTo(w / 2 - r, -h / 2);
+	s.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + r);
+	s.lineTo(w / 2, h / 2 - r);
+	s.quadraticCurveTo(w / 2, h / 2, w / 2 - r, h / 2);
+	s.lineTo(-w / 2 + r, h / 2);
+	s.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - r);
+	s.lineTo(-w / 2, -h / 2 + r);
+	s.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2);
+	return s;
+}
+
+/** A rounded-rectangle slab w×h×d with soft, rounded edges, centred on z. Caps are group 0, sides group 1. */
+function slab(w: number, h: number, r: number, d: number, edge: number, curve = 24) {
+	const g = new THREE.ExtrudeGeometry(rounded(w - 2 * edge, h - 2 * edge, Math.max(0.002, r - edge)), {
+		depth: Math.max(0.0001, d - 2 * edge),
+		bevelEnabled: true,
+		bevelThickness: edge,
+		bevelSize: edge,
+		bevelSegments: 8,
+		curveSegments: curve,
+	});
+	g.translate(0, 0, -(d - 2 * edge) / 2);
+	return g;
+}
+
+/** A Pixel-style phone: metal frame with rounded edges and antenna lines, black front glass, frosted
+ *  back, a metal camera visor with three lenses, shaped keys and a USB-C port. Faces +z. */
+function buildPhone(phone: THREE.Group) {
+	const W = PHONE_W;
+	const H = PHONE_H;
+	const D = PHONE_D;
+	const metal = new THREE.MeshPhysicalMaterial({ color: FINISH.metal, metalness: 1, roughness: 0.12, clearcoat: 0.6, clearcoatRoughness: 0.06 });
+	const darkMetal = new THREE.MeshPhysicalMaterial({ color: 0x2c3238, metalness: 1, roughness: 0.3 });
+	const blackGlass = new THREE.MeshPhysicalMaterial({ color: 0x040506, roughness: 0.05, clearcoat: 1, clearcoatRoughness: 0.02 });
+	// Frosted glass: a soft falloff of light from the top corner and a fine grain.
+	const frostTex = (() => {
+		const c = document.createElement('canvas');
+		c.width = 256;
+		c.height = 512;
+		const g = c.getContext('2d')!;
+		const grad = g.createLinearGradient(0, 0, 256, 512);
+		grad.addColorStop(0, '#ffffff');
+		grad.addColorStop(0.55, '#d9dde0');
+		grad.addColorStop(1, '#b9bec2');
+		g.fillStyle = grad;
+		g.fillRect(0, 0, 256, 512);
+		const img = g.getImageData(0, 0, 256, 512);
+		for (let i = 0; i < img.data.length; i += 4) {
+			const n = (Math.random() - 0.5) * 10;
+			img.data[i] += n;
+			img.data[i + 1] += n;
+			img.data[i + 2] += n;
+		}
+		g.putImageData(img, 0, 0);
+		const t = new THREE.CanvasTexture(c);
+		t.colorSpace = THREE.SRGBColorSpace;
+		return t;
+	})();
+	const frosted = new THREE.MeshPhysicalMaterial({
+		map: frostTex,
+		color: FINISH.back,
+		roughness: 0.45,
+		metalness: 0.15,
+		clearcoat: 0.3,
+		clearcoatRoughness: 0.4,
+		sheen: 0.5,
+		sheenRoughness: 0.5,
+		sheenColor: new THREE.Color(0xc8d5de),
+	});
+	const lensGlass = new THREE.MeshPhysicalMaterial({
+		color: 0x07122a,
+		roughness: 0.02,
+		clearcoat: 1,
+		iridescence: 0.9,
+		iridescenceIOR: 1.8,
+		iridescenceThicknessRange: [250, 520],
+	});
+	const band = new THREE.MeshPhysicalMaterial({ color: 0x3a4047, roughness: 0.6 });
+	const hollow = new THREE.MeshBasicMaterial({ color: 0x050607 });
+	const add = (geo: THREE.BufferGeometry, mat: THREE.Material | THREE.Material[], x = 0, y = 0, z = 0, back = false) => {
+		const m = new THREE.Mesh(geo, mat);
+		m.position.set(x, y, z);
+		if (back) m.rotation.y = Math.PI;
+		phone.add(m);
+		return m;
+	};
+
+	// Frame: the sides and rounded edges are metal; the caps are glass (the back gets the frosted plate).
+	const EDGE = 0.016;
+	add(slab(W, H, 0.13, D, EDGE, 40), [blackGlass, metal]);
+	const backGeo = new THREE.ShapeGeometry(rounded(W - 2 * EDGE, H - 2 * EDGE, 0.13 - EDGE), 40);
+	const bp = backGeo.attributes.position as THREE.BufferAttribute;
+	const buv = backGeo.attributes.uv as THREE.BufferAttribute;
+	for (let i = 0; i < buv.count; i++) buv.setXY(i, 0.5 - bp.getX(i) / W, bp.getY(i) / H + 0.5); // seen from behind
+	add(backGeo, frosted, 0, 0, -D / 2 - 0.0004, true);
+
+	// Antenna lines across the frame.
+	for (const sx of [-1, 1]) for (const sy of [-1, 1]) add(new THREE.BoxGeometry(0.004, 0.012, D * 0.64), band, sx * (W / 2), sy * 0.86);
+	for (const sx of [-1, 1]) for (const sy of [-1, 1]) add(new THREE.BoxGeometry(0.012, 0.004, D * 0.64), band, sx * 0.3, sy * (H / 2));
+
+	// Keys on the right: power, then volume.
+	for (const [y, h] of [[0.44, 0.13], [0.13, 0.27]]) add(new RoundedBoxGeometry(0.022, h, 0.03, 4, 0.009), metal, W / 2 + 0.004, y);
+
+	// Bottom: USB-C and the speaker holes; top: a mic hole (flat, dark shapes on the frame's edge).
+	const onEdge = (geo: THREE.BufferGeometry, x: number, top: boolean) => {
+		const m = add(geo, hollow, x, top ? H / 2 + 0.0005 : -H / 2 - 0.0005);
+		m.rotation.x = top ? -Math.PI / 2 : Math.PI / 2;
+	};
+	onEdge(new THREE.ShapeGeometry(rounded(0.11, 0.026, 0.013), 12), 0, false);
+	for (let i = 0; i < 6; i++) onEdge(new THREE.CircleGeometry(0.0055, 12), -0.14 - i * 0.026, false);
+	onEdge(new THREE.CircleGeometry(0.005, 12), 0.22, true);
+
+	// The camera visor on the back: a metal pill with a black glass window, three lenses, flash and sensor.
+	const VY = 0.73;
+	const VD = 0.034;
+	const vz = -D / 2 - VD / 2 + 0.004; // sunk 4 thousandths into the back
+	const outer = vz - VD / 2; // the visor's outer face
+	add(slab(0.84, 0.21, 0.105, VD, 0.013, 32), metal, 0, VY, vz);
+	add(new THREE.ShapeGeometry(rounded(0.6, 0.15, 0.075), 32), blackGlass, 0.08, VY, outer - 0.0005, true);
+	for (const [x, r] of [[0.27, 0.052], [0.08, 0.052], [-0.105, 0.044]] as const) {
+		const ring = add(new THREE.CylinderGeometry(r, r, 0.008, 48), metal, x, VY, outer - 0.004);
+		ring.rotation.x = Math.PI / 2;
+		add(new THREE.RingGeometry(r * 0.78, r * 0.9, 48), darkMetal, x, VY, outer - 0.0081, true);
+		add(new THREE.CircleGeometry(r * 0.78, 48), lensGlass, x, VY, outer - 0.0082, true);
+		add(new THREE.RingGeometry(r * 0.32, r * 0.38, 40), darkMetal, x, VY, outer - 0.0084, true);
+	}
+	add(new THREE.CircleGeometry(0.022, 32), new THREE.MeshPhysicalMaterial({ color: 0xefe6d6, roughness: 0.35, clearcoat: 1 }), -0.3, VY + 0.03, outer - 0.0005, true);
+	add(new THREE.CircleGeometry(0.012, 24), blackGlass, -0.3, VY - 0.045, outer - 0.0005, true);
+}
+
+/** A small photo studio (softboxes in a grey room) that the metal and glass reflect. */
+function studioScene() {
+	const s = new THREE.Scene();
+	s.add(new THREE.Mesh(new THREE.BoxGeometry(14, 14, 14), new THREE.MeshBasicMaterial({ color: 0x9aa3ab, side: THREE.BackSide })));
+	const panel = (w: number, h: number, k: number, at: [number, number, number], tint = 0xffffff) => {
+		const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(tint).multiplyScalar(k), side: THREE.DoubleSide }));
+		m.position.set(...at);
+		m.lookAt(0, 0, 0);
+		s.add(m);
+	};
+	panel(14, 14, 0.12, [0, -6.9, 0]); // dark floor, so the chrome has contrast
+	panel(8, 3, 4, [0, 6.5, 1]); // overhead softbox
+	panel(1.1, 9, 9, [-6.5, 0.5, 1.5]); // left strip
+	panel(1.1, 9, 7, [6.5, 0.5, 1.5]); // right strip
+	panel(4.5, 4.5, 3.5, [-3, 2.6, 6.5]); // front, for the glass
+	panel(6, 4, 2.6, [2, 2.5, -6.5], 0xffe8d4); // warm light behind
+	return s;
+}
+
 export async function startPhoneJourney(canvas: HTMLCanvasElement): Promise<() => void> {
 	const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
 	renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 	renderer.outputColorSpace = THREE.SRGBColorSpace;
-	renderer.toneMapping = THREE.ACESFilmicToneMapping;
+	renderer.toneMapping = THREE.NeutralToneMapping;
 	renderer.toneMappingExposure = 1;
 
 	// ---------------------------------------------------------------- world
 	const scene = new THREE.Scene();
 	const pmrem = new THREE.PMREMGenerator(renderer);
-	scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+	const studio = studioScene();
+	scene.environment = pmrem.fromScene(studio, 0.02).texture;
+	studio.traverse((o) => (o as THREE.Mesh).geometry?.dispose());
 	const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
 	camera.position.set(0, 0, 10);
-	const key = new THREE.DirectionalLight(0xffffff, 1.2);
+	const key = new THREE.DirectionalLight(0xffffff, 0.9);
 	key.position.set(-3, 4, 6);
-	scene.add(key, new THREE.AmbientLight(0xffffff, 0.35));
+	const rim = new THREE.DirectionalLight(0xdfe9f2, 1.4); // catches the frame's edge from behind
+	rim.position.set(5, 2, -4);
+	scene.add(key, rim, new THREE.AmbientLight(0xffffff, 0.25));
 
 	// ---------------------------------------------------------------- the phone
 	const phone = new THREE.Group();
 	const tilt = new THREE.Group(); // pose and travel spin
 	tilt.add(phone);
 	scene.add(tilt);
+	buildPhone(phone);
 
-	const rounded = (w: number, h: number, r: number) => {
-		const s = new THREE.Shape();
-		s.moveTo(-w / 2 + r, -h / 2);
-		s.lineTo(w / 2 - r, -h / 2);
-		s.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + r);
-		s.lineTo(w / 2, h / 2 - r);
-		s.quadraticCurveTo(w / 2, h / 2, w / 2 - r, h / 2);
-		s.lineTo(-w / 2 + r, h / 2);
-		s.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - r);
-		s.lineTo(-w / 2, -h / 2 + r);
-		s.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2);
-		return s;
-	};
-
-	const bodyGeo = new THREE.ExtrudeGeometry(rounded(PHONE_W - 0.03, PHONE_H - 0.03, 0.13), {
-		depth: PHONE_D,
-		bevelEnabled: true,
-		bevelThickness: 0.015,
-		bevelSize: 0.015,
-		bevelSegments: 5,
-		curveSegments: 24,
-	});
-	bodyGeo.translate(0, 0, -PHONE_D / 2);
-	const glass = new THREE.MeshPhysicalMaterial({ color: 0x07090b, roughness: 0.15, metalness: 0.1, clearcoat: 1, clearcoatRoughness: 0.05 });
-	const metal = new THREE.MeshPhysicalMaterial({ color: 0x6d7c86, roughness: 0.28, metalness: 0.9, clearcoat: 0.6 });
-	const body = new THREE.Mesh(bodyGeo, [glass, metal]); // caps are glass, sides are the metal frame
-	phone.add(body);
-
-	// The back: Pixel-style camera bar.
-	const bar = new THREE.Mesh(new THREE.BoxGeometry(PHONE_W - 0.02, 0.17, 0.035), new THREE.MeshPhysicalMaterial({ color: 0x1a2229, roughness: 0.3, metalness: 0.6, clearcoat: 1 }));
-	bar.position.set(0, 0.72, -(PHONE_D / 2 + 0.03));
-	phone.add(bar);
-	for (const x of [-0.26, -0.1]) {
-		const lens = new THREE.Mesh(new THREE.CircleGeometry(0.045, 32), new THREE.MeshPhysicalMaterial({ color: 0x020304, roughness: 0.05, clearcoat: 1 }));
-		lens.position.set(x, 0.72, -(PHONE_D / 2 + 0.05));
-		lens.rotation.y = Math.PI;
-		phone.add(lens);
-	}
-	// Side keys.
-	for (const [y, h] of [[0.42, 0.13], [0.15, 0.26]]) {
-		const k = new THREE.Mesh(new THREE.BoxGeometry(0.02, h, 0.028), metal);
-		k.position.set(PHONE_W / 2 + 0.008, y, 0);
-		phone.add(k);
-	}
-
-	// The screen: a rounded plane showing what the screen scene draws.
+	// The screen: a rounded plane showing what the screen scene draws, under the front glass.
 	const SCREEN_W = PHONE_W - 0.07;
 	const SCREEN_H = SCREEN_W * (SH / SW);
+	const FRONT = PHONE_D / 2;
 	const screenGeo = new THREE.ShapeGeometry(rounded(SCREEN_W, SCREEN_H, 0.1), 24);
 	const uv = screenGeo.attributes.uv as THREE.BufferAttribute;
 	const pos = screenGeo.attributes.position as THREE.BufferAttribute;
 	for (let i = 0; i < uv.count; i++) uv.setXY(i, pos.getX(i) / SCREEN_W + 0.5, pos.getY(i) / SCREEN_H + 0.5);
 	const rt = new THREE.WebGLRenderTarget(SW * 2, SH * 2, { colorSpace: THREE.SRGBColorSpace, samples: 4 });
 	const screen = new THREE.Mesh(screenGeo, new THREE.MeshBasicMaterial({ map: rt.texture, toneMapped: false }));
-	screen.position.z = PHONE_D / 2 + 0.016;
+	screen.position.z = FRONT + 0.0008;
 	phone.add(screen);
 
-	const hole = new THREE.Mesh(new THREE.CircleGeometry(0.016, 24), new THREE.MeshBasicMaterial({ color: 0x000000 }));
-	hole.position.set(0, SCREEN_H / 2 - 0.045, screen.position.z + 0.001);
-	phone.add(hole);
+	const hole = new THREE.Mesh(new THREE.CircleGeometry(0.016, 32), new THREE.MeshBasicMaterial({ color: 0x000000 }));
+	const holeRing = new THREE.Mesh(new THREE.RingGeometry(0.016, 0.02, 32), new THREE.MeshBasicMaterial({ color: 0x23282e }));
+	hole.position.set(0, SCREEN_H / 2 - 0.045, FRONT + 0.0012);
+	holeRing.position.copy(hole.position);
+	phone.add(hole, holeRing);
 
-	// A soft glare across the glass.
-	const glareTex = (() => {
+	// The cover glass: a clear layer that only adds reflections of the studio, so the screen reads as under glass.
+	const coverGlass = new THREE.Mesh(
+		new THREE.ShapeGeometry(rounded(PHONE_W - 0.026, PHONE_H - 0.026, 0.118), 24),
+		new THREE.MeshPhysicalMaterial({ color: 0x000000, roughness: 0.04, metalness: 0, specularIntensity: 1, ior: 1.5, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }),
+	);
+	coverGlass.position.z = FRONT + 0.002;
+	phone.add(coverGlass);
+
+	// A soft sheen across the glass.
+	const sheenTex = (() => {
 		const c = document.createElement('canvas');
-		c.width = 64;
-		c.height = 128;
+		c.width = 128;
+		c.height = 256;
 		const g = c.getContext('2d')!;
-		const grad = g.createLinearGradient(0, 0, 64, 128);
-		grad.addColorStop(0, 'rgba(255,255,255,0.22)');
-		grad.addColorStop(0.35, 'rgba(255,255,255,0)');
+		const grad = g.createLinearGradient(0, 0, 128, 256);
+		grad.addColorStop(0, 'rgba(255,255,255,0.16)');
+		grad.addColorStop(0.3, 'rgba(255,255,255,0.04)');
+		grad.addColorStop(0.42, 'rgba(255,255,255,0)');
 		g.fillStyle = grad;
-		g.fillRect(0, 0, 64, 128);
+		g.fillRect(0, 0, 128, 256);
 		return new THREE.CanvasTexture(c);
 	})();
-	const glare = new THREE.Mesh(screenGeo, new THREE.MeshBasicMaterial({ map: glareTex, transparent: true, depthWrite: false, toneMapped: false }));
-	glare.position.z = screen.position.z + 0.002;
-	phone.add(glare);
+	const sheen = new THREE.Mesh(screenGeo, new THREE.MeshBasicMaterial({ map: sheenTex, transparent: true, depthWrite: false, toneMapped: false }));
+	sheen.position.z = FRONT + 0.0025;
+	phone.add(sheen);
 
 	// A soft shadow under the phone, in the page plane.
 	const shadowTex = (() => {
