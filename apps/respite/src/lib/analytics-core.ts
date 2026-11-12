@@ -131,7 +131,12 @@ export function ctaClickParams(cta: string, src: Utm, pg: Page, where: string) {
 	return { cta: clean(cta), page: pg.slug, section: pg.section, placement: where, ...visitor(src) };
 }
 
-export type ShareMethod = 'native_share' | 'copy_link' | 'x';
+/**
+ * How something was shared. native_share: the system share sheet (articles, the app score).
+ * The calculator's report card: native_image (the sheet, with the card picture), native_link (the
+ * sheet, link only, where it can't take a file), download (the picture saved), copy_link, x.
+ */
+export type ShareMethod = 'native_share' | 'native_image' | 'native_link' | 'download' | 'copy_link' | 'x';
 
 /** share (a GA4 recommended event): an article or a tool page shared with a share button. */
 export function shareParams(method: ShareMethod, contentType: 'article' | 'tool', pg: Page) {
@@ -139,6 +144,11 @@ export function shareParams(method: ShareMethod, contentType: 'article' | 'tool'
 }
 
 export type Tool = 'quiz' | 'calculator' | 'addiction_score';
+
+/** share for a tool's result, named by the tool (as in tool_complete), not by the page. */
+export function toolShareParams(method: ShareMethod, tool: Tool) {
+	return { method, content_type: 'tool' as const, item_id: tool };
+}
 
 /** tool_complete: a tool showed its result. The band is coarse on purpose: never the raw answers. */
 export function toolCompleteParams(tool: Tool, resultBand: string) {
