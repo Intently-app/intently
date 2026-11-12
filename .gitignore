@@ -206,3 +206,4 @@ seo-audit/*
 apps/hub/test-results/
 apps/hub/playwright-report/
 apps/respite/art/heroes/contact-sheet.jpg
+apps/respite/art/app-screens/contact-sheet.jpg

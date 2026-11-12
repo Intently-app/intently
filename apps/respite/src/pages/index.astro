@@ -14,6 +14,7 @@ import Footer from '../components/Footer.astro';
 import Icon from '../components/ui/Icon.astro';
 import Biscuit from '../components/ui/Biscuit.astro';
 import Picture from '../components/ui/Picture.astro';
+import AppShot from '../components/ui/AppShot.astro';
 import StoreButton from '../components/ui/StoreButton.astro';
 import WebSiteSchema from '../components/SEO/WebSiteSchema.astro';
 import ProductSchema from '../components/SEO/ProductSchema.astro';
@@ -32,9 +33,9 @@ const homeFaqs = [
 ];
 
 const steps = [
-	{ title: 'Pick your apps', line: 'Choose the ones that eat your day.' },
-	{ title: 'Get a short pause', line: 'A moment before they open.' },
-	{ title: 'Choose', line: 'Leave, or carry on, on purpose.' },
+	{ title: 'Pick your apps', line: 'Choose the ones that eat your day.', shot: 'step-pick' },
+	{ title: 'Get a short pause', line: 'A moment before they open.', shot: 'step-pause' },
+	{ title: 'Choose', line: 'Leave, or carry on, on purpose.', shot: 'step-choose' },
 ];
 
 const pairs = [
@@ -44,14 +45,14 @@ const pairs = [
 	{ before: { icon: 'Frown', text: 'Guilty, but unable to stop' }, after: { icon: 'Trophy', text: 'Proud of small wins that add up' } },
 ];
 
-// The blog's own illustrations (public/images/blog/), each linking to the matching part of /features/.
+// Real app screens (public/images/app/), each linking to the matching part of /features/.
 const areas = [
-	{ title: 'Limits and schedules', line: 'Daily limits and quiet hours you can keep.', art: 'schedule-app-blocking-iphone-android', href: '/features/#limits' },
-	{ title: 'Focus sessions', line: 'Block your apps for 15 to 90 minutes.', art: 'focus-session-app-iphone', href: '/features/#focus' },
-	{ title: 'Streaks and acorns', line: 'Kept days add up. Walking away earns acorns.', art: 'introducing-acorns-quests-and-leagues', href: '/features/#game' },
-	{ title: 'Insights', line: 'Time per app, by day, week and month.', art: 'how-much-screen-time-is-too-much', href: '/features/#insights' },
-	{ title: 'Sync', line: 'One account on your phone and computer.', art: 'sync-respite-android-iphone-chrome', href: '/features/#sync' },
-	{ title: 'Bring your own AI', line: 'Ask Claude or ChatGPT about your real usage.', art: 'bring-your-own-ai-to-respite', href: '/ai/', plus: true },
+	{ title: 'Limits and schedules', line: 'Daily limits and quiet hours you can keep.', shot: 'limits-android', href: '/features/#limits' },
+	{ title: 'Focus sessions', line: 'Block your apps for 15 to 90 minutes.', shot: 'area-focus', href: '/features/#focus' },
+	{ title: 'Streaks and acorns', line: 'Kept days add up. Walking away earns acorns.', shot: 'game', href: '/features/#game' },
+	{ title: 'Insights', line: 'Time per app, by day, week and month.', shot: 'insights-android', href: '/features/#insights' },
+	{ title: 'Sync', line: 'One account on your phone and computer.', shot: 'sync', href: '/features/#sync' },
+	{ title: 'Bring your own AI', line: 'Ask Claude or ChatGPT about your real usage.', shot: 'ai', href: '/ai/', plus: true },
 ];
 
 const devices = [
@@ -119,22 +120,10 @@ const latestPosts = (await getPublishedPosts())
 					</ul>
 				</div>
 
-				<div class="hm-stage" role="img" aria-label="Respite's pause screen asking Open Instagram?, with Biscuit the fox waving, a 7-day streak and a daily limit at 42 of 60 minutes">
-					<div class="hm-phone" aria-hidden="true">
-						<span class="hm-hourglass"><Icon name="Hourglass" size={30} /></span>
-						<p class="hm-phone-big">Open Instagram?</p>
-						<p class="hm-phone-small">Opened 6 times today</p>
-						<span class="hm-phone-btn">I'll do something else</span>
-						<span class="hm-phone-btn is-soft">Continue in 5s</span>
-					</div>
-					<div class="hm-float hm-float-streak" aria-hidden="true">
-						<span class="m-tile is-reward"><Icon name="Flame" size={20} /></span>
-						<span><strong>7 days</strong><small>Streak</small></span>
-					</div>
-					<div class="hm-float hm-float-limit" aria-hidden="true">
-						<span class="hm-float-row"><strong>Instagram</strong><small>42 of 60m</small></span>
-						<span class="hm-meter"><span style="width:70%"></span></span>
-					</div>
+				<div class="hm-stage" role="img" aria-label="Three Respite screens: the pause on iPhone asking What triggered this impulse to scroll?, the Home screen with today's limits for Instagram, Facebook, YouTube and X, and Insights with today's Screen Time, with Biscuit the fox waving">
+					<div class="hm-phone is-left" aria-hidden="true"><AppShot slug="hero-home" alt="" loading="eager" /></div>
+					<div class="hm-phone is-right" aria-hidden="true"><AppShot slug="hero-insights" alt="" loading="eager" /></div>
+					<div class="hm-phone is-front" aria-hidden="true"><AppShot slug="hero-pause" alt="" loading="eager" fetchpriority="high" /></div>
 					<div class="hm-stage-biscuit" aria-hidden="true">
 						<Biscuit mood="wave" size={150} label="Biscuit the fox waving" />
 					</div>
@@ -147,31 +136,7 @@ const latestPosts = (await getPublishedPosts())
 				<ol class="hm-steps">
 					{steps.map((s, i) => (
 						<li class="hm-step">
-							<div class={`hm-step-art s-${i + 1}`} aria-hidden="true">
-								{i === 0 && (
-									<div class="hm-apps">
-										{['I', 'Y', 'T', 'R', 'S', 'N'].map((l, j) => (
-											<span class={`hm-app ${j === 0 || j === 2 ? 'is-on' : ''}`}>
-												{l}
-												{(j === 0 || j === 2) && <span class="hm-app-check"><Icon name="Check" size={12} /></span>}
-											</span>
-										))}
-									</div>
-								)}
-								{i === 1 && (
-									<div class="hm-breath">
-										<span class="hm-breath-ring"></span>
-										<span class="hm-breath-dot"><Icon name="Hourglass" size={26} /></span>
-									</div>
-								)}
-								{i === 2 && (
-									<div class="hm-choice">
-										<span class="hm-phone-btn">I'll do something else</span>
-										<span class="hm-phone-btn is-soft">Continue</span>
-										<span class="m-badge is-live"><Icon name="Check" size={14} />Streak kept</span>
-									</div>
-								)}
-							</div>
+							<AppShot slug={s.shot} class="hm-step-art" />
 							<span class="m-tile is-number">{i + 1}</span>
 							<h3>{s.title}</h3>
 							<p>{s.line}</p>
@@ -219,7 +184,7 @@ const latestPosts = (await getPublishedPosts())
 					{areas.map((a) => (
 						<a class="hm-area" href={a.href}>
 							<span class="hm-area-art" aria-hidden="true">
-								<Picture src={`/images/blog/${a.art}.jpg`} alt="" width={720} height={405} loading="lazy" />
+								<AppShot slug={a.shot} alt="" />
 							</span>
 							<span class="hm-area-copy">
 								<span class="hm-area-title">{a.title}{a.plus && <span class="m-badge is-plus">Plus</span>}</span>
@@ -407,177 +372,70 @@ const latestPosts = (await getPublishedPosts())
 		position: relative;
 		display: grid;
 		place-items: center;
-		min-height: 470px;
+		min-height: 560px;
 		padding: 2.5rem 1.5rem;
 		border-radius: 36px;
 		background: var(--m-accent-soft);
-	}
-
-	.hm-phone {
-		display: grid;
-		justify-items: center;
-		gap: 0.55rem;
-		width: min(270px, 78%);
-		padding: 1.75rem 1.2rem 1.2rem;
-		border-radius: 34px;
-		background: var(--m-paper);
-		box-shadow: var(--m-shadow-md);
-		text-align: center;
-	}
-
-	.hm-phone p {
-		margin: 0;
-	}
-
-	.hm-hourglass {
-		display: grid;
-		place-items: center;
-		width: 62px;
-		height: 62px;
-		margin-bottom: 0.25rem;
-		border-radius: 50%;
-		background: var(--m-accent-soft);
-		color: var(--m-accent-ink);
-		animation: hm-breathe 4s ease-in-out infinite;
-	}
-
-	@keyframes hm-breathe {
-		50% {
-			transform: scale(1.1);
-		}
-	}
-
-	.hm-phone-big {
-		font-family: var(--font-heading);
-		font-size: 1.35rem;
-		font-weight: 800;
-	}
-
-	.hm-phone-small {
-		margin-bottom: 0.5rem !important;
-		font-size: 0.9rem;
-		color: var(--m-ink-soft);
-	}
-
-	.hm-phone-btn {
-		display: block;
-		width: 100%;
-		padding: 0.65rem;
-		border-radius: 999px;
-		background: var(--m-accent-strong);
-		color: var(--m-on-accent);
-		font-family: var(--font-heading);
-		font-size: 0.92rem;
-		font-weight: 800;
-		text-align: center;
-	}
-
-	.hm-phone-btn.is-soft {
-		background: var(--m-fog);
-		color: var(--m-ink-soft);
-	}
-
-	.hm-float {
-		position: absolute;
-		display: flex;
-		align-items: center;
-		gap: 0.65rem;
-		padding: 0.65rem 0.9rem;
-		border-radius: 18px;
-		background: var(--m-paper);
-		box-shadow: var(--m-shadow-md);
-		font-size: 0.85rem;
-	}
-
-	.hm-float strong {
-		display: block;
-		font-family: var(--font-heading);
-		font-size: 1rem;
-		font-weight: 800;
-		line-height: 1.2;
-	}
-
-	.hm-float small {
-		color: var(--m-ink-soft);
-		font-size: 0.8rem;
-		font-weight: 700;
-	}
-
-	.hm-float .m-tile {
-		width: 38px;
-		height: 38px;
-		border-radius: 11px;
-	}
-
-	.hm-float-streak {
-		top: 1.75rem;
-		right: 1.25rem;
-	}
-
-	.hm-float-limit {
-		bottom: 2rem;
-		right: 1.25rem;
-		flex-direction: column;
-		align-items: stretch;
-		gap: 0.45rem;
-		width: 170px;
-	}
-
-	.hm-float-row {
-		display: flex;
-		align-items: baseline;
-		justify-content: space-between;
-		gap: 0.5rem;
-	}
-
-	.hm-float-row strong {
-		font-size: 0.9rem;
-	}
-
-	.hm-meter {
-		display: block;
-		height: 8px;
-		border-radius: 999px;
-		background: var(--m-fog);
 		overflow: hidden;
 	}
 
-	.hm-meter span {
-		display: block;
-		height: 100%;
-		border-radius: 999px;
-		background: var(--m-accent);
+	/* Three real screens, fanned: Home and Insights behind, the pause in front. */
+	.hm-phone {
+		grid-area: 1 / 1;
+		width: 220px;
+		padding: 6px;
+		border-radius: 40px;
+		background: #0e161c; /* the phone's own bezel, the same in light and dark */
+		box-shadow: var(--m-shadow-md);
+	}
+
+	.hm-phone :global(.m-shot) {
+		border-radius: 34px;
+	}
+
+	.hm-phone.is-left {
+		width: 190px;
+		transform: translateX(-62%) rotate(-7deg);
+	}
+
+	.hm-phone.is-right {
+		width: 190px;
+		transform: translateX(62%) rotate(7deg);
+	}
+
+	.hm-phone.is-front {
+		position: relative;
+		z-index: 1;
 	}
 
 	.hm-stage-biscuit {
 		position: absolute;
+		z-index: 2;
 		left: 0.25rem;
 		bottom: -0.5rem;
 	}
 
 	@media (max-width: 600px) {
 		.hm-stage {
-			min-height: 430px;
-			padding: 2rem 1rem 6.5rem;
+			min-height: 470px;
+			padding: 1.75rem 1rem 2.5rem;
 		}
 		.hm-phone {
-			width: min(250px, 86%);
+			width: 186px;
 		}
-		.hm-float-streak {
-			top: 1rem;
-			right: 0.75rem;
+		.hm-phone.is-left,
+		.hm-phone.is-right {
+			width: 150px;
 		}
-		.hm-float-limit {
-			right: 0.75rem;
-			bottom: 1.25rem;
-			width: 165px;
+		.hm-phone.is-left {
+			transform: translateX(-52%) rotate(-7deg);
 		}
-		.hm-float-row {
-			white-space: nowrap;
+		.hm-phone.is-right {
+			transform: translateX(52%) rotate(7deg);
 		}
 		.hm-stage-biscuit :global(*) {
-			max-width: 120px;
-			max-height: 120px;
+			max-width: 110px;
+			max-height: 110px;
 		}
 	}
 
@@ -628,92 +486,8 @@ const latestPosts = (await getPublishedPosts())
 		border-radius: 50%;
 	}
 
-	.hm-step-art {
-		display: grid;
-		place-items: center;
+	.hm-step :global(.hm-step-art) {
 		justify-self: stretch;
-		height: 200px;
-		border-radius: 22px;
-		background: var(--m-ground);
-	}
-
-	.hm-apps {
-		display: grid;
-		grid-template-columns: repeat(3, 52px);
-		gap: 0.75rem;
-	}
-
-	.hm-app {
-		position: relative;
-		display: grid;
-		place-items: center;
-		width: 52px;
-		height: 52px;
-		border-radius: 15px;
-		background: var(--m-paper);
-		box-shadow: var(--m-shadow-sm);
-		color: var(--m-ink-soft);
-		font-family: var(--font-heading);
-		font-size: 1.2rem;
-		font-weight: 800;
-	}
-
-	.hm-app.is-on {
-		background: var(--m-accent-strong);
-		color: var(--m-on-accent);
-	}
-
-	.hm-app-check {
-		position: absolute;
-		top: -6px;
-		right: -6px;
-		display: grid;
-		place-items: center;
-		width: 22px;
-		height: 22px;
-		border-radius: 50%;
-		background: var(--m-success-soft);
-		color: var(--m-success-ink);
-		box-shadow: 0 0 0 3px var(--m-ground);
-	}
-
-	.hm-breath {
-		position: relative;
-		display: grid;
-		place-items: center;
-		width: 140px;
-		height: 140px;
-	}
-
-	.hm-breath-ring {
-		position: absolute;
-		inset: 0;
-		border-radius: 50%;
-		background: var(--m-accent-soft);
-		animation: hm-breathe 4s ease-in-out infinite;
-	}
-
-	.hm-breath-dot {
-		position: relative;
-		display: grid;
-		place-items: center;
-		width: 76px;
-		height: 76px;
-		border-radius: 50%;
-		background: var(--m-paper);
-		box-shadow: var(--m-shadow-sm);
-		color: var(--m-accent-ink);
-	}
-
-	.hm-choice {
-		display: grid;
-		justify-items: center;
-		gap: 0.55rem;
-		width: min(220px, 80%);
-	}
-
-	.hm-choice .m-badge {
-		margin-top: 0.3rem;
 	}
 
 	/* ------------------------------------------------------------ before and after */
@@ -842,6 +616,19 @@ const latestPosts = (await getPublishedPosts())
 		border-radius: 22px;
 		overflow: hidden;
 		background: var(--m-ground);
+	}
+
+	.hm-area-art {
+		aspect-ratio: 390 / 300;
+	}
+
+	.hm-area-art :global(.m-shot) {
+		height: 100%;
+		border-radius: 0;
+	}
+
+	.hm-area-art :global(img) {
+		object-position: top center;
 	}
 
 	.hm-area-art :global(img),
@@ -1041,10 +828,6 @@ const latestPosts = (await getPublishedPosts())
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.hm-hourglass,
-		.hm-breath-ring {
-			animation: none;
-		}
 		.hm-area:hover,
 		.hm-post:hover {
 			transform: none;

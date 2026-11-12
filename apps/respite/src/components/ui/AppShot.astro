@@ -1,0 +1,25 @@
+---
+// A real app screen from public/images/app/ (scripts/render-app-screens.mjs), light or dark to match the visitor.
+import sizes from '../../data/app-shots.json';
+import { SHOT_ALT } from '../../data/appShots';
+
+interface Props {
+	slug: string;
+	alt?: string;
+	loading?: 'lazy' | 'eager';
+	fetchpriority?: 'high' | 'low' | 'auto';
+	class?: string;
+	hidden?: boolean;
+	[key: `data-${string}`]: string | undefined;
+}
+
+const { slug, alt, loading = 'lazy', fetchpriority, class: className, ...rest } = Astro.props;
+const size = (sizes as Record<string, [number, number]>)[slug];
+if (!size) throw new Error(`AppShot: no rendered screen "${slug}". Run npm run render-app-screens.`);
+const [width, height] = size;
+---
+
+<picture class:list={['m-shot', className]} {...rest}>
+	<source srcset={`/images/app/${slug}-dark.webp`} media="(prefers-color-scheme: dark)" type="image/webp" />
+	<img src={`/images/app/${slug}.webp`} alt={alt ?? SHOT_ALT[slug] ?? ''} width={width} height={height} loading={loading} fetchpriority={fetchpriority} decoding="async" />
+</picture>

@@ -1,0 +1,41 @@
+{
+	"$comment": "Real app screens for the site, cropped from the Respite redesign canvas (https://claude.ai/artifact/FMLE3b1pnN83XZ6AEGsVdg). clip is [x, y, width, height] in board pixels. Render with: npm run render-app-screens -w @intently/respite-site",
+	"shots": [
+		{ "slug": "pause-android", "board": "OnboardingPreview", "hide": ["main h1"], "clipTo": ["main img", "main > div"], "pad": [28, 20], "replace": { "Continue to app": "Continue to Instagram" } },
+		{ "slug": "pause-ios", "board": "PauseAINoteIphone", "clip": [0, 228, 390, 600], "replace": { "A note from Claude": "What triggered this impulse to scroll?", "Is this the scroll you wanted?": "Take a moment to honestly answer." } },
+		{ "slug": "pause-chrome", "board": "BrowserPauseAINote", "clip": [360, 120, 560, 470] },
+		{ "slug": "focus", "board": "MainFocus", "clip": [0, 292, 390, 192] },
+		{ "slug": "limits-android", "board": "Main", "clip": [0, 400, 390, 348] },
+		{ "slug": "limits-ios", "board": "LimitWarningIphone", "clip": [0, 120, 390, 324], "respiteTile": true },
+		{ "slug": "limits-chrome", "board": "Popup", "clip": [0, 0, 380, 364] },
+		{ "slug": "game", "board": "TrailJourney", "clip": [0, 68, 390, 520] },
+		{ "slug": "insights-android", "board": "Insights", "expand": true, "hide": ["nav"], "clip": [0, 1296, 390, 306] },
+		{ "slug": "insights-ios", "board": "Insights", "clip": [0, 160, 390, 494] },
+		{ "slug": "insights-chrome", "board": "BrowserInsightsPauses", "clip": [0, 0, 560, 392] },
+		{ "slug": "sync", "board": "Devices", "clip": [0, 60, 390, 372] },
+		{ "slug": "ai", "board": "ConnectedAI", "clip": [0, 60, 390, 392] },
+		{ "slug": "privacy-android", "board": "PrivacyShared", "hide": ["x-dc > div > div", "x-dc > div > section"], "clip": [0, 60, 390, 326] },
+		{ "slug": "privacy-ios", "board": "OnboardingPermissionsIphone", "clip": [0, 30, 390, 460] },
+		{ "slug": "step-pick", "board": "AddApp", "hide": ["x-dc > div > div"], "clip": [0, 380, 390, 450] },
+		{ "slug": "step-pause", "board": "OnboardingPreview", "hide": ["main h1"], "clipTo": ["main img", "main > div"], "pad": [24, 66], "replace": { "Continue to app": "Continue to Instagram" } },
+		{ "slug": "step-choose", "board": "Reward", "clip": [0, 178, 390, 450] },
+		{ "slug": "area-focus", "board": "MainFocus", "clip": [0, 236, 390, 300] },
+		{ "slug": "hero-home", "board": "Main", "full": true },
+		{ "slug": "hero-pause", "board": "PauseAINoteIphone", "full": true, "replace": { "A note from Claude": "What triggered this impulse to scroll?", "Is this the scroll you wanted?": "Take a moment to honestly answer." } },
+		{ "slug": "hero-insights", "board": "Insights", "full": true }
+	],
+	"icons": {
+		"instagram": { "match": "^instagram", "bg": "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%)", "fg": "#fff" },
+		"facebook": { "match": "^facebook", "bg": "#0866ff", "fg": "#fff" },
+		"youtube": { "match": "^youtube", "bg": "#fff", "fg": "#ff0000", "ring": true },
+		"x": { "match": "^(x|x\\.com)$", "bg": "#000", "fg": "#fff" },
+		"whatsapp": { "match": "^whatsapp", "bg": "#25d366", "fg": "#fff" },
+		"reddit": { "match": "^reddit", "bg": "#ff4500", "fg": "#fff" },
+		"tiktok": { "match": "^tiktok", "bg": "#000", "fg": "#fff" },
+		"snapchat": { "match": "^snapchat", "bg": "#fffc00", "fg": "#000" },
+		"github": { "match": "^github", "bg": "#181717", "fg": "#fff" },
+		"wikipedia": { "match": "^wikipedia", "bg": "#fff", "fg": "#000", "ring": true },
+		"googledocs": { "match": "^docs\\.google", "bg": "#4285f4", "fg": "#fff" },
+		"googlechrome": { "match": "^chrome$", "bg": "#fff", "fg": "#4285f4", "ring": true }
+	}
+}

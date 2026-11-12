@@ -13,8 +13,8 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Biscuit from '../components/ui/Biscuit.astro';
-import Icon from '../components/ui/Icon.astro';
 import Picture from '../components/ui/Picture.astro';
+import AppShot from '../components/ui/AppShot.astro';
 import PlanCompare from '../components/ui/PlanCompare.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
@@ -29,13 +29,14 @@ interface Chip {
 	plus?: boolean;
 }
 
-// visual: 'ui' draws a preview of the app; otherwise one of the blog's illustrations (public/images/blog/).
-const cards: { id: string; title: string; line: string; visual: 'ui' | { art: string; ratio: string }; chips: Chip[]; link?: { href: string; label: string } }[] = [
+// shots: real app screens (public/images/app/, scripts/render-app-screens.mjs). `all` also stands in for a device without its own.
+type Shots = { all: string } & Partial<Record<P, string>>;
+const cards: { id: string; title: string; line: string; shots: Shots; chips: Chip[]; link?: { href: string; label: string } }[] = [
 	{
 		id: 'pause',
 		title: 'A pause before the scroll',
 		line: 'A moment to choose before the app opens.',
-		visual: 'ui',
+		shots: { all: 'pause-android', ios: 'pause-ios', chrome: 'pause-chrome' },
 		chips: [
 			{ label: 'Pause before apps and sites', on: ALL },
 			{ label: 'Three ways to pause', on: ['ios', 'android'] },
@@ -46,7 +47,7 @@ const cards: { id: string; title: string; line: string; visual: 'ui' | { art: st
 		id: 'focus',
 		title: 'Focus when you need it',
 		line: '15 to 90 minutes with your apps blocked.',
-		visual: { art: '/images/blog/focus-session-app-iphone.jpg', ratio: '4 / 3' },
+		shots: { all: 'focus' },
 		chips: [
 			{ label: 'Focus sessions', on: ALL, plus: true },
 			{ label: 'Live Activity', on: ['ios'], plus: true },
@@ -57,7 +58,7 @@ const cards: { id: string; title: string; line: string; visual: 'ui' | { art: st
 		id: 'limits',
 		title: 'Limits you can keep',
 		line: 'A heads-up as you get close.',
-		visual: 'ui',
+		shots: { all: 'limits-android', ios: 'limits-ios', chrome: 'limits-chrome' },
 		chips: [
 			{ label: 'Daily limits', on: ALL },
 			{ label: 'Done for today lock', on: ALL },
@@ -70,7 +71,7 @@ const cards: { id: string; title: string; line: string; visual: 'ui' | { art: st
 		id: 'game',
 		title: 'Streaks, not guilt',
 		line: 'Kept days add up. Acorns reward walking away.',
-		visual: { art: '/images/blog/introducing-acorns-quests-and-leagues.jpg', ratio: '16 / 10' },
+		shots: { all: 'game' },
 		chips: [
 			{ label: 'Streaks', on: ALL },
 			{ label: 'Acorns and quests', on: ['ios', 'android'] },
@@ -82,7 +83,7 @@ const cards: { id: string; title: string; line: string; visual: 'ui' | { art: st
 		id: 'insights',
 		title: 'See where your time goes',
 		line: 'Daily totals per app, with weekly and monthly trends.',
-		visual: 'ui',
+		shots: { all: 'insights-android', ios: 'insights-ios', chrome: 'insights-chrome' },
 		chips: [
 			{ label: 'Usage by app and day', on: ALL },
 			{ label: 'Richer insights', on: ALL, plus: true },
@@ -94,7 +95,7 @@ const cards: { id: string; title: string; line: string; visual: 'ui' | { art: st
 		id: 'sync',
 		title: 'Your devices, together',
 		line: 'One account on your phone and computer.',
-		visual: { art: '/images/blog/sync-respite-android-iphone-chrome.jpg', ratio: '16 / 9' },
+		shots: { all: 'sync' },
 		chips: [
 			{ label: 'Sync one device free', on: ALL },
 			{ label: 'Sync every device', on: ALL, plus: true },
@@ -105,7 +106,7 @@ const cards: { id: string; title: string; line: string; visual: 'ui' | { art: st
 		id: 'ai',
 		title: 'Bring your own AI',
 		line: 'Ask Claude or ChatGPT about your real usage.',
-		visual: { art: '/images/blog/bring-your-own-ai-to-respite.jpg', ratio: '4 / 3' },
+		shots: { all: 'ai' },
 		chips: [{ label: 'Claude, ChatGPT, Cursor', on: ALL, plus: true }],
 		link: { href: '/ai/', label: 'How it works' },
 	},
@@ -113,7 +114,7 @@ const cards: { id: string; title: string; line: string; visual: 'ui' | { art: st
 		id: 'privacy',
 		title: 'Private by design',
 		line: 'No account needed. History stays on your device.',
-		visual: { art: '/images/blog/privacy-first-screen-time-tracking.jpg', ratio: '16 / 10' },
+		shots: { all: 'privacy-android', ios: 'privacy-ios' },
 		chips: [
 			{ label: 'No account needed', on: ALL },
 			{ label: 'No ads, never sold', on: ALL },
@@ -124,7 +125,6 @@ const cards: { id: string; title: string; line: string; visual: 'ui' | { art: st
 
 const counts = Object.fromEntries(ALL.map((p) => [p, cards.reduce((n, c) => n + c.chips.filter((x) => x.on.includes(p)).length, 0)])) as Record<P, number>;
 const total = cards.reduce((n, c) => n + c.chips.length, 0);
-const week = [42, 55, 38, 61, 30, 22, 18];
 
 const featureFAQs = [
 	{ question: 'Is Respite free?', answer: 'Yes. Respite is free on iPhone, Android and Chrome, with no ads. The pause, usage tracking, daily limits and streaks all work without paying. An optional upgrade, Respite Plus, adds sync across your devices and extras such as more schedules, longer focus sessions and richer insights.' },
@@ -167,53 +167,11 @@ const featureFAQs = [
 			<div class="ft-masonry">
 				{cards.map((c) => (
 					<section class="ft-card" id={c.id} aria-labelledby={`${c.id}-title`}>
-						{c.visual === 'ui' ? (
-							<div class={`ft-visual v-${c.id}`} aria-hidden="true">
-								{c.id === 'pause' && (
-									<div class="v-phone">
-										<span class="v-hourglass"><Icon name="Hourglass" size={28} /></span>
-										<p class="v-big">Open Instagram?</p>
-										<p class="v-small">Opened 6 times today</p>
-										<span class="v-btn">I'll do something else</span>
-										<span class="v-btn is-soft">Continue in 5s</span>
-									</div>
-								)}
-								{c.id === 'limits' && (
-									<div class="v-list">
-										{[
-											{ l: 'I', name: 'Instagram', pct: 70, val: '42 of 60m', tone: '' },
-											{ l: 'Y', name: 'YouTube', pct: 88, val: '40 of 45m', tone: 'is-reward' },
-											{ l: 'T', name: 'TikTok', pct: 100, val: 'Done for today', tone: 'is-warning' },
-										].map((a) => (
-											<div class="v-app">
-												<span class={`v-letter ${a.tone}`}>{a.l}</span>
-												<div class="v-app-main">
-													<div class="v-app-top"><span>{a.name}</span><span class={a.tone}>{a.val}</span></div>
-													<span class="v-bar"><span class={a.tone} style={`width:${a.pct}%`}></span></span>
-												</div>
-											</div>
-										))}
-									</div>
-								)}
-								{c.id === 'insights' && (
-									<div class="v-chart">
-										<div class="v-chart-head">
-											<span class="v-chart-num">3h 17m</span>
-											<span class="m-badge is-live">18% less than last week</span>
-										</div>
-										<div class="v-bars">
-											{week.map((h, i) => (
-												<span class="v-col"><span class={`v-colbar ${i === 6 ? 'is-today' : ''}`} style={`height:${h + 30}%`}></span><span class="v-day">{['M', 'T', 'W', 'T', 'F', 'S', 'S'][i]}</span></span>
-											))}
-										</div>
-									</div>
-								)}
-							</div>
-						) : (
-							<div class="ft-art" style={`aspect-ratio: ${c.visual.ratio}`} aria-hidden="true">
-								<Picture src={c.visual.art} alt="" width={720} height={405} loading="lazy" />
-							</div>
-						)}
+						<div class="ft-shots">
+							{(['all', ...ALL] as const).filter((p) => p === 'all' || c.shots[p]).map((p) => (
+								<AppShot slug={c.shots[p]!} data-for={p} hidden={p !== 'all' || undefined} />
+							))}
+						</div>
 						<div class="ft-copy">
 							<h2 id={`${c.id}-title`}>{c.title}</h2>
 							<p>{c.line}</p>
@@ -278,7 +236,13 @@ const featureFAQs = [
 			function show(on: string, write: boolean) {
 				buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.on === on)));
 				chips.forEach((c) => (c.hidden = on !== 'all' && !(c.dataset.on ?? '').split(' ').includes(on)));
-				cards.forEach((c) => (c.hidden = !c.querySelector('.ft-chips li:not([hidden])')));
+				cards.forEach((c) => {
+					c.hidden = !c.querySelector('.ft-chips li:not([hidden])');
+					// The device's own screen where there is one, otherwise the shared one.
+					const shots = [...c.querySelectorAll<HTMLElement>('.ft-shots [data-for]')];
+					const pick = shots.find((x) => x.dataset.for === on) ?? shots.find((x) => x.dataset.for === 'all');
+					shots.forEach((x) => (x.hidden = x !== pick));
+				});
 				document.body.dataset.on = on;
 				note.textContent = on === 'all' ? 'Features without a device name work everywhere.' : `Showing what Respite does on ${NAMES[on]}.`;
 				if (write) {
@@ -360,13 +324,8 @@ const featureFAQs = [
 		scroll-margin-top: 6rem;
 	}
 
-	.ft-visual {
-		display: grid;
-		place-items: center;
+	.ft-shots {
 		margin: 0.6rem 0.6rem 0;
-		padding: 1.5rem 1.25rem;
-		border-radius: 22px;
-		background: var(--m-ground);
 	}
 
 	.ft-art {
@@ -465,218 +424,5 @@ const featureFAQs = [
 	.ft-note {
 		margin-top: -4rem;
 		text-align: center;
-	}
-
-	/* ------------------------------------------------------------ the drawn previews (decorative) */
-	.ft-visual p {
-		margin: 0;
-	}
-
-	.v-small {
-		font-size: 0.85rem;
-		color: var(--m-ink-soft);
-	}
-
-	/* Pause */
-	.v-phone {
-		display: grid;
-		justify-items: center;
-		gap: 0.5rem;
-		width: min(250px, 100%);
-		padding: 1.5rem 1.1rem 1.1rem;
-		border-radius: 30px;
-		background: var(--m-paper);
-		box-shadow: var(--m-shadow-md);
-		text-align: center;
-	}
-
-	.v-hourglass {
-		display: grid;
-		place-items: center;
-		width: 56px;
-		height: 56px;
-		border-radius: 50%;
-		background: var(--m-accent-soft);
-		color: var(--m-accent-ink);
-		animation: breathe 4s ease-in-out infinite;
-	}
-
-	@keyframes breathe {
-		50% {
-			transform: scale(1.08);
-		}
-	}
-
-	.v-big {
-		font-family: var(--font-heading);
-		font-size: 1.2rem;
-		font-weight: 800;
-	}
-
-	.v-btn {
-		display: block;
-		width: 100%;
-		padding: 0.6rem;
-		border-radius: 999px;
-		background: var(--m-accent-strong);
-		color: var(--m-on-accent);
-		font-family: var(--font-heading);
-		font-size: 0.9rem;
-		font-weight: 800;
-	}
-
-	.v-btn.is-soft {
-		background: var(--m-fog);
-		color: var(--m-ink-soft);
-	}
-
-	/* Limits */
-	.v-list {
-		display: grid;
-		gap: 0.9rem;
-		width: 100%;
-		padding: 1rem;
-		border-radius: 20px;
-		background: var(--m-paper);
-		box-shadow: var(--m-shadow-sm);
-	}
-
-	.v-app {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-	}
-
-	.v-letter {
-		display: grid;
-		place-items: center;
-		flex: none;
-		width: 36px;
-		height: 36px;
-		border-radius: 10px;
-		background: var(--m-accent-soft);
-		color: var(--m-accent-ink);
-		font-family: var(--font-heading);
-		font-weight: 800;
-	}
-
-	.v-letter.is-reward {
-		background: var(--m-reward-soft);
-		color: var(--m-reward-ink);
-	}
-
-	.v-letter.is-warning {
-		background: var(--m-warning-soft);
-		color: var(--m-warning-ink);
-	}
-
-	.v-app-main {
-		flex: 1;
-		display: grid;
-		gap: 0.35rem;
-	}
-
-	.v-app-top {
-		display: flex;
-		justify-content: space-between;
-		gap: 0.5rem;
-		font-size: 0.85rem;
-		font-weight: 700;
-	}
-
-	.v-app-top span:last-child {
-		color: var(--m-ink-soft);
-	}
-
-	.v-app-top .is-warning {
-		color: var(--m-warning-ink) !important;
-	}
-
-	.v-bar {
-		display: block;
-		height: 8px;
-		border-radius: 999px;
-		background: var(--m-fog);
-		overflow: hidden;
-	}
-
-	.v-bar span {
-		display: block;
-		height: 100%;
-		border-radius: 999px;
-		background: var(--m-accent);
-	}
-
-	.v-bar .is-reward {
-		background: #f2b880;
-	}
-
-	.v-bar .is-warning {
-		background: #ee8a7a;
-	}
-
-	/* Insights */
-	.v-chart {
-		display: grid;
-		gap: 1rem;
-		width: 100%;
-		padding: 1.25rem;
-		border-radius: 20px;
-		background: var(--m-paper);
-		box-shadow: var(--m-shadow-sm);
-	}
-
-	.v-chart-head {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.5rem;
-	}
-
-	.v-chart-num {
-		font-family: var(--font-heading);
-		font-size: 1.8rem;
-		font-weight: 800;
-	}
-
-	.v-bars {
-		display: grid;
-		grid-template-columns: repeat(7, 1fr);
-		align-items: end;
-		gap: 0.6rem;
-		height: 120px;
-	}
-
-	.v-col {
-		display: grid;
-		grid-template-rows: 1fr auto;
-		justify-items: center;
-		height: 100%;
-		gap: 0.35rem;
-	}
-
-	.v-colbar {
-		align-self: end;
-		width: 100%;
-		max-width: 28px;
-		border-radius: 8px 8px 4px 4px;
-		background: var(--m-accent-soft);
-	}
-
-	.v-colbar.is-today {
-		background: var(--m-accent);
-	}
-
-	.v-day {
-		font-size: 0.75rem;
-		font-weight: 700;
-		color: var(--m-ink-soft);
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.v-hourglass {
-			animation: none;
-		}
 	}
 </style>

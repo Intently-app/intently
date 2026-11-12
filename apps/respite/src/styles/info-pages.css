@@ -457,6 +457,24 @@ html:has(> body.m-page),
 	background: var(--m-accent-soft);
 }
 
+/* A real app screen (components/ui/AppShot.astro): rounded, no outline, the app's own ground behind it. */
+.m-shot {
+	display: block;
+	border-radius: 22px;
+	overflow: hidden;
+	background: var(--m-ground);
+}
+
+.m-shot img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.m-shot[hidden] {
+	display: none;
+}
+
 .m-bubble {
 	position: relative;
 	margin: 0;

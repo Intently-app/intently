@@ -12,6 +12,7 @@
 		"dev": "astro dev",
 		"preview": "astro build && wrangler dev",
 		"optimize-images": "node scripts/optimize-images.mjs",
+		"render-app-screens": "node scripts/render-app-screens.mjs",
 		"check-links": "node scripts/check-links.mjs"
 	},
 	"dependencies": {
