@@ -13,11 +13,12 @@ interface Props {
 const { app, size = 40, class: className, label } = Astro.props;
 const svgs = import.meta.glob<string>('../../../art/app-screens/icons/*.svg', { query: '?raw', import: 'default', eager: true });
 const svg = svgs[`../../../art/app-screens/icons/${app}.svg`];
-const spec = (manifest.icons as Record<string, { bg: string; fg: string; ring?: boolean }>)[app];
+const spec = (manifest.icons as Record<string, { bg: string; fg: string; ring?: boolean; full?: boolean }>)[app];
 if (!svg || !spec) throw new Error(`AppIcon: no icon "${app}"`);
+// `full` icons (Respite's own) carry their tile in the SVG; the rest are glyphs on a brand tile.
 const glyph = svg
 	.replace(/<title>.*?<\/title>/, '')
-	.replace('<svg ', `<svg fill="${spec.fg}" width="58%" height="58%" aria-hidden="true" focusable="false" `);
+	.replace('<svg ', spec.full ? '<svg width="100%" height="100%" aria-hidden="true" focusable="false" ' : `<svg fill="${spec.fg}" width="58%" height="58%" aria-hidden="true" focusable="false" `);
 ---
 
 <span

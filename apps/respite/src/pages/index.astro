@@ -16,6 +16,7 @@ import Biscuit from '../components/ui/Biscuit.astro';
 import Picture from '../components/ui/Picture.astro';
 import AppShot from '../components/ui/AppShot.astro';
 import ToolCard from '../components/ui/ToolCard.astro';
+import HeroPhone from '../components/home/HeroPhone.astro';
 import StoreButton from '../components/ui/StoreButton.astro';
 import WebSiteSchema from '../components/SEO/WebSiteSchema.astro';
 import ProductSchema from '../components/SEO/ProductSchema.astro';
@@ -100,7 +101,10 @@ const latestPosts = (await getPublishedPosts())
 
 		<main class="m">
 			<!-- Hero: the pause itself -->
-			<section class="hm-hero" aria-labelledby="hm-title">
+			<!-- The hero is a scroll track: while it scrolls by, the copy and the phone stay put (sticky)
+			     and the phone plays the pause story (components/home/HeroPhone.astro). -->
+			<section class="hm-hero" aria-labelledby="hm-title" data-story-track>
+				<div class="hm-hero-sticky" data-story-sticky>
 				<div class="hm-hero-copy">
 					<h1 id="hm-title">Pause before the scroll.</h1>
 					<p class="m-dek">A gentle pause before the apps you pick, so opening them is a choice. Free on iPhone, Android and Chrome.</p>
@@ -115,14 +119,9 @@ const latestPosts = (await getPublishedPosts())
 					</ul>
 				</div>
 
-				<div class="hm-stage" role="img" aria-label="Three Respite screens: the pause on iPhone asking What triggered this impulse to scroll?, the Home screen with today's limits for Instagram, Facebook, YouTube and X, and Insights with today's Screen Time, with Biscuit the fox waving">
-					<div class="hm-phone is-left" aria-hidden="true"><AppShot slug="hero-home" alt="" loading="eager" /></div>
-					<div class="hm-phone is-right" aria-hidden="true"><AppShot slug="hero-insights" alt="" loading="eager" /></div>
-					<div class="hm-phone is-front" aria-hidden="true"><AppShot slug="hero-pause" alt="" loading="eager" fetchpriority="high" /></div>
-					<div class="hm-stage-biscuit" aria-hidden="true">
-						<Biscuit mood="wave" size={150} label="Biscuit the fox waving" />
-					</div>
+				<HeroPhone />
 				</div>
+				<div class="hm-hero-spacer" data-story-spacer aria-hidden="true"></div>
 			</section>
 
 			<!-- How it works: a real sequence, so numbered -->
@@ -329,18 +328,11 @@ const latestPosts = (await getPublishedPosts())
 		text-underline-offset: 0.18em;
 	}
 
-	/* ------------------------------------------------------------ hero */
-	.hm-hero {
+	/* ------------------------------------------------------------ hero (a scroll track) */
+	.hm-hero-sticky {
 		display: grid;
-		gap: 2.5rem;
+		gap: 1.5rem;
 		align-items: center;
-	}
-
-	@media (min-width: 920px) {
-		.hm-hero {
-			grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-			gap: 3.5rem;
-		}
 	}
 
 	.hm-hero h1 {
@@ -356,74 +348,45 @@ const latestPosts = (await getPublishedPosts())
 		margin-top: 1.75rem;
 	}
 
-	.hm-stage {
-		position: relative;
-		display: grid;
-		place-items: center;
-		min-height: 560px;
-		padding: 2.5rem 1.5rem;
-		border-radius: 36px;
-		background: var(--m-accent-soft);
-		overflow: hidden;
+	/* The track only exists once the script runs and motion is welcome. */
+	.hm-hero-spacer {
+		display: none;
 	}
 
-	/* Three real screens, fanned: Home and Insights behind, the pause in front. */
-	.hm-phone {
-		grid-area: 1 / 1;
-		width: 220px;
-		padding: 6px;
-		border-radius: 40px;
-		background: #0e161c; /* the phone's own bezel, the same in light and dark */
-		box-shadow: var(--m-shadow-md);
-	}
-
-	.hm-phone :global(.m-shot) {
-		border-radius: 34px;
-	}
-
-	.hm-phone.is-left {
-		width: 190px;
-		transform: translateX(-62%) rotate(-7deg);
-	}
-
-	.hm-phone.is-right {
-		width: 190px;
-		transform: translateX(62%) rotate(7deg);
-	}
-
-	.hm-phone.is-front {
-		position: relative;
-		z-index: 1;
-	}
-
-	.hm-stage-biscuit {
-		position: absolute;
-		z-index: 2;
-		left: 0.25rem;
-		bottom: -0.5rem;
-	}
-
-	@media (max-width: 600px) {
-		.hm-stage {
-			min-height: 470px;
-			padding: 1.75rem 1rem 2.5rem;
+	@media (prefers-reduced-motion: no-preference) {
+		.hm-hero:global(.is-playing) .hm-hero-spacer {
+			display: block;
+			height: 140vh;
 		}
-		.hm-phone {
-			width: 186px;
+	}
+
+	@media (min-width: 920px) {
+		.hm-hero-sticky {
+			grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+			gap: 3rem;
 		}
-		.hm-phone.is-left,
-		.hm-phone.is-right {
-			width: 150px;
+	}
+
+	@media (min-width: 920px) and (prefers-reduced-motion: no-preference) {
+		.hm-hero:global(.is-playing) .hm-hero-sticky {
+			position: sticky;
+			top: 5.5rem;
+			min-height: calc(100svh - 7rem);
 		}
-		.hm-phone.is-left {
-			transform: translateX(-52%) rotate(-7deg);
+	}
+
+	/* Phones: the copy scrolls away first, then the phone alone holds while the story plays. */
+	@media (max-width: 919px) and (prefers-reduced-motion: no-preference) {
+		.hm-hero:global(.is-playing) .hm-hero-sticky {
+			display: contents;
 		}
-		.hm-phone.is-right {
-			transform: translateX(52%) rotate(7deg);
+		.hm-hero:global(.is-playing) :global(.hp) {
+			position: sticky;
+			top: 4.5rem;
+			margin-top: 1rem;
 		}
-		.hm-stage-biscuit :global(*) {
-			max-width: 110px;
-			max-height: 110px;
+		.hm-hero:global(.is-playing) .hm-hero-spacer {
+			height: 120vh;
 		}
 	}
 

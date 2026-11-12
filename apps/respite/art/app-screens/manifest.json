@@ -20,9 +20,6 @@
 		{ "slug": "step-pause", "board": "OnboardingPreview", "hide": ["main h1"], "clipTo": ["main img", "main > div"], "pad": [24, 66], "replace": { "Continue to app": "Continue to Instagram" } },
 		{ "slug": "step-choose", "board": "Reward", "clip": [0, 178, 390, 450] },
 		{ "slug": "area-focus", "board": "MainFocus", "clip": [0, 236, 390, 300] },
-		{ "slug": "hero-home", "board": "Main", "full": true },
-		{ "slug": "hero-pause", "board": "PauseAINoteIphone", "full": true, "replace": { "A note from Claude": "What triggered this impulse to scroll?", "Is this the scroll you wanted?": "Take a moment to honestly answer." } },
-		{ "slug": "hero-insights", "board": "Insights", "full": true },
 		{ "slug": "hero-ai", "board": "ConnectedAI", "full": true },
 		{ "slug": "ai-changes", "board": "ConnectedAI", "expand": true, "clip": [0, 1012, 390, 380] },
 		{ "slug": "ai-messages", "board": "ConnectedAI", "expand": true, "clip": [0, 732, 390, 290] },
@@ -50,6 +47,7 @@
 		"discord": { "match": "^discord", "bg": "#5865f2", "fg": "#fff" },
 		"threads": { "match": "^threads", "bg": "#000", "fg": "#fff" },
 		"claude": { "match": "^claude$", "bg": "#fff", "fg": "#d97757", "ring": true },
-		"openai": { "match": "^chatgpt$", "bg": "#000", "fg": "#fff" }
+		"openai": { "match": "^chatgpt$", "bg": "#000", "fg": "#fff" },
+		"respite": { "match": "(?!)", "bg": "transparent", "fg": "currentColor", "full": true }
 	}
 }

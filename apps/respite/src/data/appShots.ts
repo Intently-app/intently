@@ -19,11 +19,8 @@ export const SHOT_ALT: Record<string, string> = {
 	'step-pause': 'A Respite pause: "What brought you here right now?" with "I\'ll do something else" and "Continue to Instagram"',
 	'area-focus': 'Respite Home with a focus session running: 18:42 left, until 3:30 PM, all your apps',
 	'step-choose': 'Respite after walking away: Quest done, +30 acorns and an 8 day streak',
-	'hero-home': 'Respite Home: 3h 17m of 4h 15m today, a focus card and today\'s limits for Instagram, Facebook, YouTube and X',
-	'hero-pause': 'The Respite pause on iPhone: "What triggered this impulse to scroll?"',
 	'hero-ai': 'Respite Connected AI screen: a request from Claude waiting for your yes, and the AIs you have connected',
 	'ai-changes': 'Recent AI changes in Respite: Claude lowered X from 30 to 15 minutes a day, with undo',
 	'ai-messages': 'Pause messages from your AI in Respite: "Is this the scroll you wanted?" from Claude, for Instagram and YouTube',
 	'ai-note-ios': 'The Respite pause on iPhone showing a note from Claude: "Is this the scroll you wanted?"',
-	'hero-insights': 'Respite Insights: Screen Time today, pickups and top categories',
 };
