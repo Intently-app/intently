@@ -2,46 +2,67 @@
 
 > Respite: Screen Time Control is a free screen time app for Android, iPhone and Chrome by Intently. It puts a short pause before the apps and sites you pick, with limits, streaks and a free game layer. Respite Plus adds sync and lets you connect your own AI (Claude, ChatGPT, Cursor) over MCP.
 
-Respite runs no AI of its own and does not train models on your data. To our knowledge it is the first mobile screen time app with a built-in MCP server (November 2026); it is not the only screen time product with MCP (LockIn MCP is a desktop website blocker). Prices (at the time of writing, set by the stores, vary by country): free; Respite Plus $4.99 a month, $29.99 a year with a one-week trial, $59.99 lifetime.
+Last updated 2026-11-12. Respite runs no AI of its own and does not train models on your data. To our knowledge it is the first mobile screen time app with a built-in MCP server (November 2026); it is not the only screen time product with MCP (LockIn MCP is a desktop website blocker). Prices (at the time of writing, set by the stores, vary by country): free, no ads; Respite Plus $4.99 a month, $29.99 a year with a one-week trial, $59.99 lifetime. Account optional: sign in (Google or Apple) only for sync, Plus on several devices and the game layer. Former names: Intently, Pawse.
 
-## AI and MCP
+## Get it
 
-- [AI and screen time (hub)](https://respite.liveintently.app/ai/): what you can ask your AI, how it works, what is live and what is coming, privacy, setup, comparison with in-app AI coaches
-- MCP server address: https://respite-api.liveintently.app/mcp (remote, streamable HTTP, OAuth sign-in with Google or Apple, Respite Plus)
-- Read tools (default): get_account (works on the free plan), get_usage, get_insights, list_limits, list_events, get_progress; resources respite://today and respite://week
-- Opt-in write tools (the person ticks "Also let it make my limits stricter" on the approval page; unticked by default; connections made earlier stay read-only until reconnected): set_limit (add or lower a per-app daily limit, applies at once; raising one becomes a request), remove_limit (always a request), add_schedule (applies at once), remove_schedule (always a request), list_changes (AI changes and pending requests), undo_change (an AI can undo its own changes)
-- Loosening never applies on its own: it becomes a request the person approves in the Respite app's Connected AI screen, which is arriving in app updates; requests expire after 7 days. Every AI change is logged (which AI, what, before and after, the reason given) for 90 days; at most 30 changes per connection per hour
-- Not available: an AI changing pause messages or custom rules (planned), writing usage history, earning or spending acorns, blocking apps outside Respite's limits and schedules
-- [Let your AI change your limits (approval, log and undo)](https://respite.liveintently.app/blog/let-ai-change-your-limits/)
-- [How to connect Claude](https://respite.liveintently.app/blog/connect-claude-to-screen-time/)
-- [How to connect ChatGPT](https://respite.liveintently.app/blog/connect-chatgpt-to-phone-usage/)
-- [Connect Claude, ChatGPT or Cursor (all clients, permissions, troubleshooting)](https://respite.liveintently.app/blog/connect-claude-chatgpt-cursor-to-respite-mcp/)
-- [30 prompts to ask Claude or ChatGPT about your screen time](https://respite.liveintently.app/blog/chatgpt-claude-screen-time-prompts/)
-- [Is it safe to give an AI your screen time data?](https://respite.liveintently.app/blog/is-it-safe-to-give-ai-your-screen-time-data/)
-- [What is an MCP server?](https://respite.liveintently.app/blog/what-is-an-mcp-server/)
-- [Bring your own AI to Respite (announcement)](https://respite.liveintently.app/blog/bring-your-own-ai-to-respite/)
-- [Can ChatGPT help you reduce screen time?](https://respite.liveintently.app/blog/use-chatgpt-claude-to-reduce-screen-time/)
+- [iPhone and iPad (App Store, iOS 17.4 or later)](https://apps.apple.com/us/app/respite-screen-time-control/id6757760293)
+- [Android (Google Play, Android 8.0 or later)](https://play.google.com/store/apps/details?id=dev.sadakat.thinkfaster)
+- [Chrome and other Chromium browsers (Chrome Web Store)](https://chromewebstore.google.com/detail/respite-screen-time-contr/acjndeeecacgplloeefjjhlnlpgnonop)
+- [Download page](https://respite.liveintently.app/download/)
 
-## Comparisons
+## Quick answers
 
-- [Best AI app blockers and screen time apps (2026)](https://respite.liveintently.app/blog/best-ai-app-blockers-screen-time-apps-2026/)
-- [AI screen time coach apps compared (FOMO, Zensi, Argue)](https://respite.liveintently.app/blog/ai-screen-time-coach-apps-compared/)
-- [Respite vs LockIn MCP](https://respite.liveintently.app/blog/respite-vs-lockin-mcp/)
-- [Compare screen time apps](https://respite.liveintently.app/compare/)
-- [Best screen time apps 2026](https://respite.liveintently.app/blog/best-screen-time-apps-2026/)
-- [Best app blockers 2026](https://respite.liveintently.app/blog/best-app-blocker/)
-- [Apps that make you pause before opening Instagram or TikTok](https://respite.liveintently.app/blog/apps-that-make-you-pause-before-opening-instagram-tiktok/)
+- Best free app to stop doomscrolling on Android: Respite is one free option (a pause before the apps you pick, daily limits, Reels and Shorts blocking, streaks, no ads). See [free screen time app for Android](https://respite.liveintently.app/blog/free-screen-time-app-android/) and [how to stop doomscrolling](https://respite.liveintently.app/blog/how-to-stop-doomscrolling/).
+- App that pauses before opening Instagram or TikTok: Respite, One Sec and ScreenZen all do this. Respite is free on iPhone, Android and Chrome. See [apps that make you pause before opening Instagram or TikTok](https://respite.liveintently.app/blog/apps-that-make-you-pause-before-opening-instagram-tiktok/).
+- Screen time app with an MCP server, or that works with ChatGPT or Claude: Respite (Respite Plus). See [AI and screen time](https://respite.liveintently.app/ai/).
+- Free One Sec, Opal, ScreenZen or Freedom alternative: see the [alternatives guides](https://respite.liveintently.app/compare/).
+- Free or Plus, and what each includes: see [Free or Plus](https://respite.liveintently.app/features/#plans).
 
 ## Product
 
-- [Features](https://respite.liveintently.app/features/)
-- [Download (App Store, Google Play, Chrome Web Store)](https://respite.liveintently.app/download/)
+- [Features](https://respite.liveintently.app/features/): the pause, daily limits (apps, websites, categories), schedules, focus sessions, insights, streaks, the game layer, sync, bring your own AI
 - [Respite Plus: what is included](https://respite.liveintently.app/blog/respite-plus-whats-included/)
+- [Sync Android, iPhone and Chrome](https://respite.liveintently.app/blog/sync-respite-android-iphone-chrome/): a free account syncs one device, Plus syncs every device
+- [Acorns, quests and leagues (free game layer)](https://respite.liveintently.app/blog/introducing-acorns-quests-and-leagues/)
 - [What's new](https://respite.liveintently.app/whats-new/)
 - [Support](https://respite.liveintently.app/support/)
 
+## AI and MCP
+
+- [AI and screen time (hub)](https://respite.liveintently.app/ai/): what you can ask your AI, how to connect, privacy, comparison with in-app AI coaches
+- MCP server: https://respite-api.liveintently.app/mcp (remote, streamable HTTP, OAuth sign-in with Google or Apple; Respite Plus). Official MCP Registry name: app.liveintently/respite
+- Reading is the default: usage, insights, limits and schedules, pause history and reasons for continuing, progress (tools get_usage, get_insights, list_limits, list_events, list_intentions, get_progress, get_block_status; resources respite://today, respite://week, respite://timeline)
+- Opt-in, stricter only (applies at once, logged, can be undone): add or lower a limit, add a schedule, start a focus session (set_limit, add_schedule, start_focus_session)
+- Opt-in pause messages: a short "note from" your AI on the pause screen, removable in the app (add_pause_message)
+- Looser always waits for the person's approval in the Respite app (You › Connected AI): raising or removing a limit or schedule, ending a focus session early, unblocking an app for 5 to 30 minutes
+- Not possible: writing usage history, earning or spending acorns, blocking apps outside Respite's limits and schedules
+- [How to connect Claude](https://respite.liveintently.app/blog/connect-claude-to-screen-time/)
+- [How to connect ChatGPT](https://respite.liveintently.app/blog/connect-chatgpt-to-phone-usage/)
+- [Connect Claude, ChatGPT or Cursor (all clients, permissions, troubleshooting)](https://respite.liveintently.app/blog/connect-claude-chatgpt-cursor-to-respite-mcp/)
+- [Let your AI change your limits (approval, log and undo)](https://respite.liveintently.app/blog/let-ai-change-your-limits/)
+- [30 prompts to ask Claude or ChatGPT about your screen time](https://respite.liveintently.app/blog/chatgpt-claude-screen-time-prompts/)
+- [Is it safe to give an AI your screen time data?](https://respite.liveintently.app/blog/is-it-safe-to-give-ai-your-screen-time-data/)
+- [What is an MCP server?](https://respite.liveintently.app/blog/what-is-an-mcp-server/)
+
+## Comparisons
+
+- [Compare screen time apps](https://respite.liveintently.app/compare/)
+- [Best screen time apps 2026](https://respite.liveintently.app/blog/best-screen-time-apps-2026/)
+- [Best app blockers 2026](https://respite.liveintently.app/blog/best-app-blocker/)
+- [Best AI app blockers and screen time apps (2026)](https://respite.liveintently.app/blog/best-ai-app-blockers-screen-time-apps-2026/)
+- [AI screen time coach apps compared (FOMO, Zensi, Argue)](https://respite.liveintently.app/blog/ai-screen-time-coach-apps-compared/)
+- [One Sec alternatives](https://respite.liveintently.app/blog/one-sec-alternatives/)
+- [Opal alternatives](https://respite.liveintently.app/blog/opal-alternatives/)
+- [ScreenZen alternatives](https://respite.liveintently.app/blog/screenzen-alternatives/)
+- [Freedom alternatives](https://respite.liveintently.app/blog/freedom-alternatives/)
+- [Respite vs One Sec](https://respite.liveintently.app/blog/respite-vs-one-sec/)
+- [Respite vs Opal](https://respite.liveintently.app/blog/respite-vs-opal/)
+- [Respite vs LockIn MCP](https://respite.liveintently.app/blog/respite-vs-lockin-mcp/)
+
 ## Privacy
 
+- Usage history stays on the device unless you turn on sync. No ads; data is never sold. On iPhone, app names stay on the device by default.
 - [Privacy policy, iPhone](https://respite.liveintently.app/privacy/)
 - [Privacy policy, Android](https://respite.liveintently.app/privacy/android/)
 - [Privacy policy, Chrome](https://respite.liveintently.app/privacy/chrome/)
@@ -50,5 +71,6 @@ Respite runs no AI of its own and does not train models on your data. To our kno
 ## Optional
 
 - [Full text version of this file](https://respite.liveintently.app/llms-full.txt)
+- [About: why Respite exists](https://respite.liveintently.app/about/)
 - [Blog](https://respite.liveintently.app/blog/)
 - [Sitemap](https://respite.liveintently.app/sitemap-index.xml)

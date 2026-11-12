@@ -53,7 +53,7 @@ export const APPS: App[] = [
 		stores: {
 			appStore: 'https://apps.apple.com/us/app/respite-screen-time-control/id6757760293',
 			play: 'https://play.google.com/store/apps/details?id=dev.sadakat.thinkfaster',
-			chrome: 'https://chromewebstore.google.com/detail/intently-intentful-browsi/acjndeeecacgplloeefjjhlnlpgnonop',
+			chrome: 'https://chromewebstore.google.com/detail/respite-screen-time-contr/acjndeeecacgplloeefjjhlnlpgnonop',
 		},
 		color: '#2F6079',
 		icon: '/icons/respite.svg',

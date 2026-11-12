@@ -1,26 +1,36 @@
-# Respite: everything is crawlable, including AI search and assistant crawlers.
+# Respite: everything is crawlable, including AI search, assistant and training crawlers.
 # The explicit groups below make that deliberate (and keep it deliberate if the
-# default group ever changes). Blocking model-training crawlers is not done here.
+# default group ever changes). Being in AI answers matters more to us than opting
+# out of training, so GPTBot, ClaudeBot and Google-Extended are allowed too.
 
 User-agent: *
 Disallow:
 
-# OpenAI: search index (ChatGPT search), user-initiated fetches
+# OpenAI: search index (ChatGPT search), user-initiated fetches, model training
 User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
-# Perplexity
+User-agent: GPTBot
+Allow: /
+
+# Perplexity: index and user-initiated fetches
 User-agent: PerplexityBot
 Allow: /
 
-# Anthropic: training/crawl bot and the search bot
+User-agent: Perplexity-User
+Allow: /
+
+# Anthropic: training/crawl bot, the search bot and user-initiated fetches
 User-agent: ClaudeBot
 Allow: /
 
 User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
 Allow: /
 
 # Google AI (Gemini / Vertex grounding) opt-in token

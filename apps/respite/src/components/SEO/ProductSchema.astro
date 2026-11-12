@@ -34,7 +34,8 @@ const commonFeatures = [
   "Mindful pause before distracting apps",
   "Daily limits and streak tracking",
   "Account optional (sign in only for sync)",
-  "No ads"
+  "No ads",
+  "Bring your own AI over MCP: Claude, ChatGPT or Cursor (Respite Plus)"
 ];
 
 // Only claim what each platform's app does.
@@ -73,9 +74,12 @@ const productSchema = {
     "name": "Intently",
     "url": "https://liveintently.app"
   },
-  "operatingSystem": { android: "Android", ios: "iOS", chrome: "Windows, macOS, Linux" }[platform],
-  "softwareVersion": "1.0",
-  "datePublished": "2024-01-01",
+  "operatingSystem": { android: "Android 8.0 or later", ios: "iOS 17.4 or later", chrome: "Chrome and other Chromium browsers on Windows, macOS, Linux and ChromeOS" }[platform],
+  "downloadUrl": downloadUrl,
+  "isAccessibleForFree": true,
+  // The one Respite entity (RespiteAppSchema.astro). No softwareVersion or datePublished: the stores
+  // hold the real ones, and a stale value here is worse than none.
+  "isPartOf": { "@id": "https://respite.liveintently.app/#software" },
   "featureList": [...commonFeatures, ...platformFeatures[platform]]
 };
 
