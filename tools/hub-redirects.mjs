@@ -53,8 +53,13 @@ for (const p of paths) {
 	if (KEEP.has(p) || DROP.has(p) || RENAMED[p] || p.startsWith('/blog')) continue;
 	rule(p, `${RESPITE}${p}`);
 }
-// Blog paths keep their path; the Respite site itself 301s the renamed intently-vs-* posts.
+// The comparison posts were renamed intently-vs-* -> pawse-vs-* -> respite-vs-*. Send each old URL,
+// with or without its trailing slash, straight to the post in one hop, ahead of the /blog/* splat.
 // (Cloudflare splats only follow a "/", so a prefix rule like /blog/intently-vs-* never matches.)
+for (const p of paths.filter((p) => p.startsWith('/blog/intently-vs-'))) {
+	rule(p, `${RESPITE}${p.replace('/blog/intently-vs-', '/blog/respite-vs-')}`);
+}
+// Every other blog path keeps its path on Respite.
 rule('/blog', `${RESPITE}/blog`);
 lines.push(`/blog/*  ${RESPITE}/blog/:splat  301`);
 lines.push(`/blog-*  ${RESPITE}/blog-:splat  301`);
