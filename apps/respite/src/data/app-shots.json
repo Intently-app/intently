@@ -20,5 +20,9 @@
 	"area-focus": [390, 300],
 	"hero-home": [390, 844],
 	"hero-pause": [390, 844],
-	"hero-insights": [390, 844]
+	"hero-insights": [390, 844],
+	"hero-ai": [390, 844],
+	"ai-changes": [390, 380],
+	"ai-messages": [390, 290],
+	"ai-note-ios": [390, 250]
 }

@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { slug, alt, loading = 'lazy', fetchpriority, class: className, ...rest } = Astro.props;
-const size = (sizes as Record<string, [number, number]>)[slug];
+const size = (sizes as Record<string, number[]>)[slug];
 if (!size) throw new Error(`AppShot: no rendered screen "${slug}". Run npm run render-app-screens.`);
 const [width, height] = size;
 ---

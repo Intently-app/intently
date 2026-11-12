@@ -22,7 +22,11 @@
 		{ "slug": "area-focus", "board": "MainFocus", "clip": [0, 236, 390, 300] },
 		{ "slug": "hero-home", "board": "Main", "full": true },
 		{ "slug": "hero-pause", "board": "PauseAINoteIphone", "full": true, "replace": { "A note from Claude": "What triggered this impulse to scroll?", "Is this the scroll you wanted?": "Take a moment to honestly answer." } },
-		{ "slug": "hero-insights", "board": "Insights", "full": true }
+		{ "slug": "hero-insights", "board": "Insights", "full": true },
+		{ "slug": "hero-ai", "board": "ConnectedAI", "full": true },
+		{ "slug": "ai-changes", "board": "ConnectedAI", "expand": true, "clip": [0, 1012, 390, 380] },
+		{ "slug": "ai-messages", "board": "ConnectedAI", "expand": true, "clip": [0, 732, 390, 290] },
+		{ "slug": "ai-note-ios", "board": "PauseAINoteIphone", "clip": [0, 236, 390, 250] }
 	],
 	"icons": {
 		"instagram": { "match": "^instagram", "bg": "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%)", "fg": "#fff" },
@@ -36,6 +40,16 @@
 		"github": { "match": "^github", "bg": "#181717", "fg": "#fff" },
 		"wikipedia": { "match": "^wikipedia", "bg": "#fff", "fg": "#000", "ring": true },
 		"googledocs": { "match": "^docs\\.google", "bg": "#4285f4", "fg": "#fff" },
-		"googlechrome": { "match": "^chrome$", "bg": "#fff", "fg": "#4285f4", "ring": true }
+		"googlechrome": { "match": "^chrome$", "bg": "#fff", "fg": "#4285f4", "ring": true },
+		"netflix": { "match": "^netflix", "bg": "#000", "fg": "#e50914" },
+		"spotify": { "match": "^spotify", "bg": "#1ed760", "fg": "#000" },
+		"pinterest": { "match": "^pinterest", "bg": "#fff", "fg": "#e60023", "ring": true },
+		"linkedin": { "match": "^linkedin", "bg": "#fff", "fg": "#0a66c2", "ring": true },
+		"telegram": { "match": "^telegram", "bg": "#fff", "fg": "#26a5e4", "ring": true },
+		"twitch": { "match": "^twitch", "bg": "#9146ff", "fg": "#fff" },
+		"discord": { "match": "^discord", "bg": "#5865f2", "fg": "#fff" },
+		"threads": { "match": "^threads", "bg": "#000", "fg": "#fff" },
+		"claude": { "match": "^claude$", "bg": "#fff", "fg": "#d97757", "ring": true },
+		"openai": { "match": "^chatgpt$", "bg": "#000", "fg": "#fff" }
 	}
 }

@@ -5,136 +5,66 @@ import Footer from '../components/Footer.astro';
 import '../styles/info-pages.css';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
-import JumpNav from '../components/ui/JumpNav.astro';
 import Biscuit from '../components/ui/Biscuit.astro';
 import Icon from '../components/ui/Icon.astro';
+import AppShot from '../components/ui/AppShot.astro';
+import AppIcon from '../components/ui/AppIcon.astro';
 
 const MCP_URL = 'https://respite-api.liveintently.app/mcp';
 const PAGE_URL = 'https://respite.liveintently.app/ai/';
-
 const title = 'AI Screen Time App: Connect Claude or ChatGPT to Respite';
 const description =
 	'Respite is, to our knowledge, the first mobile screen time app with a built-in MCP server. Connect Claude, ChatGPT or Cursor and ask about your real usage.';
 
-// 40-60 words, quotable on its own.
-const answer =
-	'Respite is, to our knowledge, the first mobile screen time app with a built-in MCP server (November 2026). With Respite Plus you connect your own AI, such as Claude, ChatGPT or Cursor, and ask about your real usage, limits and progress. It reads by default; if you opt in it can also make your limits stricter, but never loosen one without your approval. Respite runs no AI of its own, and you can disconnect any time.';
-
-const prompts = [
-	{
-		prompt: 'How did my screen time this week compare with last week, and which apps changed most?',
-		tool: 'get_insights',
-	},
-	{
-		prompt: 'Which apps do I use most across my phone and browser, and how often do I open them?',
-		tool: 'get_usage',
-	},
-	{
-		prompt: 'Did I stay within my limits this week? Which limit do I break most often, and on which days?',
-		tool: 'get_insights',
-	},
-	{
-		prompt: 'When Respite paused me at a limit, how often did I walk away, and for which apps?',
-		tool: 'get_insights, list_events',
-	},
-	{
-		prompt: 'Compare my Android and iPhone usage for the last two weeks.',
-		tool: 'get_usage',
-	},
-	{
-		prompt: 'List my limits and schedules. Which ones look too loose compared with what I actually do?',
-		tool: 'list_limits, get_usage',
-	},
-	{
-		prompt: 'Show the last 20 times I was interrupted at a limit and what I chose.',
-		tool: 'list_events',
-	},
-	{
-		prompt: 'What is my streak, how many acorns do I have, and what are today\'s quests?',
-		tool: 'get_progress',
-	},
+// What the AI can do, each with a real app screen (public/images/app/). `chat` draws a short conversation instead.
+const abilities: { id: string; title: string; line: string; shot?: string }[] = [
+	{ id: 'ask', title: 'Ask about your week', line: 'Your real usage, limits and streak, in plain words.' },
+	{ id: 'stricter', title: 'Make limits stricter', line: 'Lower a limit or add a schedule. It applies at once, with undo.', shot: 'ai-changes' },
+	{ id: 'looser', title: 'Looser needs your yes', line: 'Raising or removing a limit is a request you approve in the app.', shot: 'ai' },
+	{ id: 'focus', title: 'Focus when you ask', line: 'It can start a focus session. Ending early asks you.', shot: 'focus' },
+	{ id: 'note', title: 'A note at the pause', line: 'A short line from your AI, on the pause screen.', shot: 'ai-note-ios' },
+	{ id: 'messages', title: 'You stay in charge', line: 'See every message and change it made, and remove any.', shot: 'ai-messages' },
 ];
 
-const tools = [
-	{ name: 'get_account', what: 'Your plan, devices and when this AI was connected. Works on the free plan.', plus: false },
-	{ name: 'get_usage', what: 'Minutes per app or per day over a range of up to 92 days, merged across your devices.', plus: true },
-	{ name: 'get_insights', what: 'This period against the one before: top apps, busiest day, limits kept, walk-aways, your first-week baseline.', plus: true },
-	{ name: 'list_limits', what: 'Your per-app daily limits and blocking schedules.', plus: true },
-	{ name: 'list_events', what: 'Raw sessions, or the moments Respite interrupted you at a limit and what you chose.', plus: true },
-	{ name: 'get_progress', what: 'Acorns, XP and level, streak, streak freezes, quests and your league tier (never other people).', plus: true },
-	{ name: 'list_changes', what: 'A read-only list of the changes AIs made to your limits and schedules, and requests waiting for your approval.', plus: true },
-];
-
-// Opt-in: the person ticks "Also let it make my limits stricter" on the approval page.
-const writeTools = [
-	{ name: 'set_limit', what: 'Add or lower a per-app daily limit. Applies at once. Raising a limit becomes a request you approve.' },
-	{ name: 'add_schedule', what: 'Add a blocking schedule. Applies at once.' },
-	{ name: 'remove_limit', what: 'Always becomes a request you approve; nothing is removed on its own.' },
-	{ name: 'remove_schedule', what: 'Always becomes a request you approve; nothing is removed on its own.' },
-	{ name: 'undo_change', what: 'Lets an AI undo a change it made itself.' },
-];
-
-// Short on purpose: the details are in the FAQ and in /blog/let-ai-change-your-limits/.
-const live = [
-	['Connect Claude, ChatGPT, Cursor and other MCP apps', 'Live'],
-	['Read usage, insights, limits and progress', 'Live, Plus'],
-	['Ready-made today and week summaries', 'Live, Plus'],
-	['Read-only unless you opt in to stricter limits', 'Live'],
-	['AI lowers a limit or adds a schedule, synced to your devices', 'Live, Plus'],
-	['Loosening becomes a request that expires in 7 days', 'Live'],
-	['A 90-day log of AI changes, with undo', 'Live'],
-	['Approve requests in the Respite app', 'Coming soon'],
-	['AI edits pause messages or rules', 'Planned'],
+const asks = [
+	'How did my screen time this week compare with last week?',
+	'Which limit do I break most often, and on which days?',
+	'Lower Instagram to 45 minutes and add a bedtime schedule.',
+	'Leave me a note when I open YouTube after 10 pm.',
 ];
 
 const compare = [
-	['How the AI is provided', 'Your own Claude, ChatGPT or Cursor account, over MCP', 'A coach built into the app, run by the app maker', 'Your own assistant, over MCP'],
-	['Platforms', 'Android, iPhone, Chrome', 'Mostly iPhone only (FOMO, Zensi, Argue, No Scroll AI)', 'macOS full; Windows and Linux via hosts file; Chrome add-on'],
-	['What the AI sees', 'Your synced Respite usage and limits, only when you ask', 'What you tell the coach, plus the app\'s usage data', 'Which sites are blocked; task-aware blocking sends a page excerpt'],
-	['What it does today', 'Reads and explains your data; with opt-in, makes limits stricter', 'Talks you out of opening a blocked app', 'Blocks sites and starts focus sessions'],
-	['Typical price', 'Respite Plus: $4.99 a month; you pay your AI separately', 'Around $9 to $10 a month for the apps that list a price', '$2.99 a month, $29.99 a year'],
+	['How the AI is provided', 'Your own Claude, ChatGPT or Cursor', 'A coach built into the app', 'Your own assistant'],
+	['Platforms', 'Android, iPhone, Chrome', 'Mostly iPhone (FOMO, Zensi, Argue, No Scroll AI)', 'Mac; Windows and Linux via hosts file'],
+	['What it does', 'Explains your data, makes limits stricter, leaves pause notes, starts focus', 'Talks you out of opening an app', 'Blocks sites, starts focus sessions'],
+	['Typical price', 'Respite Plus $4.99 a month, plus your AI', 'About $9 to $10 a month', '$2.99 a month'],
 ];
 
 const faqs = [
 	{
-		question: 'What is the best AI screen time app?',
-		answer:
-			'It depends on where you want the AI to live. Apps such as FOMO and Zensi build a coach into the app, mostly on iPhone. Respite takes the other route: it runs no AI, and you connect your own Claude, ChatGPT or Cursor to your real usage through MCP, on Android, iPhone and Chrome. See our comparison for the trade-offs.',
-	},
-	{
 		question: 'Can ChatGPT or Claude see my screen time?',
 		answer:
-			'Only if you connect them. Out of the box, neither can read your phone. With Respite Plus you add Respite as a custom connector, sign in and allow access, after which the assistant can fetch your synced usage, insights and limits when you ask. It sees nothing before you connect and nothing after you disconnect.',
-	},
-	{
-		question: 'What is a screen time MCP server?',
-		answer:
-			'MCP, the Model Context Protocol, is an open standard that lets an AI assistant call tools in another app. A screen time MCP server exposes your usage and limits as tools. Respite hosts one at https://respite-api.liveintently.app/mcp, with OAuth sign-in, so your own AI can answer questions about your data.',
-	},
-	{
-		question: 'Is Respite really the first screen time app with an MCP server?',
-		answer:
-			'To our knowledge, Respite is the first mobile screen time app with a built-in MCP server, as of November 2026. We do not claim to be the only screen time product with MCP: LockIn MCP is a desktop website blocker driven by your AI, and community-made MCP servers read Mac Screen Time or RescueTime data.',
+			'Only if you connect them. With Respite Plus you add Respite as a connector in Claude, ChatGPT or Cursor, sign in and choose what it may do. It then reads your synced usage, insights and limits when you ask, and sees nothing after you disconnect.',
 	},
 	{
 		question: 'Does Respite run an AI on my data?',
 		answer:
-			'No. Respite runs no AI model on your data and does not train models on it. When you connect Claude, ChatGPT or Cursor, the answers to your questions are sent to that assistant, and its provider handles them under its own policy. Respite only returns what you ask for, for the permissions you allowed.',
+			'No. Respite runs no AI model on your data and trains none on it. When you connect your own assistant, the answers go to that assistant, and its provider handles them under its own policy.',
 	},
 	{
 		question: 'Can my AI change my limits?',
 		answer:
-			'Only to make them stricter, and only if you opt in. On Respite\'s approval page you can tick "Also let it make my limits stricter" (unticked by default); then your AI can lower a limit or add a schedule, and that applies at once. Raising or removing a limit, or removing a schedule, never applies on its own: it becomes a request you approve in the Respite app, which is arriving in app updates, and requests expire after 7 days. Every change is logged for 90 days, and an AI can undo its own changes. Connections made before this update stay read-only until you reconnect.',
+			'Only to make them stricter, and only if you allow it when you connect. Then it can lower a limit, add a schedule, leave a pause message or start a focus session, and that applies at once. Raising or removing a limit, ending a focus session early or unblocking an app is only a request: you approve or decline it in the Respite app, under You › Connected AI. Every change is logged, and you can undo it.',
 	},
 	{
 		question: 'Do I need Respite Plus to connect an AI?',
 		answer:
-			'Yes, to read your data. The account tool works on a free account so the connection can tell you what is missing, but usage, insights, limits, events and progress need Respite Plus. At the time of writing Plus is $4.99 a month, $29.99 a year with a one-week free trial, or $59.99 lifetime; the stores set prices by country.',
+			'Yes. At the time of writing Plus is $4.99 a month, $29.99 a year with a one-week free trial, or $59.99 once; the stores set prices by country. Your AI app is paid for separately, if it costs anything.',
 	},
 	{
 		question: 'How do I disconnect an AI from Respite?',
 		answer:
-			'Remove or disconnect the Respite connector in your AI app\'s connector settings, which ends its access. Deleting your Respite account also ends every connection. A Connected AI screen inside the Respite app is arriving in app updates.',
+			"In the Respite app, open You › Connected AI and choose Disconnect, or remove the connector in your AI app. Deleting your Respite account ends every connection.",
 	},
 ];
 
@@ -159,7 +89,7 @@ const softwareApplication = {
 	featureList: [
 		'Short pause before the apps and sites you pick',
 		'Daily limits, schedules and streaks',
-		'Remote MCP server with OAuth for Claude, ChatGPT and Cursor (Respite Plus; read tools plus opt-in tools that make limits stricter)',
+		'Bring your own AI: connect Claude, ChatGPT or Cursor (Respite Plus). It reads your usage, makes limits stricter, leaves pause messages and starts focus sessions; anything looser needs your approval',
 	],
 };
 
@@ -171,63 +101,12 @@ const webPage = {
 	name: title,
 	description,
 	inLanguage: 'en-US',
-	dateModified: '2026-11-03',
+	dateModified: '2026-11-12',
 	isPartOf: { '@id': 'https://respite.liveintently.app/#website' },
 	about: { '@id': 'https://respite.liveintently.app/#software' },
 	mainEntity: { '@id': 'https://respite.liveintently.app/#software' },
 };
 
-// Setup per assistant, from the connect guides on the blog. Steps may contain simple HTML.
-const setups = [
-	{
-		id: 'claude',
-		name: 'Claude',
-		steps: [
-			'In Claude.ai or Claude Desktop, open <strong>Settings</strong>, then <strong>Connectors</strong>.',
-			'Choose <strong>Add custom connector</strong>, name it Respite and paste the address.',
-			'Sign in with Google or Apple and choose <strong>Allow</strong>. Tick "Also let it make my limits stricter" only if you want that.',
-		],
-		command: '',
-		note: 'Remote servers like Respite go in Connectors, not in claude_desktop_config.json.',
-		guide: '/blog/connect-claude-to-screen-time/',
-	},
-	{
-		id: 'claude-code',
-		name: 'Claude Code',
-		steps: [
-			'Run the command below. Add <code>--scope user</code> to have Respite in every project.',
-			'Start Claude Code, type <code>/mcp</code>, select <strong>respite</strong> and choose to authenticate.',
-			'Your browser opens the Respite sign-in page. Sign in and allow.',
-		],
-		command: `claude mcp add --transport http respite ${MCP_URL}`,
-		note: 'To remove it later: claude mcp remove respite.',
-		guide: '/blog/connect-claude-to-screen-time/',
-	},
-	{
-		id: 'chatgpt',
-		name: 'ChatGPT',
-		steps: [
-			'Open <strong>Settings</strong> and find <strong>connectors</strong> (some versions say <strong>apps</strong>). Turn on developer mode there if your plan requires it.',
-			'Create a new connector with the name Respite and the address, and choose <strong>OAuth</strong>.',
-			'Sign in with Google or Apple and choose <strong>Allow</strong>, then switch Respite on in a new chat.',
-		],
-		command: '',
-		note: 'Custom connectors depend on your ChatGPT plan; on Business, Enterprise or Edu an admin may need to allow them.',
-		guide: '/blog/connect-chatgpt-to-phone-usage/',
-	},
-	{
-		id: 'cursor',
-		name: 'Cursor and others',
-		steps: [
-			'Add a <strong>remote (HTTP) MCP server</strong> with the address.',
-			'The assistant registers itself with Respite and opens your browser.',
-			'Sign in with Google or Apple and allow.',
-		],
-		command: '',
-		note: 'Works with any assistant that supports remote MCP servers with OAuth.',
-		guide: '/blog/connect-claude-chatgpt-cursor-to-respite-mcp/',
-	},
-];
 ---
 
 <!doctype html>
@@ -248,162 +127,111 @@ const setups = [
 		<Header />
 
 		<main class="m">
-			<section class="m-hero" aria-labelledby="ai-title">
-				<div>
-					<p class="ai-kicker"><span class="m-badge is-plus">Respite Plus</span> <span class="m-caption">Updated November 2026</span></p>
-					<h1 id="ai-title">AI Screen Time App: Connect Claude or ChatGPT to Your Real Phone Data</h1>
-					<p class="m-dek">Ask your own Claude, ChatGPT or Cursor about your real usage, limits and progress.</p>
-					<ul class="m-pills" aria-label="At a glance">
-						{['Reads by default', 'Stricter limits only if you opt in', 'Respite runs no AI'].map((t) => (
-							<li><span aria-hidden="true"><Icon name="Check" size={18} /></span>{t}</li>
-						))}
+			<section class="ai-hero" aria-labelledby="ai-title">
+				<div class="ai-hero-copy">
+					<span class="m-badge is-plus">Respite Plus</span>
+					<h1 id="ai-title">Your AI, on your real screen time</h1>
+					<p class="m-dek">Connect Claude or ChatGPT to Respite. Ask about your week, and let it make your limits stricter.</p>
+					<div class="m-actions">
+						<a href="#connect" class="m-btn">Connect your AI</a>
+						<a href="#can" class="m-btn is-soft">What it can do</a>
+					</div>
+					<ul class="m-pills" aria-label="Good to know">
+						<li><Icon name="Check" size={18} />Respite runs no AI</li>
+						<li><Icon name="Check" size={18} />Looser always asks you</li>
 					</ul>
 				</div>
-				<div class="m-biscuit" aria-hidden="true">
-					<div class="m-biscuit-disc"><Biscuit mood="read_chart" size={190} label="Biscuit reading a chart" /></div>
-					<p class="m-bubble">Your AI, your data, your rules.</p>
-				</div>
-			</section>
-
-			<section class="m-paper ai-short" aria-labelledby="short-title">
-				<span class="m-tile" aria-hidden="true"><Icon name="Sparkles" size={22} /></span>
-				<div>
-					<h2 id="short-title" class="ai-short-title">In short</h2>
-					<p>{answer}</p>
-				</div>
-			</section>
-
-			<JumpNav links={[{ href: '#setup', label: 'Set it up' }, { href: '#ask', label: 'What to ask' }, { href: '#can', label: 'What it can do' }, { href: '#status', label: "What's live" }, { href: '#privacy', label: 'Privacy' }, { href: '#compare', label: 'Compared' }, { href: '#faq', label: 'Questions' }]} />
-
-			<section class="m-section" id="setup" aria-labelledby="setup-title">
-				<div class="m-section-head">
-					<h2 id="setup-title">Set it up in two minutes</h2>
-					<p class="m-caption">Same address in every assistant</p>
-				</div>
-				<div class="ai-setup">
-					<div class="ai-address">
-						<span class="m-tile" aria-hidden="true"><Icon name="Link" size={22} /></span>
-						<div class="ai-address-text">
-							<label for="mcp-url">Respite's MCP server</label>
-							<input id="mcp-url" type="text" value={MCP_URL} readonly />
-						</div>
-						<button type="button" class="m-btn" data-copy={MCP_URL} data-done="Copied">Copy</button>
+				<div class="ai-stage" role="img" aria-label="Respite's Connected AI screen with a request from Claude waiting for your yes, and Biscuit the fox reading a chart">
+					<div class="ai-phone" aria-hidden="true"><AppShot slug="hero-ai" alt="" loading="eager" fetchpriority="high" /></div>
+					<div class="ai-stage-icons" aria-hidden="true">
+						<AppIcon app="claude" size={56} />
+						<AppIcon app="openai" size={56} />
 					</div>
-
-					<div class="m-seg ai-tablist" role="tablist" aria-label="Your AI app">
-						{setups.map((s, i) => (
-							<button type="button" role="tab" id={`tab-${s.id}`} aria-controls={`panel-${s.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{s.name}</button>
-						))}
-					</div>
-					{setups.map((s, i) => (
-						<div class="ai-panel" role="tabpanel" id={`panel-${s.id}`} aria-labelledby={`tab-${s.id}`} hidden={i !== 0}>
-							<ol class="m-group ai-steps">
-								{s.steps.map((step, n) => (
-									<li class="m-row">
-										<span class="m-tile is-number" aria-hidden="true">{n + 1}</span>
-										<p class="ai-step" set:html={step} />
-									</li>
-								))}
-							</ol>
-							{s.command && (
-								<div class="ai-command">
-									<code>{s.command}</code>
-									<button type="button" class="m-icon-btn" data-copy={s.command} aria-label="Copy command"><Icon name="Copy" size={20} /></button>
-								</div>
-							)}
-							<p class="m-caption ai-panel-note">{s.note} <a href={s.guide}>Full guide</a></p>
-						</div>
-					))}
+					<div class="ai-stage-biscuit" aria-hidden="true"><Biscuit mood="read_chart" size={150} label="Biscuit reading a chart" /></div>
 				</div>
-			</section>
-
-			<section class="m-section" id="ask" aria-labelledby="ask-title">
-				<div class="m-section-head">
-					<h2 id="ask-title">What can I ask?</h2>
-					<p class="m-caption">Copy one and paste it into your AI</p>
-				</div>
-				<ul class="m-group">
-					{prompts.map((p) => (
-						<li class="m-row">
-							<span class="m-tile" aria-hidden="true"><Icon name="MessageSquareText" size={22} /></span>
-							<div>
-								<p class="ai-prompt">{p.prompt}</p>
-								<p class="ai-tool">{p.tool}</p>
-							</div>
-							<button type="button" class="m-icon-btn" data-copy={p.prompt} aria-label={`Copy: ${p.prompt}`}><Icon name="Copy" size={20} /></button>
-						</li>
-					))}
-				</ul>
-				<p class="m-caption">More in <a href="/blog/chatgpt-claude-screen-time-prompts/">30 prompts for your screen time</a>.</p>
 			</section>
 
 			<section class="m-section" id="can" aria-labelledby="can-title">
-				<div class="m-section-head">
-					<h2 id="can-title">What your AI can and can't do</h2>
-					<p class="m-caption">Loosening a limit is never automatic</p>
-				</div>
-				<div class="ai-perms">
-					{[
-						{ tone: '', icon: 'Eye', title: 'Always, once connected', items: ['Read usage, insights, limits and schedules', 'Read the moments you were paused', 'Read your streak, acorns and quests'] },
-						{ tone: 'is-success', icon: 'ShieldCheck', title: 'Only if you tick the box', items: ['Lower a daily limit', 'Add a blocking schedule', 'Undo its own change'] },
-						{ tone: 'is-reward', icon: 'Hand', title: 'Only with your approval', items: ['Raise or remove a limit', 'Remove a schedule', 'Requests expire after 7 days'] },
-						{ tone: 'is-warning', icon: 'Ban', title: 'Never', items: ['Change pause messages or rules', 'Touch usage history or acorns', 'Block outside your limits'] },
-					].map((c) => (
-						<div class="ai-perm">
-							<span class={`m-tile ${c.tone}`} aria-hidden="true"><Icon name={c.icon} size={22} /></span>
-							<h3>{c.title}</h3>
-							<ul>{c.items.map((i) => <li>{i}</li>)}</ul>
-						</div>
+				<h2 id="can-title" class="m-h2 ai-center">What your AI can do</h2>
+				<div class="ai-masonry">
+					{abilities.map((a) => (
+						<section class="ai-card" aria-labelledby={`${a.id}-title`}>
+							{a.shot ? (
+								<AppShot slug={a.shot} class="ai-card-shot" />
+							) : (
+								<div class="ai-chat" aria-hidden="true">
+									<p class="ai-bubble is-you">How did this week go?</p>
+									<div class="ai-reply">
+										<AppIcon app="claude" size={32} />
+										<p class="ai-bubble">3h 12m a day, 18% less than last week. Instagram dropped the most. Weekends are still your busiest days.</p>
+									</div>
+								</div>
+							)}
+							<div class="ai-card-copy">
+								<h3 id={`${a.id}-title`}>{a.title}</h3>
+								<p>{a.line}</p>
+							</div>
+						</section>
 					))}
 				</div>
-				<p class="m-caption">Every AI change is logged for 90 days, at most 30 changes an hour per connection. <a href="/blog/let-ai-change-your-limits/">How it works</a></p>
-
-				<details class="m-paper ai-ref">
-					<summary>Tool reference</summary>
-					<div class="ai-ref-body">
-						<h3>Read tools</h3>
-						<ul class="ai-tools">
-							{tools.map((t) => (
-								<li><code>{t.name}</code> <span class={`m-badge ${t.plus ? 'is-plus' : ''}`}>{t.plus ? 'Plus' : 'Free'}</span><p>{t.what}</p></li>
-							))}
-						</ul>
-						<h3>Opt-in tools that make limits stricter</h3>
-						<ul class="ai-tools">
-							{writeTools.map((t) => (
-								<li><code>{t.name}</code><p>{t.what}</p></li>
-							))}
-						</ul>
-						<p class="m-caption">Resources <code>respite://today</code> and <code>respite://week</code> give ready-made summaries. New to MCP? <a href="/blog/what-is-an-mcp-server/">What an MCP server is</a></p>
-					</div>
-				</details>
 			</section>
 
-			<section class="m-section" id="status" aria-labelledby="status-title">
-				<div class="m-section-head">
-					<h2 id="status-title">What's live and what's coming</h2>
-					<p class="m-caption">Only what works today is called live</p>
-				</div>
-				<ul class="m-group">
-					{live.map(([what, state]) => (
-						<li class="m-row">
-							<span class={`m-tile ${state.startsWith('Live') ? 'is-success' : 'is-fog'}`} aria-hidden="true"><Icon name={state.startsWith('Live') ? 'CircleCheckBig' : 'CircleDashed'} size={22} /></span>
-							<p class="ai-status-text">{what}</p>
-							<span class={`m-badge ${state.startsWith('Live') ? 'is-live' : ''}`}>{state}</span>
-						</li>
-					))}
+			<section class="m-section" id="connect" aria-labelledby="connect-title">
+				<h2 id="connect-title" class="m-h2 ai-center">Connect in 3 steps</h2>
+				<ol class="ai-steps">
+					<li class="ai-step">
+						<div class="ai-step-art" aria-hidden="true">
+							<AppIcon app="claude" size={64} />
+							<AppIcon app="openai" size={64} />
+						</div>
+						<span class="m-tile is-number">1</span>
+						<h3>Open connectors</h3>
+						<p>In Claude or ChatGPT, open Settings, then Connectors.</p>
+					</li>
+					<li class="ai-step">
+						<div class="ai-step-art">
+							<div class="ai-address">
+								<code id="mcp-url">{MCP_URL.replace('https://', '')}</code>
+								<button type="button" class="m-btn ai-copy" data-copy={MCP_URL} data-done="Copied">Copy</button>
+							</div>
+						</div>
+						<span class="m-tile is-number">2</span>
+						<h3>Add Respite</h3>
+						<p>Add a custom connector called Respite with this address.</p>
+					</li>
+					<li class="ai-step">
+						<div class="ai-step-art" aria-hidden="true">
+							<ul class="ai-allow">
+								<li><Icon name="Check" size={16} />See usage and limits</li>
+								<li><Icon name="Check" size={16} />Make limits stricter</li>
+								<li class="is-off">Optional, off until you tick it</li>
+							</ul>
+						</div>
+						<span class="m-tile is-number">3</span>
+						<h3>Sign in and choose</h3>
+						<p>Sign in with Google or Apple, and pick what it may do.</p>
+					</li>
+				</ol>
+				<p class="m-caption ai-center">Step by step: <a href="/blog/connect-claude-to-screen-time/">Claude</a>, <a href="/blog/connect-chatgpt-to-phone-usage/">ChatGPT</a>, <a href="/blog/connect-claude-chatgpt-cursor-to-respite-mcp/">Cursor and others</a>. <span class="m-sr" role="status" id="copy-status"></span></p>
+			</section>
+
+			<section class="m-section" id="ask" aria-labelledby="ask-title">
+				<h2 id="ask-title" class="m-h2 ai-center">Things to ask</h2>
+				<ul class="ai-asks">
+					{asks.map((q) => <li class="ai-bubble is-you">{q}</li>)}
 				</ul>
-				<p class="m-caption">Dates are on <a href="/whats-new/">What's new</a>. Background: <a href="/blog/bring-your-own-ai-to-respite/">bring your own AI to Respite</a>.</p>
+				<p class="m-caption ai-center">More in <a href="/blog/chatgpt-claude-screen-time-prompts/">30 prompts for your screen time</a>.</p>
 			</section>
 
 			<section class="m-section" id="privacy" aria-labelledby="privacy-title">
 				<h2 id="privacy-title" class="m-h2">Is it private?</h2>
 				<ul class="m-group">
 					{[
-						{ icon: 'Building2', title: 'Your AI provider handles the answers', text: 'What a tool returns goes into your chat, under your AI provider’s own policy.' },
 						{ icon: 'Bot', title: 'Respite runs no AI', text: 'No model runs on your data, and none is trained on it.' },
-						{ icon: 'KeyRound', title: 'You choose the permissions', text: 'A tool without permission returns an error, not data.' },
-						{ icon: 'Unplug', title: 'Disconnect any time', text: 'In your AI app’s connector settings. Deleting your account ends every connection.' },
-						{ icon: 'RefreshCw', title: 'Only synced data', text: 'The AI sees what your devices sync, not what stays on a device.' },
+						{ icon: 'Building2', title: 'Your AI provider handles the answers', text: 'What your AI reads goes into your chat, under its own policy.' },
+						{ icon: 'KeyRound', title: 'You choose the permissions', text: 'Reading is the default. Stricter limits are off until you tick them.' },
+						{ icon: 'Unplug', title: 'Disconnect any time', text: 'In the Respite app under You › Connected AI, or in your AI app.' },
+						{ icon: 'RefreshCw', title: 'Only synced data', text: 'Your AI sees what your devices sync, not what stays on a device.' },
 					].map((r) => (
 						<li class="m-row">
 							<span class="m-tile is-success" aria-hidden="true"><Icon name={r.icon} size={22} /></span>
@@ -414,7 +242,7 @@ const setups = [
 						</li>
 					))}
 				</ul>
-				<p class="m-caption">Read <a href="/blog/is-it-safe-to-give-ai-your-screen-time-data/">is it safe to give an AI your screen time data?</a> Policies: <a href="/privacy/">iPhone</a>, <a href="/privacy/android/">Android</a>, <a href="/privacy/chrome/">Chrome</a>.</p>
+				<p class="m-caption">Read <a href="/blog/is-it-safe-to-give-ai-your-screen-time-data/">is it safe to give an AI your screen time data?</a></p>
 			</section>
 
 			<section class="m-section" id="compare" aria-labelledby="compare-title">
@@ -434,7 +262,6 @@ const setups = [
 						</tbody>
 					</table>
 				</div>
-				<p class="m-caption">Coach apps aren't worse: if you want an AI to talk you out of an app as you tap it, that's what they do and Respite doesn't (yet). See <a href="/blog/respite-vs-lockin-mcp/">Respite vs LockIn MCP</a> and <a href="/blog/best-ai-app-blockers-screen-time-apps-2026/">the best AI app blockers in 2026</a>.</p>
 			</section>
 
 			<section class="m-section" id="faq" aria-labelledby="faq-title">
@@ -450,63 +277,36 @@ const setups = [
 			</section>
 
 			<section class="m-end" aria-labelledby="end-title">
+				<Biscuit mood="cheer" size={120} label="Biscuit cheering" />
 				<h2 id="end-title">Try it with your own data</h2>
-				<p>Respite is free to start. Plus adds sync and bring your own AI.</p>
+				<p>Respite is free to start. Plus adds sync and your own AI.</p>
 				<div class="m-actions">
 					<a href="/download/" class="m-btn">Download Respite</a>
-					<a href="/blog/respite-plus-whats-included/" class="m-btn is-soft">What Plus includes</a>
+					<a href="/features/#plans" class="m-btn is-soft">Free or Plus</a>
 				</div>
 			</section>
 		</main>
 
 		<Footer />
-		<p class="m-sr" id="copy-status" role="status" aria-live="polite"></p>
 
 		<script>
-			// Copy buttons: the address, commands and prompts.
+			// One Copy button for the connector address.
 			const status = document.getElementById('copy-status');
-			const CHECK = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
 			document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((b) => {
-				const original = b.innerHTML;
+				const original = b.textContent;
 				b.addEventListener('click', async () => {
 					try {
 						await navigator.clipboard.writeText(b.dataset.copy ?? '');
 					} catch {
-						(document.getElementById('mcp-url') as HTMLInputElement | null)?.select();
+						const range = document.createRange();
+						range.selectNodeContents(document.getElementById('mcp-url')!);
+						getSelection()?.removeAllRanges();
+						getSelection()?.addRange(range);
 						return;
 					}
-					b.dataset.copied = '';
-					b.innerHTML = b.dataset.done ?? CHECK;
-					if (status) status.textContent = 'Copied';
-					setTimeout(() => {
-						delete b.dataset.copied;
-						b.innerHTML = original;
-					}, 1600);
-				});
-			});
-			document.getElementById('mcp-url')?.addEventListener('focus', (e) => (e.target as HTMLInputElement).select());
-
-			// Tabs (WAI-ARIA pattern): click or arrow keys.
-			const tabs = [...document.querySelectorAll<HTMLButtonElement>('.ai-tablist [role="tab"]')];
-			function select(tab: HTMLButtonElement, focus = false) {
-				tabs.forEach((t) => {
-					const on = t === tab;
-					t.setAttribute('aria-selected', String(on));
-					t.tabIndex = on ? 0 : -1;
-					document.getElementById(t.getAttribute('aria-controls')!)!.hidden = !on;
-				});
-				if (focus) tab.focus();
-			}
-			tabs.forEach((t, i) => {
-				t.addEventListener('click', () => select(t));
-				t.addEventListener('keydown', (e) => {
-					const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-					if (step) {
-						e.preventDefault();
-						select(tabs[(i + step + tabs.length) % tabs.length], true);
-					}
-					if (e.key === 'Home') select(tabs[0], true);
-					if (e.key === 'End') select(tabs[tabs.length - 1], true);
+					b.textContent = b.dataset.done ?? 'Copied';
+					if (status) status.textContent = 'Address copied';
+					setTimeout(() => (b.textContent = original), 1600);
 				});
 			});
 		</script>
@@ -514,299 +314,354 @@ const setups = [
 </html>
 
 <style>
-	.ai-kicker {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		margin: 0 0 1rem;
+	.ai-center {
+		text-align: center;
 	}
 
-	.ai-short {
-		display: flex;
-		align-items: flex-start;
-		gap: 1rem;
-		margin-top: -1.5rem;
-	}
-
-	.ai-short-title {
-		margin: 0 0 0.35rem;
-		font-size: 1.15rem;
-		font-weight: 800;
-	}
-
-	.ai-short p {
-		margin: 0;
-		max-width: 52rem;
-		line-height: 1.6;
-		color: var(--m-ink-soft);
-	}
-
-	/* Setup */
-	.ai-setup {
+	/* ------------------------------------------------------------ hero */
+	.ai-hero {
 		display: grid;
-		gap: 1.25rem;
-		padding: 1.5rem;
-		border-radius: 28px;
-		background: var(--m-paper);
+		gap: 2.5rem;
+		align-items: center;
+	}
+
+	@media (min-width: 920px) {
+		.ai-hero {
+			grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+			gap: 3.5rem;
+		}
+	}
+
+	.ai-hero h1 {
+		margin: 1rem 0 1.1rem;
+		font-size: clamp(2.5rem, 1.7rem + 3.4vw, 4.2rem);
+		font-weight: 800;
+		line-height: 1.03;
+		letter-spacing: -0.025em;
+		text-wrap: balance;
+	}
+
+	.ai-hero .m-actions {
+		margin: 1.75rem 0 1.25rem;
+	}
+
+	.ai-stage {
+		position: relative;
+		display: grid;
+		place-items: center;
+		min-height: 540px;
+		padding: 2.5rem 1.5rem;
+		border-radius: 36px;
+		background: var(--m-accent-soft);
+		overflow: hidden;
+	}
+
+	.ai-phone {
+		width: 230px;
+		padding: 6px;
+		border-radius: 40px;
+		background: #0e161c;
 		box-shadow: var(--m-shadow-md);
 	}
 
-	@media (min-width: 760px) {
-		.ai-setup {
-			padding: 2rem;
+	.ai-phone :global(.m-shot) {
+		border-radius: 34px;
+	}
+
+	.ai-stage-icons {
+		position: absolute;
+		top: 2rem;
+		right: 2rem;
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.ai-stage-icons :global(.m-appicon) {
+		box-shadow: var(--m-shadow-md);
+	}
+
+	.ai-stage-biscuit {
+		position: absolute;
+		left: 0.5rem;
+		bottom: -0.5rem;
+	}
+
+	@media (max-width: 600px) {
+		.ai-stage {
+			min-height: 460px;
+		}
+		.ai-phone {
+			width: 190px;
+		}
+		.ai-stage-icons {
+			top: 1.25rem;
+			right: 1rem;
+		}
+		.ai-stage-icons :global(.m-appicon) {
+			--size: 44px !important;
+		}
+		.ai-stage-biscuit :global(*) {
+			max-width: 110px;
+			max-height: 110px;
 		}
 	}
 
-	.ai-address {
-		display: grid;
-		grid-template-columns: auto 1fr auto;
-		align-items: center;
-		gap: 1rem;
-		padding: 0.75rem 0.75rem 0.75rem 1rem;
-		border-radius: 20px;
-		background: var(--m-ground);
+	/* ------------------------------------------------------------ what it can do */
+	.ai-masonry {
+		columns: 1;
+		column-gap: 1.25rem;
 	}
 
-	.ai-address-text {
-		display: grid;
-		gap: 0.15rem;
-		min-width: 0;
-	}
-
-	.ai-address label {
-		font-family: var(--font-heading);
-		font-weight: 800;
-		font-size: 0.95rem;
-		color: var(--m-ink-soft);
-	}
-
-	.ai-address input {
-		width: 100%;
-		min-width: 0;
-		border: 0;
-		padding: 0;
-		background: transparent;
-		color: var(--m-ink);
-		font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-		font-size: 1.05rem;
-		text-overflow: ellipsis;
-	}
-
-	.ai-address input:focus {
-		outline: none;
-	}
-
-	@media (max-width: 560px) {
-		.ai-address {
-			grid-template-columns: 1fr;
-		}
-		.ai-address .m-tile {
-			display: none;
+	@media (min-width: 680px) {
+		.ai-masonry {
+			columns: 2;
 		}
 	}
 
-	.ai-tablist {
-		justify-self: start;
+	@media (min-width: 1040px) {
+		.ai-masonry {
+			columns: 3;
+		}
 	}
 
-	.ai-panel {
+	.ai-card {
+		display: flex;
+		flex-direction: column;
+		margin: 0 0 1.25rem;
+		break-inside: avoid;
+		border-radius: 28px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		overflow: hidden;
+	}
+
+	.ai-card :global(.ai-card-shot),
+	.ai-chat {
+		margin: 0.6rem 0.6rem 0;
+	}
+
+	.ai-card-copy {
 		display: grid;
-		gap: 1rem;
+		gap: 0.4rem;
+		padding: 1.1rem 1.5rem 1.4rem;
 	}
 
-	.ai-steps {
-		background: var(--m-ground);
-		box-shadow: none;
-	}
-
-	.ai-step {
+	.ai-card-copy h3 {
 		margin: 0;
-		font-size: 1.02rem;
+		font-size: 1.35rem;
+		font-weight: 800;
+	}
+
+	.ai-card-copy p {
+		margin: 0;
+		color: var(--m-ink-soft);
 		line-height: 1.5;
 	}
 
-	.ai-command {
+	.ai-chat {
+		display: grid;
+		gap: 0.75rem;
+		padding: 1.5rem 1.25rem;
+		border-radius: 22px;
+		background: var(--m-ground);
+	}
+
+	.ai-reply {
 		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		padding: 0.6rem 0.6rem 0.6rem 1.1rem;
-		border-radius: 16px;
-		background: var(--ds-text-primary);
-		color: var(--m-paper);
+		align-items: flex-end;
+		gap: 0.6rem;
 	}
 
-	.ai-command code {
-		flex: 1;
-		min-width: 0;
-		padding: 0;
-		background: none;
-		color: inherit;
-		font-size: 0.95rem;
-		white-space: nowrap;
-		overflow-x: auto;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.ai-command {
-			background: #0a141b;
-			color: var(--m-ink);
-		}
-	}
-
-	.ai-panel-note {
+	.ai-bubble {
 		margin: 0;
-	}
-
-	/* Prompts */
-	.ai-prompt {
-		margin: 0;
-		font-family: var(--font-heading);
-		font-size: 1.05rem;
-		font-weight: 700;
-		line-height: 1.4;
-	}
-
-	.ai-tool {
-		margin: 0.2rem 0 0;
-		font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-		font-size: 0.82rem;
-		color: var(--m-ink-soft);
-	}
-
-	/* Can and can't */
-	.ai-perms {
-		display: grid;
-		gap: 1rem;
-	}
-
-	@media (min-width: 760px) {
-		.ai-perms {
-			grid-template-columns: repeat(2, 1fr);
-			gap: 1.25rem;
-		}
-	}
-
-	@media (min-width: 1100px) {
-		.ai-perms {
-			grid-template-columns: repeat(4, 1fr);
-		}
-	}
-
-	.ai-perm {
-		display: grid;
-		align-content: start;
-		gap: 0.75rem;
-		padding: 1.4rem;
-		border-radius: 20px;
+		padding: 0.8rem 1.05rem;
+		border-radius: 20px 20px 20px 6px;
 		background: var(--m-paper);
 		box-shadow: var(--m-shadow-sm);
-	}
-
-	.ai-perm h3 {
-		margin: 0;
-		font-size: 1.12rem;
-		font-weight: 800;
-	}
-
-	.ai-perm ul {
-		display: grid;
-		gap: 0.45rem;
-		margin: 0;
-		padding-left: 1.1rem;
+		font-size: 0.98rem;
 		line-height: 1.45;
-		color: var(--m-ink-soft);
 	}
 
-	.ai-ref summary {
-		cursor: pointer;
-		font-family: var(--font-heading);
-		font-weight: 800;
-		color: var(--m-accent);
+	.ai-bubble.is-you {
+		justify-self: end;
+		border-radius: 20px 20px 6px 20px;
+		background: var(--m-accent);
+		color: var(--m-on-accent, #fff);
+		font-weight: 600;
 	}
 
-	.ai-ref-body h3 {
-		margin: 1.25rem 0 0.5rem;
-		font-size: 1.05rem;
-	}
-
-	.ai-tools {
+	/* ------------------------------------------------------------ connect */
+	.ai-steps {
 		display: grid;
-		gap: 0.75rem;
+		gap: 1.25rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.ai-tools p {
-		margin: 0.2rem 0 0;
-		line-height: 1.45;
-		color: var(--m-ink-soft);
+	@media (min-width: 860px) {
+		.ai-steps {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
 	}
 
-	/* Status */
-	.ai-status-text {
+	.ai-step {
+		display: grid;
+		justify-items: center;
+		align-content: start;
+		gap: 0.6rem;
+		padding: 0.6rem 0.6rem 1.75rem;
+		border-radius: 28px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		text-align: center;
+	}
+
+	.ai-step h3 {
 		margin: 0;
-		line-height: 1.45;
+		font-size: 1.3rem;
+		font-weight: 800;
 	}
 
-	@media (max-width: 600px) {
-		#status .m-row {
-			grid-template-columns: auto 1fr;
-		}
-		#status .m-row .m-badge {
-			grid-column: 2;
-			justify-self: start;
+	.ai-step p {
+		margin: 0;
+		padding: 0 1rem;
+		color: var(--m-ink-soft);
+		line-height: 1.5;
+	}
+
+	.ai-step .m-tile.is-number {
+		width: 36px;
+		height: 36px;
+		margin-top: 0.75rem;
+		border-radius: 50%;
+	}
+
+	.ai-step-art {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		justify-self: stretch;
+		min-height: 170px;
+		padding: 1rem;
+		border-radius: 22px;
+		background: var(--m-ground);
+	}
+
+	.ai-step-art :global(.m-appicon) {
+		box-shadow: var(--m-shadow-sm);
+	}
+
+	.ai-address {
+		display: grid;
+		gap: 0.75rem;
+		justify-items: center;
+		width: 100%;
+	}
+
+	.ai-address code {
+		max-width: 100%;
+		padding: 0.7rem 1rem;
+		border-radius: 14px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		font-size: 0.85rem;
+		white-space: nowrap;
+		user-select: all;
+	}
+
+	.ai-allow {
+		display: grid;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		text-align: left;
+	}
+
+	.ai-allow li {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.55rem 0.9rem;
+		border-radius: 14px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		font-weight: 600;
+		font-size: 0.95rem;
+	}
+
+	.ai-allow li.is-off {
+		background: none;
+		box-shadow: none;
+		color: var(--m-ink-soft);
+		font-weight: 500;
+		font-size: 0.85rem;
+	}
+
+	/* ------------------------------------------------------------ things to ask */
+	.ai-asks {
+		display: grid;
+		gap: 1rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	@media (min-width: 760px) {
+		.ai-asks {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 	}
 
-	/* Comparison */
+	.ai-asks .ai-bubble {
+		justify-self: stretch;
+		padding: 1rem 1.25rem;
+		background: var(--m-paper);
+		color: var(--m-ink);
+		box-shadow: var(--m-shadow-sm);
+	}
+
+	/* ------------------------------------------------------------ compare */
 	.ai-compare-wrap {
 		overflow-x: auto;
-		border-radius: 20px;
+		border-radius: 24px;
 		background: var(--m-paper);
 		box-shadow: var(--m-shadow-sm);
 	}
 
 	.ai-compare {
 		width: 100%;
-		min-width: 46rem;
+		min-width: 640px;
 		border-collapse: collapse;
 		font-size: 0.95rem;
-		line-height: 1.45;
 	}
 
 	.ai-compare th,
 	.ai-compare td {
-		padding: 1rem 1.1rem;
+		padding: 0.9rem 1.1rem;
 		text-align: left;
 		vertical-align: top;
+		line-height: 1.45;
 	}
 
 	.ai-compare tbody tr + tr > * {
-		border-top: 1px solid var(--m-line);
+		border-top: 1px solid var(--m-line, rgba(19, 34, 45, 0.08));
 	}
 
 	.ai-compare thead th {
 		font-family: var(--font-heading);
 		font-weight: 800;
-		color: var(--m-ink-soft);
 	}
 
 	.ai-compare tbody th {
-		font-family: var(--font-heading);
-		font-weight: 800;
-	}
-
-	.ai-compare td {
 		color: var(--m-ink-soft);
+		font-weight: 600;
 	}
 
 	.ai-compare .is-us {
 		background: var(--m-accent-soft);
-		color: var(--m-ink);
-	}
-
-	.ai-compare thead .is-us {
-		color: var(--m-accent-ink);
+		font-weight: 600;
 	}
 </style>

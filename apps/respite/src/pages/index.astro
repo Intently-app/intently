@@ -15,6 +15,7 @@ import Icon from '../components/ui/Icon.astro';
 import Biscuit from '../components/ui/Biscuit.astro';
 import Picture from '../components/ui/Picture.astro';
 import AppShot from '../components/ui/AppShot.astro';
+import ToolCard from '../components/ui/ToolCard.astro';
 import StoreButton from '../components/ui/StoreButton.astro';
 import WebSiteSchema from '../components/SEO/WebSiteSchema.astro';
 import ProductSchema from '../components/SEO/ProductSchema.astro';
@@ -59,12 +60,6 @@ const devices = [
 	{ id: 'ios', name: 'iPhone', icon: 'Smartphone', needs: 'iOS 17.4 or later', store: 'appstore' as const, href: r.stores.appStore!, chips: ['Built on Screen Time', 'Three ways to pause', 'App lock at your limit'] },
 	{ id: 'android', name: 'Android', icon: 'Smartphone', needs: 'Android 8.0 or later', store: 'playstore' as const, href: r.stores.play!, chips: ['Pause before apps', 'Reels and Shorts block', 'Home screen widgets'] },
 	{ id: 'chrome', name: 'Chrome', icon: 'Monitor', needs: 'On your computer', store: 'chromestore' as const, href: r.stores.chrome!, chips: ['Pause before sites', 'Focus mode', 'Time per website'] },
-];
-
-const tools = [
-	{ icon: 'ClipboardList', title: 'Phone addiction quiz', line: '8 questions, a clear next step.', href: '/quiz/' },
-	{ icon: 'Calculator', title: 'Screen time calculator', line: 'Your daily scroll, over a lifetime.', href: '/screen-time-calculator/' },
-	{ icon: 'Gauge', title: 'App addiction score', line: 'How hard your apps pull, scored.', href: '/app-addiction-score/' },
 ];
 
 const latestPosts = (await getPublishedPosts())
@@ -252,17 +247,10 @@ const latestPosts = (await getPublishedPosts())
 					<h2 id="tools-title" class="m-h2">Where do you stand?</h2>
 					<p class="m-caption">Free, private, nothing stored.</p>
 				</div>
-				<div class="hm-tools">
-					{tools.map((t) => (
-						<a class="hm-tool" href={t.href}>
-							<span class="m-tile"><Icon name={t.icon} size={22} /></span>
-							<span class="hm-tool-copy">
-								<span class="hm-tool-title">{t.title}</span>
-								<span class="hm-tool-line">{t.line}</span>
-							</span>
-							<span class="hm-tool-go" aria-hidden="true"><Icon name="ArrowRight" size={18} /></span>
-						</a>
-					))}
+				<div class="m-tool-more" style="--cols:3">
+					<ToolCard id="quiz" />
+					<ToolCard id="calculator" />
+					<ToolCard id="score" />
 				</div>
 			</section>
 
@@ -758,68 +746,6 @@ const latestPosts = (await getPublishedPosts())
 
 	.hm-privacy-main .m-row > span:last-child:empty {
 		display: none;
-	}
-
-	/* ------------------------------------------------------------ tools */
-	.hm-tools {
-		display: grid;
-		gap: 1rem;
-	}
-
-	@media (min-width: 860px) {
-		.hm-tools {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-			gap: 1.25rem;
-		}
-	}
-
-	.hm-tool {
-		display: grid;
-		grid-template-columns: auto 1fr auto;
-		align-items: center;
-		gap: 1rem;
-		padding: 1.25rem;
-		border-radius: 22px;
-		background: var(--m-paper);
-		box-shadow: var(--m-shadow-sm);
-		color: inherit;
-		text-decoration: none;
-		transition: box-shadow 0.2s ease;
-	}
-
-	.hm-tool:hover {
-		box-shadow: var(--m-shadow-md);
-	}
-
-	.hm-tool-copy {
-		display: grid;
-		gap: 0.15rem;
-	}
-
-	.hm-tool-title {
-		font-family: var(--font-heading);
-		font-size: 1.08rem;
-		font-weight: 800;
-	}
-
-	.hm-tool-line {
-		font-size: 0.92rem;
-		color: var(--m-ink-soft);
-	}
-
-	.hm-tool-go {
-		display: grid;
-		place-items: center;
-		width: 36px;
-		height: 36px;
-		border-radius: 50%;
-		background: var(--m-fog);
-		color: var(--m-ink-soft);
-	}
-
-	.hm-tool:hover .hm-tool-go {
-		background: var(--m-accent-soft);
-		color: var(--m-accent-ink);
 	}
 
 	/* ------------------------------------------------------------ end */

@@ -1,115 +1,109 @@
 ---
+import '../styles/info-pages.css';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Button from '../components/ui/Button.astro';
-import InputField from '../components/ui/InputField.astro';
-import DotLottie from '../components/ui/DotLottie.astro';
-import ScrollReveal from '../components/ui/ScrollReveal.astro';
+import Biscuit from '../components/ui/Biscuit.astro';
+import Icon from '../components/ui/Icon.astro';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
+import { SUPPORT_EMAIL } from '../consts';
 
-const subjectOptions = [
-	{ value: 'General Inquiry', label: 'General Inquiry' },
-	{ value: 'Support', label: 'Support' },
-	{ value: 'Feature Request', label: 'Feature Request' },
-	{ value: 'Bug Report', label: 'Bug Report' },
-	{ value: 'Feedback', label: 'Feedback' },
-	{ value: 'Other', label: 'Other' },
+// Most questions have a faster answer than a form.
+const routes = [
+	{ icon: 'LifeBuoy', title: 'Help and FAQs', line: 'Answers to the common questions.', href: '/support/' },
+	{ icon: 'Mail', title: 'Email us', line: SUPPORT_EMAIL, href: `mailto:${SUPPORT_EMAIL}` },
+	{ icon: 'UserX', title: 'Delete your account', line: 'Do it yourself, in a minute.', href: '/delete-account/' },
 ];
+
+// Sent as the form's `subject` (api/contact.ts needs it non-empty).
+const topics = ['Question', 'Bug', 'Idea', 'Feedback', 'Other'];
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title="Contact Us - Get in Touch | Respite" description="Have questions, feedback, or need support? We'd love to hear from you. Send us a message and we'll get back to you as soon as possible." />
+		<BaseHead title="Contact Us | Respite" description="Questions, bugs or ideas about Respite on iPhone, Android or Chrome? Send us a message. We usually reply within two days." />
 		<BreadcrumbSchema
 			items={[
-				{ name: "Home", url: "https://respite.liveintently.app" },
-				{ name: "Contact", url: "https://respite.liveintently.app/contact/" }
+				{ name: 'Home', url: 'https://respite.liveintently.app' },
+				{ name: 'Contact', url: 'https://respite.liveintently.app/contact/' },
 			]}
 		/>
 	</head>
-	<body>
+	<body class="m-page">
 		<Header />
 
-		<main>
-			<!-- Contact Hero - Glass -->
-			<section class="contact-hero">
-				<div class="hero-glow" aria-hidden="true"></div>
-				<div class="container">
-					<h1 class="text-gradient">Get in Touch</h1>
-					<p class="hero-subtitle">Have questions, feedback, or need support? We'd love to hear from you. Send us a message and we'll get back to you as soon as possible.</p>
-				</div>
+		<main class="m">
+			<section class="ct-hero" aria-labelledby="ct-title">
+				<div class="m-biscuit-disc ct-biscuit" aria-hidden="true"><Biscuit mood="wave" size={150} label="Biscuit the fox waving" /></div>
+				<h1 id="ct-title">Say hello</h1>
+				<p class="m-dek">Questions, bugs or ideas. We usually reply within two days.</p>
 			</section>
 
-			<!-- Contact Form Section -->
-			<section class="contact-form-section">
-				<div class="container">
-					<div class="contact-content">
-						<!-- Glass Form Card -->
-						<ScrollReveal animation="fadeUp">
-							<div class="form-glass-card">
-								<form id="contact-form" class="contact-form" novalidate>
-									<InputField
-										label="Name"
-										type="text"
-										name="name"
-										placeholder="Your name"
-										required
-										minlength={2}
-									/>
+			<ul class="ct-routes" aria-label="Quicker ways to get help">
+				{routes.map((r) => (
+					<li>
+						<a class="ct-route" href={r.href}>
+							<span class="m-tile" aria-hidden="true"><Icon name={r.icon} size={22} /></span>
+							<span class="ct-route-copy">
+								<span class="ct-route-title">{r.title}</span>
+								<span class="ct-route-line">{r.line}</span>
+							</span>
+							<span class="ct-route-go" aria-hidden="true"><Icon name="ArrowRight" size={18} /></span>
+						</a>
+					</li>
+				))}
+			</ul>
 
-									<InputField
-										label="Email"
-										type="email"
-										name="email"
-										placeholder="your@email.com"
-										required
-									/>
+			<section class="ct-card" aria-labelledby="form-title">
+				<form id="contact-form" class="ct-form" novalidate>
+					<h2 id="form-title">Send a message</h2>
 
-									<InputField
-										label="Subject"
-										type="select"
-										name="subject"
-										required
-										options={subjectOptions}
-									/>
+					<fieldset class="ct-topics">
+						<legend>What is it about?</legend>
+						<div class="ct-chips">
+							{topics.map((t, i) => (
+								<label class="ct-chip">
+									<input type="radio" name="subject" value={t} checked={i === 0} />
+									<span>{t}</span>
+								</label>
+							))}
+						</div>
+						<p class="ct-error" id="subject-error" aria-live="polite"></p>
+					</fieldset>
 
-									<InputField
-										label="Message"
-										type="textarea"
-										name="message"
-										placeholder="Tell us more about what you'd like to discuss..."
-										required
-										minlength={10}
-										rows={6}
-									/>
-
-									<div id="form-status" class="form-status" aria-live="polite"></div>
-
-									<Button type="submit" variant="primary" size="lg" id="submit-btn" class="submit-btn-wrapper">
-										<span class="btn-text">Send Message</span>
-										<span class="btn-loading" hidden>Sending...</span>
-									</Button>
-								</form>
-							</div>
-						</ScrollReveal>
-
-						<!-- Contact Animation -->
-						<ScrollReveal animation="fadeUp">
-							<div class="contact-animation">
-								<DotLottie
-									src="/contact_us.lottie"
-									autoplay={true}
-									loop={true}
-									speed={1}
-									width={400}
-									height={400}
-									ariaLabel="Contact us animation"
-								/>
-							</div>
-						</ScrollReveal>
+					<div class="ct-row">
+						<label class="ct-field">
+							<span class="ct-label">Name</span>
+							<input id="name-field" name="name" type="text" autocomplete="name" required minlength="2" aria-describedby="name-error" />
+							<span class="ct-error" id="name-error" aria-live="polite"></span>
+						</label>
+						<label class="ct-field">
+							<span class="ct-label">Email</span>
+							<input id="email-field" name="email" type="email" autocomplete="email" required aria-describedby="email-error" />
+							<span class="ct-error" id="email-error" aria-live="polite"></span>
+						</label>
 					</div>
+
+					<label class="ct-field">
+						<span class="ct-label">Message</span>
+						<textarea id="message-field" name="message" rows="5" required minlength="10" placeholder="If something isn't working, tell us your phone and its iOS or Android version, or your Chrome version." aria-describedby="message-error"></textarea>
+						<span class="ct-error" id="message-error" aria-live="polite"></span>
+					</label>
+
+					<p id="form-status" class="ct-status" aria-live="polite"></p>
+
+					<button type="submit" class="m-btn ct-submit" id="submit-btn">
+						<span class="btn-text">Send</span>
+						<span class="btn-loading" hidden>Sending…</span>
+					</button>
+				</form>
+
+				<div class="ct-sent" id="contact-sent" hidden tabindex="-1">
+					<div id="sent-biscuit" class="ct-sent-biscuit" aria-hidden="true"></div>
+					<h2>Thanks, it's on its way</h2>
+					<p>We usually reply within two days, to the email you gave.</p>
+					<button type="button" class="m-btn is-soft" id="send-another">Send another</button>
 				</div>
 			</section>
 		</main>
@@ -119,10 +113,11 @@ const subjectOptions = [
 </html>
 
 <script>
-	const form = document.getElementById('contact-form');
-	const submitBtn = document.getElementById('submit-btn');
-	const btnText = submitBtn?.querySelector('.btn-text');
-	const btnLoading = submitBtn?.querySelector('.btn-loading');
+	const form = document.getElementById('contact-form') as HTMLFormElement | null;
+	const sent = document.getElementById('contact-sent');
+	const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+	const btnText = submitBtn?.querySelector<HTMLElement>('.btn-text');
+	const btnLoading = submitBtn?.querySelector<HTMLElement>('.btn-loading');
 	const formStatus = document.getElementById('form-status');
 
 	form?.addEventListener('submit', async (e) => {
@@ -131,341 +126,328 @@ const subjectOptions = [
 
 		const formData = new FormData(form);
 		const errors = validateForm(formData);
-
 		if (Object.keys(errors).length > 0) {
 			showErrors(errors);
 			return;
 		}
 
 		setLoading(true);
-
 		try {
-			const response = await fetch('/api/contact', {
-				method: 'POST',
-				body: formData,
-			});
-
-			const result = await response.json();
-
+			const response = await fetch('/api/contact', { method: 'POST', body: formData });
+			const result = (await response.json()) as { success?: boolean; message?: string; errors?: Record<string, string> };
 			if (result.success) {
-				showStatus('success', result.message || 'Your message has been sent successfully!');
 				form.reset();
-			} else {
-				if (result.errors) {
-					showErrors(result.errors);
-				} else {
-					showStatus('error', result.message || 'Failed to send message. Please try again.');
+				form.hidden = true;
+				if (sent) {
+					sent.hidden = false;
+					// Made now: a player started while hidden draws at the wrong size.
+					const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+					document.getElementById('sent-biscuit')!.innerHTML = `<dotlottie-wc src="/biscuit/cheer.json" ${still ? '' : 'autoplay loop'} style="width:130px;height:130px"></dotlottie-wc>`;
+					sent.focus();
 				}
+			} else if (result.errors) {
+				showErrors(result.errors);
+			} else {
+				showStatus(result.message || "That didn't send. Please try again.");
 			}
-		} catch (error) {
-			console.error('Form submission error:', error);
-			showStatus('error', 'An error occurred. Please try again later.');
+		} catch {
+			showStatus("That didn't send. Please try again later, or email us.");
 		} finally {
 			setLoading(false);
 		}
 	});
 
-	function validateForm(formData) {
-		const errors = {};
-
-		const name = formData.get('name')?.trim();
-		const email = formData.get('email')?.trim();
-		const subject = formData.get('subject')?.trim();
-		const message = formData.get('message')?.trim();
-
-		if (!name || name.length < 2) {
-			errors.name = 'Please enter a valid name (at least 2 characters)';
+	document.getElementById('send-another')?.addEventListener('click', () => {
+		if (sent) sent.hidden = true;
+		if (form) {
+			form.hidden = false;
+			form.querySelector<HTMLInputElement>('input[name="subject"]')!.checked = true;
+			form.querySelector<HTMLInputElement>('#name-field')?.focus();
 		}
+	});
 
-		if (!email || !isValidEmail(email)) {
-			errors.email = 'Please enter a valid email address';
-		}
-
-		if (!subject) {
-			errors.subject = 'Please select a subject';
-		}
-
-		if (!message || message.length < 10) {
-			errors.message = 'Please enter a message (at least 10 characters)';
-		}
-
+	function validateForm(formData: FormData) {
+		const errors: Record<string, string> = {};
+		const get = (k: string) => (formData.get(k)?.toString() ?? '').trim();
+		if (get('name').length < 2) errors.name = 'Please enter your name.';
+		if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(get('email'))) errors.email = 'Please enter a valid email address.';
+		if (!get('subject')) errors.subject = 'Please pick a topic.';
+		if (get('message').length < 10) errors.message = 'Please write at least 10 characters.';
 		return errors;
 	}
 
-	function isValidEmail(email) {
-		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		return emailRegex.test(email);
-	}
-
-	function showErrors(errors) {
+	function showErrors(errors: Record<string, string>) {
+		let first: HTMLElement | null = null;
 		for (const [field, message] of Object.entries(errors)) {
 			const input = document.getElementById(`${field}-field`);
-			const errorSpan = document.getElementById(`${field}-error`);
-
+			const span = document.getElementById(`${field}-error`);
 			if (input) {
-				input.classList.add('input-field-input-error');
+				input.setAttribute('aria-invalid', 'true');
+				first ??= input;
 			}
-			if (errorSpan) {
-				errorSpan.textContent = message;
-			}
+			if (span) span.textContent = message;
 		}
+		first?.focus();
 	}
 
 	function clearErrors() {
-		const inputs = form?.querySelectorAll('.input-field-input');
-		inputs?.forEach(input => input.classList.remove('input-field-input-error'));
-
-		const errorSpans = form?.querySelectorAll('.input-field-error');
-		errorSpans?.forEach(span => span.textContent = '');
-
-		if (formStatus) {
-			formStatus.className = 'form-status';
-			formStatus.textContent = '';
-		}
+		form?.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+		form?.querySelectorAll('.ct-error').forEach((el) => (el.textContent = ''));
+		if (formStatus) formStatus.textContent = '';
 	}
 
-	function showStatus(type, message) {
-		if (formStatus) {
-			formStatus.className = `form-status ${type}`;
-			formStatus.textContent = message;
-		}
+	function showStatus(message: string) {
+		if (formStatus) formStatus.textContent = message;
 	}
 
-	function setLoading(isLoading) {
-		if (submitBtn) {
-			submitBtn.disabled = isLoading;
-		}
-		if (btnText) {
-			btnText.hidden = isLoading;
-		}
-		if (btnLoading) {
-			btnLoading.hidden = !isLoading;
-		}
+	function setLoading(isLoading: boolean) {
+		if (submitBtn) submitBtn.disabled = isLoading;
+		if (btnText) btnText.hidden = isLoading;
+		if (btnLoading) btnLoading.hidden = !isLoading;
 	}
 </script>
 
 <style>
-	main {
-		width: 100%;
-	}
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 1rem;
-	}
-
-	/* ============================
-	   HERO - Glass
-	   ============================ */
-	.contact-hero {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: linear-gradient(180deg, var(--ds-bg-accent) 0%, var(--ds-bg-secondary) 100%);
-		text-align: center;
-		position: relative;
-		overflow: hidden;
-	}
-
-	.contact-hero::before {
-		content: '';
-		display: block;
-		height: 7rem;
-	}
-
-	.hero-glow {
-		position: absolute;
-		top: -100px;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 600px;
-		height: 400px;
-		background: radial-gradient(ellipse, rgba(var(--ds-brand-rgb),  0.12) 0%, transparent 70%);
-		filter: blur(60px);
-		pointer-events: none;
-	}
-
-	.text-gradient {
-		font-size: 2rem;
-		font-weight: 800;
-		margin: 0 0 var(--ds-space-md);
-		letter-spacing: -0.02em;
-		line-height: 1.2;
-		background: linear-gradient(135deg, var(--ds-primary) 0%, var(--ds-purple) 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.hero-subtitle {
-		font-size: 1.125rem;
-		max-width: 700px;
-		margin: 0 auto;
-		color: var(--ds-text-secondary);
-		line-height: 1.6;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.hero-glow {
-			background: radial-gradient(ellipse, rgba(var(--ds-brand-rgb),  0.08) 0%, transparent 70%);
-		}
-	}
-
-	/* ============================
-	   FORM SECTION
-	   ============================ */
-	.contact-form-section {
-		width: 100%;
-		padding: var(--ds-space-2xl) 0;
-		background: var(--ds-bg-secondary);
-		min-height: 60vh;
-	}
-
-	.contact-content {
+	.ct-hero {
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: var(--ds-space-xl);
-		max-width: 1000px;
+		justify-items: center;
+		gap: 0.75rem;
+		text-align: center;
+	}
+
+	.ct-biscuit {
+		width: 160px;
+	}
+
+	.ct-hero h1 {
+		margin: 0.5rem 0 0;
+		font-size: clamp(2.4rem, 1.7rem + 2.8vw, 3.6rem);
+		font-weight: 800;
+		line-height: 1.05;
+		letter-spacing: -0.02em;
+	}
+
+	/* ------------------------------------------------------------ quick routes */
+	.ct-routes {
+		display: grid;
+		gap: 1rem;
+		width: 100%;
+		max-width: 60rem;
 		margin: 0 auto;
-		align-items: start;
+		padding: 0;
+		list-style: none;
 	}
 
-	/* Glass form card */
-	.form-glass-card {
-		padding: var(--ds-space-2xl);
-		background: rgba(255, 255, 255, 0.75);
-		backdrop-filter: blur(20px) saturate(160%);
-		-webkit-backdrop-filter: blur(20px) saturate(160%);
-		border: 1px solid rgba(255, 255, 255, 0.8);
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.9),
-			0 4px 20px rgba(0, 0, 0, 0.06);
-		border-radius: 24px;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.form-glass-card {
-			background: rgba(21, 38, 47, 0.75);
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.1),
-				0 4px 20px rgba(0, 0, 0, 0.4);
+	@media (min-width: 820px) {
+		.ct-routes {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 	}
 
-	.contact-form {
+	.ct-route {
 		display: flex;
-		flex-direction: column;
-		gap: var(--ds-space-md);
+		align-items: center;
+		gap: 0.9rem;
+		height: 100%;
+		box-sizing: border-box;
+		padding: 1.1rem 1.2rem;
+		border-radius: 24px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		color: inherit;
+		text-decoration: none;
+		transition: box-shadow 0.2s ease, transform 0.2s ease;
 	}
 
-	.submit-btn-wrapper {
+	.ct-route:hover {
+		box-shadow: var(--m-shadow-md);
+		transform: translateY(-2px);
+	}
+
+	.ct-route-copy {
+		display: grid;
+		flex: 1;
+		min-width: 0;
+		gap: 0.15rem;
+	}
+
+	.ct-route-title {
+		font-family: var(--font-heading);
+		font-size: 1.1rem;
+		font-weight: 800;
+	}
+
+	.ct-route-line {
+		color: var(--m-ink-soft);
+		font-size: 0.92rem;
+		overflow-wrap: anywhere;
+	}
+
+	.ct-route-go {
+		color: var(--m-accent);
+	}
+
+	/* ------------------------------------------------------------ form */
+	.ct-card {
 		width: 100%;
+		max-width: 44rem;
+		box-sizing: border-box;
+		margin: 0 auto;
+		padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+		border-radius: 32px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
 	}
 
-	.submit-btn-wrapper :global(.btn) {
-		width: 100%;
+	.ct-form {
+		display: grid;
+		gap: 1.25rem;
 	}
 
-	/* Form status messages */
-	.form-status {
-		padding: var(--ds-space-md);
-		border-radius: var(--ds-radius-md);
-		font-size: 0.9375rem;
+	.ct-form[hidden] {
 		display: none;
 	}
 
-	.form-status:not(:empty) {
-		display: block;
+	.ct-form h2,
+	.ct-sent h2 {
+		margin: 0;
+		font-size: 1.6rem;
+		font-weight: 800;
 	}
 
-	.form-status.success {
-		background: var(--ds-bg-success);
-		color: var(--ds-green-dark);
-		border: 1px solid var(--ds-green-light);
+	.ct-topics {
+		min-width: 0;
+		margin: 0;
+		padding: 0;
+		border: 0;
 	}
 
-	.form-status.error {
-		background: var(--ds-bg-error);
-		color: var(--ds-red-dark);
-		border: 1px solid var(--ds-red-light);
+	.ct-topics legend,
+	.ct-label {
+		margin-bottom: 0.5rem;
+		padding: 0;
+		font-family: var(--font-heading);
+		font-weight: 800;
+		font-size: 0.98rem;
 	}
 
-	/* Contact Animation */
-	.contact-animation {
+	.ct-chips {
 		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
+		flex-wrap: wrap;
+		gap: 0.5rem;
 	}
 
-	.contact-animation :global(.dotlottie-wc) {
-		width: 100%;
-		height: 100%;
-		max-width: 400px;
-		max-height: 400px;
-		object-fit: contain;
+	.ct-chip {
+		position: relative;
 	}
 
-	/* ============================
-	   RESPONSIVE
-	   ============================ */
-	@media (min-width: 768px) {
-		.contact-hero,
-		.contact-form-section {
-			padding: var(--ds-space-3xl) 0;
-		}
-
-		.text-gradient {
-			font-size: 2.5rem;
-		}
-
-		.hero-subtitle {
-			font-size: 1.25rem;
-		}
-
-		.contact-content {
-			grid-template-columns: 2fr 1fr;
-			align-items: center;
-		}
+	.ct-chip input {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
 	}
 
-	@media (min-width: 1024px) {
-		.contact-hero,
-		.contact-form-section {
-			padding: var(--ds-space-4xl) 0;
-		}
-
-		.text-gradient {
-			font-size: 3rem;
-		}
-
-		.contact-animation :global(.dotlottie-wc) {
-			max-width: 450px;
-			max-height: 450px;
-		}
+	.ct-chip span {
+		display: inline-block;
+		padding: 0.55rem 1.05rem;
+		border-radius: 999px;
+		background: var(--m-ground);
+		font-weight: 700;
+		cursor: pointer;
+		transition: background 0.15s ease, color 0.15s ease;
 	}
 
-	@media (max-width: 767px) {
-		.form-glass-card {
-			padding: var(--ds-space-lg);
-		}
+	.ct-chip input:checked + span {
+		background: var(--m-accent);
+		color: var(--m-on-accent);
 	}
 
-	html {
-		scroll-behavior: smooth;
-	}
-
-	a:focus-visible,
-	button:focus-visible {
-		outline: 2px solid var(--ds-primary);
+	.ct-chip input:focus-visible + span {
+		outline: 3px solid var(--m-accent);
 		outline-offset: 2px;
 	}
 
-	@media (prefers-reduced-motion: reduce) {
-		.form-glass-card {
-			transition: none;
+	.ct-row {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	@media (min-width: 640px) {
+		.ct-row {
+			grid-template-columns: 1fr 1fr;
 		}
+	}
+
+	.ct-field {
+		display: grid;
+	}
+
+	.ct-field input,
+	.ct-field textarea {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0.85rem 1rem;
+		border: 2px solid transparent;
+		border-radius: 16px;
+		background: var(--m-ground);
+		color: var(--m-ink);
+		font: inherit;
+		transition: border-color 0.15s ease, background 0.15s ease;
+	}
+
+	.ct-field textarea {
+		resize: vertical;
+		min-height: 8rem;
+	}
+
+	.ct-field input:focus,
+	.ct-field textarea:focus {
+		border-color: var(--m-accent);
+		background: var(--m-paper);
+		outline: none;
+	}
+
+	.ct-field [aria-invalid='true'] {
+		border-color: #d9654f;
+	}
+
+	.ct-error,
+	.ct-status {
+		margin: 0.35rem 0 0;
+		color: #c0473a;
+		font-size: 0.9rem;
+		font-weight: 600;
+	}
+
+	.ct-error:empty,
+	.ct-status:empty {
+		display: none;
+	}
+
+	.ct-submit {
+		justify-self: start;
+		min-width: 9rem;
+	}
+
+	.ct-sent {
+		display: grid;
+		justify-items: center;
+		gap: 0.75rem;
+		padding: 1rem 0;
+		text-align: center;
+		outline: none;
+	}
+
+	.ct-sent[hidden] {
+		display: none;
+	}
+
+	.ct-sent-biscuit {
+		min-height: 130px;
+	}
+
+	.ct-sent p {
+		margin: 0 0 0.5rem;
+		color: var(--m-ink-soft);
 	}
 </style>
