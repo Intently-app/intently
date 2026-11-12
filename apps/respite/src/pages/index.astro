@@ -23,6 +23,7 @@ import WebSiteSchema from '../components/SEO/WebSiteSchema.astro';
 import ProductSchema from '../components/SEO/ProductSchema.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
 import { getPublishedPosts } from '../lib/posts';
+import { ctaForHref } from '../lib/analytics-core';
 import { app } from '@intently/registry';
 
 const r = app('respite');
@@ -110,7 +111,7 @@ const latestPosts = (await getPublishedPosts())
 					<h1 id="hm-title">Pause before the scroll.</h1>
 					<p class="m-dek">A gentle pause before the apps you pick, so opening them is a choice. Free on iPhone, Android and Chrome.</p>
 					<div class="m-actions hm-hero-actions" data-placement="hero">
-						<a href="/download/" class="m-btn">Download free</a>
+						<a href="/download/" class="m-btn" data-cta="download">Download free</a>
 						<a href="#how" class="m-btn is-soft">See how it works</a>
 					</div>
 					<ul class="m-pills" aria-label="Good to know">
@@ -193,11 +194,11 @@ const latestPosts = (await getPublishedPosts())
 			<section class="m-section hm-more" aria-labelledby="more-title" data-story-track>
 				<div class="m-section-head">
 					<h2 id="more-title">More than a pause</h2>
-					<a class="hm-link" href="/features/">Every feature <Icon name="ArrowRight" size={16} /></a>
+					<a class="hm-link" href="/features/" data-cta="features">Every feature <Icon name="ArrowRight" size={16} /></a>
 				</div>
 				<div class="hm-areas">
 					{areas.map((a) => (
-						<a class="hm-area" href={a.href}>
+						<a class="hm-area" href={a.href} data-cta={ctaForHref(a.href)}>
 							<span class="hm-area-art" aria-hidden="true">
 								<AppShot slug={a.shot} alt="" />
 							</span>
@@ -243,7 +244,7 @@ const latestPosts = (await getPublishedPosts())
 						</section>
 					))}
 				</div>
-				<p class="m-caption hm-center">Respite Plus is optional: sync on every device, longer focus and more. <a href="/features/#plans">Free or Plus</a></p>
+				<p class="m-caption hm-center">Respite Plus is optional: sync on every device, longer focus and more. <a href="/features/#plans" data-cta="plans">Free or Plus</a></p>
 			</section>
 
 			<!-- Privacy -->
@@ -329,7 +330,7 @@ const latestPosts = (await getPublishedPosts())
 				<span class="hm-end-biscuit"><Biscuit mood="cheer" size={120} label="Biscuit cheering" /></span>
 				<h2 id="end-title">Try it on one app first</h2>
 				<p>Free, no ads, about a minute to set up.</p>
-				<a href="/download/" class="m-btn">Download Respite</a>
+				<a href="/download/" class="m-btn" data-cta="download">Download Respite</a>
 			</section>
 		</main>
 		<PhoneJourney />

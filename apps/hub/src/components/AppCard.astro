@@ -6,7 +6,7 @@
 import AppMark from '@intently/ui/AppMark.astro';
 import type { App } from '@intently/registry';
 import Hour from './world/Hour.astro';
-import { siteUrl, statusLabel, stores } from '../data/apps.ts';
+import { ctaFor, siteUrl, statusLabel, stores } from '../data/apps.ts';
 import { vignetteGround } from '../world/vignette.ts';
 import type { Chapter } from '../data/chapters.ts';
 
@@ -36,9 +36,9 @@ const stand = (fromRight: number) => Math.round(LAND - vignetteGround(chapter.id
 				{app.highlights.map((h) => <li>{h}</li>)}
 			</ul>
 		)}
-		<p class="actions">
-			{links.map((l) => <a class="button" href={l.href}>{l.label}</a>)}
-			<a class="step" href={siteUrl(app)}>Visit the {app.name} site</a>
+		<p class="actions" data-placement="app_card">
+			{links.map((l) => <a class="button" href={l.href} data-cta={ctaFor(app)}>{l.label}</a>)}
+			<a class="step" href={siteUrl(app)} data-cta={ctaFor(app)}>Visit the {app.name} site</a>
 		</p>
 		<p class="where">
 			{status

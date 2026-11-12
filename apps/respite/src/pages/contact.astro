@@ -113,6 +113,8 @@ const topics = ['Question', 'Bug', 'Idea', 'Feedback', 'Other'];
 </html>
 
 <script>
+	import { track } from '../lib/analytics';
+
 	const form = document.getElementById('contact-form') as HTMLFormElement | null;
 	const sent = document.getElementById('contact-sent');
 	const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
@@ -135,7 +137,9 @@ const topics = ['Question', 'Bug', 'Idea', 'Feedback', 'Other'];
 		try {
 			const response = await fetch('/api/contact', { method: 'POST', body: formData });
 			const result = (await response.json()) as { success?: boolean; message?: string; errors?: Record<string, string> };
-			if (result.success) {
+			if (response.ok && result.success) {
+				// A lead, counted only once the message is really sent. Nothing typed goes with it.
+				track('generate_lead', { form: 'contact' });
 				form.reset();
 				form.hidden = true;
 				if (sent) {

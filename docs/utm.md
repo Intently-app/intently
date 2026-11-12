@@ -1,8 +1,9 @@
 # UTM and campaign links
 
 One naming scheme for every link that brings people to a Respite page or sends them to a store. With it,
-Ahrefs Web Analytics, Play Console, App Store Connect and the Chrome Web Store dashboard all report the
-same names. The site's code is in `apps/respite/src/lib/attribution.ts`.
+Google Analytics 4, Play Console, App Store Connect and the Chrome Web Store dashboard all report the
+same names. The site's code is in `apps/respite/src/lib/analytics.ts` (browser) and
+`apps/respite/src/lib/analytics-core.ts` (pure helpers, tested by `apps/respite/scripts/analytics.test.mjs`).
 
 ## Rules
 
@@ -13,6 +14,9 @@ same names. The site's code is in `apps/respite/src/lib/attribution.ts`.
 - `utm_content` = **which** link or creative, when one campaign has several: `top_comment`, `video_1`.
 - Never tag internal links (respite.liveintently.app → respite.liveintently.app). It resets the
   visitor's source in analytics. The site carries the visitor's source forward by itself.
+- Links from the hub (liveintently.app) to the Respite site count as internal too: both sites send to
+  the same GA4 web stream (`G-40F2MVBEQE`) and share its first-party cookie on liveintently.app, so
+  hub → Respite stays one session. A UTM there would start a new session and hide the real source.
 
 | utm_medium | Use for |
 |---|---|
@@ -21,7 +25,7 @@ same names. The site's code is in `apps/respite/src/lib/attribution.ts`.
 | `email` | Newsletters and outreach emails you send |
 | `app` | Links inside the Respite apps and extension (support, "visit site") |
 | `store_listing` | The website link on a store listing |
-| `referral` | Our own other sites (the liveintently.app hub) |
+| `referral` | Other people's sites linking to us without tags (set automatically from the referrer) |
 | `partner` | Guest posts, directories, listicles that link to us |
 | `paid_social` / `cpc` | Paid ads, if ever |
 | `qr` | Printed QR codes |
@@ -37,7 +41,6 @@ same names. The site's code is in `apps/respite/src/lib/attribution.ts`.
 | Android app › about/support | `https://respite.liveintently.app/support/?utm_source=respite_android&utm_medium=app&utm_campaign=settings` |
 | iOS app › about/support | `https://respite.liveintently.app/support/?utm_source=respite_ios&utm_medium=app&utm_campaign=settings` |
 | Extension › popup/options | `https://respite.liveintently.app/?utm_source=respite_chrome&utm_medium=app&utm_campaign=popup` |
-| Hub (liveintently.app) card | `https://respite.liveintently.app/?utm_source=liveintently_hub&utm_medium=referral&utm_campaign=hub` |
 | Reddit post | `https://respite.liveintently.app/blog/<slug>/?utm_source=reddit&utm_medium=social&utm_campaign=<push>&utm_content=<subreddit>` |
 | X / Threads bio | `https://respite.liveintently.app/?utm_source=x&utm_medium=bio&utm_campaign=bio` |
 
@@ -60,12 +63,59 @@ URL). Reviewers and automated checks compare those literally.
    `utm_campaign=<section>` (`home`, `blog`, `tools`, `download`, …), and
    `utm_content=<page slug>__<placement>`. The placement is `hero`, `nav`, `article`, `sidebar`,
    `footer` or `body`, or whatever the nearest `data-placement` attribute says.
-4. Each click on a store link sends the Ahrefs custom event **`store_click`** with the props `store`,
-   `page`, `section`, `placement`, `source` and `medium`. Set it up once in Ahrefs: Web Analytics ›
-   Tracked events › add Custom event `store_click`. Then filter by its props.
+4. Each click on a store link, and on any button or link marked `data-cta`, sends a GA4 event. See
+   **Events** below.
+
+## Events
+
+All events go to the GA4 web stream "Respite Website" (`G-40F2MVBEQE`), under Consent Mode v2 (no
+banner: analytics storage denied in the EEA, the UK and Switzerland, granted elsewhere; ads storage
+and Google signals off everywhere). The hub at liveintently.app sends to the same stream.
+
+| Event | Parameters | Fired by |
+|---|---|---|
+| `store_click` | `store` (`app_store`, `google_play`, `chrome_web_store`), `page`, `section`, `placement`, `source`, `medium`, and `cta` when the link has `data-cta` | Any click (or middle-click) on a store link on the Respite site. Store links never also send `cta_click`. |
+| `cta_click` | `cta`, `page`, `section`, `placement`, `source`, `medium` | Respite site: a click on any element with `data-cta="<id>"` that isn't a store link. Hub: links to Respite (`cta=respite_card`, `section=hub`, plus `link_url`; no `source`/`medium`). |
+| `share` (GA4 recommended) | `method` (`native_share`, `copy_link`, `x`), `content_type` (`article`, `tool`), `item_id` (page slug) | Blog share buttons (`layouts/BlogPost.astro`), the calculator's and the app score's share buttons. |
+| `tool_complete` | `tool` (`quiz`, `calculator`, `addiction_score`), `result_band` | A tool shows its result. Bands only: quiz `healthy`/`mild`/`moderate`/`severe`; calculator daily hours `under_2h`/`2_4h`/`4_6h`/`6_8h`/`8h_plus`; app score `low`/`moderate`/`high`/`critical`. A result restored from a shared link doesn't count. Never send raw answers, ages, hours or apps. |
+| `generate_lead` (GA4 recommended) | `form` (`contact`) | The contact form, only after the server says the message was sent. Nothing typed goes with it. |
+
+`page` is the page slug (`home`, `quiz`, `how_to_stop_doomscrolling`), `section` the site section
+(`home`, `blog`, `tools`, `download`, `features`, `legal`, …). `source` and `medium` are the visitor's
+inbound `utm_source`/`utm_medium`, or the referrer-derived values, or `respite_site`/`web` for direct
+visits: the same values the store links carry.
+
+`placement` is the nearest `data-placement` attribute (`hero`, `final_cta`, `inline_cta`, `rail_cta`,
+`result`, `index_cta`, `changelog`, `download_cards`, `platforms`, `app_card`, `apps_list`, `moment`,
+…), otherwise the landmark around the element: `nav`, `footer`, `hero`, `sidebar`, `article` or `body`.
+
+### `data-cta` ids
+
+| Id | Where |
+|---|---|
+| `download` | Every "Download" / "Get the App" button to `/download/`, including the header button (placement `nav`) |
+| `article_cta` | The download button of the in-article CTA box that `BlogPost.astro` moves into the post (placement `inline_cta`) |
+| `quiz` | Buttons and tool cards to `/quiz/` |
+| `calculator` | Buttons and tool cards to `/screen-time-calculator/` |
+| `addiction_score` | Buttons and tool cards to `/app-addiction-score/` |
+| `plans` | "Free or Plus" links to `/features/#plans` |
+| `features` | Buttons and feature cards to `/features/` |
+| `ai` | Buttons and cards to `/ai/` |
+| `compare` | The "Compare screen time apps" link in the blog index CTA |
+| `respite_card` | Hub only: links to the Respite site and stores from its app card, app lists and chapter hints |
+
+Plain navigation (header menu, footer lists) and links inside article text aren't tagged. To track a
+new button, add `data-cta="<id>"` (reuse an id above where it fits) and, if the landmark isn't enough,
+a `data-placement` on it or a wrapper. `ctaForHref()` in `analytics-core.ts` gives the id for a path.
+
+### Set up in GA4 (once)
+
+- **Custom dimensions** (Admin › Custom definitions, event scope): `cta`, `placement`, `page`,
+  `section`, `store`, `tool`, `method`. Optional: `result_band`, `source`, `medium`.
+- **Key events** (Admin › Events › mark as key event): `store_click`, `generate_lead`.
 
 ## Still to do
 
 - App Store campaigns only show in App Store Connect once a campaign has installs from 5 or more
-  Apple Accounts. The provider token (`pt=128440905`) is set in `apps/respite/src/lib/attribution.ts`.
+  Apple Accounts. The provider token (`pt=128440905`) is set in `apps/respite/src/lib/analytics-core.ts`.
 - Put the ready-made links above into the three store listings and the apps' settings screens.

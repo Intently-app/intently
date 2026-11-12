@@ -3,6 +3,7 @@
 import Icon from './Icon.astro';
 import AppIcon from './AppIcon.astro';
 import { TOOLS, type ToolId } from '../../data/tools';
+import { ctaForHref } from '../../lib/analytics-core';
 
 interface Props {
 	id: ToolId;
@@ -10,7 +11,7 @@ interface Props {
 const tool = TOOLS.find((t) => t.id === Astro.props.id)!;
 ---
 
-<a class="m-toolcard" href={tool.href}>
+<a class="m-toolcard" href={tool.href} data-cta={ctaForHref(tool.href)}>
 	<span class="m-toolcard-art" aria-hidden="true">
 		{tool.id === 'quiz' && (
 			<span class="tcard-quiz">

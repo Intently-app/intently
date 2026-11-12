@@ -18,6 +18,7 @@ import AppShot from '../components/ui/AppShot.astro';
 import PlanCompare from '../components/ui/PlanCompare.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
+import { ctaForHref } from '../lib/analytics-core';
 
 type P = 'ios' | 'android' | 'chrome';
 const ALL: P[] = ['ios', 'android', 'chrome'];
@@ -184,7 +185,7 @@ const featureFAQs = [
 									</li>
 								))}
 							</ul>
-							{c.link && <a class="ft-more" href={c.link.href}>{c.link.label}</a>}
+							{c.link && <a class="ft-more" href={c.link.href} data-cta={ctaForHref(c.link.href)}>{c.link.label}</a>}
 						</div>
 					</section>
 				))}
@@ -195,7 +196,7 @@ const featureFAQs = [
 					<div class="ft-copy">
 						<h2 id="cta-title">Try it on one app first</h2>
 						<p>Free on iPhone, Android and Chrome. No ads, no account needed.</p>
-						<a href="/download/" class="m-btn">Download Respite</a>
+						<a href="/download/" class="m-btn" data-cta="download">Download Respite</a>
 					</div>
 				</section>
 			</div>

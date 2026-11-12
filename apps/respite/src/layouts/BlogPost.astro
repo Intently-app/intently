@@ -190,9 +190,9 @@ const shownDate = updatedDate ?? pubDate;
 						</div>
 						<a href="#top" class="to-top" data-to-top>Back to top</a>
 					</div>
-					<div class="rail-cta">
+					<div class="rail-cta" data-placement="rail_cta">
 						<p>Respite puts a short pause before the apps you pick. Free on iPhone, Android and Chrome.</p>
-						<a href="/download/" class="rail-cta-button">Get Respite free</a>
+						<a href="/download/" class="rail-cta-button" data-cta="download">Get Respite free</a>
 					</div>
 				</aside>
 			)}
@@ -216,8 +216,8 @@ const shownDate = updatedDate ?? pubDate;
 						<p class="inline-cta-title">Want the pause without the willpower?</p>
 						<p>Respite puts a gentle, few-second pause before the apps you pick, so you open them on purpose. Free on iPhone, Android and Chrome.</p>
 						<p class="inline-cta-actions">
-							<a href="/download/" class="inline-cta-button">Get Respite free</a>
-							<a href="/quiz/" class="inline-cta-link">Or take the 2-minute phone habit quiz</a>
+							<a href="/download/" class="inline-cta-button" data-cta="article_cta">Get Respite free</a>
+							<a href="/quiz/" class="inline-cta-link" data-cta="quiz">Or take the 2-minute phone habit quiz</a>
 						</p>
 					</aside>
 				</div>
@@ -302,6 +302,8 @@ const shownDate = updatedDate ?? pubDate;
 		<Footer />
 
 		<script>
+			import { page, shareParams, track } from '../lib/analytics';
+
 			const body = document.querySelector<HTMLElement>('.article-body');
 			const post = document.querySelector<HTMLElement>('.post');
 			const minutes = Number(post?.dataset.minutes) || 1;
@@ -370,10 +372,12 @@ const shownDate = updatedDate ?? pubDate;
 					if (canShare) {
 						try {
 							await navigator.share({ title: document.title, url });
+							track('share', shareParams('native_share', 'article', page()));
 						} catch { /* dismissed */ }
 						return;
 					}
 					if (await copy(url) && label) {
+						track('share', shareParams('copy_link', 'article', page()));
 						label.textContent = 'Link copied';
 						if (status) status.textContent = 'Link copied';
 						setTimeout(() => (label.textContent = 'Copy link'), 1800);

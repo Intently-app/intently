@@ -1,6 +1,9 @@
 # The chapter pages promise that nothing you type leaves the page: the browser enforces it. Pages
-# may only talk to this site (the contact form posts to /api/contact); everything else is blocked.
+# may only talk to this site (the contact form posts to /api/contact) and to Google Analytics, which
+# gets page views and clicks on links to the apps, never anything typed or chosen on a page (see
+# src/layouts/Base.astro). Everything else is blocked. The Google hosts are the ones GA4's CSP
+# guide lists for connect-src.
 /*
-  Content-Security-Policy: connect-src 'self'; object-src 'none'; base-uri 'self'
+  Content-Security-Policy: connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'
   Referrer-Policy: strict-origin-when-cross-origin
   X-Content-Type-Options: nosniff
