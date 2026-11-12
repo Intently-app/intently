@@ -1,0 +1,99 @@
+---
+/**
+ * /screen-time-calculator/r/?h=4.5&age=28&first=14: a shared calculator result.
+ *
+ * The calculator's share link. The numbers travel in the query (a #hash never reaches a server, so it
+ * can't give the link its own preview), are validated and snapped (src/lib/report-card.ts), and give
+ * the page its own title and social preview: the same report card, drawn by card.png. Nothing is stored.
+ *
+ * One page per set of numbers would be thin duplicate content, so every result page is noindex
+ * (meta and X-Robots-Tag) with its canonical on /screen-time-calculator/. og:url stays on the result,
+ * so a link preview keeps the card.
+ */
+export const prerender = false;
+
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ToolCard from '../../components/ui/ToolCard.astro';
+import '../../styles/info-pages.css';
+import { cardQuery, cardSentence, cardStats, cardSvg, dailyLabel, parseCardParams } from '../../lib/report-card';
+import { ART } from '../../lib/report-card-art';
+
+const CALCULATOR = '/screen-time-calculator/';
+const SELF = '/screen-time-calculator/r/';
+
+const input = parseCardParams(Astro.url.searchParams);
+if (!input) return Astro.redirect(CALCULATOR, 302);
+const query = cardQuery(input);
+if (Astro.url.pathname !== SELF || Astro.url.search.slice(1) !== query) return Astro.redirect(`${SELF}?${query}`, 301);
+
+Astro.response.headers.set('X-Robots-Tag', 'noindex, follow');
+Astro.response.headers.set('Cache-Control', 'public, max-age=3600');
+
+const { lifetime, back } = cardStats(input);
+const sentence = cardSentence(input);
+const title = `${dailyLabel(input.h)} a day = ${lifetime.value} ${lifetime.unit} on screens | Respite`;
+const description = `Cut 1 hour a day, get ${back.value} ${back.unit} back. Work out yours in 30 seconds with the free screen time calculator.`;
+const light = cardSvg(input, { format: 'post', theme: 'light', art: ART, idPrefix: 'rl-' });
+const dark = cardSvg(input, { format: 'post', theme: 'dark', art: ART, idPrefix: 'rd-' });
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={title}
+			description={description}
+			image={new URL(`/screen-time-calculator/card.png?${query}`, Astro.site).href}
+			imageAlt={sentence}
+			noindex
+			follow
+			canonical={CALCULATOR}
+			shareUrl={`${SELF}?${query}`}
+		/>
+	</head>
+	<body class="m-page">
+		<Header />
+
+		<main class="m">
+			<section class="m-tool-hero" aria-labelledby="r-title">
+				<h1 id="r-title">A screen time report</h1>
+				<p class="m-dek">Someone shared theirs. Yours takes 30 seconds.</p>
+			</section>
+
+			<section class="rc-show" aria-label="Report card">
+				<figure class="m-reportcard" role="img" aria-label={sentence}>
+					<div class="is-light" set:html={light} />
+					<div class="is-dark" set:html={dark} />
+				</figure>
+				<div class="m-actions rc-actions" data-placement="result">
+					<a href={CALCULATOR} class="m-btn" data-cta="calculator">Try it yourself</a>
+					<a href="/download/" class="m-btn is-soft" data-cta="download">Get Respite free</a>
+				</div>
+			</section>
+
+			<section class="m-section" aria-labelledby="more-title">
+				<h2 id="more-title" class="m-h2">More free tools</h2>
+				<div class="m-tool-more">
+					<ToolCard id="quiz" />
+					<ToolCard id="score" />
+				</div>
+			</section>
+		</main>
+
+		<Footer />
+	</body>
+</html>
+
+<style is:global>
+	.rc-show {
+		display: grid;
+		justify-items: center;
+		gap: 2rem;
+	}
+
+	.rc-actions {
+		justify-content: center;
+	}
+</style>
