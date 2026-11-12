@@ -2,10 +2,11 @@
 /**
  * /download/: get the right Respite onto the right device, fast. Mist styles (src/styles/info-pages.css).
  *
- * Centred and symmetric: three equal cards (store button, then a QR code on a computer for the phone
- * apps, or the matching tile), this device's card marked; one three-step setup strip; Free or Plus;
- * questions. QR codes are static SVGs in public/qr/ whose links carry the site's campaign tags
- * (utm_content download__qr). Requirements and permissions come from the privacy policies.
+ * Centred and symmetric: on a computer, two equal cards first (Add to Chrome, in Chrome or Edge, and
+ * one QR code for the phone); then three equal cards (store button), this device's card marked; one
+ * three-step setup strip; Free or Plus; questions. The QR code opens /get?c=download, which sends an
+ * Android phone to Google Play and an iPhone to the App Store with the QR campaign tags (pages/get.ts).
+ * Requirements and permissions come from the privacy policies.
  */
 import '../styles/info-pages.css';
 import BaseHead from '../components/BaseHead.astro';
@@ -14,19 +15,23 @@ import Footer from '../components/Footer.astro';
 import Biscuit from '../components/ui/Biscuit.astro';
 import Icon from '../components/ui/Icon.astro';
 import StoreButton from '../components/ui/StoreButton.astro';
+import AppIcon from '../components/ui/AppIcon.astro';
+import QrCode from '../components/ui/QrCode.astro';
+import { app } from '@intently/registry';
 import PlanCompare from '../components/ui/PlanCompare.astro';
 import ProductSchema from '../components/SEO/ProductSchema.astro';
 import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
 
-const PLAY = 'https://play.google.com/store/apps/details?id=dev.sadakat.thinkfaster';
-const APP_STORE = 'https://apps.apple.com/us/app/respite-screen-time-control/id6757760293';
-const CWS = 'https://chromewebstore.google.com/detail/intently-intentful-browsi/acjndeeecacgplloeefjjhlnlpgnonop';
+const { stores } = app('respite');
+const PLAY = stores.play!;
+const APP_STORE = stores.appStore!;
+const CWS = stores.chrome!;
 
 const platforms = [
-	{ id: 'ios', name: 'iPhone', icon: 'Smartphone', needs: 'iOS 17.4 or later', store: 'appstore' as const, href: APP_STORE, qr: '/qr/app-store.svg', privacy: '/privacy/' },
-	{ id: 'android', name: 'Android', icon: 'Smartphone', needs: 'Android 8.0 or later', store: 'playstore' as const, href: PLAY, qr: '/qr/google-play.svg', privacy: '/privacy/android/' },
-	{ id: 'chrome', name: 'Chrome', icon: 'Monitor', needs: 'Chrome or another Chromium browser', store: 'chromestore' as const, href: CWS, qr: '', privacy: '/privacy/chrome/' },
+	{ id: 'ios', name: 'iPhone', icon: 'Smartphone', needs: 'iOS 17.4 or later', store: 'appstore' as const, href: APP_STORE, privacy: '/privacy/' },
+	{ id: 'android', name: 'Android', icon: 'Smartphone', needs: 'Android 8.0 or later', store: 'playstore' as const, href: PLAY, privacy: '/privacy/android/' },
+	{ id: 'chrome', name: 'Chrome', icon: 'Monitor', needs: 'Chrome or another Chromium browser', store: 'chromestore' as const, href: CWS, privacy: '/privacy/chrome/' },
 ];
 
 const steps = [
@@ -90,6 +95,19 @@ const faqs = [
 				</ul>
 			</section>
 
+			<section class="dl-desk" aria-label="On a computer" data-placement="download_hero" hidden>
+				<div class="dl-desk-card" data-desk="chrome" hidden>
+					<span class="dl-desk-art"><AppIcon app="googlechrome" size={88} /></span>
+					<p class="dl-desk-title">Add it to this browser</p>
+					<a class="m-btn" href={CWS}>Add to Chrome — free</a>
+				</div>
+				<div class="dl-desk-card" data-desk="phone">
+					<span class="dl-desk-art"><QrCode text="https://respite.liveintently.app/get?c=download" size={132} label="QR code to get Respite on your phone" /></span>
+					<p class="dl-desk-title">Scan to get it on your phone</p>
+					<span class="m-badge is-accent dl-desk-badge">Android or iPhone</span>
+				</div>
+			</section>
+
 			<section aria-labelledby="pick-title" class="dl-pick">
 				<h2 id="pick-title" class="m-sr">Choose your device</h2>
 				<div class="dl-cards" data-placement="download_cards">
@@ -100,19 +118,6 @@ const faqs = [
 							<h3 id={`dl-${p.id}`}>{p.name}</h3>
 							<p class="dl-needs">{p.needs}</p>
 							<div class="dl-store"><StoreButton store={p.store} href={p.href} /></div>
-							<div class="dl-extra" hidden>
-								{p.qr ? (
-									<figure class="dl-qr">
-										<img src={p.qr} alt={`QR code for Respite on ${p.id === 'ios' ? 'the App Store' : 'Google Play'}`} width="120" height="120" loading="lazy" />
-										<figcaption>Scan with your phone</figcaption>
-									</figure>
-								) : (
-									<div class="dl-qr dl-here">
-										<span aria-hidden="true"><Icon name="MousePointerClick" size={44} /></span>
-										<p>Add it to this browser</p>
-									</div>
-								)}
-							</div>
 							<a class="dl-policy" href={p.privacy}>Privacy policy</a>
 						</article>
 					))}
@@ -154,19 +159,20 @@ const faqs = [
 		<Footer />
 
 		<script>
-			// Mark this device's card and, on a computer, show the QR codes (and the matching Chrome tile).
-			const ua = navigator.userAgent;
-			const isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-			const isAndroid = /Android/.test(ua);
-			const brands = (navigator as Navigator & { userAgentData?: { brands: { brand: string }[] } }).userAgentData?.brands ?? [];
-			const isChromium = brands.some((b) => /Chromium|Google Chrome/.test(b.brand)) || /Chrome\/|Edg\/|OPR\//.test(ua);
-			const mine = isIOS ? 'ios' : isAndroid ? 'android' : isChromium ? 'chrome' : '';
+			// Mark this device's card. On a computer, show the QR code for the phone, and Add to Chrome in
+			// Chrome or Edge. The device rule is shared with the install buttons (lib/install-target.ts).
+			import { myDevice } from '../lib/smart-install';
+			const mine = myDevice();
 			const card = mine && document.querySelector<HTMLElement>(`.dl-card[data-platform="${mine}"]`);
 			if (card) {
 				card.classList.add('is-mine');
 				card.querySelector<HTMLElement>('.dl-mine')!.hidden = false;
 			}
-			if (!isIOS && !isAndroid) document.querySelectorAll<HTMLElement>('.dl-extra').forEach((e) => (e.hidden = false));
+			const desk = document.querySelector<HTMLElement>('.dl-desk');
+			if (desk && mine !== 'ios' && mine !== 'android') {
+				desk.hidden = false;
+				desk.querySelector<HTMLElement>('[data-desk="chrome"]')!.hidden = mine !== 'chrome';
+			}
 		</script>
 	</body>
 </html>
@@ -280,48 +286,55 @@ const faqs = [
 		margin-top: 0.5rem;
 	}
 
-	.dl-extra {
-		width: 100%;
-		margin-top: 0.5rem;
-	}
-
-	.dl-qr {
+	/* On a computer: Add to Chrome and the QR code to the phone, two equal cards */
+	.dl-desk {
 		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(0, 19.5rem));
+		justify-content: center;
+		gap: 1.25rem;
+		margin-top: -2.5rem;
+	}
+
+	/* Same rows in both cards: the picture, the line, the action. */
+	.dl-desk-card {
+		display: grid;
+		grid-template-rows: 132px auto 52px;
 		justify-items: center;
-		align-content: center;
-		gap: 0.6rem;
-		margin: 0;
-		height: 190px;
-		border-radius: 20px;
-		background: var(--m-ground);
+		align-items: center;
+		gap: 0.75rem;
+		padding: 1.75rem 1.5rem 1.75rem;
+		border-radius: 28px;
+		background: var(--m-paper);
+		box-shadow: var(--m-shadow-sm);
+		text-align: center;
 	}
 
-	.dl-qr img {
-		display: block;
-		width: 120px;
-		height: 120px;
-		padding: 8px;
-		border-radius: 14px;
-		background: #fff;
-	}
-
-	.dl-qr figcaption,
-	.dl-here p {
-		margin: 0;
-		font-family: var(--font-heading);
-		font-size: 0.95rem;
-		font-weight: 800;
-		color: var(--m-ink-soft);
-	}
-
-	.dl-here span {
+	.dl-desk-art {
 		display: grid;
 		place-items: center;
-		width: 120px;
-		height: 120px;
-		border-radius: 14px;
-		background: var(--m-paper);
-		color: var(--m-accent);
+		width: 132px;
+		height: 132px;
+	}
+
+	.dl-desk-art :global(.m-appicon) {
+		border-radius: 26px;
+		box-shadow: var(--m-shadow-sm);
+	}
+
+	.dl-desk-title {
+		margin: 0.25rem 0 0;
+		font-family: var(--font-heading);
+		font-size: 1.1rem;
+		font-weight: 800;
+	}
+
+	.dl-desk-card .m-btn {
+		white-space: nowrap;
+	}
+
+	.dl-desk-badge {
+		padding: 0.45rem 1rem;
+		font-size: 0.9rem;
 	}
 
 	.dl-policy {

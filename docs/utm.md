@@ -28,7 +28,7 @@ same names. The site's code is in `apps/respite/src/lib/analytics.ts` (browser) 
 | `referral` | Other people's sites linking to us without tags (set automatically from the referrer) |
 | `partner` | Guest posts, directories, listicles that link to us |
 | `paid_social` / `cpc` | Paid ads, if ever |
-| `qr` | Printed QR codes |
+| `qr` | QR codes: printed, and the site's own codes to the phone (`/get`) |
 
 ## Ready-made links
 
@@ -65,6 +65,20 @@ URL). Reviewers and automated checks compare those literally.
    `footer` or `body`, or whatever the nearest `data-placement` attribute says.
 4. Each click on a store link, and on any button or link marked `data-cta`, sends a GA4 event. See
    **Events** below.
+5. Before step 3, install buttons are pointed straight at this device's store
+   (`apps/respite/src/lib/smart-install.ts`, rule in `install-target.ts`, tested by
+   `scripts/install-target.test.mjs`). In the HTML every install button (`data-cta` `download`,
+   `article_cta`, `sticky_bar`) links to `/download/`, which crawlers and browsers without JavaScript
+   keep. In the browser: Android → Google Play, iPhone and iPad (iPadOS too) → App Store, Chrome or
+   Edge on a computer → Chrome Web Store (a generic label such as "Get the App" becomes "Add to
+   Chrome — free"); anything else (Firefox, Safari on a Mac, bots) keeps `/download/`. The rewritten
+   buttons are then tagged like any store link and send `store_click` with their `cta`.
+6. QR codes on computers (blog rail, `/download/`) encode `https://respite.liveintently.app/get?c=<where>`
+   (`c=blog`, `c=download`). `/get` (`apps/respite/src/pages/get.ts`) answers 302 by user agent:
+   Android → Google Play, iPhone/iPad → App Store, anything else → `/download/`. The store link
+   carries `utm_source=respite_site`, `utm_medium=qr`, `utm_campaign=<c>` (default `desktop`),
+   `utm_content=qr_<c>__qr` (App Store: `ct=respite_site.qr_<c>`); any `utm_*` on the `/get` link
+   wins. For a printed code, use e.g. `/get?c=flyer&utm_source=meetup`.
 
 ## Events
 
@@ -78,6 +92,7 @@ and Google signals off everywhere). The hub at liveintently.app sends to the sam
 | `cta_click` | `cta`, `page`, `section`, `placement`, `source`, `medium` | Respite site: a click on any element with `data-cta="<id>"` that isn't a store link. Hub: links to Respite (`cta=respite_card`, `section=hub`, plus `link_url`; no `source`/`medium`). |
 | `share` (GA4 recommended) | `method` (`native_share`, `copy_link`, `x`), `content_type` (`article`, `tool`), `item_id` (page slug) | Blog share buttons (`layouts/BlogPost.astro`), the calculator's and the app score's share buttons. |
 | `tool_complete` | `tool` (`quiz`, `calculator`, `addiction_score`), `result_band` | A tool shows its result. Bands only: quiz `healthy`/`mild`/`moderate`/`severe`; calculator daily hours `under_2h`/`2_4h`/`4_6h`/`6_8h`/`8h_plus`; app score `low`/`moderate`/`high`/`critical`. A result restored from a shared link doesn't count. Never send raw answers, ages, hours or apps. |
+| `sticky_bar_dismiss` | `page`, `section` | The ✕ on the install bar at the bottom of blog posts on phones (`components/InstallBar.astro`). It stays hidden on that device for 14 days. |
 | `generate_lead` (GA4 recommended) | `form` (`contact`) | The contact form, only after the server says the message was sent. Nothing typed goes with it. |
 
 `page` is the page slug (`home`, `quiz`, `how_to_stop_doomscrolling`), `section` the site section
@@ -86,7 +101,7 @@ inbound `utm_source`/`utm_medium`, or the referrer-derived values, or `respite_s
 visits: the same values the store links carry.
 
 `placement` is the nearest `data-placement` attribute (`hero`, `final_cta`, `inline_cta`, `rail_cta`,
-`result`, `index_cta`, `changelog`, `download_cards`, `platforms`, `app_card`, `apps_list`, `moment`,
+`result`, `index_cta`, `changelog`, `download_cards`, `download_hero`, `sticky_bar`, `platforms`, `app_card`, `apps_list`, `moment`,
 …), otherwise the landmark around the element: `nav`, `footer`, `hero`, `sidebar`, `article` or `body`.
 
 ### `data-cta` ids
@@ -95,6 +110,7 @@ visits: the same values the store links carry.
 |---|---|
 | `download` | Every "Download" / "Get the App" button to `/download/`, including the header button (placement `nav`) |
 | `article_cta` | The download button of the in-article CTA box that `BlogPost.astro` moves into the post (placement `inline_cta`) |
+| `sticky_bar` | "Get it free" on the install bar at the bottom of blog posts on phones (placement `sticky_bar`) |
 | `quiz` | Buttons and tool cards to `/quiz/` |
 | `calculator` | Buttons and tool cards to `/screen-time-calculator/` |
 | `addiction_score` | Buttons and tool cards to `/app-addiction-score/` |

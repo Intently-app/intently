@@ -14,6 +14,8 @@
 //      - cta_click     a click on any other element with data-cta="<id>"
 //      - share, tool_complete, generate_lead   sent by the pages through track()
 //    Clicks are caught by one delegated listener on the document, so links added later count too.
+// 4. Before any of that, install buttons to /download/ are pointed at this device's store
+//    (smart-install.ts), so they are tagged and counted as store links: store_click with their `cta`.
 //
 // The pure parts (naming, parameters, bands) are in analytics-core.ts, tested by
 // scripts/analytics.test.mjs. The naming scheme and the event table are in docs/utm.md at the
@@ -31,6 +33,7 @@ import {
 	type Page,
 	type Utm,
 } from './analytics-core';
+import { rewriteInstallLinks } from './smart-install';
 
 export { calculatorBand, shareParams, toolCompleteParams } from './analytics-core';
 
@@ -96,6 +99,8 @@ function onClick(e: MouseEvent) {
 
 export function initAnalytics() {
 	if (context) return;
+	// First point install buttons (/download/) at this device's store, so the loop below tags them too.
+	rewriteInstallLinks();
 	context = { src: inbound(), pg: page() };
 	const { src, pg } = context;
 	for (const a of document.querySelectorAll<HTMLAnchorElement>('a[href^="http"]')) {

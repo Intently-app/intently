@@ -25,6 +25,7 @@ address, which Google doesn't store). It also counts a few actions on the site:
 
 - clicks on App Store, Google Play and Chrome Web Store buttons, and on the site's main buttons
   (such as "Download" or "Take the quiz"), with the page and the part of the page they were on;
+- closing the "Get it free" bar at the bottom of a blog article;
 - shares of an article or tool with the site's share buttons;
 - a finished quiz, calculator or app score, with only a broad result band (for example "mild",
   or "2 to 4 hours a day"), never your answers, ages, hours or chosen apps;
@@ -48,6 +49,15 @@ cookies or scripts for this site in your browser. The site works the same withou
 **Store links:** when you click a link to an app store, the site adds campaign tags (such as
 `utm_source`) to say which page sent you, so the store can count installs by source. The tags you
 arrived with are kept in your browser's session storage until you close the tab.
+
+**Picking the right store:** the page reads your browser's user agent (the device and browser
+name every browser sends) to point the "Get the app" buttons at your store: Google Play on Android,
+the App Store on iPhone and iPad, the Chrome Web Store in Chrome or Edge. The QR codes on the site
+open `/get`, which reads the user agent on the server for the same reason and redirects you. In
+both cases it is used only for that choice and not stored.
+
+**The blog's install bar:** if you close it, the time you closed it is kept in your browser's local
+storage, so it stays hidden for 14 days.
 
 **Reading on the blog:** your text size and how far you have read each article (so the blog can
 offer "Continue reading" and mark what you have read) are kept in your browser's local storage.
