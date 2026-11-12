@@ -1,0 +1,239 @@
+---
+/**
+ * The install bar on blog posts, phones and tablets only (under the 1000px rail breakpoint, where
+ * the rail's call to action isn't shown). A slim Mist card at the bottom: the real Respite icon, one
+ * line, one button. It appears once the reader is about a third into the article, steps aside while
+ * the in-article call to action is on screen and once the article ends (so it never sits over the
+ * related posts or the footer), and lifts the section pill above itself.
+ *
+ * The button links to /download/ in the HTML; smart-install.ts points it at this phone's store.
+ * ✕ hides it for 14 days on this device (localStorage, when allowed) and sends sticky_bar_dismiss.
+ */
+import AppIcon from './ui/AppIcon.astro';
+---
+
+<div class="ib" id="install-bar" role="region" aria-label="Get the Respite app" data-placement="sticky_bar">
+	<AppIcon app="respite" size={38} />
+	<p class="ib-text"><strong>Respite</strong><span class="ib-dot" aria-hidden="true"> · </span><span>a pause before you scroll</span></p>
+	<a href="/download/" class="ib-get" data-cta="sticky_bar">Get it free</a>
+	<button type="button" class="ib-close" aria-label="Dismiss" data-ib-close>
+		<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="M6 6l12 12M18 6L6 18" /></svg>
+	</button>
+</div>
+
+<script>
+	import { page, track } from '../lib/analytics';
+
+	const KEY = 'respite-install-bar';
+	const DAYS = 14;
+	const bar = document.getElementById('install-bar');
+	const body = document.querySelector<HTMLElement>('.article-body');
+	const end = document.querySelector<HTMLElement>('.byline');
+	const inline = document.getElementById('inline-cta');
+	const phone = window.matchMedia('(max-width: 999px)');
+
+	function dismissedRecently() {
+		try {
+			const at = Number(localStorage.getItem(KEY));
+			return at > 0 && Date.now() - at < DAYS * 86_400_000;
+		} catch {
+			return false;
+		}
+	}
+
+	if (bar && body && !dismissedRecently()) {
+		let inlineInView = false;
+		let closed = false;
+
+		const show = (on: boolean) => {
+			bar.classList.toggle('is-shown', on);
+			bar.inert = !on;
+			document.body.classList.toggle('has-install-bar', on);
+			if (on) document.body.style.setProperty('--install-bar-h', `${bar.offsetHeight}px`);
+		};
+
+		const update = () => {
+			if (closed || !phone.matches) return show(false);
+			const top = body.getBoundingClientRect().top + scrollY;
+			const bottom = (end?.getBoundingClientRect().top ?? body.getBoundingClientRect().bottom) + scrollY;
+			const read = (scrollY + innerHeight * 0.3 - top) / Math.max(1, bottom - top);
+			const atEnd = (end?.getBoundingClientRect().top ?? Infinity) < innerHeight;
+			show(read >= 0.35 && !inlineInView && !atEnd);
+		};
+
+		if (inline && 'IntersectionObserver' in window) {
+			new IntersectionObserver(([e]) => {
+				inlineInView = e.isIntersecting;
+				update();
+			}).observe(inline);
+		}
+
+		bar.querySelector('[data-ib-close]')?.addEventListener('click', () => {
+			closed = true;
+			show(false);
+			try {
+				localStorage.setItem(KEY, String(Date.now()));
+			} catch { /* storage blocked: hidden for this page view only */ }
+			const pg = page();
+			track('sticky_bar_dismiss', { page: pg.slug, section: pg.section });
+		});
+
+		let ticking = false;
+		const onScroll = () => {
+			if (ticking) return;
+			ticking = true;
+			requestAnimationFrame(() => {
+				update();
+				ticking = false;
+			});
+		};
+		addEventListener('scroll', onScroll, { passive: true });
+		addEventListener('resize', onScroll);
+		update();
+	}
+</script>
+
+<style>
+	.ib {
+		--ib-paper: #ffffff;
+		--ib-ink: var(--ds-text-primary);
+		--ib-ink-soft: var(--ds-text-secondary);
+		--ib-accent: #2f6079;
+		--ib-fog: #e8eff4;
+		--ib-shadow: 0 2px 6px rgba(19, 34, 45, 0.07), 0 16px 34px -12px rgba(19, 34, 45, 0.3);
+		position: fixed;
+		left: 0.5rem;
+		right: 0.5rem;
+		bottom: max(0.5rem, env(safe-area-inset-bottom));
+		z-index: 97; /* under the header's mobile menu and its overlay */
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		max-width: 34rem;
+		margin: 0 auto;
+		padding: 0.55rem 0.25rem 0.55rem 0.6rem;
+		border-radius: 22px;
+		background: var(--ib-paper);
+		box-shadow: var(--ib-shadow);
+		color: var(--ib-ink);
+		font-family: var(--font-heading);
+		box-sizing: border-box;
+		visibility: hidden;
+		transform: translateY(calc(100% + 1.5rem));
+		transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s linear 0.3s;
+	}
+
+	.ib.is-shown {
+		visibility: visible;
+		transform: none;
+		transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.ib {
+			--ib-paper: #172a35;
+			--ib-accent: #3f7a97;
+			--ib-fog: #213845;
+			--ib-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 14px 32px -10px rgba(0, 0, 0, 0.6);
+		}
+	}
+
+	@media (min-width: 1000px) {
+		.ib {
+			display: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.ib,
+		.ib.is-shown {
+			transform: none;
+			transition: none;
+		}
+	}
+
+	@media print {
+		.ib {
+			display: none;
+		}
+	}
+
+	.ib :global(.m-appicon) {
+		display: inline-grid;
+		place-items: center;
+		flex: none;
+		width: var(--size);
+		height: var(--size);
+		border-radius: calc(var(--size) * 0.26);
+		overflow: hidden;
+	}
+
+	.ib-text {
+		flex: 1;
+		min-width: 0;
+		margin: 0;
+		font-size: 0.82rem;
+		line-height: 1.3;
+		color: var(--ib-ink-soft);
+	}
+
+	.ib-text strong {
+		color: var(--ib-ink);
+		font-weight: 800;
+	}
+
+	/* Narrow phones: name over the line, no dot. */
+	@media (max-width: 479px) {
+		.ib-text strong {
+			display: block;
+			font-size: 0.92rem;
+		}
+		.ib-dot {
+			display: none;
+		}
+	}
+
+	.ib-get {
+		flex: none;
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		padding: 0 0.95rem;
+		border-radius: 999px;
+		background: var(--ib-accent);
+		color: #ffffff;
+		font-size: 0.92rem;
+		font-weight: 800;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.ib-get:hover,
+	.ib-get:focus-visible {
+		color: #ffffff;
+	}
+
+	.ib-close {
+		flex: none;
+		display: grid;
+		place-items: center;
+		width: 36px;
+		height: 44px;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		border-radius: 18px;
+		background: transparent;
+		color: var(--ib-ink-soft);
+		cursor: pointer;
+	}
+
+	.ib-close:hover {
+		background: var(--ib-fog);
+	}
+
+	.ib :is(a, button):focus-visible {
+		outline: 2px solid var(--ib-accent);
+		outline-offset: 2px;
+	}
+</style>

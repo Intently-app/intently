@@ -1,0 +1,48 @@
+---
+// A QR code drawn at build time as inline SVG (src/lib/qr-svg.ts). It sits on its own light tile in
+// both themes, because phone cameras read dark-on-light codes best; the modules use currentColor.
+import { qrSvgPath } from '../../lib/qr-svg';
+
+interface Props {
+	/** What the code encodes. */
+	text: string;
+	/** Rendered size in px, quiet zone included. */
+	size?: number;
+	label: string;
+	class?: string;
+}
+
+const { text, size = 132, label, class: className } = Astro.props;
+const { size: units, d } = qrSvgPath(text);
+---
+
+<svg
+	class:list={['qr', className]}
+	viewBox={`0 0 ${units} ${units}`}
+	width={size}
+	height={size}
+	role="img"
+	aria-label={label}
+	shape-rendering="crispEdges"
+	data-qr={text}
+>
+	<path fill="currentColor" d={d} />
+</svg>
+
+<style>
+	.qr {
+		display: block;
+		flex: none;
+		border-radius: 16px;
+		background: #ffffff;
+		color: #13222d;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.qr {
+			/* A soft light tile, not a white glare, still dark-on-light for the camera. */
+			background: #e4edf2;
+			color: #0f1b24;
+		}
+	}
+</style>

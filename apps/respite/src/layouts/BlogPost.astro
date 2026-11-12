@@ -20,6 +20,8 @@ import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
 import FAQSchema from '../components/SEO/FAQSchema.astro';
 import HowToSchema from '../components/SEO/HowToSchema.astro';
 import Picture from '../components/ui/Picture.astro';
+import QrCode from '../components/ui/QrCode.astro';
+import InstallBar from '../components/InstallBar.astro';
 import { Image } from 'astro:assets';
 
 interface RelatedPost {
@@ -191,8 +193,12 @@ const shownDate = updatedDate ?? pubDate;
 						<a href="#top" class="to-top" data-to-top>Back to top</a>
 					</div>
 					<div class="rail-cta" data-placement="rail_cta">
-						<p>Respite puts a short pause before the apps you pick. Free on iPhone, Android and Chrome.</p>
+						<p>A short pause before the apps you pick. Free, no ads.</p>
 						<a href="/download/" class="rail-cta-button" data-cta="download">Get Respite free</a>
+						<div class="rail-qr">
+							<QrCode text="https://respite.liveintently.app/get?c=blog" size={112} label="QR code to get Respite on your phone" />
+							<p>Scan to get it on your phone<span>Android or iPhone</span></p>
+						</div>
 					</div>
 				</aside>
 			)}
@@ -298,6 +304,8 @@ const shownDate = updatedDate ?? pubDate;
 			</>
 		)}
 		<p class="visually-hidden" id="share-status" role="status" aria-live="polite"></p>
+
+		<InstallBar />
 
 		<Footer />
 
@@ -869,17 +877,63 @@ const shownDate = updatedDate ?? pubDate;
 		color: var(--ds-primary);
 	}
 
+	/* A Mist card: white surface, soft shadow, centred. On a computer smart-install.ts turns the
+	   button into "Add to Chrome — free" (Chrome, Edge) and the QR code opens /get on the phone. */
 	.rail-cta {
+		--rc-paper: #ffffff;
+		--rc-shadow: 0 1px 2px rgba(19, 34, 45, 0.06), 0 6px 18px rgba(19, 34, 45, 0.08);
+		--rc-accent: #2f6079;
 		display: grid;
-		gap: 0.75rem;
-		padding: 1rem;
-		border-radius: var(--ds-radius-md);
-		background: var(--ds-bg-info);
+		gap: 0.85rem;
+		padding: 1.1rem 1rem 1rem;
+		border-radius: 20px;
+		background: var(--rc-paper);
+		box-shadow: var(--rc-shadow);
+		text-align: center;
 	}
 
-	/* On short screens the contents need the room more than the call to action. */
+	@media (prefers-color-scheme: dark) {
+		.rail-cta {
+			--rc-paper: #172a35;
+			--rc-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 20px -6px rgba(0, 0, 0, 0.5);
+			--rc-accent: #3f7a97;
+		}
+	}
+
+	.rail-qr {
+		display: grid;
+		justify-items: center;
+		gap: 0.5rem;
+	}
+
+	.rail-qr p {
+		font-family: var(--font-heading);
+		font-size: 0.82rem;
+		font-weight: 800;
+		line-height: 1.35;
+		color: var(--ds-text-primary);
+	}
+
+	.rail-qr p span {
+		display: block;
+		font-weight: 600;
+		color: var(--ds-text-secondary);
+	}
+
+	/* A tablet wide enough for the rail is the phone already. */
+	:global(html:is([data-device='ios'], [data-device='android'])) .rail-qr {
+		display: none;
+	}
+
+	/* On short screens the contents need the room more than the call to action, and the QR code first. */
 	@media (max-height: 820px) {
 		.rail-cta {
+			display: none;
+		}
+	}
+
+	@media (max-height: 900px) {
+		.rail-qr {
 			display: none;
 		}
 	}
@@ -891,17 +945,23 @@ const shownDate = updatedDate ?? pubDate;
 	}
 
 	.rail-cta-button {
-		justify-self: start;
-		padding: 0.5rem 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 44px;
+		padding: 0 1rem;
 		border-radius: var(--ds-radius-full);
-		background: var(--ds-primary);
-		color: var(--ds-on-primary);
-		font-weight: 700;
+		background: var(--rc-accent);
+		color: #ffffff;
+		font-family: var(--font-heading);
+		font-weight: 800;
 		text-decoration: none;
+		box-shadow: 0 10px 22px -12px rgba(47, 96, 121, 0.7);
 	}
 
 	.rail-cta-button:hover {
-		background: var(--ds-primary-dark);
+		color: #ffffff;
+		background: #24465a;
 	}
 
 	/* Text size picker (rail and sheet) */
@@ -1575,6 +1635,11 @@ const shownDate = updatedDate ?? pubDate;
 		border-left: 1px solid var(--rule);
 		color: var(--ds-text-hint);
 		font-variant-numeric: tabular-nums;
+	}
+
+	/* The install bar (InstallBar.astro) sits at the bottom while shown; the pill floats above it. */
+	:global(body.has-install-bar) .section-pill {
+		bottom: calc(max(0.75rem, env(safe-area-inset-bottom)) + var(--install-bar-h, 64px) + 0.6rem);
 	}
 
 	@media (min-width: 1000px) {

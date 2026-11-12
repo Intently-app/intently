@@ -101,6 +101,19 @@ export function tagStoreHref(href: string, store: string, src: Utm, pg: Page, wh
 	return url.href;
 }
 
+/**
+ * The store link the /get redirect (the QR codes on computers) sends a phone to. Defaults:
+ * utm_source=respite_site, utm_medium=qr, utm_campaign=<?c=…, else "desktop">; any utm_* on the
+ * /get link wins. utm_content is qr_<campaign>__qr, the App Store ct <source>.qr_<campaign>.
+ */
+export function qrStoreHref(href: string, store: string, search: string, appleToken = APPLE_PROVIDER_TOKEN): string {
+	const given = utmFromSearch(search);
+	const c = clean(new URLSearchParams(search).get('c') || '') || 'desktop';
+	const src: Utm = { utm_source: SITE_SOURCE, utm_medium: 'qr', utm_campaign: c, ...given };
+	const campaign = src.utm_campaign || c;
+	return tagStoreHref(href, store, src, { section: campaign, slug: `qr_${campaign}` }, 'qr', appleToken);
+}
+
 /** store_click: a click on an App Store, Google Play or Chrome Web Store link. `cta` when the link has one. */
 export function storeClickParams(store: string, src: Utm, pg: Page, where: string, cta?: string | null) {
 	return {
