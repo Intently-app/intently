@@ -9,8 +9,14 @@ import {
 	cardStats,
 	cardSvg,
 	dailyLabel,
+	HOUR_STEPS,
+	hoursFromSlug,
+	hoursSentence,
+	hoursSlug,
 	normalize,
+	ogImagePath,
 	parseCardParams,
+	resultPath,
 	snapHours,
 	span,
 } from "../src/lib/report-card.ts";
@@ -106,4 +112,41 @@ test("cardSvg: input is normalized before drawing, and embedded fonts go in a <s
 	const svg = cardSvg({ h: 99, age: 5, first: 1 }, { format: "og", theme: "light", art, fontCss: "@font-face{}" });
 	assert.ok(svg.includes(">14h<"));
 	assert.ok(svg.includes("<style>@font-face{}</style>"));
+});
+
+test("hour steps: one per slider step, each with its own page and preview", () => {
+	assert.equal(HOUR_STEPS.length, 27);
+	assert.equal(HOUR_STEPS[0], 1);
+	assert.equal(HOUR_STEPS.at(-1), 14);
+	assert.deepEqual(HOUR_STEPS.map(snapHours), HOUR_STEPS, "every step is its own bucket");
+	const slugs = HOUR_STEPS.map(hoursSlug);
+	assert.equal(new Set(slugs).size, 27);
+	for (const [i, slug] of slugs.entries()) {
+		assert.match(slug, /^\d{1,2}(-5)?h$/);
+		assert.equal(hoursFromSlug(slug), HOUR_STEPS[i], slug);
+	}
+	assert.equal(hoursSlug(4.5), "4-5h");
+	assert.equal(hoursSlug(4), "4h");
+	assert.equal(hoursSlug(4.7), "4-5h", "off-step hours snap to the nearest step");
+	assert.equal(ogImagePath(4.5), "/images/report-card/og-4-5h.png");
+});
+
+test("hoursFromSlug: anything but a step is no page", () => {
+	for (const slug of ["", "4", "4.5h", "4-25h", "0h", "0-5h", "15h", "14-5h", "04h", "4-5", "-4h", "4-5h/", "x"])
+		assert.equal(hoursFromSlug(slug), null, slug);
+});
+
+test("resultPath: hours in the path, ages in the query, all normalized", () => {
+	assert.equal(resultPath({ h: 4.5, age: 28, first: 14 }), "/screen-time-calculator/r/4-5h/?age=28&first=14");
+	assert.equal(resultPath({ h: 20, age: 28.4, first: 40 }), "/screen-time-calculator/r/14h/?age=28&first=28");
+});
+
+test("cardSvg hoursOnly: the hours and the invitation, no years figures", () => {
+	for (const format of ["og", "post"]) {
+		const svg = cardSvg({ h: 4.5, age: 28, first: 14 }, { format, theme: "light", art, hoursOnly: true });
+		const words = [...svg.matchAll(/<(?:text|tspan)\b[^>]*>([^<]*)/g)].map((m) => m[1]).join(" ");
+		for (const text of ["My screen time report", "4.5h", "See what it adds up to", "respite.liveintently.app"]) assert.ok(words.includes(text), `${format}: ${text}`);
+		for (const text of ["2.6", "2.2", "years", "of my life"]) assert.ok(!words.includes(text), `${format}: no ${text}`);
+	}
+	assert.equal(hoursSentence(4.5), "My screen time report: 4.5 hours a day. See what it adds up to.");
 });

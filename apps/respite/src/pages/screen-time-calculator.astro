@@ -320,7 +320,7 @@ const howToSteps = [
 
 		<script>
 			import { calculatorBand, toolCompleteParams, toolShareParams, track } from '../lib/analytics';
-			import { cardQuery, cardSentence, cardStats, cardSvg, normalize, SIZES, type CardInput, type Theme } from '../lib/report-card';
+			import { cardSentence, cardStats, cardSvg, normalize, resultPath, SIZES, type CardInput, type Theme } from '../lib/report-card';
 			import { ART } from '../lib/report-card-art';
 
 			// ===== STATE =====
@@ -636,9 +636,10 @@ const howToSteps = [
 			}
 
 			// ===== SHARE =====
-			// The link to share: the result page, whose preview is the card. Only the three inputs ride in it.
+			// The link to share: the result page for these hours (its preview is the hours card), with the
+			// ages in the query for the full card. Only the three inputs ride in it.
 			function shareUrl(): string {
-				return cardInput ? `${location.origin}/screen-time-calculator/r/?${cardQuery(cardInput)}` : location.href;
+				return cardInput ? `${location.origin}${resultPath(cardInput)}` : location.href;
 			}
 
 			const shareText = () => (cardInput ? `${cardSentence(cardInput)} Work out yours:` : 'My screen time, added up. Work out yours:');

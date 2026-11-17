@@ -5,6 +5,7 @@ import sitemap from "@astrojs/sitemap";
 
 import cloudflare from "@astrojs/cloudflare";
 import slashRedirects from "./scripts/slash-redirects.mjs";
+import reportCards from "./scripts/render-report-cards.mjs";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { readdirSync, readFileSync } from "node:fs";
@@ -42,11 +43,12 @@ export default defineConfig({
 	integrations: [
 		mdx(),
 		slashRedirects(),
+		reportCards(),
 		sitemap({
 			changefreq: 'weekly',
 			priority: 0.7,
-			// Noindex pages (account deletion) and the 404 page don't belong in the sitemap.
-			filter: (page) => !/\/(delete-account|404)(\/|$)/.test(new URL(page).pathname),
+			// Noindex pages (account deletion, shared calculator results) and the 404 page don't belong in the sitemap.
+			filter: (page) => !/\/(delete-account|404|screen-time-calculator\/r)(\/|$)/.test(new URL(page).pathname),
 			serialize(item) {
 				const slug = item.url.match(/\/blog\/([^/]+)\/$/)?.[1];
 				if (slug && postDates[slug]) item.lastmod = new Date(postDates[slug]).toISOString();

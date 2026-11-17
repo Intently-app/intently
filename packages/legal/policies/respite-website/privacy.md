@@ -58,9 +58,9 @@ both cases it is used only for that choice and not stored.
 
 **Sharing a calculator result:** the screen time calculator works everything out in your browser,
 and its report card picture is drawn there too. If you choose to share your result, the link you
-share carries three numbers: your daily hours, your age and the age you got your first phone. When
-someone opens that link, the site reads those numbers to show the result and draw the card's
-preview picture, and doesn't store them. Your chosen apps are never in the link.
+share carries three numbers: your daily hours, your age and the age you got your first phone.
+Whoever opens it sees the result worked out in their own browser; the link preview shows only the
+daily hours. The site stores none of it, and your chosen apps are never in the link.
 
 **The blog's install bar:** if you close it, the time you closed it is kept in your browser's local
 storage, so it stays hidden for 14 days.

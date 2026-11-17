@@ -13,9 +13,3 @@ declare module 'qrcode' {
   };
   export default QRCode;
 }
-
-// Cloudflare module imports (@astrojs/cloudflare): a .wasm file as a compiled WebAssembly.Module.
-declare module '*.wasm?module' {
-	const module: WebAssembly.Module;
-	export default module;
-}

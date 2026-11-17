@@ -1,0 +1,36 @@
+---
+/**
+ * /screen-time-calculator/r/?h=4.5&age=28&first=14: the all-in-the-query form of a result link.
+ * Static, so the browser does the mapping: valid numbers go to the step's page
+ * (/screen-time-calculator/r/4-5h/?age=28&first=14), anything else to the calculator.
+ * Noindex, canonical /screen-time-calculator/, not in the sitemap.
+ */
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Screen time report | Respite</title>
+		<meta name="robots" content="noindex, follow" />
+		<link rel="canonical" href="https://respite.liveintently.app/screen-time-calculator/" />
+		<script>
+			import { hoursSlug, parseCardParams, resultPath, snapHours } from '../../../lib/report-card';
+
+			const q = new URLSearchParams(location.search);
+			const input = parseCardParams(q);
+			const h = Number(q.get('h'));
+			const to = input
+				? resultPath(input)
+				: q.get('h') && Number.isFinite(h) && h > 0
+					? `/screen-time-calculator/r/${hoursSlug(snapHours(h))}/`
+					: '/screen-time-calculator/';
+			location.replace(to);
+		</script>
+		<noscript><meta http-equiv="refresh" content="0;url=/screen-time-calculator/" /></noscript>
+	</head>
+	<body>
+		<p><a href="/screen-time-calculator/">Screen time calculator</a></p>
+	</body>
+</html>

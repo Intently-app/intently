@@ -3,13 +3,16 @@
 // Pure (no DOM, no imports), so the same code draws the card everywhere:
 //   - on /screen-time-calculator/ in the browser, shown with the result and turned into a PNG to share
 //     or download (canvas, client side);
-//   - on the result page /screen-time-calculator/r/?h=…&age=…&first=… (inline SVG);
-//   - as that page's social preview, /screen-time-calculator/card.png?… (resvg on the Worker).
+//   - on the static result pages /screen-time-calculator/r/4-5h/?age=28&first=14: the hours-only card
+//     in the HTML, the full card drawn in the browser from the query (inline SVG);
+//   - as their social previews, /images/report-card/og-4-5h.png, rendered at build time
+//     (scripts/render-report-cards.mjs). Nothing is drawn on the Worker.
 // Tested by scripts/report-card.test.mjs.
 //
 // A share link carries only the three numbers the card needs, all from the calculator's inputs:
-// daily hours, current age, age at the first smartphone. They are validated and snapped to the
-// calculator's own steps and ranges, so a link can't put arbitrary text or numbers on the card.
+// daily hours (one static page per slider step), current age and age at the first smartphone (in the
+// query, read in the browser). They are validated and snapped to the calculator's own steps and
+// ranges, so a link can't put arbitrary text or numbers on the card.
 
 export type CardInput = { h: number; age: number; first: number };
 
@@ -66,11 +69,39 @@ export function normalize({ h, age, first }: CardInput): CardInput {
 	};
 }
 
-/** The query string for a share link or the card image, always in one order: h, age, first. */
+/** The query string with all three numbers, always in one order: h, age, first. */
 export function cardQuery(input: CardInput): string {
 	const { h, age, first } = normalize(input);
 	return `h=${h}&age=${age}&first=${first}`;
 }
+
+/** Every daily-hours step the calculator's slider allows: 1, 1.5, … 14 (one result page and preview each). */
+export const HOUR_STEPS: number[] = Array.from(
+	{ length: Math.round((LIMITS.h.max - LIMITS.h.min) / LIMITS.h.step) + 1 },
+	(_, i) => LIMITS.h.min + i * LIMITS.h.step,
+);
+
+/** A step as a URL segment: 4 → "4h", 4.5 → "4-5h". */
+export const hoursSlug = (h: number) => `${String(snapHours(h)).replace('.', '-')}h`;
+
+/** The step a URL segment names, or null if it isn't one ("4-5h" → 4.5). */
+export function hoursFromSlug(slug: string): number | null {
+	const m = /^([1-9]\d?)(-5)?h$/.exec(slug);
+	if (!m) return null;
+	const h = Number(m[1]) + (m[2] ? 0.5 : 0);
+	return HOUR_STEPS.includes(h) ? h : null;
+}
+
+export const RESULT_BASE = '/screen-time-calculator/r/';
+
+/** The share link's path and query: the hours in the path, the ages in the query. */
+export function resultPath(input: CardInput): string {
+	const { h, age, first } = normalize(input);
+	return `${RESULT_BASE}${hoursSlug(h)}/?age=${age}&first=${first}`;
+}
+
+/** A step's social preview (rendered at build time). */
+export const ogImagePath = (h: number) => `/images/report-card/og-${hoursSlug(h)}.png`;
 
 export type Span = { value: string; unit: 'years' | 'days' | 'day' };
 
@@ -97,6 +128,10 @@ export function cardStats(input: CardInput) {
 /** "4h", "4.5h". */
 export const dailyLabel = (h: number) => `${Number.isInteger(h) ? h : h.toFixed(1)}h`;
 
+/** What the hours-only card says (alt text for a result page's preview). */
+export const hoursSentence = (h: number) =>
+	`My screen time report: ${Number.isInteger(h) ? h : h.toFixed(1)} hours a day. See what it adds up to.`;
+
 /** One sentence that says what the card shows (alt text, aria-label, share text). */
 export function cardSentence(input: CardInput): string {
 	const { lifetime, back } = cardStats(input);
@@ -121,12 +156,12 @@ export const SITE = 'respite.liveintently.app';
 /** Mist, from src/styles/info-pages.css and design-system.css: teal for time back, coral for the cost. */
 const PALETTE = {
 	light: {
-		ground: '#f2f6f9', paper: '#ffffff', ink: '#13222d', soft: '#46596a', accent: '#2f6079', accentSoft: '#e2eef4',
+		ground: '#f2f6f9', paper: '#ffffff', ink: '#13222d', soft: '#46596a', accent: '#2f6079', accentSoft: '#e2eef4', accentInk: '#24465a',
 		coralSoft: '#fce8e4', coralInk: '#a9493b', coral: '#e0715c', tealSoft: '#ddf1ec', tealInk: '#25705f', teal: '#3aa88f',
 		shadow: 0.05,
 	},
 	dark: {
-		ground: '#0f1b24', paper: '#172a35', ink: '#e8f2f7', soft: '#b4c8d4', accent: '#8ec1d6', accentSoft: '#1d3a4a',
+		ground: '#0f1b24', paper: '#172a35', ink: '#e8f2f7', soft: '#b4c8d4', accent: '#8ec1d6', accentSoft: '#1d3a4a', accentInk: '#b6dbea',
 		coralSoft: '#3b2528', coralInk: '#f6b4a9', coral: '#e0715c', tealSoft: '#1b3631', tealInk: '#8ad5c4', teal: '#3aa88f',
 		shadow: 0.22,
 	},
@@ -184,7 +219,23 @@ export type CardOptions = {
 	idPrefix?: string;
 	/** @font-face rules to embed (a PNG drawn from an <img> can't see the page's fonts). */
 	fontCss?: string;
+	/**
+	 * Only the daily hours, with "See what it adds up to" in place of the two figures: the static
+	 * preview of a result page, which knows the hours (its path) but not the ages (its query).
+	 */
+	hoursOnly?: boolean;
 };
+
+/** The hours-only card's invitation, where the two figures would be. */
+function invite(x: number, y: number, w: number, h: number, c: (typeof PALETTE)[Theme], big: number, small: number): string {
+	const cx = x + w / 2;
+	const mid = y + h / 2;
+	return [
+		`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${Math.round(h * 0.22)}" fill="${c.accentSoft}"/>`,
+		`<text x="${cx}" y="${mid - small * 0.1}" text-anchor="middle" font-size="${big}" font-weight="800" fill="${c.accentInk}">See what it adds up to</text>`,
+		`<text x="${cx}" y="${mid + small * 1.55}" text-anchor="middle" font-size="${small}" font-weight="700" fill="${c.accentInk}" fill-opacity="0.8">Free screen time calculator</text>`,
+	].join('');
+}
 
 /** The report card as a standalone SVG document. */
 export function cardSvg(raw: CardInput, opts: CardOptions): string {
@@ -207,8 +258,11 @@ export function cardSvg(raw: CardInput, opts: CardOptions): string {
 		body.push(`<text x="540" y="566" text-anchor="middle" font-size="56" font-weight="800" fill="${c.ink}">My screen time report</text>`);
 		body.push(`<text x="540" y="716" text-anchor="middle" font-weight="800"><tspan font-size="150" fill="${c.accent}">${esc(daily)}</tspan><tspan font-size="52" fill="${c.soft}" dx="14">a day</tspan></text>`);
 		const s = { badge: 34, value: 96, cap: 32 };
-		body.push(tile({ x: 112, y: 776, w: 416, h: 330, ...coral }, s));
-		body.push(tile({ x: 552, y: 776, w: 416, h: 330, ...teal }, s));
+		if (opts.hoursOnly) body.push(invite(112, 806, 856, 270, c, 52, 32));
+		else {
+			body.push(tile({ x: 112, y: 776, w: 416, h: 330, ...coral }, s));
+			body.push(tile({ x: 552, y: 776, w: 416, h: 330, ...teal }, s));
+		}
 		body.push(place(opts.art.logo, `${p}logo-`, 512, 1136, 56));
 		body.push(`<text x="540" y="1238" text-anchor="middle" font-size="34" font-weight="800" fill="${c.soft}">${SITE}</text>`);
 	} else {
@@ -224,8 +278,11 @@ export function cardSvg(raw: CardInput, opts: CardOptions): string {
 		body.push(`<text x="${cx}" y="118" text-anchor="middle" font-size="42" font-weight="800" fill="${c.ink}">My screen time report</text>`);
 		body.push(`<text x="${cx}" y="236" text-anchor="middle" font-weight="800"><tspan font-size="112" fill="${c.accent}">${esc(daily)}</tspan><tspan font-size="40" fill="${c.soft}" dx="10">a day</tspan></text>`);
 		const s = { badge: 24, value: 70, cap: 24 };
-		body.push(tile({ x: 544, y: 276, w: 280, h: 290, ...coral }, s));
-		body.push(tile({ x: 848, y: 276, w: 280, h: 290, ...teal }, s));
+		if (opts.hoursOnly) body.push(invite(544, 306, 584, 230, c, 44, 28));
+		else {
+			body.push(tile({ x: 544, y: 276, w: 280, h: 290, ...coral }, s));
+			body.push(tile({ x: 848, y: 276, w: 280, h: 290, ...teal }, s));
+		}
 	}
 
 	const style = opts.fontCss ? `<style>${opts.fontCss}</style>` : '';
