@@ -75,7 +75,7 @@ Move the app off your home screen and bury it in a folder. Turn off biometric lo
 
 ## What limits should I set?
 
-"Use Instagram less" is a wish, not a plan. Boundaries work when they're concrete. Let the phone enforce the number so you don't have to: on iPhone, go to Settings > Screen Time > App Limits and add Instagram; on Android, use the app timer in Digital Wellbeing. Instagram also has its own time management tools in its settings if you want a second reminder.
+"Use Instagram less" is a wish, not a plan. Boundaries work when they're concrete. Let the phone enforce the number so you don't have to: on iPhone, go to Settings > Screen Time > App Limits and add Instagram; on Android, use the app timer in Digital Wellbeing. Instagram also has its own time management tools in its settings if you want a second reminder. The step-by-step settings are in [how to block Instagram on iPhone and Android](/block/instagram/).
 
 Some people do well with time-based rules: no Instagram before 9 AM, none after 8 PM, or only during lunch. Others prefer situation-based lines -- never while working, never in bed, never when you're with other people. You could also cap it: three check-ins a day, 20 minutes max per session, or close after 10 posts.
 

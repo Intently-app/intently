@@ -62,7 +62,7 @@ export default defineConfig({
 				) {
 					item.priority = 0.9;
 					item.changefreq = 'weekly';
-				} else if (item.url.includes('/blog/')) {
+				} else if (item.url.includes('/blog/') || item.url.includes('/block/')) {
 					item.priority = 0.8;
 					item.changefreq = 'weekly';
 				} else if (

@@ -1,0 +1,256 @@
+---
+/**
+ * One "how to block <app>" page (/block/<id>/). The words live in src/data/blockApps.ts; this is the shape every
+ * app shares. Mist styles: src/styles/info-pages.css (.m-*) and src/styles/block.css (.bk-*).
+ *
+ * Order: the answer, the phone's own tools (iPhone and Android side by side), the app's own settings, where limits
+ * leak, Respite, the habit-side blog posts, questions, the other apps.
+ */
+import '../styles/info-pages.css';
+import '../styles/block.css';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import AppIcon from '../components/ui/AppIcon.astro';
+import AppShot from '../components/ui/AppShot.astro';
+import Biscuit from '../components/ui/Biscuit.astro';
+import Icon from '../components/ui/Icon.astro';
+import JumpNav from '../components/ui/JumpNav.astro';
+import FAQSchema from '../components/SEO/FAQSchema.astro';
+import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
+import { BLOCK_APPS, inline, plain, type BlockApp, type OptionKind } from '../data/blockApps';
+
+interface Props {
+	app: BlockApp;
+}
+const { app } = Astro.props;
+
+const SITE = 'https://respite.liveintently.app';
+const PAGE_URL = `${SITE}/block/${app.id}/`;
+const others = BLOCK_APPS.filter((a) => a.id !== app.id);
+
+const KIND: Record<OptionKind, { label: string; icon: string; tone: string }> = {
+	reminder: { label: 'Reminder', icon: 'Bell', tone: 'is-reward' },
+	helps: { label: 'Helps', icon: 'Check', tone: 'is-success' },
+	missing: { label: 'Not there', icon: 'Ban', tone: 'is-warning' },
+	info: { label: 'Info', icon: 'Info', tone: 'is-fog' },
+};
+
+const platforms = [
+	{ id: 'iphone', name: 'iPhone', tool: 'Screen Time', icon: 'Hourglass', ...app.iphone },
+	{ id: 'android', name: 'Android', tool: 'Digital Wellbeing', icon: 'Timer', ...app.android },
+];
+
+// HowTo with one section per phone. Google no longer shows HowTo rich results, but the markup is valid and
+// describes the page's step lists for other consumers.
+const howTo = {
+	'@context': 'https://schema.org',
+	'@type': 'HowTo',
+	name: app.h1,
+	description: app.description,
+	step: platforms.map((p) => ({
+		'@type': 'HowToSection',
+		name: `On ${p.name} (${p.tool})`,
+		itemListElement: p.steps.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, name: s.title, text: plain(s.text) })),
+	})),
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={app.title} description={app.description} image={app.ogImage} />
+		<BreadcrumbSchema
+			items={[
+				{ name: 'Home', url: `${SITE}/` },
+				{ name: 'Block an app', url: `${SITE}/block/` },
+				{ name: app.name, url: PAGE_URL },
+			]}
+		/>
+		<script type="application/ld+json" set:html={JSON.stringify(howTo)} />
+		<FAQSchema faqs={app.faq} />
+	</head>
+	<body class="m-page">
+		<Header />
+
+		<main class="m bk">
+			<section class="bk-hero" aria-labelledby="bk-title">
+				<div class="bk-stage" aria-hidden="true">
+					<AppIcon app={app.id} size={96} />
+					<span class="bk-stamp"><Icon name="Hourglass" size={20} /></span>
+				</div>
+				<a class="bk-crumb" href="/block/">Block an app</a>
+				<h1 id="bk-title">{app.h1}</h1>
+				<p class="m-dek">{app.dek}</p>
+			</section>
+
+			<JumpNav
+				links={[
+					{ href: '#phone', label: 'iPhone and Android' },
+					{ href: '#in-app', label: `In ${app.short}` },
+					{ href: '#respite', label: 'With Respite' },
+					{ href: '#faq', label: 'Questions' },
+				]}
+			/>
+
+			<section class="bk-answer" aria-label="Quick answer">
+				<span class="m-badge is-accent">Quick answer</span>
+				<p>{app.answer}</p>
+			</section>
+
+			<section class="m-section" id="phone" aria-labelledby="phone-title">
+				<h2 id="phone-title" class="m-h2 bk-center">Your phone's own tools</h2>
+				<div class="bk-pair">
+					{platforms.map((p) => (
+						<section class="bk-card" aria-labelledby={`${p.id}-title`}>
+							<div class="bk-card-head">
+								<span class="m-tile"><Icon name={p.icon} size={22} /></span>
+								<div>
+									<h3 id={`${p.id}-title`}>{p.name}</h3>
+									<p class="m-caption">{p.tool}</p>
+								</div>
+							</div>
+							<ol class="bk-steps">
+								{p.steps.map((s, i) => (
+									<li>
+										<span class="m-tile is-number" aria-hidden="true">{i + 1}</span>
+										<div>
+											<p class="bk-step-title">{s.title}</p>
+											<p class="bk-step-text" set:html={inline(s.text)} />
+										</div>
+									</li>
+								))}
+							</ol>
+							<p class="bk-catch">
+								<span class="m-badge is-warning">The catch</span>
+								<span set:html={inline(p.catch)} />
+							</p>
+						</section>
+					))}
+				</div>
+			</section>
+
+			<section class="m-section" id="in-app" aria-labelledby="in-app-title">
+				<div class="bk-center bk-head">
+					<AppIcon app={app.id} size={48} />
+					<h2 id="in-app-title" class="m-h2">Inside {app.short}</h2>
+					<p class="m-caption bk-lead" set:html={inline(app.inApp.lead)} />
+				</div>
+				<ul class:list={['bk-options', `has-${app.inApp.options.length}`]}>
+					{app.inApp.options.map((o) => (
+						<li class="bk-option">
+							<span class:list={['m-tile', KIND[o.kind].tone]} aria-hidden="true"><Icon name={KIND[o.kind].icon} size={22} /></span>
+							<p class="bk-option-name">{o.name}</p>
+							<span class:list={['m-badge', { 'is-plus': o.kind === 'reminder', 'is-live': o.kind === 'helps', 'is-warning': o.kind === 'missing' }]}>{KIND[o.kind].label}</span>
+							<p class="bk-option-text" set:html={inline(o.text)} />
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<section class="m-section" aria-labelledby="watch-title">
+				<h2 id="watch-title" class="m-h2 bk-center">Where limits leak</h2>
+				<ul class="bk-watch">
+					{app.watch.map((w) => (
+						<li>
+							<span class="m-tile is-warning" aria-hidden="true"><Icon name="TriangleAlert" size={22} /></span>
+							<p set:html={inline(w)} />
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<section class="m-section bk-respite" id="respite" aria-labelledby="respite-title" data-placement="block_respite">
+				<div class="bk-center bk-head">
+					<span class="bk-pair-icons" aria-hidden="true">
+						<AppIcon app={app.id} size={48} />
+						<Icon name="ArrowRight" size={20} />
+						<AppIcon app="respite" size={48} />
+					</span>
+					<h2 id="respite-title" class="m-h2">With Respite</h2>
+					<p class="m-dek">{app.respite.line}</p>
+				</div>
+				<div class="bk-shots">
+					{app.respite.shots.map((s) => (
+						<figure class="bk-shot">
+							<AppShot slug={s.slug} />
+							<figcaption>
+								<strong>{s.title}</strong>
+								<span>{s.line}</span>
+							</figcaption>
+						</figure>
+					))}
+				</div>
+				<ul class="m-pills bk-chips" aria-label="Included">
+					{app.respite.chips.map((c) => <li><Icon name="Check" size={18} />{c}</li>)}
+				</ul>
+				<p class="m-caption bk-center">Free on iPhone, Android and Chrome, with no ads. No account needed (sign in only for sync). Respite Plus adds unlimited schedules and sync across devices.</p>
+				<div class="m-actions bk-actions">
+					<a href="/download/" class="m-btn" data-cta="download">Get Respite free</a>
+					<a href="/features/" class="m-btn is-soft" data-cta="features">See every feature</a>
+				</div>
+				{app.web && (
+					<div class="bk-web">
+						<AppIcon app="googlechrome" size={48} />
+						<div>
+							<p class="bk-web-title">{app.web.site} on a computer</p>
+							<p class="bk-web-text">{app.web.line} Works in other Chromium browsers too.</p>
+						</div>
+					</div>
+				)}
+			</section>
+
+			<section class="m-section" aria-labelledby="habit-title">
+				<h2 id="habit-title" class="m-h2 bk-center">The habit side</h2>
+				<ul class="bk-related">
+					{app.related.map((r) => (
+						<li>
+							<a class="bk-related-link" href={r.href}>
+								<span class="bk-related-title">{r.label}</span>
+								<span class="bk-related-line">{r.line}</span>
+								<span class="bk-related-go" aria-hidden="true"><Icon name="ArrowRight" size={18} /></span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<section class="m-section" id="faq" aria-labelledby="faq-title">
+				<h2 id="faq-title" class="m-h2 bk-center">Questions</h2>
+				<div class="m-group m-faq">
+					{app.faq.map((f) => (
+						<details>
+							<summary>{f.question}</summary>
+							<p>{f.answer}</p>
+						</details>
+					))}
+				</div>
+			</section>
+
+			<nav class="m-section" aria-labelledby="others-title">
+				<h2 id="others-title" class="m-h2 bk-center">Block another app</h2>
+				<ul class="bk-others">
+					{others.map((o) => (
+						<li>
+							<a class="bk-other" href={`/block/${o.id}/`}>
+								<AppIcon app={o.id} size={56} />
+								<span>{o.short}</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
+
+			<section class="m-end" aria-labelledby="end-title" data-placement="final_cta">
+				<Biscuit mood="wave" size={120} label="Biscuit waving" />
+				<h2 id="end-title">Try a pause before {app.short}</h2>
+				<p>Free on iPhone, Android and Chrome. No ads, no account needed.</p>
+				<div class="m-actions">
+					<a href="/download/" class="m-btn" data-cta="download">Download Respite</a>
+				</div>
+			</section>
+		</main>
+
+		<Footer />
+	</body>
+</html>

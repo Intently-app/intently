@@ -81,7 +81,7 @@ Instead of Reddit being available whenever you're bored, pick specific times:
 - 20 minutes in the evening after you've finished what you need to do
 - 30 minutes on weekend mornings with coffee
 
-Set a timer before opening. When it goes off, close Reddit immediately. If you catch yourself reaching for it outside your windows, that's a sign the habit is still running on autopilot -- exactly what Respite is designed to catch.
+Set a timer before opening. When it goes off, close Reddit immediately. If you catch yourself reaching for it outside your windows, that's a sign the habit is still running on autopilot -- exactly what Respite is designed to catch. Reddit has no built-in limit, so the phone settings are in [how to block Reddit on iPhone and Android](/block/reddit/).
 
 ## Is there a less addictive way to use Reddit?
 

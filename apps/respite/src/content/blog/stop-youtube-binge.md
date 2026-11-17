@@ -120,6 +120,8 @@ Have something specific to do next. Read a chapter. Go for a walk. Start a task 
 
 ## Which tools help?
 
+For the exact settings, see [how to block YouTube on iPhone and Android](/block/youtube/), including YouTube's own break reminders and Shorts limit.
+
 Respite supports intentional YouTube habits:
 
 - A short pause before YouTube opens, on iPhone, Android and Chrome

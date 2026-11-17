@@ -47,7 +47,7 @@ Whether you want to limit social media during work hours, keep your kids off cer
 
 ## Can you block social media apps on iPhone?
 
-Yes. The quickest way is **Settings > Screen Time > App Limits > Add Limit**, then pick the **Social** category (Instagram, TikTok, X, Facebook and others) and set a daily time. When the time is up, the apps gray out. To keep yourself from tapping past it, set a Screen Time passcode as described below. The sections that follow cover Downtime, Focus modes and stricter third-party options.
+Yes. The quickest way is **Settings > Screen Time > App Limits > Add Limit**, then pick the **Social** category (Instagram, TikTok, X, Facebook and others) and set a daily time. When the time is up, the apps gray out. To keep yourself from tapping past it, set a Screen Time passcode as described below. The sections that follow cover Downtime, Focus modes and stricter third-party options. For one app at a time (TikTok, Instagram, YouTube, Reddit and more), see the [block an app guides](/block/).
 
 ## How do I block apps with Apple Screen Time?
 
