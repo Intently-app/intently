@@ -2,7 +2,7 @@
 title: 'How to Stop Reddit Scrolling (Without Quitting Reddit)'
 description: '5 ways to stop mindless Reddit scrolling: why Reddit is so sticky, the signs it''s taking over, and how to keep the communities you value.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-01
+updatedDate: 2026-11-17
 author: 'Respite Team'
 answer: 'To stop scrolling Reddit without quitting it, leave the front page and r/all, visit two or three subreddits on purpose, and give Reddit set windows with a timer. Add a pause before Reddit opens so the habit stops being automatic, and turn off its notifications. A finished subreddit has an end; the front page never does.'
 keyTakeaways:
@@ -63,7 +63,7 @@ Once you're on the front page, the variable rewards kick in and pulling away get
 
 Most Reddit sessions start unconsciously. You don't plan to spend 90 minutes there -- you plan to "quickly check," and 90 minutes later you realize what happened. The pause interrupts that autopilot. The science behind it is in [the science of friction](/blog/science-of-friction/).
 
-If you'd rather start with built-in tools, iPhone Screen Time (App Limits) and Android Digital Wellbeing (app timers) can cap the Reddit app, and the Reddit app's own notification settings let you switch off the alerts that pull you back in.
+If you'd rather start with built-in tools, iPhone Screen Time (Time Allowances, which cap the category Reddit is in, or App Limits on iOS 26 and earlier) and Android Digital Wellbeing (app timers) can cap the Reddit app, and the Reddit app's own notification settings let you switch off the alerts that pull you back in.
 
 ## Should I stop browsing the front page?
 

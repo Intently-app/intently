@@ -2,7 +2,7 @@
 title: 'Instagram Reels Addiction: How to Stop the Endless Scroll'
 description: 'Can''t stop watching Instagram Reels? Why Reels are so sticky, how they differ from normal Instagram, and 5 practical ways to get your time back.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-01
+updatedDate: 2026-11-17
 author: 'Respite Team'
 answer: 'To stop watching Instagram Reels, decide what Instagram is for (friends, Stories, messages), then use it that way. Tap Not Interested on Reels you did not seek out, mute aspirational accounts, avoid the Explore page, and put a pause before the app opens so you choose each visit. Set a daily limit with Screen Time or Digital Wellbeing as a backstop.'
 keyTakeaways:
@@ -115,7 +115,7 @@ The Explore page, by contrast, is where the algorithm goes hardest on Reels reco
 
 Part of what keeps people locked into Instagram is the cycle of posting, checking likes, monitoring follower counts. This reinforces the Reels habit because the more invested you are in Instagram as a platform, the more time you spend in the app, and the more you drift.
 
-A few things that help: hide like counts (Instagram has a setting for this), turn off like and comment notifications, and when you want to share something with specific people, just send it to them directly instead of posting it publicly. Then give the app a daily cap: Settings > Screen Time > App Limits on iPhone, or an app timer in Digital Wellbeing on Android. Every setting, step by step: [how to block Instagram on iPhone and Android](/block/instagram/).
+A few things that help: hide like counts (Instagram has a setting for this), turn off like and comment notifications, and when you want to share something with specific people, just send it to them directly instead of posting it publicly. Then give the app a daily cap: Settings > Screen Time > Time Allowances on iPhone (iOS 27 caps Instagram's category; App Limits on iOS 26 and earlier caps the app alone), or an app timer in Digital Wellbeing on Android. Every setting, step by step: [how to block Instagram on iPhone and Android](/block/instagram/).
 
 ### Deal with what Reels is actually filling
 

@@ -2,7 +2,7 @@
 title: 'How to Reduce Screen Time: 10 Strategies That Work'
 description: 'How to reduce screen time without willpower: track it, set realistic limits, go grayscale, add pauses and build phone-free zones. 10 practical steps.'
 pubDate: 'Jan 12 2026'
-updatedDate: 2026-11-01
+updatedDate: 2026-11-17
 heroImage: '/images/blog/how-to-reduce-screen-time.jpg'
 heroImageAlt: 'A hedge clipped into a phone shape, trimmed smaller than its faint old outline, with shears and clippings.'
 author: 'Respite Team'
@@ -27,7 +27,7 @@ faq:
   - question: 'Will reducing screen time make me less productive?'
     answer: 'It tends to be the opposite for most people. Less automatic phone use usually means fewer interruptions, better focus on the work in front of you, better sleep and less context-switching, all of which support productivity. The gain comes from removing the low-value use, not from avoiding useful tools.'
   - question: 'How can I reduce screen time on iPhone and Android?'
-    answer: 'On iPhone, open Settings, then Screen Time, to see usage and set App Limits and Downtime. On Android, use Digital Wellbeing to see usage and set app timers, Bedtime mode and Focus mode. Built-in limits are easy to dismiss, so pair them with a pause app like Respite, which adds a moment of choice before the apps you pick open.'
+    answer: 'On iPhone, open Settings, then Screen Time, to see usage and set Time Allowances and a Screen Time Schedule (App Limits and Downtime on iOS 26 and earlier). On Android, use Digital Wellbeing to see usage and set app timers, Bedtime mode and Focus mode. Built-in limits are easy to dismiss, so pair them with a pause app like Respite, which adds a moment of choice before the apps you pick open.'
 howToSteps:
   - name: 'Track your usage without judgment'
     text: 'Observe your patterns for one week without trying to change anything: which apps, which times of day, and what triggers mindless scrolling.'
@@ -85,7 +85,7 @@ If you go from three hours of Instagram to 30 minutes overnight, you're going to
 
 Instead, reduce by 10-15% weekly. If you currently spend 2 hours on social media, aim for 1 hour 45 minutes this week, then 1 hour 30 minutes next week. It feels almost too easy, and that's the point. Stretch goals work. Fantasy goals don't.
 
-Set the limits in Settings > Screen Time > App Limits on iPhone, or with app timers in Digital Wellbeing on Android. Respite also has daily limits and timers. If you want to see how the hours add up first, try the [screen time calculator](/screen-time-calculator/).
+Set the limits in Settings > Screen Time > Time Allowances on iPhone (by category; App Limits on iOS 26 and earlier), or with app timers in Digital Wellbeing on Android. Respite also has daily limits and timers. If you want to see how the hours add up first, try the [screen time calculator](/screen-time-calculator/).
 
 ### 3. Enable Grayscale Mode
 

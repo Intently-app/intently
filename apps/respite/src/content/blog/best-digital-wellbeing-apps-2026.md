@@ -2,7 +2,7 @@
 title: 'Best Digital Wellbeing Apps 2026: 11 Free and Paid Picks'
 description: 'The 11 best digital wellbeing apps for Android, iPhone and Chrome in 2026: what each costs, what it limits and who it suits, in one comparison table.'
 pubDate: "Jan 12 2026"
-updatedDate: 2026-11-06
+updatedDate: 2026-11-17
 heroImage: '/images/blog/best-digital-wellbeing-apps-2026.jpg'
 heroImageAlt: 'Eleven differently shaped apothecary jars on a diagonal shelf; one glows softly with a small acorn inside.'
 author: "Respite Team"
@@ -137,7 +137,7 @@ Here's the honest assessment: it's bare-bones. The app timers are trivially easy
 
 Apple's built-in option is a step up from Google's, particularly when it comes to family features. Parents can view kids' usage remotely, set limits, approve app downloads, and control who kids communicate with during downtime. If you're managing a household of iPhones and iPads, it's genuinely useful.
 
-For individual adult use, it's less compelling. The tracking is detailed enough (breakdowns by app, category, and time period across all Apple devices on your Apple ID), and downtime scheduling works fine. But like Google's tool, the limits are easy to bypass, and there's nothing here that helps you understand or change the behavioral patterns driving your screen time.
+For individual adult use, it's less compelling. The tracking is detailed enough (breakdowns by app, category, and time period across all Apple devices on your Apple ID), and scheduling (Screen Time Schedule, called Downtime on iOS 26 and earlier) works fine. But like Google's tool, the limits are easy to bypass, and there's nothing here that helps you understand or change the behavioral patterns driving your screen time.
 
 Worth using if you're already in the Apple ecosystem and want basic visibility. Not enough on its own if you're serious about changing habits.
 

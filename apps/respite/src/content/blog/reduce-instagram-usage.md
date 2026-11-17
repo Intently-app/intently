@@ -2,7 +2,7 @@
 title: 'How to Reduce Instagram Usage Without Deleting It'
 description: 'Cut your Instagram time without deleting the app. Practical, mindful ways to break the scroll habit and get hours of your week back.'
 pubDate: 2026-01-23
-updatedDate: 2026-11-01
+updatedDate: 2026-11-17
 author: 'Respite Team'
 answer: 'To reduce Instagram usage without deleting it, interrupt the autopilot opens, cap the time, and cut the pulls. Add a pause before the app opens, set a daily limit in Screen Time (iPhone) or Digital Wellbeing (Android), and turn off every notification except messages from people who matter. Decide before each visit what you are there for, then close when it is done.'
 keyTakeaways:
@@ -25,7 +25,7 @@ faq:
   - question: 'Will turning off notifications help me use Instagram less?'
     answer: 'Usually, yes. Every notification is an invitation to open the app, and many of them are about things you did not ask for. Turn off everything except direct messages from people who matter, then check the rest on your own schedule. Fewer prompts means fewer automatic opens.'
   - question: 'How do I set a daily time limit for Instagram?'
-    answer: 'On iPhone, open Settings, then Screen Time, then App Limits, and add Instagram with a daily allowance. On Android, long-press the Instagram icon, open App info, and use Digital Wellbeing to set an app timer. Instagram also has its own time management tools in its settings. Pair a limit with a pause so you notice before you hit it.'
+    answer: 'On iPhone, open Settings, then Screen Time, then Time Allowances, and set a daily time for the category Instagram is in (on iOS 26 and earlier, App Limits lets you add Instagram alone). On Android, long-press the Instagram icon, open App info, and use Digital Wellbeing to set an app timer. Instagram also has its own time management tools in its settings. Pair a limit with a pause so you notice before you hit it.'
   - question: 'How long does it take to break an Instagram scrolling habit?'
     answer: 'It varies by person, and there is no fixed number. Many people notice fewer automatic opens within a couple of weeks of consistent friction and limits, and the habit keeps loosening as new routines replace the old one. Expect some slips; what matters is that you notice them sooner each time.'
 howToSteps:
@@ -75,7 +75,7 @@ Move the app off your home screen and bury it in a folder. Turn off biometric lo
 
 ## What limits should I set?
 
-"Use Instagram less" is a wish, not a plan. Boundaries work when they're concrete. Let the phone enforce the number so you don't have to: on iPhone, go to Settings > Screen Time > App Limits and add Instagram; on Android, use the app timer in Digital Wellbeing. Instagram also has its own time management tools in its settings if you want a second reminder. The step-by-step settings are in [how to block Instagram on iPhone and Android](/block/instagram/).
+"Use Instagram less" is a wish, not a plan. Boundaries work when they're concrete. Let the phone enforce the number so you don't have to: on iPhone, go to Settings > Screen Time > Time Allowances and cap the category Instagram is in (on iOS 26 and earlier, App Limits and add Instagram); on Android, use the app timer in Digital Wellbeing. Instagram also has its own time management tools in its settings if you want a second reminder. The step-by-step settings are in [how to block Instagram on iPhone and Android](/block/instagram/).
 
 Some people do well with time-based rules: no Instagram before 9 AM, none after 8 PM, or only during lunch. Others prefer situation-based lines -- never while working, never in bed, never when you're with other people. You could also cap it: three check-ins a day, 20 minutes max per session, or close after 10 posts.
 

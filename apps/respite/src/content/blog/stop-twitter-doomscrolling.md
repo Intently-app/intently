@@ -2,7 +2,7 @@
 title: 'Stop Twitter/X Doomscrolling: 7 Strategies That Work'
 description: 'Stop Twitter/X doomscrolling: kill notifications, add a pause, check on a schedule and clean up your feed. Seven strategies that keep the good parts.'
 pubDate: 2026-01-23
-updatedDate: 2026-11-01
+updatedDate: 2026-11-17
 author: 'Respite Team'
 answer: 'To stop doomscrolling on Twitter/X, turn off notifications, add a pause before the app opens, and check only in two or three timed windows a day. Then clean up your feed by unfollowing accounts that leave you worse off, muting trigger keywords, and keeping must-read accounts in a list, so each session ends satisfied instead of drained.'
 keyTakeaways:
@@ -79,7 +79,7 @@ Most doomscrolling starts without a conscious decision. You're between tasks, a 
 
 Respite puts a brief pause between you and the app -- just a moment to notice what you're doing and decide if this is actually what you want right now. You can always continue. But that moment of awareness is often enough to short-circuit the autopilot. On your phone it works on the Twitter/X app; in Chrome it can pause x.com and twitter.com as well. [Download Respite](/download/) to try it on any app that tends to pull you in. The reasoning is in [the science of friction](/blog/science-of-friction/).
 
-If you want a built-in backstop as well, use App Limits in iPhone Screen Time or an app timer in Android Digital Wellbeing.
+If you want a built-in backstop as well, use Time Allowances (App Limits on iOS 26 and earlier) in iPhone Screen Time or an app timer in Android Digital Wellbeing.
 
 ### 3. Set specific times to check -- and stick to the clock
 

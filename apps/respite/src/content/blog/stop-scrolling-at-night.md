@@ -2,7 +2,7 @@
 title: 'How to Stop Scrolling at Night: A Sleep-Saving Guide'
 description: 'Stop scrolling at night and protect your sleep: why bedtime scrolling wrecks rest, plus a digital sunset, a charging spot and a pause to break the habit.'
 pubDate: 2026-01-23
-updatedDate: 2026-11-03
+updatedDate: 2026-11-17
 author: 'Respite Team'
 answer: 'To stop scrolling at night, charge your phone outside the bedroom (and buy a cheap alarm clock), set a digital sunset 60 to 90 minutes before bed, and have one screen-free wind-down activity ready. If the phone has to stay close, add a pause before your usual apps so the late-night tap becomes a choice, and use Sleep Focus or Bedtime mode to help.'
 keyTakeaways:
@@ -148,7 +148,7 @@ This one's worth sitting with. Bedtime scrolling often fills a need that isn't a
 
 Your phone already has tools designed to help with this. They're not a complete solution on their own, but they're worth turning on.
 
-On iPhone, set up a sleep schedule in the Health app or under Settings > Focus > Sleep. The Sleep Focus silences notifications and can dim the Lock Screen during your wind-down period. You can also add a Screen Time limit for social apps under Settings > Screen Time > App Limits.
+On iPhone, set up a sleep schedule in the Health app or under Settings > Focus > Sleep. The Sleep Focus silences notifications and can dim the Lock Screen during your wind-down period. You can also add a Screen Time limit for social apps under Settings > Screen Time > Time Allowances (App Limits on iOS 26 and earlier), or block set hours with a Screen Time Schedule (Downtime).
 
 On Android, check Settings > Digital Wellbeing > Bedtime mode. It can turn the screen to grayscale and silence notifications on a schedule. App timers in Digital Wellbeing add a daily cap on specific apps.
 

@@ -2,7 +2,7 @@
 title: 'Best Screen Time Apps 2026: 9 Free and Paid Apps Compared'
 description: 'The 9 best apps to limit screen time on Android, iPhone and Chrome in 2026, from gentle pauses to hard blockers and free built-ins, with prices.'
 pubDate: 2026-02-28
-updatedDate: 2026-11-06
+updatedDate: 2026-11-17
 author: 'Respite Team'
 answer: 'The best screen time app in 2026 depends on your approach. Respite is the top free pick for a mindful pause before distracting apps on iPhone, Android and Chrome. One Sec is the research-backed paid pause, Freedom and Cold Turkey are the strongest blockers, and Apple Screen Time and Google Digital Wellbeing are the free built-in baselines.'
 keyTakeaways:
@@ -152,7 +152,7 @@ The data is useful for awareness, and the Wind Down mode (grayscale at bedtime) 
 
 **Platform**: iOS | **Price**: Free (built-in) | **Approach**: Time limits + usage tracking
 
-Apple's built-in option provides usage reports, app time limits, downtime scheduling, and content restrictions (useful for parents). It's deeply integrated with iOS, which is both its strength and its weakness — you can't uninstall it, but you also can't extend it beyond Apple's design choices.
+Apple's built-in option provides usage reports, time allowances, a Screen Time Schedule (App Limits and Downtime on iOS 26 and earlier), and content restrictions (useful for parents). It's deeply integrated with iOS, which is both its strength and its weakness — you can't uninstall it, but you also can't extend it beyond Apple's design choices.
 
 The main issue: the "one more minute" bypass completely undermines the time limits. Most people tap through it without thinking. There are no mindful interventions, no gamification, and the data visualizations are basic. Useful for parental controls, less useful for adults trying to change their own habits.
 

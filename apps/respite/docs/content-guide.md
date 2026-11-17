@@ -60,6 +60,8 @@ Keep what the post already states unless you know it's wrong. Don't invent price
 studies. If unsure, soften ("around $50/year", "at the time of writing") or remove it. Be fair: every
 alternatives post says honestly where the competitor is better.
 
+- iPhone Screen Time names (iOS 27): write **Time Allowances** (App Limits on iOS 26 and earlier; set by category, not per app), **Screen Time Schedule** (Downtime) and **Passcode & Management › Lock Screen Time Settings**, old name in brackets, as on the `/block/<app>/` pages; facts in `docs/competitor-facts.md` ("Per-app settings and OS menus").
+
 ## Frontmatter, per post
 
 - `title` ≤ 60 characters, primary query first, the year where the query has it ("2026"), no

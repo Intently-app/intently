@@ -1,13 +1,13 @@
 ---
 title: 'How to Block Social Media & Other Apps on iPhone (2026)'
-description: 'Yes, you can block social media apps on iPhone. Step-by-step with Screen Time, Downtime and Shortcuts, plus free and paid blockers and a gentler option.'
+description: 'Yes, you can block social media apps on iPhone. Step-by-step with Screen Time, schedules and Shortcuts, plus free and paid blockers and a gentler option.'
 pubDate: 2026-02-28
-updatedDate: 2026-11-01
+updatedDate: 2026-11-17
 author: "Respite Team"
-answer: 'Yes, you can block social media apps on iPhone without deleting them. Open Settings > Screen Time > App Limits, add the Social category or specific apps, and set a daily limit; use Downtime to block apps on a schedule and a Screen Time passcode to stop yourself overriding. Opal and Freedom add stricter blocks; a pause app like Respite adds a gentler option.'
+answer: 'Yes, you can block social media apps on iPhone without deleting them. Open Settings > Screen Time > Time Allowances (App Limits on iOS 26 and earlier), add the social media category and set a daily time; a Screen Time Schedule (Downtime) blocks apps at set hours and a Screen Time passcode stops you overriding. Opal and Freedom add stricter blocks; a pause app like Respite is gentler.'
 keyTakeaways:
-  - 'Free and built in: Settings > Screen Time > App Limits blocks apps after your daily limit.'
-  - 'Downtime blocks everything except Always Allowed apps on a schedule, such as 10 PM to 7 AM.'
+  - 'Free and built in: Settings > Screen Time > Time Allowances (App Limits on iOS 26 and earlier).'
+  - 'A Screen Time Schedule (Downtime on older iOS) blocks apps at set hours, such as 10 PM to 7 AM.'
   - 'Have a friend set your Screen Time passcode, or Ignore Limit will undo it in one tap.'
   - 'Opal and Freedom are the stricter paid blockers; Respite and One Sec add a pause instead.'
   - 'Use hard blocks for sleep and exams, and a pause for everyday scrolling.'
@@ -18,49 +18,49 @@ heroImageAlt: 'A phone-shaped apartment building at dusk with roller shutters do
 howToSteps:
   - name: "Open Screen Time Settings"
     text: "Go to Settings > Screen Time on your iPhone. If Screen Time isn't enabled, tap 'Turn On Screen Time' and follow the setup prompts."
-  - name: "Set App Limits"
-    text: "Tap 'App Limits' > 'Add Limit'. Select app categories or specific apps you want to limit. Set your daily time allowance and tap 'Add'."
-  - name: "Configure Downtime"
-    text: "Tap 'Downtime' and set a schedule for when only allowed apps and phone calls will be available. Enable 'Block at Downtime' for stricter enforcement."
+  - name: "Set Time Allowances"
+    text: "Tap 'Time Allowances' (iOS 26 and earlier: 'App Limits' > 'Add Limit'). Tap 'Manage Categories', add the categories you want to limit and set a daily time. iOS 27 sets allowances by category; older iOS also lets you pick specific apps."
+  - name: "Set a Screen Time Schedule"
+    text: "Tap 'Screen Time Schedule' (iOS 26 and earlier: 'Downtime') and set the hours and the categories allowed in them. On older iOS, enable 'Block at Downtime' for stricter enforcement."
   - name: "Set a Screen Time Passcode"
-    text: "Go back to Screen Time settings and tap 'Lock Screen Time Settings'. Set a passcode (have a trusted friend set it if you need stronger enforcement). This prevents you from easily overriding limits."
+    text: "Go back to Screen Time settings and tap 'Passcode & Management' > 'Lock Screen Time Settings' (on iOS 26 and earlier, just 'Lock Screen Time Settings'). Set a passcode (have a trusted friend set it if you need stronger enforcement). This prevents you from easily overriding limits."
   - name: "Choose Always Allowed Apps"
-    text: "Tap 'Always Allowed' to select essential apps (Phone, Messages, Maps) that remain accessible during Downtime. Remove any apps that don't need to be always available."
+    text: "Tap 'Always Allowed' to select essential apps (Phone, Messages, Maps) that remain accessible during a Screen Time Schedule (Downtime). Remove any apps that don't need to be always available."
   - name: "Create Focus Modes for Extra Control"
     text: "Go to Settings > Focus. Create custom Focus modes (Work, Study, Sleep) that hide notifications and restrict app access during specific times or locations."
 faq:
   - question: 'Can you block social media apps on iPhone?'
-    answer: 'Yes. Go to Settings > Screen Time > App Limits > Add Limit, choose the Social category or individual apps, and set a daily limit. When time is up the apps gray out. Use Downtime to block them on a schedule, and set a Screen Time passcode so you can''t just tap Ignore Limit.'
+    answer: 'Yes. Go to Settings > Screen Time > Time Allowances, tap Manage Categories, add the social media category and set a daily time (on iOS 26 and earlier, App Limits > Add Limit, which also lets you pick single apps). When time is up the apps gray out. Use a Screen Time Schedule (Downtime) to block them at set hours, and set a Screen Time passcode so you can''t just tap Ignore Limit.'
   - question: 'How do I block apps on my iPhone?'
-    answer: 'Go to Settings > Screen Time > App Limits. Tap Add Limit, select the apps or categories to restrict, set a daily time limit, and tap Add. For stronger enforcement, set a Screen Time passcode under Lock Screen Time Settings. You can also use Downtime to block all non-essential apps during scheduled hours.'
+    answer: 'Go to Settings > Screen Time > Time Allowances, tap Manage Categories, add the categories to restrict and set a daily time; on iOS 26 and earlier, App Limits > Add Limit also lets you pick single apps. For stronger enforcement, set a passcode under Passcode & Management > Lock Screen Time Settings. A Screen Time Schedule (Downtime on older iOS) blocks non-essential apps during set hours.'
   - question: 'Can I completely block an app on iPhone without deleting it?'
-    answer: 'Nearly. Set a 1-minute daily App Limit so the app is blocked after minimal use, or use Downtime with Block at Downtime on and the app left off your Always Allowed list. Third-party apps like Opal and Freedom offer stricter blocks, and a passcode set by someone else keeps it from being undone.'
+    answer: 'Nearly. Set a 1-minute daily allowance for the app''s category (on iOS 26 and earlier, a 1-minute App Limit on the app alone), or use a Screen Time Schedule (Downtime, with Block at Downtime on) and leave the app off your Always Allowed list. Third-party apps like Opal and Freedom offer stricter blocks, and a passcode set by someone else keeps it from being undone.'
   - question: 'How do I stop myself from bypassing app limits on iPhone?'
-    answer: 'Have a trusted friend or family member set your Screen Time passcode so you can''t override limits in a weak moment. Turn on Block at Downtime. For the strictest option use Freedom''s Locked Mode or Opal''s Deep Focus. Or try a pause app that works with your habits instead of against them.'
+    answer: 'Have a trusted friend or family member set your Screen Time passcode so you can''t override limits in a weak moment. On older iOS, turn on Block at Downtime. For the strictest option use Freedom''s Locked Mode or Opal''s Deep Focus. Or try a pause app that works with your habits instead of against them.'
   - question: 'What is the best app blocker for iPhone?'
     answer: 'Apple Screen Time is the best free one and is already on your phone. Opal is a polished paid blocker with Deep Focus, and Freedom blocks across iPhone, Mac and PC. For a gentler approach, Respite, One Sec and ScreenZen add a pause before an app opens instead of blocking it.'
   - question: 'Is there a free way to block apps on iPhone?'
-    answer: 'Yes. Apple Screen Time is free and offers App Limits, Downtime, Focus modes and content restrictions. It is not as strict as paid blockers, but it covers the basics with no subscription. Shortcuts automations and free pause apps such as Respite and ScreenZen add friction at no cost.'
+    answer: 'Yes. Apple Screen Time is free and offers Time Allowances, Screen Time Schedules (App Limits and Downtime on iOS 26 and earlier), Focus modes and content restrictions. It is not as strict as paid blockers, but it covers the basics with no subscription. Shortcuts automations and free pause apps such as Respite and ScreenZen add friction at no cost.'
 ---
 
 Whether you want to limit social media during work hours, keep your kids off certain apps, or just stop reaching for Instagram every five minutes, iPhone has several ways to block or restrict apps. This guide covers everything from built-in options to third-party tools — plus a section on why you might want to consider a different approach entirely.
 
 ## Can you block social media apps on iPhone?
 
-Yes. The quickest way is **Settings > Screen Time > App Limits > Add Limit**, then pick the **Social** category (Instagram, TikTok, X, Facebook and others) and set a daily time. When the time is up, the apps gray out. To keep yourself from tapping past it, set a Screen Time passcode as described below. The sections that follow cover Downtime, Focus modes and stricter third-party options. For one app at a time (TikTok, Instagram, YouTube, Reddit and more), see the [block an app guides](/block/).
+Yes. The quickest way is **Settings > Screen Time > Time Allowances** (on iOS 26 and earlier, **App Limits > Add Limit**), then add the social media category (Instagram, TikTok, X, Facebook and others) and set a daily time. When the time is up, the apps gray out. To keep yourself from tapping past it, set a Screen Time passcode as described below. The sections that follow cover Screen Time Schedule (Downtime), Focus modes and stricter third-party options. For one app at a time (TikTok, Instagram, YouTube, Reddit and more), see the [block an app guides](/block/).
 
 ## How do I block apps with Apple Screen Time?
 
 Screen Time is Apple's built-in tool for managing app usage. It's free, requires no downloads, and covers the basics of app blocking.
 
-### Setting Up App Limits
+### Setting Up Time Allowances (App Limits)
 
 1. Open **Settings > Screen Time**
 2. If not enabled, tap **Turn On Screen Time**
-3. Tap **App Limits > Add Limit**
-4. Select entire categories (Social, Entertainment, Games) or tap the category to choose specific apps
-5. Set your daily time allowance (e.g., 30 minutes for Social)
-6. Tap **Add**
+3. Tap **Time Allowances** (on iOS 26 and earlier, **App Limits > Add Limit**)
+4. Tap **Manage Categories** and add the categories you want (Social Media, Entertainment, Games). iOS 27 sets allowances by category; on older iOS you can tap a category to choose specific apps
+5. Set your daily time allowance (e.g., 30 minutes for social media)
+6. Confirm it (on older iOS, tap **Add**)
 
 When you reach your limit, the app's icon grays out and a "Time Limit" screen appears. You'll see options to ignore the limit for 1 minute, 15 minutes, or the rest of the day.
 
@@ -68,22 +68,22 @@ When you reach your limit, the app's icon grays out and a "Time Limit" screen ap
 
 The biggest weakness of Screen Time is how easy it is to tap "Ignore Limit." To make it harder:
 
-1. Go to **Screen Time > Lock Screen Time Settings**
+1. Go to **Screen Time > Passcode & Management > Lock Screen Time Settings** (on iOS 26 and earlier, **Screen Time > Lock Screen Time Settings**)
 2. Set a passcode (ideally different from your device passcode)
 3. **Pro tip:** Have a trusted friend set the passcode so you can't override it in a moment of weakness. They can share it with you if there's a genuine need.
 
 With a passcode set, overriding limits requires entering the code — adding enough friction to catch yourself.
 
-### Setting Up Downtime
+### Setting Up a Screen Time Schedule (Downtime)
 
-Downtime blocks all apps except those you've specifically allowed during scheduled hours.
+A Screen Time Schedule (called Downtime on iOS 26 and earlier) blocks all apps except those you've specifically allowed during scheduled hours.
 
-1. Go to **Screen Time > Downtime**
-2. Set a schedule (e.g., 10 PM to 7 AM for sleep, or 9 AM to 5 PM for work)
-3. Toggle **Block at Downtime** for stricter enforcement
+1. Go to **Screen Time > Screen Time Schedule** (on older iOS, **Screen Time > Downtime**)
+2. Set a time window (e.g., 10 PM to 7 AM for sleep, or 9 AM to 5 PM for work) and the categories allowed in it
+3. On older iOS, toggle **Block at Downtime** for stricter enforcement
 4. Go to **Always Allowed** to select apps that remain accessible (Phone, Messages, Maps, etc.)
 
-During Downtime, non-allowed apps show a time limit screen and require the passcode to access.
+On older iOS, during Downtime, non-allowed apps show a time limit screen and require the passcode to access.
 
 ### Using Focus Modes
 
@@ -184,7 +184,7 @@ Other pause-based options on iOS are One Sec (paid) and ScreenZen (free). For mo
 
 The most effective approach for most people isn't pure blocking or pure mindfulness — it's a combination:
 
-1. **Use Screen Time's Downtime** for sleep hours (hard block when you should be sleeping)
+1. **Use a Screen Time Schedule** (Downtime on older iOS) for sleep hours (hard block when you should be sleeping)
 2. **Use Focus modes** during work or study (reduce distractions during focused time)
 3. **Use a mindful pause app** for general daily use (build awareness throughout the day)
 4. **Reserve hard blocking** for high-stakes periods (exams, deadlines, digital detox weekends)
@@ -195,17 +195,17 @@ This gives you the best of both worlds: firm boundaries when they matter most, a
 
 **"I keep tapping 'Ignore Limit'"** — Have someone else set your Screen Time passcode. Remove yourself from the temptation loop.
 
-**"Downtime blocks apps I need"** — Review your Always Allowed list. Add essential apps there while keeping distracting ones blocked.
+**"My Screen Time Schedule (Downtime) blocks apps I need"** — Review your Always Allowed list. Add essential apps there while keeping distracting ones blocked.
 
 **"My kids bypass Screen Time"** — Set a Family Sharing Screen Time passcode they don't know. Consider using Guided Access for younger children.
 
-**"I just switch to Safari when apps are blocked"** — Add website limits under Screen Time > Content & Privacy Restrictions > Web Content. Or use Freedom for cross-platform website blocking.
+**"I just switch to Safari when apps are blocked"** — Add website limits under Screen Time > Content & Privacy Restrictions > Web Content. On iOS 27, a time allowance also covers an app's own website when the app declares one. Or use Freedom for cross-platform website blocking.
 
 **"I disable the blocker entirely"** — This is the core limitation of blocking. Consider switching to or supplementing with a mindful pause approach, which works with your psychology rather than against it.
 
 ## Getting Started
 
-Start with what's free and built-in. Set up Screen Time app limits for your two or three most distracting apps. Set a passcode. Give it a week.
+Start with what's free and built-in. Set up Screen Time allowances for the categories your two or three most distracting apps are in (on older iOS, App Limits can pick the apps themselves). Set a passcode. Give it a week.
 
 If you find yourself constantly bypassing limits, that's useful data — it means blocking alone isn't matching how your brain works. Try adding a mindful pause approach alongside or instead of hard blocking.
 

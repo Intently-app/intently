@@ -2,6 +2,7 @@
 title: 'Apps That Make You Pause Before Opening Instagram (2026)'
 description: 'The best apps that add a pause before Instagram, TikTok or any app opens: one sec, ScreenZen, Respite and newer pause apps compared, with setup tips.'
 pubDate: 2026-11-03
+updatedDate: 2026-11-17
 author: 'Respite Team'
 answer: 'Several apps make you pause before opening Instagram or TikTok. one sec adds a breathing or reflection pause on iPhone and Android, ScreenZen adds delay timers, and Respite adds a short, gentle pause on iPhone, Android and Chrome with limits and streaks. A pause does not block anything: it gives you a few seconds to decide whether you really want to open the app.'
 keyTakeaways:
@@ -21,7 +22,7 @@ faq:
   - question: 'What is the best free app to pause before opening social media?'
     answer: 'Respite and ScreenZen are both free to use; one sec is free for one app, with a paid Pro for more. Respite adds usage tracking, limits and streaks across iPhone, Android and Chrome, while ScreenZen focuses on delay timers. Try the free versions side by side on your worst app for a week and keep whichever you actually leave the app with.'
   - question: 'Can I pause before opening apps on iPhone without an app?'
-    answer: 'Partly. Apple''s Screen Time can set app limits and a downtime schedule, and shows a block screen when time is up, but it does not pause every open, and its Ignore Limit button is easy to tap. A pause app adds a moment of friction each time you open a chosen app. See our guide to blocking apps on iPhone for the built-in options.'
+    answer: 'Partly. Apple''s Screen Time can set time allowances and a Screen Time Schedule (App Limits and Downtime on iOS 26 and earlier), and shows a block screen when time is up, but it does not pause every open, and its Ignore Limit button is easy to tap. A pause app adds a moment of friction each time you open a chosen app. See our guide to blocking apps on iPhone for the built-in options.'
   - question: 'Which apps should I put a pause on first?'
     answer: 'Start with one or two apps you open without deciding, usually the one you reach for when bored. For many people that is Instagram, TikTok, YouTube or Reddit. Too many pauses breed habituation and you start tapping through. Add another app only when the first one has settled, and review your numbers weekly.'
   - question: 'Will I just tap through the pause?'
@@ -79,7 +80,7 @@ For autopilot habits, often yes; for hard deadlines, no. A pause keeps you in ch
 
 ## What about iPhone's built-in options?
 
-Apple's Screen Time can limit an app's daily time and schedule downtime, but it does not pause every open, and the Ignore Limit button is easy to tap. It is a useful free baseline, and [how to block apps on iPhone](/blog/how-to-block-apps-iphone/) walks through it. A pause app adds the moment of friction Screen Time lacks.
+Apple's Screen Time can limit daily time (by category on iOS 27, per app with App Limits on older iOS) and block set hours with a Screen Time Schedule (Downtime), but it does not pause every open, and the Ignore Limit button is easy to tap. It is a useful free baseline, and [how to block apps on iPhone](/blog/how-to-block-apps-iphone/) walks through it. A pause app adds the moment of friction Screen Time lacks.
 
 ## Which should you choose?
 
