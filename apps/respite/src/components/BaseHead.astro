@@ -20,9 +20,15 @@ interface Props {
 	// Open Graph type override
 	ogType?: 'website' | 'article';
 	noindex?: boolean;
+	/** Canonical path when it isn't this page's own (a noindex variant of an indexed page keeps it). */
+	canonical?: string;
+	/** og:url when it isn't the canonical URL (a shared result page keeps its own, so its preview stays). */
+	shareUrl?: string;
+	/** With noindex: still follow the page's links. */
+	follow?: boolean;
+	/** Alt text for the social preview image. */
+	imageAlt?: string;
 }
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const {
 	title,
@@ -35,8 +41,16 @@ const {
 	tags = [],
 	readingTime,
 	ogType = 'website',
-	noindex = false
+	noindex = false,
+	canonical,
+	shareUrl,
+	follow = false,
+	imageAlt
 } = Astro.props;
+
+const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site);
+const ogURL = shareUrl ? new URL(shareUrl, Astro.site) : canonicalURL;
+const noindexRobots = follow ? 'noindex, follow' : 'noindex, nofollow';
 ---
 
 <!-- Global Metadata -->
@@ -55,8 +69,9 @@ const {
 <!-- Preconnect to external domains for faster loading -->
 <link rel="preconnect" href="https://www.googletagmanager.com" />
 
-<!-- Canonical URL (none on noindex pages: the 404 page is served at every missing path) -->
-{!noindex && <link rel="canonical" href={canonicalURL} />}
+<!-- Canonical URL (none on noindex pages: the 404 page is served at every missing path; a noindex
+     page that names its canonical, like a shared calculator result, keeps it) -->
+{(!noindex || canonical) && <link rel="canonical" href={canonicalURL} />}
 
 <!-- hreflang tags for internationalization (prepared for future multi-language support) -->
 {!noindex && <link rel="alternate" hreflang="en" href={canonicalURL} />}
@@ -73,7 +88,7 @@ const {
 <!-- Extended Meta Tags -->
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F7FBFC" />
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0F1B24" />
-<meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
+<meta name="robots" content={noindex ? noindexRobots : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
 {readingTime && <meta name="estimated-reading-time" content={readingTime.toString()} />}
 
 <!-- Article-specific meta tags (for blog posts) -->
@@ -85,21 +100,23 @@ const {
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={ogType} />
-<meta property="og:url" content={canonicalURL} />
+<meta property="og:url" content={ogURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+{imageAlt && <meta property="og:image:alt" content={imageAlt} />}
 <meta property="og:site_name" content="Respite" />
 <meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:url" content={ogURL} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={new URL(image, Astro.url)} />
+{imageAlt && <meta name="twitter:image:alt" content={imageAlt} />}
 <meta name="twitter:creator" content="@intently_app" />
 <meta name="twitter:site" content="@intently_app" />
 <meta name="twitter:domain" content="respite.liveintently.app" />
@@ -111,7 +128,7 @@ const {
 <!-- App Linking for deep linking from web to mobile app -->
 <meta property="al:android:package" content="dev.sadakat.thinkfaster" />
 <meta property="al:android:app_name" content="Respite" />
-<meta property="al:web:url" content={canonicalURL} />
+<meta property="al:web:url" content={ogURL} />
 <meta property="al:web:should_fallback" content="true" />
 
 <!-- Organization Schema -->

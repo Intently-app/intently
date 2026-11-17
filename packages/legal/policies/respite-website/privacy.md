@@ -56,6 +56,12 @@ the App Store on iPhone and iPad, the Chrome Web Store in Chrome or Edge. The QR
 open `/get`, which reads the user agent on the server for the same reason and redirects you. In
 both cases it is used only for that choice and not stored.
 
+**Sharing a calculator result:** the screen time calculator works everything out in your browser,
+and its report card picture is drawn there too. If you choose to share your result, the link you
+share carries three numbers: your daily hours, your age and the age you got your first phone.
+Whoever opens it sees the result worked out in their own browser; the link preview shows only the
+daily hours. The site stores none of it, and your chosen apps are never in the link.
+
 **The blog's install bar:** if you close it, the time you closed it is kept in your browser's local
 storage, so it stays hidden for 14 days.
 

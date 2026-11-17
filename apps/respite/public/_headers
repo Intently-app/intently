@@ -1,0 +1,11 @@
+# Static response headers (Cloudflare Workers static assets).
+
+# Shared screen time calculator results: one static page per daily-hours step, noindex (also in the
+# pages' meta robots), canonical on /screen-time-calculator/.
+/screen-time-calculator/r/*
+  X-Robots-Tag: noindex, follow
+
+# Their social previews, rendered at build time (scripts/render-report-cards.mjs).
+/images/report-card/*
+  Cache-Control: public, max-age=604800
+  X-Robots-Tag: noindex

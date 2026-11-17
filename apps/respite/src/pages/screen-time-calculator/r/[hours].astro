@@ -1,0 +1,113 @@
+---
+/**
+ * /screen-time-calculator/r/4-5h/?age=28&first=14: a shared calculator result. Static: one page per
+ * daily-hours step the calculator's slider allows (27), built here, nothing rendered on the Worker.
+ *
+ * The HTML carries the hours-only card, and so does the social preview (/images/report-card/og-4-5h.png,
+ * built by scripts/render-report-cards.mjs). The ages ride in the query: the script below validates them
+ * (src/lib/report-card.ts) and draws the full card with the years figures in the browser. Without
+ * them, or with numbers that aren't, the hours-only card stays and "Try it yourself" leads on.
+ *
+ * Noindex (meta here, X-Robots-Tag in public/_headers), canonical /screen-time-calculator/, kept out
+ * of the sitemap (astro.config.mjs). og:url stays on the result, so a link preview keeps its card.
+ */
+import BaseHead from '../../../components/BaseHead.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import ToolCard from '../../../components/ui/ToolCard.astro';
+import '../../../styles/info-pages.css';
+import { cardSvg, dailyLabel, DEFAULTS, HOUR_STEPS, hoursSentence, hoursSlug, ogImagePath, RESULT_BASE } from '../../../lib/report-card';
+import { ART } from '../../../lib/report-card-art';
+
+export function getStaticPaths() {
+	return HOUR_STEPS.map((h) => ({ params: { hours: hoursSlug(h) }, props: { h } }));
+}
+
+const { h } = Astro.props as { h: number };
+const hrs = Number.isInteger(h) ? String(h) : h.toFixed(1);
+const title = `${dailyLabel(h)} a day on screens: what it adds up to | Respite`;
+const description = `See what ${hrs} hours a day adds up to over a lifetime, and what 1 hour back is worth. Free screen time calculator, 30 seconds.`;
+const input = { ...DEFAULTS, h };
+const light = cardSvg(input, { format: 'post', theme: 'light', art: ART, idPrefix: 'rl-', hoursOnly: true });
+const dark = cardSvg(input, { format: 'post', theme: 'dark', art: ART, idPrefix: 'rd-', hoursOnly: true });
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={title}
+			description={description}
+			image={ogImagePath(h)}
+			imageAlt={hoursSentence(h)}
+			noindex
+			follow
+			canonical="/screen-time-calculator/"
+			shareUrl={`${RESULT_BASE}${hoursSlug(h)}/`}
+		/>
+	</head>
+	<body class="m-page">
+		<Header />
+
+		<main class="m">
+			<section class="m-tool-hero" aria-labelledby="r-title">
+				<h1 id="r-title">A screen time report</h1>
+				<p class="m-dek">Someone shared theirs. Yours takes 30 seconds.</p>
+			</section>
+
+			<section class="rc-show" aria-label="Report card">
+				<figure id="rc-card" class="m-reportcard" role="img" aria-label={hoursSentence(h)} data-hours={h}>
+					<div class="is-light" set:html={light} />
+					<div class="is-dark" set:html={dark} />
+				</figure>
+				<div class="m-actions rc-actions" data-placement="result">
+					<a href="/screen-time-calculator/" class="m-btn" data-cta="calculator">Try it yourself</a>
+					<a href="/download/" class="m-btn is-soft" data-cta="download">Get Respite free</a>
+				</div>
+			</section>
+
+			<section class="m-section" aria-labelledby="more-title">
+				<h2 id="more-title" class="m-h2">More free tools</h2>
+				<div class="m-tool-more">
+					<ToolCard id="quiz" />
+					<ToolCard id="score" />
+				</div>
+			</section>
+		</main>
+
+		<Footer />
+
+		<script>
+			import { cardSentence, cardSvg, parseCardParams, resultPath } from '../../../lib/report-card';
+			import { ART } from '../../../lib/report-card-art';
+
+			// The full card, from the ages in the query (validated and clamped); otherwise the hours-only card stays.
+			const fig = document.getElementById('rc-card')!;
+			const h = Number(fig.dataset.hours);
+			const q = new URLSearchParams(location.search);
+			q.set('h', String(h));
+			const input = parseCardParams(q);
+			if (input && input.h === h) {
+				fig.setAttribute('aria-label', cardSentence(input));
+				fig.innerHTML =
+					`<div class="is-light">${cardSvg(input, { format: 'post', theme: 'light', art: ART, idPrefix: 'fl-' })}</div>` +
+					`<div class="is-dark">${cardSvg(input, { format: 'post', theme: 'dark', art: ART, idPrefix: 'fd-' })}</div>`;
+				// One spelling of the numbers in the address bar (what gets copied on).
+				const clean = resultPath(input);
+				if (location.pathname + location.search !== clean) history.replaceState(null, '', clean);
+			}
+		</script>
+	</body>
+</html>
+
+<style is:global>
+	.rc-show {
+		display: grid;
+		justify-items: center;
+		gap: 2rem;
+	}
+
+	.rc-actions {
+		justify-content: center;
+	}
+</style>
