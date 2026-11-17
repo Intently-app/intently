@@ -2,7 +2,7 @@
 title: 'How to Stop Phone Addiction: 15 Strategies That Work'
 description: 'How to stop phone addiction: 15 practical strategies, from a pause before apps and tracking your usage to phone-free zones and grayscale. Start with three.'
 pubDate: 2026-01-16
-updatedDate: 2026-11-03
+updatedDate: 2026-11-17
 author: 'Respite Team'
 answer: 'To stop phone addiction, start with three changes: add a pause before the apps you open on autopilot, turn off non-essential notifications, and track your usage for a week. Then charge the phone outside the bedroom, set realistic limits and replace scrolling with a specific alternative. If it harms your work or mental health, talk to a professional.'
 keyTakeaways:
@@ -86,7 +86,7 @@ That last question is the most important one. If you notice you always reach for
 
 ### 3. Set Realistic Daily Limits
 
-Cold turkey rarely works for phone addiction. A better approach: figure out your current daily average and aim to cut it by 15-20%. If you're at five hours, shoot for four. Hold that for two weeks, then trim again. Gradual reduction builds momentum without the willpower crash that comes from drastic cuts. Set the limits in Settings > Screen Time > App Limits on iPhone or with app timers in Digital Wellbeing on Android; Respite also has daily limits and timers.
+Cold turkey rarely works for phone addiction. A better approach: figure out your current daily average and aim to cut it by 15-20%. If you're at five hours, shoot for four. Hold that for two weeks, then trim again. Gradual reduction builds momentum without the willpower crash that comes from drastic cuts. Set the limits in Settings > Screen Time > Time Allowances on iPhone (by category; App Limits on iOS 26 and earlier) or with app timers in Digital Wellbeing on Android; Respite also has daily limits and timers.
 
 ### 4. Delete Your Most Addictive Apps (Temporarily)
 

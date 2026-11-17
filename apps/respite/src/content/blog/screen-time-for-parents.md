@@ -2,7 +2,7 @@
 title: 'Screen Time for Parents: Age Guidelines and Family Rules'
 description: 'Screen time for parents: what experts advise by age, how to set up iPhone and Android parental controls, and family rules that work.'
 pubDate: 2026-02-28
-updatedDate: 2026-11-01
+updatedDate: 2026-11-17
 author: "Respite Team"
 answer: 'Experts advise no screens for babies except video calls, about an hour a day of quality content for ages 2 to 4, and consistent limits that protect sleep, activity and family time for older children. Rules work best when made together, applied to everyone including parents, and backed by phone-free meals and bedtimes. Built-in controls help, but modelling matters most.'
 keyTakeaways:
@@ -19,7 +19,7 @@ faq:
   - question: 'How much screen time should kids have per day?'
     answer: 'Guidance varies by age. The WHO and American Academy of Pediatrics advise avoiding screens for babies except video calls and keeping it to about an hour a day of quality content for ages 2 to 4, ideally with a parent. For older children there is no fixed number: protect sleep, physical activity, homework and family time, and consider content and context, not only minutes.'
   - question: 'How do I set up parental controls on iPhone?'
-    answer: 'Go to Settings, then Screen Time, and set it up for a child via Family Sharing. You can configure App Limits, Downtime, Content and Privacy Restrictions and Communication Limits, and set a Screen Time passcode your child does not know. You can manage settings from your own device and review the weekly report together with your child.'
+    answer: 'Go to Settings, then Screen Time, and set it up for a child via Family Sharing. You can configure Time Allowances and a Screen Time Schedule (App Limits and Downtime on iOS 26 and earlier), Content and Privacy Restrictions and Communication Limits, and set a Screen Time passcode your child does not know. You can manage settings from your own device and review the weekly report together with your child.'
   - question: 'How do I set up parental controls on Android?'
     answer: 'Use Google Family Link, a free app. Create a supervised Google account for your child, then manage app approvals, daily limits, bedtime lock, content filters and location from your phone. Features vary by device and the childs age, and older teens can often choose to manage their own account.'
   - question: 'What if my kids resist screen time limits?'
@@ -73,13 +73,13 @@ Apple's Screen Time offers comprehensive parental controls through Family Sharin
 2. Select your child's name (or add them via Family Sharing)
 3. Configure the following:
 
-**App Limits** — Set daily time limits for app categories (Social, Games, Entertainment) or specific apps. When the limit is reached, the app is blocked until the next day.
+**Time Allowances** (App Limits on iOS 26 and earlier) — Set daily time limits for app categories (Social Media, Games, Entertainment). iOS 27 sets them by category; on older iOS you can also pick specific apps. When the limit is reached, the app is blocked until the next day.
 
-**Downtime** — Schedule hours when only allowed apps work (e.g., 8 PM to 7 AM). Essential for protecting sleep.
+**Screen Time Schedule** (Downtime on iOS 26 and earlier) — Schedule hours when only allowed apps work (e.g., 8 PM to 7 AM). Essential for protecting sleep.
 
 **Content & Privacy Restrictions** — Control app downloads, in-app purchases, explicit content in music/podcasts, web content filtering, and more.
 
-**Communication Limits** — Restrict who your child can contact during allowed and Downtime hours.
+**Communication Limits** — Restrict who your child can contact during allowed and scheduled (Downtime) hours.
 
 **Always Allowed** — Designate apps that are always accessible (Phone, Messages for emergencies).
 

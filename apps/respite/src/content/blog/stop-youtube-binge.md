@@ -2,7 +2,7 @@
 title: 'How to Stop YouTube Binge Watching: What Actually Works'
 description: 'Stop YouTube binge watching: turn off autoplay, set a limit before you press play and watch from a list. Keep the videos you love, lose the lost evenings.'
 pubDate: 2026-01-23
-updatedDate: 2026-11-01
+updatedDate: 2026-11-17
 author: 'Respite Team'
 answer: 'To stop binge watching YouTube, turn autoplay off, decide how long or how many videos before you press play, and set a timer you actually obey. Then stop using the homepage: open Subscriptions or Watch Later so the session has an end. A short pause before YouTube opens, like the one Respite adds, helps you do all of this on purpose.'
 keyTakeaways:
@@ -81,7 +81,7 @@ When it goes off, close YouTube. Even if you're mid-video. Especially if you're 
 Without a preset limit, every individual video feels like a valid reason to continue. The limit needs to exist before the session begins, not in the middle of it. You can back it up with the tools already on your phone:
 
 - **YouTube:** the "Remind me to take a break" option in the app's general settings nudges you after a period you choose.
-- **iPhone:** Settings > Screen Time > App Limits, then add YouTube.
+- **iPhone:** Settings > Screen Time > Time Allowances, then cap the category YouTube is in (on iOS 26 and earlier, App Limits, then add YouTube).
 - **Android:** the app timer in Digital Wellbeing (long-press the YouTube icon, then App info).
 
 Limits are a backstop. They work best alongside a pause, because you can tap through a limit reminder without thinking.

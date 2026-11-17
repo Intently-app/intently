@@ -2,7 +2,7 @@
 title: 'Stop Scrolling TikTok Without Deleting: 5 Strategies'
 description: 'Stop scrolling TikTok without deleting the app: add a pause, make it harder to open, set rules and keep a replacement ready. Reclaim your time.'
 pubDate: 2026-01-23
-updatedDate: 2026-11-01
+updatedDate: 2026-11-17
 author: 'Respite Team'
 answer: 'To stop scrolling TikTok without deleting it, put a pause before the app opens, make it harder to launch (move the icon, log out), and set situation rules such as no TikTok in bed or during work. Decide what you are there for and set a timer before each session, and keep a replacement ready for boredom.'
 keyTakeaways:
@@ -93,7 +93,7 @@ Instead of a single daily time limit (which is easy to override), set rules for 
 
 Situation-specific boundaries feel more reasonable than blanket restrictions. You're not telling yourself TikTok is off-limits -- you're saying "not right now, but later is fine." That distinction matters psychologically.
 
-You can still add a number as a backstop. TikTok has its own screen time and digital wellbeing tools in its settings, iPhone has Settings > Screen Time > App Limits, and Android has app timers in Digital Wellbeing. Treat a limit as the safety net, because it's easy to tap past a reminder without thinking.
+You can still add a number as a backstop. TikTok has its own screen time and digital wellbeing tools in its settings, iPhone has Settings > Screen Time > Time Allowances (App Limits on iOS 26 and earlier), and Android has app timers in Digital Wellbeing. Treat a limit as the safety net, because it's easy to tap past a reminder without thinking.
 
 ## How do I improve what TikTok shows me?
 

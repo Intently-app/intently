@@ -2,7 +2,7 @@
 title: 'YouTube Shorts Addiction: How to Stop the Endless Loop'
 description: 'Can''t stop watching YouTube Shorts? Why Shorts hooks you inside an app you need, plus 5 practical ways to cut it out and keep the rest of YouTube.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-01
+updatedDate: 2026-11-17
 author: 'Respite Team'
 answer: 'To stop watching YouTube Shorts, avoid the homepage: bookmark and open your Subscriptions feed, and decide what you are there to watch before you open YouTube. On desktop, a browser extension such as Unhook removes the Shorts shelf. Tap Not Interested on Shorts, and put a pause before YouTube opens so the aimless open that leads to Shorts becomes a choice.'
 keyTakeaways:
@@ -113,7 +113,7 @@ If you don't have an answer, that's your signal. The absence of intent is exactl
 
 [Respite](/download/) can help here. It puts a short, gentle pause before YouTube opens on your phone, and on desktop the Chrome extension can do the same for youtube.com. That moment of friction catches autopilot opens before the homepage loads. It's free on iPhone, Android and Chrome.
 
-If you also need a number, set an app limit in Settings > Screen Time > App Limits (iPhone) or an app timer in Digital Wellbeing (Android). YouTube has also been adding its own Shorts time controls to the mobile app; look under its time management settings to see whether your version has them.
+If you also need a number, set a limit in Settings > Screen Time > Time Allowances (iPhone; App Limits on iOS 26 and earlier) or an app timer in Digital Wellbeing (Android). YouTube has also been adding its own Shorts time controls to the mobile app; look under its time management settings to see whether your version has them.
 
 ### Rebuild Your Attention Span Gradually
 

@@ -2,7 +2,7 @@
 title: 'Stop Checking Your Phone First Thing in the Morning'
 description: 'Stop checking your phone first thing in the morning: a simple phone-free routine, built-in Focus tools and a pause to break the habit and start calm.'
 pubDate: 2026-01-23
-updatedDate: 2026-11-01
+updatedDate: 2026-11-17
 author: 'Respite Team'
 answer: 'To stop checking your phone first thing in the morning, charge it outside the bedroom and wake to a cheap alarm clock. Put a glass of water and a book or journal by the bed, and protect the first 30 to 60 minutes for water, movement and a quiet start. Then check your phone on purpose, with a pause or Focus mode as backup.'
 keyTakeaways:
@@ -159,7 +159,7 @@ The strategies above work well on their own, but if you've tried the willpower-o
 
 ### iPhone: Focus and Screen Time
 
-iPhones have two built-in tools for this. Go to Settings > Focus and create a new Focus called "Morning," scheduled from your wake-up time until 30-60 minutes later. Choose which people and apps can notify you (just essentials, such as calls from family), so the notifications that pull you in stay silent, and you can set a Home Screen page with only the apps you need. For actual app limits, use Settings > Screen Time > Downtime, which locks apps outside your "Always Allowed" list during the hours you set (you can still ignore the limit with a tap, so treat it as a nudge).
+iPhones have two built-in tools for this. Go to Settings > Focus and create a new Focus called "Morning," scheduled from your wake-up time until 30-60 minutes later. Choose which people and apps can notify you (just essentials, such as calls from family), so the notifications that pull you in stay silent, and you can set a Home Screen page with only the apps you need. For actual app limits, use Settings > Screen Time > Screen Time Schedule (Downtime on iOS 26 and earlier), which locks apps outside the categories you allow and your "Always Allowed" list during the hours you set (on older iOS you can still ignore the limit with a tap, so treat it as a nudge).
 
 ### Android Digital Wellbeing: Focus Mode
 

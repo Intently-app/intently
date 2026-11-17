@@ -2,7 +2,7 @@
 title: 'Best App Blockers 2026: Hard Blocks vs Mindful Pauses'
 description: 'The best app blockers for Android and iPhone in 2026. Hard blockers like Freedom and Cold Turkey vs mindful pauses like Respite: which works for you?'
 pubDate: 2026-02-28
-updatedDate: 2026-11-03
+updatedDate: 2026-11-17
 author: "Respite Team"
 answer: 'The best app blockers in 2026 are Freedom (blocks across all your devices, subscription), Cold Turkey (unbypassable desktop blocking, around $40 one-time), Opal (polished iPhone blocking) and the free built-ins, Apple Screen Time and Google Digital Wellbeing. If blocking has never stuck for you, a free pause app like Respite (iPhone, Android, Chrome) is the gentler alternative.'
 keyTakeaways:
@@ -78,7 +78,7 @@ Opal provides session-based blocking for iPhone with a polished interface. Creat
 **Platforms:** iOS, macOS (built-in)
 **Price:** Free
 
-Apple's built-in Screen Time lets you set app limits, schedule Downtime, and restrict specific apps. It's basic but free and requires no additional installation.
+Apple's built-in Screen Time lets you set time allowances, block set hours with a Screen Time Schedule (App Limits and Downtime on iOS 26 and earlier), and restrict specific apps. It's basic but free and requires no additional installation.
 
 **Strengths:** Free, built-in, parental controls, Focus modes integration
 **Weaknesses:** Easy to bypass (just tap "Ignore Limit"), limited customization, no mindful component

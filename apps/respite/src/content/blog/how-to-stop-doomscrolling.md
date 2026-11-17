@@ -2,7 +2,7 @@
 title: 'How to Stop Doomscrolling: 7 Strategies That Work'
 description: 'How to stop doomscrolling: why bad news hooks your brain, plus 7 practical strategies, from a pause before news apps to a screen-free hour before bed.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-03
+updatedDate: 2026-11-17
 author: 'Respite Team'
 answer: 'To stop doomscrolling, interrupt the autopilot open with a pause, then replace the all-day drip with two or three timed news check-ins. Clean up your feeds by unfollowing outrage accounts and muting trigger words, ground yourself with a quick sensory exercise when you catch a spiral, and keep screens out of the hour before bed.'
 keyTakeaways:
@@ -105,7 +105,7 @@ Replace the all-day drip feed with two or three intentional check-ins:
 4. When the timer's up, close the app
 5. Outside those windows, news apps stay closed
 
-You'll still be informed. You'll just get there in a fraction of the time, without the compulsive background hum. If you want a backstop, set an App Limit in iPhone Screen Time or an app timer in Android Digital Wellbeing for your news apps.
+You'll still be informed. You'll just get there in a fraction of the time, without the compulsive background hum. If you want a backstop, set a Time Allowance (App Limit on iOS 26 and earlier) in iPhone Screen Time or an app timer in Android Digital Wellbeing for your news apps.
 
 ### 4. Clean Up Your Feeds
 

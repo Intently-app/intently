@@ -143,7 +143,7 @@ items:
     target_query: iphone downtime
     intent: how-to
     status: idea
-    notes: Downtime vs App Limits; where it falls short; schedules in Respite (1 free).
+    notes: Downtime vs App Limits (iOS 27 names them Screen Time Schedule and Time Allowances; lead with those, old names in brackets); where it falls short; schedules in Respite (1 free).
   - topic: 'iPhone Focus Modes That Cut Scrolling'
     cluster: iphone
     target_query: iphone focus mode for social media
