@@ -27,6 +27,19 @@ entries:
     draft_path: /Users/faddy/MyLab/WellbeingApps/Respite/marketing/offsite/2026-46/article.md
     cluster: parents-teens
     target_query: 'Co-pilot, not warden: how to set phone limits with a teenager instead of for them'
+  - date: 2026-11-17
+    week: '2026-47'
+    kind: onsite
+    slug: how-to-stop-using-phone-in-class
+    cluster: students
+    target_query: how to stop using phone in class
+  - date: 2026-11-17
+    week: '2026-47'
+    kind: offsite
+    url: TBD
+    draft_path: /Users/faddy/MyLab/WellbeingApps/Respite/marketing/offsite/2026-47/article.md
+    cluster: professionals
+    target_query: 'The calm phone: a knowledge worker''s setup for fewer reflex checks during the workday'
 #  - date: 2026-11-16
 #    week: 2026-47
 #    kind: onsite

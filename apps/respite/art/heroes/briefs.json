@@ -1297,5 +1297,21 @@
       "The doorway interior is a clipPath rect holding its own small paper landscape (pillow ellipse, three duvet waves) so it reads as another place.",
       "Hills are six stacked paths with feDropShadow (dy 6, stdDeviation 8, 18%); the phone bed pieces use the tighter sh2 shadow; the blanket gets a soft #FCEBC4 halo."
     ]
+  },
+  {
+    "slug": "how-to-stop-using-phone-in-class",
+    "title": "How to Stop Using Your Phone in Class (and Keep It)",
+    "family": "guide",
+    "draft": false,
+    "intent": "Stop reaching for the phone during lessons while keeping it for what school needs.",
+    "concept": "A surreal classroom with no room: a single school desk and chair stand on an open sage meadow under a graded mist-blue sky, the horizon at y≈565. On the desk lies an open notebook with ruled lines and a few abstract written strokes, and across it an orange pencil, the single warm accent, sitting in a faint #FCEBC4 pool of light. To the right, a freestanding pale wall fragment with a doorway cut through it opens onto more sky; beside the doorway a peg rail holds a small bag on one peg and, on the next, the phone, hung up by its own charging cable like a coat by its loop. A pale path runs from the doorway to the desk. The one-second feeling: you hang the phone up at the door and walk in to class.",
+    "palette_note": "Mist blue sky, sage meadow, pale wall and desk, one orange pencil.",
+    "alt": "A school desk with an open notebook and an orange pencil stands on a pale meadow, while a phone hangs from a coat peg on a wall by a doorway.",
+    "twist": "The phone hangs from the coat peg by its own charging cable, like a coat by its loop, and the third peg waits empty.",
+    "avoid": "Blackboards with writing, letters or numbers in the notebook, clocks, teachers, raised hands, faces, phones lit up, notification badges.",
+    "build_notes": [
+      "The desk is a 3/4 parallelogram top (back edge offset +62px x, -62px y) with a front strip and side face; the notebook pages follow the same skew, the pencil is a rotated group with a ferrule, eraser and sharpened tip.",
+      "The wall is one path with the arched doorway cut out and the view through it painted behind; contact shadows are blurred navy ellipses at 14-16%."
+    ]
   }
 ]
