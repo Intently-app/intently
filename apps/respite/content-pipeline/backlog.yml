@@ -18,7 +18,7 @@ items:
     cluster: students
     target_query: how to stop using phone in class
     intent: how-to
-    status: idea
+    status: written
     notes: Class rules, phone placement, a pause before social apps during school hours (schedules are 1 free, more with Plus).
   - topic: 'Pomodoro Studying With Your Phone Nearby: A Setup That Works'
     cluster: students
