@@ -148,6 +148,10 @@ The merge deploys the site. Then, from `apps/respite`:
 
 ## Keeping it healthy
 
+- **Missed Mondays.** If the Mac sleeps through 09:00, launchd runs the job right after wake. `weekly.sh` waits up to
+  `NETWORK_WAIT` seconds (default 600) for github.com before failing with code 3, because Wi-Fi is often not back yet
+  (the 2026-11-16 run failed that way). After changing `weekly.sh`, run `install-launchd.sh` again to copy it.
+
 - Add ideas to `backlog.yml` (the brief's "Queries with no dedicated page" is a good source) and check them with
   `--check-backlog`. Mark ideas you never want as `dropped`.
 - New posts written outside the pipeline: add their slug to a cluster's `posts` in `clusters.yml` (the planner warns
