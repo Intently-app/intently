@@ -42,7 +42,29 @@ same names. The site's code is in `apps/respite/src/lib/analytics.ts` (browser) 
 | iOS app › about/support | `https://respite.liveintently.app/support/?utm_source=respite_ios&utm_medium=app&utm_campaign=settings` |
 | Extension › popup/options | `https://respite.liveintently.app/?utm_source=respite_chrome&utm_medium=app&utm_campaign=popup` |
 | Reddit post | `https://respite.liveintently.app/blog/<slug>/?utm_source=reddit&utm_medium=social&utm_campaign=<push>&utm_content=<subreddit>` |
-| X / Threads bio | `https://respite.liveintently.app/?utm_source=x&utm_medium=bio&utm_campaign=bio` |
+| X / Threads bio | `https://respite.liveintently.app/x` (short link, see below) |
+
+## Short links (social profiles and reels)
+
+Short paths on the Respite site that answer **302** to `/download/` with the tags already on, so a bio or a
+reel can say a short link and still be counted. Rules: top of `apps/respite/public/_redirects`. Each also works
+with a trailing slash (the build adds the twin). On `/download/` the install buttons go straight to the
+visitor's store and carry the same source.
+
+| Short link | Lands on |
+|---|---|
+| `respite.liveintently.app/ig` | `/download/?utm_source=instagram&utm_medium=bio&utm_campaign=bio` |
+| `respite.liveintently.app/tt` | `/download/?utm_source=tiktok&utm_medium=bio&utm_campaign=bio` |
+| `respite.liveintently.app/yt` | `/download/?utm_source=youtube&utm_medium=bio&utm_campaign=bio` |
+| `respite.liveintently.app/fb` | `/download/?utm_source=facebook&utm_medium=bio&utm_campaign=bio` |
+| `respite.liveintently.app/x` | `/download/?utm_source=x&utm_medium=bio&utm_campaign=bio` |
+| `respite.liveintently.app/li` | `/download/?utm_source=linkedin&utm_medium=bio&utm_campaign=bio` |
+
+Where a post itself can hold a link (YouTube description, Facebook post, Reddit, LinkedIn), use the full link
+and name the creative: `…/download/?utm_source=youtube&utm_medium=social&utm_campaign=reels_2026_11&utm_content=reel_07`.
+Community posts and answers: `utm_campaign=community_2026_11` with `utm_content=<subreddit or site>`
+(`quora`, `nosurf`, `fb_group_<name>`). Hacker News links stay untagged (it shows the URL; the referrer
+already says `news.ycombinator.com`).
 
 Leave untagged any privacy-policy link a store *requires* (Play's privacy field, the App Store privacy
 URL). Reviewers and automated checks compare those literally.

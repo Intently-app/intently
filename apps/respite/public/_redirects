@@ -1,3 +1,12 @@
+# Short links for social profiles and reels (docs/utm.md › Short links). 302, not 301: browsers cache a 301
+# for good, and these targets may change. Each gets a slashed twin from scripts/slash-redirects.mjs.
+/ig  /download/?utm_source=instagram&utm_medium=bio&utm_campaign=bio  302
+/tt  /download/?utm_source=tiktok&utm_medium=bio&utm_campaign=bio  302
+/yt  /download/?utm_source=youtube&utm_medium=bio&utm_campaign=bio  302
+/fb  /download/?utm_source=facebook&utm_medium=bio&utm_campaign=bio  302
+/x  /download/?utm_source=x&utm_medium=bio&utm_campaign=bio  302
+/li  /download/?utm_source=linkedin&utm_medium=bio&utm_campaign=bio  302
+
 # Redirects for consolidated blog and resources page
 /resources                      /blog/                       301
 /guides/screen-time-reduction   /blog/#getting-started       301
