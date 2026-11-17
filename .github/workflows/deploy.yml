@@ -82,6 +82,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Runs wait for each other per Worker, but not in push order: on 2026-11-17 the deploy for an older merge took
+      # the lock last and shipped its older build over the newer one. So a push-triggered job builds whatever main is
+      # when it starts. The last job to run always ships the newest main, and no app's deploy is ever skipped.
+      - name: Use the newest main
+        if: github.event_name == 'push'
+        run: |
+          git fetch --no-tags --depth=1 origin main
+          git checkout --detach FETCH_HEAD
+          sha=$(git rev-parse HEAD)
+          echo "DEPLOY_SHA=$sha" >> "$GITHUB_ENV"
+          if [ "$sha" != "$GITHUB_SHA" ]; then echo "main moved on: building $sha instead of $GITHUB_SHA"; fi
+
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -102,7 +114,7 @@ jobs:
         working-directory: apps/${{ matrix.app }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          MESSAGE: 'GitHub ${{ github.sha }} (run ${{ github.run_id }})'
+          MESSAGE: 'GitHub ${{ env.DEPLOY_SHA || github.sha }} (run ${{ github.run_id }})'
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
             echo "::error::CLOUDFLARE_API_TOKEN is not set (Settings > Secrets and variables > Actions)."
