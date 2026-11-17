@@ -135,6 +135,16 @@ HAVE_LOCK=1
 
 # --- 1. Fresh worktree of origin/main ------------------------------------------------------------------------
 step "Fresh worktree of $REF"
+# launchd runs a missed Monday job right after wake, often before Wi-Fi is back (2026-11-16 failed with
+# "Could not resolve host: github.com"). Wait up to NETWORK_WAIT seconds (default 600) for GitHub to answer.
+NETWORK_WAIT="${NETWORK_WAIT:-600}"
+waited=0
+until git -C "$CHECKOUT" ls-remote -q origin HEAD >/dev/null 2>&1; do
+	if [ "$waited" -ge "$NETWORK_WAIT" ]; then fail 3 "no network: github.com unreachable after ${NETWORK_WAIT}s"; fi
+	[ "$waited" -eq 0 ] && echo "waiting for the network (up to ${NETWORK_WAIT}s)…"
+	sleep 15; waited=$((waited + 15))
+done
+[ "$waited" -gt 0 ] && echo "network up after ${waited}s"
 [ -d "$CHECKOUT/.git" ] || [ -f "$CHECKOUT/.git" ] || fail 3 "no git checkout at $CHECKOUT (set CONTENT_CHECKOUT)"
 git -C "$CHECKOUT" fetch -q origin main || fail 3 "git fetch origin main"
 if [ "$DRY" = 0 ] && [ "$SKIP_WRITE" = 0 ] && git -C "$CHECKOUT" ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
