@@ -18,10 +18,28 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
 	{
+		date: '2026-11-18',
+		title: 'Focus sessions and unblocks from your AI',
+		summary:
+			'With Respite Plus, your connected AI can start a focus session for you, and you can approve its request to end one early or to unblock an app for a few minutes. An unblock lifts only that app\'s launch pause and daily limit, never a schedule or a focus session. With strict mode on, an AI unblock lifts nothing.',
+		platforms: ['iPhone', 'Android', 'Chrome'],
+		link: '/download/',
+		draft: true,
+	},
+	{
+		date: '2026-11-18',
+		title: '10 more minutes, then locked again',
+		summary:
+			'When an app is locked for the day, "Continue anyway" now gives you 10 more minutes, and the app locks again afterwards. With strict mode on, the option is hidden.',
+		platforms: ['iPhone'],
+		link: '/download/',
+		draft: true,
+	},
+	{
 		date: '2026-11-11',
 		title: 'Pause history',
 		summary:
-			'Insights now has a Pause history that lists your recent pauses and what you chose at each one, such as walking away or continuing, grouped by day.',
+			'Insights now has a Pause history that lists your recent pauses and what you chose at each one, such as walking away or continuing, grouped by day. On iPhone and Android, a snooze also shows how long it lasted.',
 		platforms: ['Android', 'iPhone', 'Chrome'],
 		link: '/blog/pause-history/',
 		draft: true,
@@ -49,7 +67,7 @@ export const changelog: ChangelogEntry[] = [
 		title: 'Pause messages from your AI',
 		summary:
 			'With Respite Plus, your connected AI can add short messages that appear on your launch pause as "A note from" your AI, and you can remove them in Connected AI.',
-		platforms: ['iPhone', 'Chrome'],
+		platforms: ['iPhone', 'Android', 'Chrome'],
 		link: '/download/',
 		draft: true,
 	},
