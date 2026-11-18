@@ -23,7 +23,7 @@ export const changelog: ChangelogEntry[] = [
 		summary:
 			'Insights now has a Pause history that lists your recent pauses and what you chose at each one, such as walking away or continuing, grouped by day.',
 		platforms: ['Android', 'iPhone', 'Chrome'],
-		link: '/download/',
+		link: '/blog/pause-history/',
 		draft: true,
 	},
 	{

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+<radialGradient id="bg" cx="800" cy="360" r="980" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#E4F2F7"/><stop offset=".4" stop-color="#C9E5EF"/><stop offset=".8" stop-color="#A6CCDC"/><stop offset="1" stop-color="#7FAEC3"/></radialGradient>
+<linearGradient id="table" x1="0" y1="610" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#EEF5F8"/><stop offset="1" stop-color="#BDE1EC"/></linearGradient>
+<linearGradient id="front" x1="0" y1="470" x2="0" y2="700" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#3D7590"/><stop offset="1" stop-color="#24465A"/></linearGradient>
+<linearGradient id="side" x1="1020" y1="0" x2="1120" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#24465A"/><stop offset="1" stop-color="#16303F"/></linearGradient>
+<linearGradient id="inner" x1="0" y1="420" x2="0" y2="480" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#16303F"/><stop offset="1" stop-color="#24465A"/></linearGradient>
+<linearGradient id="orange" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4B53A"/><stop offset=".6" stop-color="#E8A317"/><stop offset="1" stop-color="#B97F0C"/></linearGradient>
+<radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFF7E2" stop-opacity=".95"/><stop offset="1" stop-color="#FFF7E2" stop-opacity="0"/></radialGradient>
+<filter id="blur8"><feGaussianBlur stdDeviation="8"/></filter>
+<filter id="blur18"><feGaussianBlur stdDeviation="18"/></filter>
+<filter id="soft"><feDropShadow dx="6" dy="10" stdDeviation="10" flood-color="#24465A" flood-opacity=".28"/></filter>
+<path id="spark" d="M0 -14 C2 -4 4 -2 14 0 C4 2 2 4 0 14 C-2 4 -4 2 -14 0 C-4 -2 -2 -4 0 -14Z" fill="#F7FBFC"/>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<ellipse cx="800" cy="300" rx="520" ry="260" fill="#ffffff" opacity=".35" filter="url(#blur18)"/>
+<rect y="610" width="1600" height="290" fill="url(#table)"/>
+<rect y="606" width="1600" height="6" fill="#F7FBFC" opacity=".8"/>
+<ellipse cx="1500" cy="900" rx="700" ry="60" fill="#5E8FA6" opacity=".25" filter="url(#blur18)"/>
+<!-- drawer shadow on the table -->
+<ellipse cx="880" cy="720" rx="360" ry="34" fill="#24465A" opacity=".34" filter="url(#blur18)"/>
+<ellipse cx="860" cy="704" rx="300" ry="14" fill="#16303F" opacity=".3" filter="url(#blur8)"/>
+<!-- drawer interior (opening) -->
+<path d="M560 480 L1040 480 L1130 425 L650 425 Z" fill="url(#inner)"/>
+<!-- cards, back to front -->
+<g><rect x="680" y="278" width="74" height="30" rx="9" fill="#8DB8CB"/><rect x="640" y="300" width="420" height="260" rx="14" fill="#F7FBFC" stroke="#BDE1EC" stroke-width="2"/><rect x="640" y="300" width="420" height="10" rx="5" fill="#ffffff" opacity=".7"/></g><g><rect x="738" y="290" width="74" height="30" rx="9" fill="#3E9B4F"/><path d="M762 304 l9 8 l17 -15" fill="none" stroke="#F7FBFC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="631" y="312" width="420" height="260" rx="14" fill="#EEF5F8" stroke="#BDE1EC" stroke-width="2"/><rect x="631" y="312" width="420" height="10" rx="5" fill="#ffffff" opacity=".7"/></g><g><rect x="796" y="302" width="74" height="30" rx="9" fill="#8DB8CB"/><rect x="622" y="324" width="420" height="260" rx="14" fill="#E4F0F5" stroke="#BDE1EC" stroke-width="2"/><rect x="622" y="324" width="420" height="10" rx="5" fill="#ffffff" opacity=".7"/></g><g><rect x="854" y="302" width="74" height="30" rx="9" fill="#8DB8CB"/><rect x="613" y="324" width="420" height="260" rx="14" fill="#F7FBFC" stroke="#BDE1EC" stroke-width="2"/><rect x="613" y="324" width="420" height="10" rx="5" fill="#ffffff" opacity=".7"/></g><g><rect x="912" y="314" width="74" height="30" rx="9" fill="#3E9B4F"/><path d="M936 328 l9 8 l17 -15" fill="none" stroke="#F7FBFC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="604" y="336" width="420" height="260" rx="14" fill="#EEF5F8" stroke="#BDE1EC" stroke-width="2"/><rect x="604" y="336" width="420" height="10" rx="5" fill="#ffffff" opacity=".7"/></g><g><rect x="690" y="326" width="74" height="30" rx="9" fill="#8DB8CB"/><rect x="595" y="348" width="420" height="260" rx="14" fill="#E4F0F5" stroke="#BDE1EC" stroke-width="2"/><rect x="595" y="348" width="420" height="10" rx="5" fill="#ffffff" opacity=".7"/></g><g><rect x="748" y="326" width="74" height="30" rx="9" fill="#3E9B4F"/><path d="M772 340 l9 8 l17 -15" fill="none" stroke="#F7FBFC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="586" y="348" width="420" height="260" rx="14" fill="#F7FBFC" stroke="#BDE1EC" stroke-width="2"/><rect x="586" y="348" width="420" height="10" rx="5" fill="#ffffff" opacity=".7"/></g><g><rect x="806" y="338" width="74" height="30" rx="9" fill="#8DB8CB"/><rect x="577" y="360" width="420" height="260" rx="14" fill="#EEF5F8" stroke="#BDE1EC" stroke-width="2"/><rect x="577" y="360" width="420" height="10" rx="5" fill="#ffffff" opacity=".7"/></g><g><rect x="864" y="350" width="74" height="30" rx="9" fill="#8DB8CB"/><rect x="568" y="372" width="420" height="260" rx="14" fill="#E4F0F5" stroke="#BDE1EC" stroke-width="2"/><rect x="568" y="372" width="420" height="10" rx="5" fill="#ffffff" opacity=".7"/></g><g><rect x="642" y="350" width="74" height="30" rx="9" fill="#3E9B4F"/><path d="M666 364 l9 8 l17 -15" fill="none" stroke="#F7FBFC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="559" y="372" width="420" height="260" rx="14" fill="#F7FBFC" stroke="#BDE1EC" stroke-width="2"/><rect x="559" y="372" width="420" height="10" rx="5" fill="#ffffff" opacity=".7"/></g><g><rect x="700" y="362" width="74" height="30" rx="9" fill="#8DB8CB"/><rect x="550" y="384" width="420" height="260" rx="14" fill="#EEF5F8" stroke="#BDE1EC" stroke-width="2"/><rect x="550" y="384" width="420" height="10" rx="5" fill="#ffffff" opacity=".7"/></g>
+<!-- the lifted orange card -->
+<g filter="url(#soft)" transform="translate(-150 -40) rotate(-11 770 275) scale(.86) translate(125 45)">
+  <ellipse cx="770" cy="240" rx="260" ry="150" fill="url(#glow)"/>
+  <rect x="598" y="128" width="74" height="30" rx="9" fill="#B97F0C"/>
+  <rect x="560" y="150" width="420" height="250" rx="16" fill="url(#orange)"/>
+  <rect x="560" y="150" width="420" height="12" rx="6" fill="#FCEBC4" opacity=".55"/>
+  <circle cx="616" cy="214" r="22" fill="#FFF7E2"/>
+  <rect x="656" y="200" width="200" height="14" rx="7" fill="#FFF7E2"/>
+  <rect x="656" y="224" width="130" height="12" rx="6" fill="#FCEBC4" opacity=".8"/>
+  <rect x="596" y="270" width="340" height="10" rx="5" fill="#FCEBC4" opacity=".55"/>
+  <rect x="596" y="294" width="280" height="10" rx="5" fill="#FCEBC4" opacity=".55"/>
+  <rect x="596" y="318" width="310" height="10" rx="5" fill="#FCEBC4" opacity=".55"/>
+</g>
+<!-- drawer right side, then front -->
+<path d="M1040 480 L1130 425 L1130 640 L1040 700 Z" fill="url(#side)"/>
+<rect x="540" y="470" width="512" height="232" rx="22" fill="url(#front)"/>
+<path d="M562 476 L1030 476" stroke="#8DB8CB" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+<path d="M548 492 L548 682" stroke="#5E8FA6" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+<!-- handle: a navy pill with one row of rivets -->
+<rect x="726" y="560" width="140" height="44" rx="22" fill="#16303F"/>
+<rect x="736" y="566" width="120" height="14" rx="7" fill="#2F6079"/>
+
+<!-- label holder (empty frame, no text) -->
+<rect x="736" y="500" width="120" height="38" rx="8" fill="none" stroke="#BDE1EC" stroke-width="4"/>
+<rect x="746" y="510" width="100" height="18" rx="4" fill="#DCEEF4"/>
+<!-- sparks -->
+<use href="#spark" transform="translate(1180 250) scale(1.1)" opacity=".9"/>
+<use href="#spark" transform="translate(1120 190) scale(.8)" opacity=".85"/>
+<use href="#spark" transform="translate(1230 330) scale(.6)" opacity=".8"/>
+<use href="#spark" transform="translate(395 360) scale(.6)" opacity=".75"/>
+<use href="#spark" transform="translate(1010 110) scale(.5)" opacity=".8"/>
+<use href="#spark" transform="translate(330 420) scale(.5)" opacity=".7"/>
+<rect width="1600" height="900" filter="url(#grain)"/>
+</svg>
