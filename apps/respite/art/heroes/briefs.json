@@ -1313,5 +1313,18 @@
       "The desk is a 3/4 parallelogram top (back edge offset +62px x, -62px y) with a front strip and side face; the notebook pages follow the same skew, the pencil is a rotated group with a ferrule, eraser and sharpened tip.",
       "The wall is one path with the arched doorway cut out and the view through it painted behind; contact shadows are blurred navy ellipses at 14-16%."
     ]
+  },
+  {
+    "slug": "pause-history",
+    "title": "Pause History: See Every Pause and What You Chose",
+    "family": "product",
+    "draft": true,
+    "intent": "Announce the free Pause history screen: every pause from the last 14 days and what was chosen.",
+    "concept": "A tabletop staging with a wall horizon: an open mist-blue card-file drawer full of pale index cards, several with green tabs carrying a check shape (walk-aways) and others with mist tabs. One orange card, the single warm accent, is lifted out above the drawer at a tilt, with abstract cream lines and a dot standing in for a row.",
+    "palette_note": "Mist backdrop and table, navy drawer, green tabs, one orange card.",
+    "alt": "An open card-file drawer full of index cards, several with green check tabs, while one orange card is lifted out above the rest.",
+    "twist": "History as a card catalogue: each pause is a filed card.",
+    "avoid": "No text or numbers on cards or the label holder; no dots beside the handle (face risk).",
+    "build_notes": "11 cards drawn back to front with (-9,+8) steps, drawer front drawn last; orange card rotated -11 and scaled .86."
   }
 ]
