@@ -21,8 +21,8 @@ export const changelog: ChangelogEntry[] = [
 		date: '2026-11-19',
 		title: 'Tell Respite who it is for',
 		summary:
-			'On iPhone, Respite can now ask who it is for: your studies, work or family. You can skip it, and change or clear your answer any time in You.',
-		platforms: ['iPhone'],
+			'Respite can now ask who it is for: your studies, work or family. You can skip it, and change or clear your answer any time in the "Who is Respite for?" row in settings.',
+		platforms: ['iPhone', 'Android', 'Chrome'],
 		link: '/download/',
 		draft: true,
 	},
