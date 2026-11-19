@@ -184,3 +184,10 @@ items:
     intent: how-to
     status: idea
     notes: Pair existing routines with phone-free actions; the pause as a cue.
+  # added 2026-11-19 from the keyword-gap report (docs/seo-keyword-gap-2026-11.md, tracker#10)
+  - topic: 'Freedom vs Cold Turkey: Which Blocker Fits You?'
+    cluster: comparisons
+    target_query: freedom vs cold turkey
+    intent: comparison
+    status: idea
+    notes: 42 impressions in 28 days at position 58, served by freedom-alternatives, which has no Cold Turkey section. Prices and platforms only from docs/competitor-facts.md (Cold Turkey is desktop). Link freedom-alternatives and respite-vs-freedom; Respite is the phone + browser option, not a third desktop blocker.
