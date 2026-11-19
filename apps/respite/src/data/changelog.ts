@@ -18,6 +18,15 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
 	{
+		date: '2026-11-19',
+		title: 'Tell Respite who it is for',
+		summary:
+			'Respite can now ask who it is for: your studies, work or family. You can skip it, and change or clear your answer any time in the "Who is Respite for?" row in settings.',
+		platforms: ['iPhone', 'Android', 'Chrome'],
+		link: '/download/',
+		draft: true,
+	},
+	{
 		date: '2026-11-18',
 		title: 'Focus sessions and unblocks from your AI',
 		summary:
