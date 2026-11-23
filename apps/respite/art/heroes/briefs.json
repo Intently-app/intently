@@ -1326,5 +1326,21 @@
     "twist": "History as a card catalogue: each pause is a filed card.",
     "avoid": "No text or numbers on cards or the label holder; no dots beside the handle (face risk).",
     "build_notes": "11 cards drawn back to front with (-9,+8) steps, drawer front drawn last; orange card rotated -11 and scaled .86."
+  },
+  {
+    "slug": "screen-time-rules-for-teenagers",
+    "title": "Screen Time Rules for Teenagers They Will Actually Follow",
+    "family": "guide",
+    "draft": false,
+    "intent": "Agree a few screen time rules with a teenager that they will keep, instead of imposing controls they will work around.",
+    "concept": "Rules as a ruler: an open sage meadow under a graded mist-blue sky, the horizon at y≈545, with a stream running from the horizon toward the viewer. Across the stream lies a long orange ruler used as a footbridge, the single warm accent, with plain tick marks along its edge, and a small faceless figure with a backpack is walking across it. A pale worn path leads from the foreground to the ruler and continues on the far bank to the horizon. To the left, a tall white picket fence stands alone in the meadow with nothing on either side, a padlock on its rail, and the worn path simply curves around its end. The one-second feeling: rules you build together carry you across; a fence put up for you just gets walked around.",
+    "palette_note": "Mist blue sky, sage meadow, pale blue water and fence, one orange ruler with a faint warm spill on the water.",
+    "alt": "An orange ruler laid across a stream as a footbridge carries a small figure over, while a tall fence stands alone in the meadow with a path worn around its end.",
+    "twist": "The fence is locked with a padlock even though there is nothing on either side of it to keep in or out.",
+    "avoid": "Numbers or letters on the ruler, phones with lit screens, notification badges, parent and child faces, cameras or eye shapes suggesting surveillance, grass tufts that read as letters.",
+    "build_notes": [
+      "The ruler's top face is drawn in its own flat space with matrix(1 -0.07317 14 -16 600 660) (x along the length, y across it); the tick marks are three userSpaceOnUse patterns (every 10, 50 and 100 units) so they follow the skew.",
+      "The warm spill on the water is clipped to the stream path so it does not stain the meadow; contact shadows are blurred navy ellipses at 15-22%."
+    ]
   }
 ]

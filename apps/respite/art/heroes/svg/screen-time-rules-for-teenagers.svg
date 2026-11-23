@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="560" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#5E8FA6"/>
+    <stop offset=".3" stop-color="#7FAABD"/>
+    <stop offset=".66" stop-color="#BDE1EC"/>
+    <stop offset="1" stop-color="#F7FBFC"/>
+  </linearGradient>
+  <radialGradient id="glow" cx="880" cy="480" r="660" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#F7FBFC" stop-opacity=".9"/>
+    <stop offset=".38" stop-color="#F7FBFC" stop-opacity=".42"/>
+    <stop offset="1" stop-color="#F7FBFC" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="ground" x1="0" y1="540" x2="0" y2="900" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#C9E2D4"/>
+    <stop offset=".45" stop-color="#9CC4B1"/>
+    <stop offset="1" stop-color="#6E9F8A"/>
+  </linearGradient>
+  <linearGradient id="water" x1="0" y1="544" x2="0" y2="900" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#F7FBFC"/>
+    <stop offset=".3" stop-color="#BDE1EC"/>
+    <stop offset=".7" stop-color="#8FB8CA"/>
+    <stop offset="1" stop-color="#6E9DB2"/>
+  </linearGradient>
+  <linearGradient id="track" x1="0" y1="548" x2="0" y2="900" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#F7FBFC" stop-opacity=".6"/>
+    <stop offset=".4" stop-color="#F7FBFC" stop-opacity=".8"/>
+    <stop offset="1" stop-color="#DCEEF4" stop-opacity=".6"/>
+  </linearGradient>
+  <linearGradient id="picket" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F7FBFC"/>
+    <stop offset=".6" stop-color="#DCEEF4"/>
+    <stop offset="1" stop-color="#BDE1EC"/>
+  </linearGradient>
+  <linearGradient id="rulerTop" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#E8A317"/>
+    <stop offset=".7" stop-color="#F2B437"/>
+    <stop offset="1" stop-color="#F6BE4A"/>
+  </linearGradient>
+  <linearGradient id="rulerHi" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#FCEBC4" stop-opacity="0"/>
+    <stop offset=".45" stop-color="#FCEBC4" stop-opacity=".5"/>
+    <stop offset="1" stop-color="#FCEBC4" stop-opacity="0"/>
+  </linearGradient>
+  <radialGradient id="spill" cx="800" cy="676" r="200" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#FCEBC4" stop-opacity=".85"/>
+    <stop offset="1" stop-color="#FCEBC4" stop-opacity="0"/>
+  </radialGradient>
+  <clipPath id="streamClip">
+    <path d="M942,544 C910,572 820,600 740,630 C650,664 590,704 600,770 C608,830 560,870 500,900 L900,900 C860,860 850,820 850,770 C850,700 880,650 910,612 C935,580 955,560 962,544 Z"/>
+  </clipPath>
+  <pattern id="tickS" patternUnits="userSpaceOnUse" width="10" height="1">
+    <rect x="0" y="0" width="1.8" height=".28" fill="#B97F0C"/>
+  </pattern>
+  <pattern id="tickM" patternUnits="userSpaceOnUse" width="50" height="1">
+    <rect x="0" y="0" width="2.2" height=".46" fill="#B97F0C"/>
+  </pattern>
+  <pattern id="tickL" patternUnits="userSpaceOnUse" width="100" height="1">
+    <rect x="0" y="0" width="2.4" height=".64" fill="#B97F0C"/>
+  </pattern>
+  <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="12"/></filter>
+  <filter id="haze" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="20"/></filter>
+  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+  <filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+    <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
+  </filter>
+</defs>
+
+<!-- sky -->
+<rect width="1600" height="900" fill="url(#sky)"/>
+<rect width="1600" height="900" fill="url(#glow)"/>
+<!-- two thin lens clouds -->
+<g fill="#F7FBFC" filter="url(#soft)">
+  <path d="M180,190 Q360,166 560,186 Q370,200 180,190Z" opacity=".5"/>
+  <path d="M1020,132 Q1190,114 1380,130 Q1200,142 1020,132Z" opacity=".36"/>
+</g>
+
+<!-- distant ranges, lighter with distance -->
+<path d="M0,520 Q150,488 320,506 Q500,478 690,500 Q880,474 1060,496 Q1250,476 1420,498 Q1520,488 1600,494 L1600,560 L0,560Z" fill="#DCEEF4" opacity=".85"/>
+<path d="M0,534 Q210,510 420,526 Q640,504 860,522 Q1080,506 1300,524 Q1460,514 1600,522 L1600,570 L0,570Z" fill="#C9E2EB"/>
+<rect x="0" y="496" width="1600" height="60" fill="#F7FBFC" opacity=".35" filter="url(#haze)"/>
+
+<!-- meadow -->
+<path d="M0,548 Q400,538 800,544 Q1200,550 1600,540 L1600,900 L0,900Z" fill="url(#ground)"/>
+<!-- a soft darker swell in the near meadow -->
+<path d="M0,800 Q300,770 520,800 L540,900 L0,900Z" fill="#6E9F8A" opacity=".25" filter="url(#blur)"/>
+<path d="M1100,820 Q1350,780 1600,800 L1600,900 L1060,900Z" fill="#6E9F8A" opacity=".22" filter="url(#blur)"/>
+
+<!-- ===== the stream ===== -->
+<!-- bank shade -->
+<path d="M942,548 C910,576 820,604 740,636 C650,670 590,710 600,776 C608,836 560,874 500,904 L900,904 C860,864 850,824 850,776 C850,706 880,656 910,618 C935,586 955,564 962,548 Z" fill="#4D7D94" opacity=".35"/>
+<path d="M942,544 C910,572 820,600 740,630 C650,664 590,704 600,770 C608,830 560,870 500,900 L900,900 C860,860 850,820 850,770 C850,700 880,650 910,612 C935,580 955,560 962,544 Z" fill="url(#water)"/>
+<!-- light on the water -->
+<g fill="#F7FBFC">
+  <path d="M900,570 Q870,586 830,598 Q872,590 904,574Z" opacity=".7"/>
+  <path d="M700,720 Q676,760 680,800 Q690,760 712,724Z" opacity=".45"/>
+  <path d="M800,742 Q790,790 812,840 Q802,790 812,746Z" opacity=".35"/>
+  <path d="M620,850 Q600,872 586,894 Q610,874 632,852Z" opacity=".4"/>
+</g>
+<!-- warm light the ruler throws onto the water -->
+<ellipse cx="790" cy="690" rx="190" ry="34" fill="url(#spill)" clip-path="url(#streamClip)"/>
+
+<!-- ===== worn path: around the fence's end, onto the ruler, away to the horizon ===== -->
+<path d="M100,900 C170,820 300,770 410,752 C468,742 484,722 488,704 C492,686 560,676 602,664 L628,668 C590,684 530,690 520,712 C512,740 490,772 430,792 C340,820 300,860 320,900 Z" fill="url(#track)"/>
+<path d="M1000,630 C1060,610 1120,580 1172,550 L1184,550 C1134,582 1080,614 1024,636 Z" fill="url(#track)"/>
+
+<!-- ===== the lone fence, locked, with nothing on either side ===== -->
+<ellipse cx="350" cy="704" rx="150" ry="10" fill="#0B1C27" opacity=".15" filter="url(#soft)"/>
+<!-- rails -->
+<rect x="222" y="574" width="258" height="13" rx="2" fill="#7FAABD"/>
+<rect x="222" y="652" width="258" height="13" rx="2" fill="#7FAABD"/>
+<rect x="222" y="584" width="258" height="3" fill="#5E8FA6"/>
+<rect x="222" y="662" width="258" height="3" fill="#5E8FA6"/>
+<!-- pickets -->
+<g fill="url(#picket)">
+  <path d="M232,702 V540 L242,520 L252,540 V702Z"/>
+  <path d="M259,702 V540 L269,520 L279,540 V702Z"/>
+  <path d="M286,702 V540 L296,520 L306,540 V702Z"/>
+  <path d="M313,702 V540 L323,520 L333,540 V702Z"/>
+  <path d="M340,702 V540 L350,520 L360,540 V702Z"/>
+  <path d="M367,702 V540 L377,520 L387,540 V702Z"/>
+  <path d="M394,702 V540 L404,520 L414,540 V702Z"/>
+  <path d="M421,702 V540 L431,520 L441,540 V702Z"/>
+  <path d="M448,702 V540 L458,520 L468,540 V702Z"/>
+</g>
+<!-- picket shade strips and rim light -->
+<g fill="#9CC3D3" opacity=".7">
+  <path d="M247,702 V530 L252,540 V702Z"/><path d="M274,702 V530 L279,540 V702Z"/><path d="M301,702 V530 L306,540 V702Z"/>
+  <path d="M328,702 V530 L333,540 V702Z"/><path d="M355,702 V530 L360,540 V702Z"/><path d="M382,702 V530 L387,540 V702Z"/>
+  <path d="M409,702 V530 L414,540 V702Z"/><path d="M436,702 V530 L441,540 V702Z"/><path d="M463,702 V530 L468,540 V702Z"/>
+</g>
+<g fill="#24465A" opacity=".12">
+  <rect x="232" y="690" width="236" height="12"/>
+</g>
+<!-- the padlock on the middle of the lower rail -->
+<path d="M343,664 V654 Q343,642 351,642 Q359,642 359,654 V664" stroke="#24465A" stroke-width="4" fill="none"/>
+<rect x="338" y="660" width="26" height="22" rx="4" fill="#24465A"/>
+<rect x="340" y="662" width="22" height="3" rx="1.5" fill="#5E8FA6" opacity=".7"/>
+<circle cx="351" cy="672" r="2.6" fill="#0B1C27"/>
+
+<!-- ===== the ruler bridge ===== -->
+<!-- shadow on the water and contact shadows on the banks -->
+<path d="M600,680 L1010,650 L1010,660 L600,690Z" fill="#0B1C27" opacity=".18" filter="url(#soft)"/>
+<ellipse cx="626" cy="672" rx="40" ry="6" fill="#0B1C27" opacity=".2" filter="url(#soft)"/>
+<ellipse cx="996" cy="642" rx="40" ry="6" fill="#0B1C27" opacity=".2" filter="url(#soft)"/>
+<!-- front edge and end -->
+<path d="M600,660 L1010,630 L1010,642 L600,672Z" fill="#B97F0C"/>
+<path d="M1010,630 L1024,614 L1024,626 L1010,642Z" fill="#9C6A0A"/>
+<path d="M600,660 L614,644 L614,656 L600,672Z" fill="#C98B14" opacity=".6"/>
+<!-- top face, drawn in the ruler's own flat space (x along the length, y across it) -->
+<g transform="matrix(1 -0.07317 14 -16 600 660)">
+  <rect x="0" y="0" width="410" height="1" fill="url(#rulerTop)"/>
+  <rect x="0" y="0" width="410" height="1" fill="url(#rulerHi)"/>
+  <rect x="8" y="0" width="394" height="1" fill="url(#tickS)"/>
+  <rect x="8" y="0" width="394" height="1" fill="url(#tickM)"/>
+  <rect x="8" y="0" width="394" height="1" fill="url(#tickL)"/>
+</g>
+<!-- rim highlight along the far edge -->
+<path d="M614,644 L1024,614" stroke="#FCEBC4" stroke-width="2" opacity=".9"/>
+
+<!-- ===== a small figure with a backpack, walking across ===== -->
+<ellipse cx="800" cy="639" rx="16" ry="3" fill="#0B1C27" opacity=".22"/>
+<rect x="787" y="604" width="8" height="35" rx="3" fill="#24465A"/>
+<rect x="800" y="604" width="8" height="34" rx="3" fill="#24465A" transform="rotate(-10 804 604)"/>
+<rect x="783" y="570" width="28" height="42" rx="12" fill="#24465A"/>
+<rect x="773" y="576" width="14" height="26" rx="5" fill="#2F6079"/>
+<rect x="775" y="580" width="3" height="18" rx="1.5" fill="#5E8FA6" opacity=".6"/>
+<circle cx="798" cy="556" r="11" fill="#24465A"/>
+
+<rect width="1600" height="900" filter="url(#grain)"/>
+</svg>

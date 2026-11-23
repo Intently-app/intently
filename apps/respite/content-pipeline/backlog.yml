@@ -32,7 +32,7 @@ items:
     cluster: parents-teens
     target_query: screen time rules for teenagers
     intent: how-to
-    status: idea
+    status: written
     notes: Teen co-pilot angle; agree limits together. Respite is not a parental-control or monitoring app; say so.
   - topic: 'How to Talk to Your Teen About Phone Use (Without a Fight)'
     cluster: parents-teens

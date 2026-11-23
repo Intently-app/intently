@@ -1,0 +1,619 @@
+{
+	"week": "2026-48",
+	"run_date": "2026-11-23",
+	"generated_at": "2026-11-23T05:20:38.379Z",
+	"gsc": {
+		"site": "sc-domain:liveintently.app",
+		"start": "2026-10-24",
+		"end": "2026-11-20",
+		"ok": true,
+		"query_rows": 481,
+		"queries": 303
+	},
+	"onsite": {
+		"topic": "Screen Time Rules for Teenagers They Will Actually Follow",
+		"cluster": "parents-teens",
+		"cluster_label": "Parents and teens",
+		"audience": "Parents of 13–17 year olds, and teens who want a say in their own limits (Teen co-pilot segment)",
+		"angle": "Limits a teen agrees to hold up better than limits imposed; a pause and shared rules over spyware-style control",
+		"target_query": "screen time rules for teenagers",
+		"intent": "how-to",
+		"notes": "Teen co-pilot angle; agree limits together. Respite is not a parental-control or monitoring app; say so.",
+		"source": "backlog",
+		"backlog_index": 2,
+		"slug": "screen-time-rules-for-teenagers",
+		"hero_family": "guide",
+		"reason": "least recently covered cluster (last on-site post 2026-02-28); no GSC demand matched the backlog in the 3 stalest clusters",
+		"gsc_demand": {
+			"impressions": 0,
+			"weighted": 0,
+			"queries": []
+		},
+		"guard": {
+			"nearest": {
+				"score": 0.6,
+				"slug": "screen-time-for-parents",
+				"field": "tag",
+				"value": "family screen time rules"
+			}
+		},
+		"internal_link_candidates": [
+			{
+				"url": "/blog/screen-time-for-parents/",
+				"title": "Screen Time for Parents: Age Guidelines and Family Rules",
+				"same_cluster": true,
+				"impressions": 2
+			},
+			{
+				"url": "/blog/how-much-screen-time-is-too-much/",
+				"title": "How Much Screen Time Is Too Much? Guidelines by Age",
+				"same_cluster": true,
+				"impressions": 1
+			},
+			{
+				"url": "/blog/google-digital-wellbeing-alternatives/",
+				"title": "Best Google Digital Wellbeing Alternatives 2026",
+				"same_cluster": false,
+				"impressions": 19
+			},
+			{
+				"url": "/blog/best-ai-app-blockers-screen-time-apps-2026/",
+				"title": "Best AI App Blockers and Screen Time Apps (2026)",
+				"same_cluster": false,
+				"impressions": 14
+			},
+			{
+				"url": "/blog/respite-vs-google-digital-wellbeing/",
+				"title": "Respite vs Google Digital Wellbeing (2026): Which Is Better?",
+				"same_cluster": false,
+				"impressions": 5
+			},
+			{
+				"url": "/blog/freedom-alternatives/",
+				"title": "Best Freedom Alternatives 2026: Free Apps Like Freedom",
+				"same_cluster": false,
+				"impressions": 327
+			},
+			{
+				"url": "/blog/free-screen-time-app-android/",
+				"title": "Best Free Screen Time Apps for Android (2026)",
+				"same_cluster": false,
+				"impressions": 106
+			},
+			{
+				"url": "/blog/apple-screen-time-alternatives/",
+				"title": "Best Apple Screen Time Alternatives 2026 for iPhone",
+				"same_cluster": false,
+				"impressions": 13
+			}
+		]
+	},
+	"offsite": {
+		"cluster": "students",
+		"cluster_label": "Students",
+		"audience": "High-school and university students who study with a phone on the desk",
+		"angle": "What a semester of studying with a pause before social apps taught me about attention (first-person, practical)",
+		"reason": "least recently used off-site (no off-site piece yet), different cluster from the on-site post",
+		"target_sites": [
+			"medium",
+			"hashnode",
+			"linkedin",
+			"student newspapers",
+			"study-tips blogs (guest post)"
+		],
+		"utm_campaign": "offsite_2026_48",
+		"utm_rule": "utm_source=<site, lowercase, underscores: medium | dev_to | hashnode | linkedin | <blog_name>>&utm_medium=partner&utm_campaign=offsite_2026_48",
+		"link_targets": [
+			{
+				"url": "/blog/how-to-stop-using-phone-in-class/",
+				"title": "How to Stop Using Your Phone in Class (and Keep It)",
+				"example": "https://respite.liveintently.app/blog/how-to-stop-using-phone-in-class/?utm_source=medium&utm_medium=partner&utm_campaign=offsite_2026_48"
+			},
+			{
+				"url": "/blog/screen-time-apps-for-students/",
+				"title": "Screen Time Apps for Students: Stay Focused (2026)",
+				"example": "https://respite.liveintently.app/blog/screen-time-apps-for-students/?utm_source=medium&utm_medium=partner&utm_campaign=offsite_2026_48"
+			},
+			{
+				"url": "/blog/stop-checking-phone-morning/",
+				"title": "Stop Checking Your Phone First Thing in the Morning",
+				"example": "https://respite.liveintently.app/blog/stop-checking-phone-morning/?utm_source=medium&utm_medium=partner&utm_campaign=offsite_2026_48"
+			},
+			{
+				"url": "/blog/stop-scrolling-at-night/",
+				"title": "How to Stop Scrolling at Night: A Sleep-Saving Guide",
+				"example": "https://respite.liveintently.app/blog/stop-scrolling-at-night/?utm_source=medium&utm_medium=partner&utm_campaign=offsite_2026_48"
+			},
+			{
+				"url": "/download/",
+				"title": "Download Respite",
+				"example": "https://respite.liveintently.app/download/?utm_source=medium&utm_medium=partner&utm_campaign=offsite_2026_48"
+			}
+		],
+		"output_dir": "/Users/faddy/MyLab/WellbeingApps/Respite/marketing/offsite/2026-48"
+	},
+	"results": [
+		{
+			"date": "2026-11-12",
+			"week": "2026-46",
+			"kind": "onsite",
+			"slug": "revenge-bedtime-procrastination",
+			"url": null,
+			"draft_path": null,
+			"cluster": "sleep-night",
+			"clicks": 0,
+			"impressions": 6,
+			"position": 50.3
+		},
+		{
+			"date": "2026-11-12",
+			"week": "2026-46",
+			"kind": "offsite",
+			"slug": null,
+			"url": "TBD",
+			"draft_path": "/Users/faddy/MyLab/WellbeingApps/Respite/marketing/offsite/2026-46/article.md",
+			"cluster": "parents-teens",
+			"clicks": null,
+			"impressions": null,
+			"position": null
+		},
+		{
+			"date": "2026-11-17",
+			"week": "2026-47",
+			"kind": "onsite",
+			"slug": "how-to-stop-using-phone-in-class",
+			"url": null,
+			"draft_path": null,
+			"cluster": "students",
+			"clicks": 0,
+			"impressions": 0,
+			"position": null
+		},
+		{
+			"date": "2026-11-17",
+			"week": "2026-47",
+			"kind": "offsite",
+			"slug": null,
+			"url": "TBD",
+			"draft_path": "/Users/faddy/MyLab/WellbeingApps/Respite/marketing/offsite/2026-47/article.md",
+			"cluster": "professionals",
+			"clicks": null,
+			"impressions": null,
+			"position": null
+		}
+	],
+	"refresh_opportunities": [
+		{
+			"query": "one sec app alternative",
+			"clicks": 0,
+			"impressions": 71,
+			"position": 8.5,
+			"page": "/blog/one-sec-alternatives/",
+			"owner": "/blog/one-sec-alternatives/",
+			"why": "overlaps slug of /blog/one-sec-alternatives/ (\"one sec alternatives\", Jaccard 1)"
+		},
+		{
+			"query": "youtube shorts looping",
+			"clicks": 0,
+			"impressions": 21,
+			"position": 38.6,
+			"page": "/blog/youtube-shorts-addiction/",
+			"owner": "/blog/youtube-shorts-addiction/",
+			"why": "ranking page overlaps the query (0.5)"
+		},
+		{
+			"query": "opal alternatives",
+			"clicks": 0,
+			"impressions": 18,
+			"position": 25.2,
+			"page": "/blog/opal-alternatives/",
+			"owner": "/blog/opal-alternatives/",
+			"why": "overlaps slug of /blog/opal-alternatives/ (\"opal alternatives\", Jaccard 1)"
+		},
+		{
+			"query": "opal alternative",
+			"clicks": 0,
+			"impressions": 16,
+			"position": 32.1,
+			"page": "/blog/opal-alternatives/",
+			"owner": "/blog/opal-alternatives/",
+			"why": "overlaps slug of /blog/opal-alternatives/ (\"opal alternatives\", Jaccard 1)"
+		},
+		{
+			"query": "onesec alternative",
+			"clicks": 0,
+			"impressions": 13,
+			"position": 10.9,
+			"page": "/blog/one-sec-alternatives/",
+			"owner": "/blog/one-sec-alternatives/",
+			"why": "overlaps slug of /blog/one-sec-alternatives/ (\"one sec alternatives\", Jaccard 1)"
+		},
+		{
+			"query": "stay focused chrome extension",
+			"clicks": 0,
+			"impressions": 12,
+			"position": 14.3,
+			"page": "/blog/best-chrome-extensions-focus/",
+			"owner": "/blog/best-chrome-extensions-focus/",
+			"why": "ranking page overlaps the query (0.4)"
+		},
+		{
+			"query": "best app blocker",
+			"clicks": 0,
+			"impressions": 10,
+			"position": 24.6,
+			"page": "/blog/best-app-blocker/",
+			"owner": "/blog/best-ai-app-blockers-screen-time-apps-2026/",
+			"why": "overlaps tag of /blog/best-ai-app-blockers-screen-time-apps-2026/ (\"best app blocker\", Jaccard 1)"
+		},
+		{
+			"query": "stay focus extension",
+			"clicks": 0,
+			"impressions": 10,
+			"position": 18.4,
+			"page": "/blog/best-chrome-extensions-focus/",
+			"owner": "/blog/best-chrome-extensions-focus/",
+			"why": "ranking page overlaps the query (0.5)"
+		},
+		{
+			"query": "digital wellbeing programmes",
+			"clicks": 0,
+			"impressions": 9,
+			"position": 39.1,
+			"page": "/blog/what-is-digital-wellbeing/",
+			"owner": "/blog/apple-screen-time-alternatives/",
+			"why": "overlaps tag of /blog/apple-screen-time-alternatives/ (\"digital wellbeing\", Jaccard 0.67)"
+		},
+		{
+			"query": "opal moments alternatives",
+			"clicks": 0,
+			"impressions": 9,
+			"position": 18.1,
+			"page": "/blog/opal-alternatives/",
+			"owner": "/blog/opal-alternatives/",
+			"why": "overlaps slug of /blog/opal-alternatives/ (\"opal alternatives\", Jaccard 0.67)"
+		},
+		{
+			"query": "apps like screenzen",
+			"clicks": 0,
+			"impressions": 8,
+			"position": 9,
+			"page": "/blog/screenzen-alternatives/",
+			"owner": "/blog/screenzen-alternatives/",
+			"why": "overlaps tag of /blog/screenzen-alternatives/ (\"apps like screenzen\", Jaccard 1)"
+		},
+		{
+			"query": "how to stop watching videos on youtube",
+			"clicks": 0,
+			"impressions": 8,
+			"position": 24.6,
+			"page": "/blog/stop-youtube-binge/",
+			"owner": "/blog/stop-youtube-binge/",
+			"why": "ranking page overlaps the query (0.5)"
+		},
+		{
+			"query": "stayfocusd",
+			"clicks": 0,
+			"impressions": 8,
+			"position": 32.6,
+			"page": "/blog/stayfocusd-alternatives/",
+			"owner": "/blog/stayfocusd-alternatives/",
+			"why": "ranking page overlaps the query (0.5)"
+		},
+		{
+			"query": "how do i stop watching youtube",
+			"clicks": 0,
+			"impressions": 7,
+			"position": 27.9,
+			"page": "/blog/stop-youtube-binge/",
+			"owner": "/blog/stop-youtube-binge/",
+			"why": "ranking page overlaps the query (0.6)"
+		},
+		{
+			"query": "screentime rechner",
+			"clicks": 0,
+			"impressions": 7,
+			"position": 12.1,
+			"page": "/screen-time-calculator/",
+			"owner": "/blog/apple-screen-time-alternatives/",
+			"why": "overlaps tag of /blog/apple-screen-time-alternatives/ (\"screen time\", Jaccard 0.67)"
+		}
+	],
+	"gsc_gap_queries": [
+		{
+			"query": "freedom vs cold turkey",
+			"impressions": 38,
+			"position": 57.1,
+			"page": "/blog/freedom-alternatives/",
+			"striking": false,
+			"cluster_guess": null
+		},
+		{
+			"query": "digital well being",
+			"impressions": 13,
+			"position": 15.5,
+			"page": "/blog/what-is-digital-wellbeing/",
+			"striking": true,
+			"cluster_guess": "detox-habits"
+		},
+		{
+			"query": "social media blocker market",
+			"impressions": 13,
+			"position": 53.5,
+			"page": "/blog/do-app-blockers-work/",
+			"striking": false,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "stay focused browser extension",
+			"impressions": 7,
+			"position": 14.9,
+			"page": "/blog/best-chrome-extensions-focus/",
+			"striking": true,
+			"cluster_guess": "chrome-desktop"
+		},
+		{
+			"query": "stay focused extension",
+			"impressions": 7,
+			"position": 33.3,
+			"page": "/blog/best-chrome-extensions-focus/",
+			"striking": true,
+			"cluster_guess": "chrome-desktop"
+		},
+		{
+			"query": "best chrome extensionsfocus",
+			"impressions": 5,
+			"position": 88.6,
+			"page": "/blog/best-chrome-extensions-focus/",
+			"striking": false,
+			"cluster_guess": "chrome-desktop"
+		},
+		{
+			"query": "digital well-being",
+			"impressions": 5,
+			"position": 69,
+			"page": "/blog/what-is-digital-wellbeing/",
+			"striking": false,
+			"cluster_guess": "detox-habits"
+		},
+		{
+			"query": "digital well being definition",
+			"impressions": 4,
+			"position": 44.8,
+			"page": "/blog/what-is-digital-wellbeing/",
+			"striking": false,
+			"cluster_guess": null
+		},
+		{
+			"query": "freedom application",
+			"impressions": 4,
+			"position": 78.5,
+			"page": "/blog/freedom-alternatives/",
+			"striking": false,
+			"cluster_guess": null
+		},
+		{
+			"query": "stay focused plugin",
+			"impressions": 4,
+			"position": 58,
+			"page": "/blog/best-chrome-extensions-focus/",
+			"striking": false,
+			"cluster_guess": null
+		},
+		{
+			"query": "stayfocusd chrome",
+			"impressions": 4,
+			"position": 32.8,
+			"page": "/blog/best-chrome-extensions-focus/",
+			"striking": true,
+			"cluster_guess": "chrome-desktop"
+		},
+		{
+			"query": "stayfocusd extension",
+			"impressions": 4,
+			"position": 50.3,
+			"page": "/blog/best-chrome-extensions-focus/",
+			"striking": false,
+			"cluster_guess": "chrome-desktop"
+		},
+		{
+			"query": "breaking doomscrolling habit",
+			"impressions": 3,
+			"position": 47,
+			"page": "/blog/how-to-stop-doomscrolling/",
+			"striking": false,
+			"cluster_guess": "detox-habits"
+		},
+		{
+			"query": "what are the benefits of blocking distracting apps",
+			"impressions": 3,
+			"position": 24,
+			"page": "/blog/do-app-blockers-work/",
+			"striking": true,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "zen mode alternative",
+			"impressions": 3,
+			"position": 23.7,
+			"page": "/blog/screenzen-alternatives/",
+			"striking": true,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "1 second everyday alternative",
+			"impressions": 2,
+			"position": 40.5,
+			"page": "/blog/one-sec-alternatives/",
+			"striking": false,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "am i addicted to my phone test",
+			"impressions": 2,
+			"position": 24,
+			"page": "/quiz/",
+			"striking": true,
+			"cluster_guess": "students"
+		},
+		{
+			"query": "appblock alternative",
+			"impressions": 2,
+			"position": 46.5,
+			"page": "/blog/best-app-blocker/",
+			"striking": false,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "cell phone addiction survey",
+			"impressions": 2,
+			"position": 22.5,
+			"page": "/quiz/",
+			"striking": true,
+			"cluster_guess": "students"
+		},
+		{
+			"query": "dailyom vs mindvalley for holistic self-care content in 2026",
+			"impressions": 2,
+			"position": 7.5,
+			"page": "/blog/best-digital-wellbeing-apps-2026/",
+			"striking": false,
+			"cluster_guess": null
+		},
+		{
+			"query": "freedomram.com alternatives",
+			"impressions": 2,
+			"position": 7.5,
+			"page": "/blog/freedom-alternatives/",
+			"striking": false,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "how to quit scrolling",
+			"impressions": 2,
+			"position": 10,
+			"page": "/blog/how-to-stop-doomscrolling/",
+			"striking": true,
+			"cluster_guess": "detox-habits"
+		},
+		{
+			"query": "resperate app",
+			"impressions": 2,
+			"position": 24,
+			"page": "/blog/respite-vs-one-sec/",
+			"striking": true,
+			"cluster_guess": null
+		},
+		{
+			"query": "screenzen vs opal",
+			"impressions": 2,
+			"position": 7,
+			"page": "/blog/screenzen-alternatives/",
+			"striking": false,
+			"cluster_guess": "comparisons"
+		},
+		{
+			"query": "what are the best alternatives to opally for hotels?",
+			"impressions": 2,
+			"position": 9,
+			"page": "/blog/respite-vs-opal/",
+			"striking": true,
+			"cluster_guess": "comparisons"
+		}
+	],
+	"coverage": [
+		{
+			"cluster": "students",
+			"rotate": true,
+			"posts": 2,
+			"last_onsite": "2026-11-17",
+			"last_offsite": null
+		},
+		{
+			"cluster": "parents-teens",
+			"rotate": true,
+			"posts": 2,
+			"last_onsite": "2026-02-28",
+			"last_offsite": "2026-11-12"
+		},
+		{
+			"cluster": "professionals",
+			"rotate": true,
+			"posts": 2,
+			"last_onsite": "2026-02-28",
+			"last_offsite": "2026-11-17"
+		},
+		{
+			"cluster": "adhd-attention",
+			"rotate": true,
+			"posts": 2,
+			"last_onsite": "2026-02-28",
+			"last_offsite": null
+		},
+		{
+			"cluster": "per-app",
+			"rotate": true,
+			"posts": 8,
+			"last_onsite": "2026-11-03",
+			"last_offsite": null
+		},
+		{
+			"cluster": "sleep-night",
+			"rotate": true,
+			"posts": 3,
+			"last_onsite": "2026-11-12",
+			"last_offsite": null
+		},
+		{
+			"cluster": "ai-screen-time",
+			"rotate": true,
+			"posts": 12,
+			"last_onsite": "2026-11-03",
+			"last_offsite": null
+		},
+		{
+			"cluster": "android",
+			"rotate": true,
+			"posts": 3,
+			"last_onsite": "2026-02-28",
+			"last_offsite": null
+		},
+		{
+			"cluster": "iphone",
+			"rotate": true,
+			"posts": 4,
+			"last_onsite": "2026-11-03",
+			"last_offsite": null
+		},
+		{
+			"cluster": "chrome-desktop",
+			"rotate": true,
+			"posts": 2,
+			"last_onsite": "2026-02-28",
+			"last_offsite": null
+		},
+		{
+			"cluster": "detox-habits",
+			"rotate": true,
+			"posts": 17,
+			"last_onsite": "2026-02-28",
+			"last_offsite": null
+		},
+		{
+			"cluster": "comparisons",
+			"rotate": false,
+			"posts": 19,
+			"last_onsite": "2026-11-03",
+			"last_offsite": null
+		},
+		{
+			"cluster": "product",
+			"rotate": false,
+			"posts": 7,
+			"last_onsite": "2026-11-03",
+			"last_offsite": null
+		}
+	],
+	"rejected_backlog": [],
+	"summary_md": "## Content plan 2026-48\n\n**On-site:** Screen Time Rules for Teenagers They Will Actually Follow  \ncluster `parents-teens` (Parents and teens), target query \"screen time rules for teenagers\", intent how-to, slug `screen-time-rules-for-teenagers`  \nwhy: least recently covered cluster (last on-site post 2026-02-28); no GSC demand matched the backlog in the 3 stalest clusters\n\n**Off-site:** What a semester of studying with a pause before social apps taught me about attention (first-person, practical)  \ncluster `students` (Students), utm_campaign `offsite_2026_48`, sites: medium, hashnode, linkedin, student newspapers, study-tips blogs (guest post)  \nwhy: least recently used off-site (no off-site piece yet), different cluster from the on-site post\n\n### Last weeks' results (GSC, last 28 days)\n\n| Date | Kind | Post | Clicks | Impressions | Position |\n|---|---|---|---:|---:|---:|\n| 2026-11-12 | onsite | /blog/revenge-bedtime-procrastination/ | 0 | 6 | 50.3 |\n| 2026-11-12 | offsite | TBD | – | – | – |\n| 2026-11-17 | onsite | /blog/how-to-stop-using-phone-in-class/ | 0 | 0 | – |\n| 2026-11-17 | offsite | TBD | – | – | – |\n\n### Refresh opportunities (striking distance on a page that owns the query)\n\n| Query | Page | Impressions | Position |\n|---|---|---:|---:|\n| one sec app alternative | /blog/one-sec-alternatives/ | 71 | 8.5 |\n| youtube shorts looping | /blog/youtube-shorts-addiction/ | 21 | 38.6 |\n| opal alternatives | /blog/opal-alternatives/ | 18 | 25.2 |\n| opal alternative | /blog/opal-alternatives/ | 16 | 32.1 |\n| onesec alternative | /blog/one-sec-alternatives/ | 13 | 10.9 |\n| stay focused chrome extension | /blog/best-chrome-extensions-focus/ | 12 | 14.3 |\n| best app blocker | /blog/best-ai-app-blockers-screen-time-apps-2026/ | 10 | 24.6 |\n| stay focus extension | /blog/best-chrome-extensions-focus/ | 10 | 18.4 |\n\n### Queries with no dedicated page (backlog ideas)\n\n| Query | Impressions | Position | Cluster guess |\n|---|---:|---:|---|\n| freedom vs cold turkey | 38 | 57.1 | – |\n| digital well being | 13 | 15.5 | detox-habits |\n| social media blocker market | 13 | 53.5 | comparisons |\n| stay focused browser extension | 7 | 14.9 | chrome-desktop |\n| stay focused extension | 7 | 33.3 | chrome-desktop |\n| best chrome extensionsfocus | 5 | 88.6 | chrome-desktop |\n| digital well-being | 5 | 69 | detox-habits |\n| digital well being definition | 4 | 44.8 | – |\n| freedom application | 4 | 78.5 | – |\n| stay focused plugin | 4 | 58 | – |\n\n### Cluster coverage\n\n| Cluster | Posts | Last on-site | Last off-site |\n|---|---:|---|---|\n| students | 2 | 2026-11-17 | – |\n| parents-teens | 2 | 2026-02-28 | 2026-11-12 |\n| professionals | 2 | 2026-02-28 | 2026-11-17 |\n| adhd-attention | 2 | 2026-02-28 | – |\n| per-app | 8 | 2026-11-03 | – |\n| sleep-night | 3 | 2026-11-12 | – |\n| ai-screen-time | 12 | 2026-11-03 | – |\n| android | 3 | 2026-02-28 | – |\n| iphone | 4 | 2026-11-03 | – |\n| chrome-desktop | 2 | 2026-02-28 | – |\n| detox-habits | 17 | 2026-02-28 | – |\n| comparisons (not rotated) | 19 | 2026-11-03 | – |\n| product (not rotated) | 7 | 2026-11-03 | – |"
+}

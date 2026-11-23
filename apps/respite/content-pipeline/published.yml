@@ -40,6 +40,19 @@ entries:
     draft_path: /Users/faddy/MyLab/WellbeingApps/Respite/marketing/offsite/2026-47/article.md
     cluster: professionals
     target_query: 'The calm phone: a knowledge worker''s setup for fewer reflex checks during the workday'
+  - date: 2026-11-23
+    week: '2026-48'
+    kind: onsite
+    slug: screen-time-rules-for-teenagers
+    cluster: parents-teens
+    target_query: screen time rules for teenagers
+  - date: 2026-11-23
+    week: '2026-48'
+    kind: offsite
+    url: TBD
+    draft_path: /Users/faddy/MyLab/WellbeingApps/Respite/marketing/offsite/2026-48/article.md
+    cluster: students
+    target_query: 'What a semester of studying with a pause before social apps taught me about attention (first-person, practical)'
 #  - date: 2026-11-16
 #    week: 2026-47
 #    kind: onsite
