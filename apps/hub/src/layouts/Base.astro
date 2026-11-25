@@ -49,6 +49,24 @@ const appColors = Object.fromEntries(APPS.map((a) => [a.id, a.color]));
 	<head>
 		<meta charset="utf-8" />
 		<script is:inline>document.documentElement.classList.add('js');</script>
+		<script is:inline>
+			// Arriving from another hub page with a view transition (scripts/transitions.ts names the
+			// hour on the page left behind): the same hour here is a chapter page's hero, or, on the home
+			// page, the light of the chapter the visitor came from. In the head, because pagereveal can
+			// come before deferred scripts run.
+			addEventListener('pagereveal', function (e) {
+				if (!e.viewTransition) return;
+				var C = /^\/(time|attention|health|wealth|relationships|self|faith)\/$/;
+				var here = C.exec(location.pathname);
+				var from = window.navigation && navigation.activation && navigation.activation.from;
+				var id = here ? here[1] : from && (C.exec(new URL(from.url).pathname) || [])[1];
+				if (!id) return;
+				var el = here ? document.querySelector('main[data-chapter="' + id + '"] .hero') : document.querySelector('[data-moment="' + id + '"] .when .light');
+				if (!el) return;
+				el.style.viewTransitionName = 'chapter-hour';
+				e.viewTransition.finished.finally(function () { el.style.viewTransitionName = ''; });
+			});
+		</script>
 		<script is:inline define:vars={{ appColors, diveDefault: DIVE_DEFAULT }}>
 			// Coming back from an app's site after a dive (back button, or the app's link to us with
 			// #from=<app>.<chapter>): start in the app's colour, so the hub's first frame matches the app's
@@ -220,6 +238,12 @@ const appColors = Object.fromEntries(APPS.map((a) => [a.id, a.color]));
 			</div>
 			<p class="wrap muted small copy">&copy; {year} {STUDIO.owner}. Each app's privacy policy lives on its own site.</p>
 		</footer>
+		<script>
+			// Page to page within the hub: the chosen hour grows into its chapter (scripts/transitions.ts).
+			import { watchTransitions } from '../scripts/transitions.ts';
+
+			watchTransitions();
+		</script>
 	</body>
 </html>
 

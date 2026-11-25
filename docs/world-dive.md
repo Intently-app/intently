@@ -70,6 +70,16 @@ The hub writes `{app, chapter, scroll, u}` into its own history entry before it 
 bfcache restore) flies out of the app's colour to that spot. An app's links to Intently gain
 `#from=<app>.<chapter>` at click time and land on that hour.
 
+## Between the hub's own pages (`apps/hub/src/scripts/transitions.ts`)
+
+Same origin, so the browser's cross-document view transitions do it (`@view-transition` in
+`tokens.css`, off with reduced motion). The page cross-fades, and the chosen hour grows into its chapter.
+The name `chapter-hour` goes on the finale's light (or a home moment's light) on the way in, and on
+the chapter's hero on the way out. Only one element at a time carries the name, and only for the
+transition. The arriving side is named by an inline script in `Base.astro`'s head, because
+`pagereveal` can fire before deferred scripts run. Browsers without view transitions (Firefox today)
+just navigate, and so does a page that takes too long to first paint.
+
 ## Testing it
 
 - `npm test -w @intently/hub-site` covers the package, the depth map and the camera path.
