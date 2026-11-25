@@ -2,7 +2,7 @@
 title: 'Best One Sec Alternatives 2026 (Free Apps Like One Sec)'
 description: 'Free apps like One Sec that pause you before Instagram, TikTok or YouTube opens. Respite, ScreenZen and ClearSpace compared for Android and iPhone.'
 pubDate: 2026-02-01
-updatedDate: 2026-11-03
+updatedDate: 2026-11-25
 author: 'Respite Team'
 answer: 'The best free One Sec alternatives are Respite (a mindful pause before the apps you pick, on iPhone, Android and Chrome), ScreenZen (free countdown delays on iOS and Android) and ClearSpace (a pause plus exercises on iOS). All three keep One Sec''s core idea, a moment of friction before you open a distracting app, without One Sec Pro, around $20 a year.'
 keyTakeaways:
@@ -18,7 +18,7 @@ faq:
   - question: "Is there a free version of One Sec?"
     answer: "One Sec is free for one app, but fuller use needs One Sec Pro, a paid subscription (around $20/year). For a free alternative with similar mindful pause functionality, Respite offers full-screen interventions, usage tracking, and gamification at zero cost on iPhone, Android and Chrome. ScreenZen offers free delay-based pauses on both iOS and Android."
   - question: "What's the best One Sec alternative for Android?"
-    answer: "Respite is a strong One Sec alternative for Android. It was built for Android from the ground up and offers mindful interventions, comprehensive tracking, gamification, and offline privacy — all completely free. ScreenZen is another good free option available on Android."
+    answer: "Respite is a strong One Sec alternative for Android. It was built for Android from the ground up and offers mindful interventions, comprehensive tracking, gamification, and offline privacy — all completely free. The same app is also on iPhone and Chrome. ScreenZen is another good free option available on Android."
   - question: "Does One Sec work on Android?"
     answer: "One Sec has added Android support, but it was designed primarily for iOS and the Android experience may be more limited in some areas. For a full Android-native mindful pause experience, Respite was purpose-built for Android."
   - question: "What app pauses you before opening social media?"
@@ -53,13 +53,13 @@ You don't need to lock yourself out of apps. You just need a moment to ask: "Do 
 
 ### Respite — The Full Toolkit, Zero Cost
 
-**Platform**: Android, Chrome | **Price**: Free
+**Platform**: iPhone, Android, Chrome | **Price**: Free (optional Plus upgrade)
 
 If One Sec is a scalpel — one focused intervention — Respite is more of a Swiss Army knife. It wraps full-screen mindful interventions in a broader system that includes usage tracking, streaks, achievements, and a Chrome extension for desktop habits. All free, no ads, no account required.
 
 The tracking is what sets it apart from One Sec. You get daily, weekly, and monthly breakdowns of your app usage, so you can actually see whether your habits are changing over time. The gamification layer (streaks and achievements) helps keep you motivated past the first week, which is where most people drop off with these tools.
 
-It works offline and keeps your usage history on your device — no account, sync only if you sign in. Respite is also on iPhone ([App Store](https://apps.apple.com/us/app/respite-screen-time-control/id6757760293)).
+It works offline and keeps your usage history on your device — no account, sync only if you sign in. Get it on iPhone from the [App Store](https://apps.apple.com/us/app/respite-screen-time-control/id6757760293), on Android from Google Play, or add the extension to Chrome.
 
 Rating: 4/5 — The most full-featured free option in this space.
 
@@ -75,7 +75,7 @@ ScreenZen strips the concept down to its simplest form: a countdown timer (5-30 
 
 This simplicity is both its strength and its weakness. Setup takes about two minutes, it barely uses any battery, and it's free on both platforms. But a plain countdown is easier to zone out through than a breathing exercise or mindful prompt. Users often report that the delays start to feel routine after a few weeks, which can erode effectiveness. There's also minimal tracking — you won't get much insight into how your habits are actually changing.
 
-Still, for iOS users who want basic pause friction without paying for One Sec, it's the best free option available.
+Still, for anyone who wants basic pause friction without paying for One Sec, it's one of the simplest free options available.
 
 Rating: 3.5/5 — Great entry point, especially on iOS. May need to be paired with other tools for long-term habit change.
 
@@ -150,11 +150,11 @@ This really depends on two things: what phone you use and how much structure you
 
 On Android, Respite is the standout. You get mindful interventions, usage tracking, gamification, and a Chrome extension — all free. It's the most well-rounded option regardless of platform, and it won't cost you anything.
 
-On iOS with a budget of zero, ScreenZen is your best bet for basic pause friction. If you're willing to pay, ClearSpace offers a more visually engaging breathing-pause experience, and One Sec itself remains solid if you want the research-backed original.
+On iPhone with a budget of zero, Respite is free there too, and ScreenZen is the simplest choice if a plain countdown is all you want. If you're willing to pay, ClearSpace offers a more visually engaging breathing-pause experience, and One Sec itself remains solid if you want the research-backed original.
 
 If your issue is more about sustained focus than impulsive app-checking, Forest is the right tool — it's just solving a different problem.
 
-And if you want the broadest set of tools around the pause concept — tracking, gamification, desktop coverage — Respite covers the most ground, with the caveat that iOS support isn't here yet.
+And if you want the broadest set of tools around the pause concept — tracking, gamification, desktop coverage — Respite covers the most ground, on iPhone, Android and Chrome.
 
 ---
 
@@ -181,4 +181,4 @@ If you're curious about the pause-based approach, the fastest way to find out is
 
 ---
 
-*Last updated: February 26, 2026. We regularly review and update this guide to ensure accuracy. Have a suggestion or correction? Email us at support@liveintently.app*
+*Last updated: November 25, 2026. We regularly review and update this guide to ensure accuracy. Have a suggestion or correction? Email us at support@liveintently.app*
