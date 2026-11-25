@@ -5,8 +5,11 @@
  */
 import { APPS } from '@intently/registry';
 
-/** Apps whose sites can finish the flight. The rest get a plain navigation until they can. */
-export const ARRIVAL_APPS: ReadonlySet<string> = new Set(['respite', 'hisab']);
+/**
+ * Apps whose sites can finish the flight: Respite and Hisab with worlds of their own, the rest with
+ * the shared mist (packages/ui AppLayout). An app missing here gets a plain navigation.
+ */
+export const ARRIVAL_APPS: ReadonlySet<string> = new Set(APPS.map((a) => a.id));
 
 export interface ClickLike {
 	button: number;

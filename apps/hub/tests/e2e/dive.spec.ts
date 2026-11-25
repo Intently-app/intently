@@ -113,10 +113,10 @@ test('with reduced motion an app link is a plain link', async ({ page }) => {
 	expect(page.url()).toBe(`${RESPITE}/`);
 });
 
-test('apps without an arrival world navigate plainly', async ({ page }) => {
+test('with the dive switched off, app links are plain links', async ({ page }) => {
 	await skipSplash(page);
 	await stubApps(page);
-	await page.goto('/');
+	await page.goto('/?dive=0');
 	expect(await waitForWorld(page)).toBe(true);
 	await scrollToScene(page, 1);
 	await page.waitForTimeout(400);

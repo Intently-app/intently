@@ -14,6 +14,17 @@ import { APPS } from '@intently/registry';
 export const CHAPTER_IDS = ['time', 'attention', 'health', 'wealth', 'relationships', 'self', 'faith'] as const;
 export type ChapterId = (typeof CHAPTER_IDS)[number];
 
+/** The hour of the day each app belongs to on liveintently.app (the hub's data/chapters.ts says the same; a test checks). */
+export const APP_CHAPTER: Readonly<Record<string, ChapterId>> = {
+	loop: 'time',
+	respite: 'attention',
+	paceshift: 'health',
+	hisab: 'wealth',
+	twohearts: 'relationships',
+	mirror: 'self',
+	qandeel: 'faith',
+};
+
 /** How much of the dive the device gets (capability.ts). */
 export const TIERS = ['full', 'lite', 'bridge'] as const;
 export type Tier = (typeof TIERS)[number];

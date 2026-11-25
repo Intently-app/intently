@@ -29,8 +29,9 @@ it (`FILL_FS`, drawn last).
 
 | Site | World | Drawn with |
 |---|---|---|
-| Respite | Mist in #2F6079 that keeps the dive's speed and parts from the middle; on wide screens the 3D phone flies forward out of it into the hero (`phone-journey.ts` reads `arrival-intro.ts`) | A raw WebGL2 shader for the mist, so phones get it without the phone's three.js; three.js for the phone |
+| Respite | Mist (`worlds/mist.ts`) in #2F6079 that keeps the dive's speed and parts from the middle; on wide screens the 3D phone flies forward out of it into the hero (`phone-journey.ts` reads `arrival-intro.ts`) | A raw WebGL2 shader for the mist, so phones get it without the phone's three.js; three.js for the phone |
 | Hisab | Thin lines of light fly out of the green, sort into the debit and credit columns of the ledger sheet's rows and settle on its totals' double rule; then the sheet writes its first entry | A 2D canvas (160 lines for a second) |
+| Loop, Qandeel, Mirror, PaceShift, TwoHearts | The shared mist in the app's colour (`packages/world/src/worlds/mist.ts`, wired in `packages/ui` `AppLayout.astro`); new sites from `templates/app` get it too | The same WebGL2 shader as Respite's mist |
 
 ## Why it is a handoff, not a view transition
 
