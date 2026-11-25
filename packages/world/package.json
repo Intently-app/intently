@@ -1,0 +1,17 @@
+{
+	"name": "@intently/world",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"description": "The dive from the hub into an app's site and the app's arrival: handoff, timing, tiers, flags, links, veil",
+	"exports": {
+		"./*.astro": "./src/*.astro",
+		"./*": "./src/*.ts"
+	},
+	"scripts": {
+		"test": "node --test 'src/**/*.test.ts'"
+	},
+	"dependencies": {
+		"@intently/registry": "*"
+	}
+}
