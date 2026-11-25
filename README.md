@@ -39,6 +39,11 @@ npm run test:e2e -w @intently/hub-site        # hub end-to-end: desktop Chrome/S
 npm test -w @intently/redirects               # alias redirects and their per-alias path maps
 ```
 
+Every build first draws its site's share images (Open Graph/Twitter, not committed): the hub's from
+its landscapes (`apps/hub/scripts/render-og.ts`, one per scene), each app site's from its mark
+(`packages/ui/scripts/render-og.ts`). Each site also serves `/llms.txt`, built from the same records as
+its pages.
+
 The hub's end-to-end tests need Playwright's browsers once: `npx playwright install chromium webkit`
 (in `apps/hub`). They build the site and run it under `wrangler dev`, so redirects are the real ones.
 

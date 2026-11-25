@@ -6,7 +6,13 @@
 	"description": "Shared styles and components for the Intently hub and app sites",
 	"exports": {
 		"./base.css": "./src/base.css",
-		"./*.astro": "./src/*.astro"
+		"./*.astro": "./src/*.astro",
+		"./site": "./src/site.ts",
+		"./llms": "./src/llms.ts"
 	},
-	"dependencies": { "@intently/registry": "*", "@intently/legal": "*" }
+	"dependencies": {
+		"@intently/registry": "*",
+		"@intently/legal": "*",
+		"sharp": "0.34.5"
+	}
 }

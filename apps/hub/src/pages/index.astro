@@ -7,12 +7,13 @@ import DayRail from '../components/journey/DayRail.astro';
 import Finale from '../components/journey/Finale.astro';
 import { CHAPTERS } from '../data/chapters.ts';
 import { SKY } from '../data/sky.ts';
+import { appList, website } from '../data/schema.ts';
 
 // Each scene's ground meets the next scene's sky.
 const groundAbove = [SKY.night, ...CHAPTERS.map((c) => SKY[c.sky])].map((s) => s.ground[3]);
 ---
 
-<Base splash world sky="night" title="Intently"
+<Base splash world sky="night" title="Intently" schema={[website(), appList()]}
 	description="Most days just happen. Intently makes calm, private apps for living them on purpose: your time, attention, health, money, people, self and faith.">
 	<Splash />
 	<DayRail />

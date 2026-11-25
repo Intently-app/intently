@@ -5,8 +5,9 @@
 	"private": true,
 	"scripts": {
 		"dev": "astro dev",
+		"prebuild": "node ../../packages/ui/scripts/render-og.ts mirror",
 		"build": "astro build",
-		"check": "astro build && tsc --noEmit && wrangler deploy --dry-run",
+		"check": "npm run build && tsc --noEmit && wrangler deploy --dry-run",
 		"deploy": "wrangler deploy"
 	},
 	"dependencies": {

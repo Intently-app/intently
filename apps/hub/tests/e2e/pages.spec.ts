@@ -52,3 +52,37 @@ test('header and footer links lead somewhere real', async ({ page, request }) =>
 		expect(res.status(), href).toBe(200);
 	}
 });
+
+test('every page has a share image and card that exist', async ({ page, request }) => {
+	for (const path of PAGES) {
+		await page.goto(path);
+		const image = await page.locator('meta[property="og:image"]').getAttribute('content');
+		expect(image, path).toMatch(/^https:\/\/liveintently\.app\/og\/[a-z]+\.jpg$/);
+		await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
+		await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', /.{20,}/);
+		const res = await request.get(new URL(image!).pathname);
+		expect(res.status(), image!).toBe(200);
+		expect(res.headers()['content-type']).toContain('image/jpeg');
+	}
+});
+
+test('answer engines get llms.txt, llms-full.txt and every AI crawler is welcome', async ({ request }) => {
+	for (const file of ['/llms.txt', '/llms-full.txt']) {
+		const res = await request.get(file);
+		expect(res.status(), file).toBe(200);
+		expect(res.headers()['content-type']).toContain('text/plain');
+		const body = await res.text();
+		for (const c of CHAPTERS) expect(body, `${file} ${c.id}`).toContain(c.path);
+	}
+	const robots = await (await request.get('/robots.txt')).text();
+	for (const bot of ['GPTBot', 'ClaudeBot', 'PerplexityBot', 'Google-Extended']) expect(robots).toContain(`User-agent: ${bot}`);
+	expect(robots).toContain('Sitemap: https://liveintently.app/sitemap-index.xml');
+});
+
+test('the home page lists every app by the @id its own site declares', async ({ page }) => {
+	await page.goto('/');
+	const graph = await page.locator('script[type="application/ld+json"]').evaluateAll((els) => els.map((e) => JSON.parse(e.textContent!)));
+	const list = graph.find((g) => g['@type'] === 'ItemList');
+	expect(list.itemListElement.map((i: { item: { '@id': string } }) => i.item['@id'])).toContain('https://respite.liveintently.app/#software');
+	expect(graph.find((g) => g['@type'] === 'WebSite')?.['@id']).toBe('https://liveintently.app/#website');
+});
