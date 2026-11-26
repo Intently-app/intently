@@ -28,7 +28,7 @@ test('new windows, downloads, deep links and other sites never dive', () => {
 	assert.equal(diveTarget(click, link('/time/')), null);
 });
 
-test('apps without an arrival world navigate plainly', () => {
-	assert.equal(diveTarget(click, link('https://loop.liveintently.app')), null);
-	assert.equal(diveTarget(click, link('https://loop.liveintently.app'), new Set(['loop'])), 'loop');
+test('every app dives, unless it is left out of the arrival set', () => {
+	assert.equal(diveTarget(click, link('https://loop.liveintently.app')), 'loop');
+	assert.equal(diveTarget(click, link('https://loop.liveintently.app'), new Set(['respite'])), null);
 });

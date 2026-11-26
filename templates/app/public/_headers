@@ -1,0 +1,4 @@
+# liveintently.app may prerender this site while a visitor chooses it, so the hub's dive lands on a
+# page that is already there (packages/world speculate.ts, docs/world-dive.md in the intently repo).
+/*
+  Supports-Loading-Mode: credentialed-prerender

@@ -8,7 +8,11 @@ import { existsSync, readFileSync, statSync } from 'node:fs';
 import { extname, join } from 'node:path';
 import { scrollToScene, skipSplash, waitForWorld } from './helpers.ts';
 
-const DIST = { respite: join(import.meta.dirname, '../../../respite/dist'), hisab: join(import.meta.dirname, '../../../hisab/dist') };
+const DIST = {
+	respite: join(import.meta.dirname, '../../../respite/dist'),
+	hisab: join(import.meta.dirname, '../../../hisab/dist'),
+	loop: join(import.meta.dirname, '../../../loop/dist'),
+};
 const TYPES: Record<string, string> = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.woff2': 'font/woff2', '.json': 'application/json' };
 
 async function serveApps(page: Page) {
@@ -52,11 +56,12 @@ const shifts = (page: Page) => page.evaluate(() => new Promise<number>((done) =>
 
 test.beforeEach(({}, info) => {
 	test.skip(info.project.name !== 'desktop-chrome', 'checked in one browser');
-	test.skip(!existsSync(join(DIST.respite, 'index.html')) || !existsSync(join(DIST.hisab, 'index.html')), 'build apps/respite and apps/hisab first');
+	test.skip(Object.values(DIST).some((d) => !existsSync(join(d, 'index.html'))), 'build apps/respite, apps/hisab and apps/loop first');
 });
 test.describe.configure({ mode: 'serial' });
 
-for (const [id, ch] of [['respite', 'attention'], ['hisab', 'wealth']] as const) {
+// Respite and Hisab have worlds of their own; Loop stands for the sites with the shared mist.
+for (const [id, ch] of [['respite', 'attention'], ['hisab', 'wealth'], ['loop', 'time']] as const) {
 	test(`${id} opens in its colour, strips the hand-over and settles on its page`, async ({ page }) => {
 		await serveApps(page);
 		await page.goto(`https://${id}.liveintently.app/#intently=v1.${id}.${ch}.full`);
@@ -82,7 +87,7 @@ for (const [id, ch] of [['respite', 'attention'], ['hisab', 'wealth']] as const)
 		await page.goto(`https://${id}.liveintently.app/`);
 		await page.waitForLoadState('networkidle');
 		await expect(page.locator('html')).not.toHaveClass(/arriving/);
-		expect(scripts.filter((s) => /\/arrival\.[^/]+\.js$/.test(s))).toEqual([]);
+		expect(scripts.filter((s) => /\/(arrival|mist)\.[^/]+\.js$/.test(s))).toEqual([]);
 	});
 
 	test(`${id} with reduced motion only strips the hand-over`, async ({ page }) => {

@@ -30,3 +30,9 @@ test('the day loops: after the night comes dawn', () => {
 	assert.equal(neighbours('time').prev.id, 'faith');
 	assert.equal(neighbours('health').prev.id, 'attention');
 });
+
+test('packages/world knows each app by the same hour', async () => {
+	const { APP_CHAPTER } = await import('@intently/world/handoff');
+	const { CHAPTERS } = await import('./chapters.ts');
+	for (const c of CHAPTERS) for (const a of c.apps) assert.equal(APP_CHAPTER[a.id], c.id, a.id);
+});

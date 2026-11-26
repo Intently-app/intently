@@ -3,6 +3,7 @@ import './base.css';
 import AppMark from './AppMark.astro';
 import { STUDIO, appSchemaId, type App } from '@intently/registry';
 import { onColor, type SiteContent } from './site';
+import ArrivalVeil from '@intently/world/ArrivalVeil.astro';
 
 interface Props {
 	app: App;
@@ -22,9 +23,11 @@ const ogAlt = `The ${app.name} mark on a field of its colour.`;
 ---
 
 <!doctype html>
-<html lang="en" style={`--accent:${app.color};--on-accent:${onColor(app.color)}`}>
+<html lang="en" style={`--accent:${app.color};--on-accent:${onColor(app.color)}`} data-app={app.id} data-app-color={app.color}>
 	<head>
 		<meta charset="utf-8" />
+		<!-- Arriving from liveintently.app's dive: the app's colour first (packages/world). -->
+		<ArrivalVeil app={app} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{fullTitle}</title>
 		<meta name="description" content={description} />
@@ -86,6 +89,20 @@ const ogAlt = `The ${app.name} mark on a field of its colour.`;
 				<p class="muted small">&copy; {year} {STUDIO.owner}</p>
 			</div>
 		</footer>
+		<script>
+			// After a dive from liveintently.app, the app's colour becomes mist and parts (packages/world
+			// worlds/mist.ts); links back to Intently carry the hour the visitor came from.
+			import { browserDiveEnabled } from '@intently/world/flags';
+			import { markHubLinks } from '@intently/world/reverse';
+			import { APP_CHAPTER } from '@intently/world/handoff';
+
+			const root = document.documentElement;
+			const id = root.dataset.app ?? '';
+			if (window.__intentlyArrival && !window.__intentlyArrival.done) {
+				import('@intently/world/worlds/mist').then((m) => m.startMist(root.dataset.appColor ?? '#000000'));
+			}
+			if (browserDiveEnabled() && APP_CHAPTER[id]) markHubLinks(document, id, APP_CHAPTER[id]);
+		</script>
 	</body>
 </html>
 

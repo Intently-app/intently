@@ -13,6 +13,7 @@
 	"dependencies": {
 		"@intently/registry": "*",
 		"@intently/legal": "*",
+		"@intently/world": "*",
 		"sharp": "0.34.5"
 	}
 }
