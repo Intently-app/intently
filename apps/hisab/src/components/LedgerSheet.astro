@@ -123,5 +123,8 @@ const first = EXAMPLES[0]!;
 	});
 
 	sheet.classList.add('is-live');
-	void play(0);
+	// After a dive from liveintently.app, the first entry is written once the arrival has settled.
+	const arrival = (window as Window & { __intentlyArrival?: { done: boolean } }).__intentlyArrival;
+	if (arrival && !arrival.done) document.addEventListener('intently:arrived', () => void play(0), { once: true });
+	else void play(0);
 </script>

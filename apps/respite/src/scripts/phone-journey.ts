@@ -13,6 +13,7 @@
  */
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
+import { intro } from './arrival-intro';
 
 type SlotName = 'hero' | 'how' | 'features' | 'end';
 type LayerState = { x?: number; y?: number; s?: number; o?: number };
@@ -567,9 +568,12 @@ export async function startPhoneJourney(canvas: HTMLCanvasElement): Promise<() =
 		const spin = seen.length === 2 ? ease(travel) * Math.PI * 2 : 0;
 		const appear = clamp(total * 3);
 
-		tilt.position.set(x, y + Math.sin(t * 1.1) * 0.03, 0);
-		tilt.scale.setScalar(size * mix(0.6, 1, appear));
-		tilt.rotation.set(rx + my * 0.06 + Math.sin(t * 0.7) * 0.015, ry + spin + mx * 0.12, Math.sin(t * 0.5) * 0.01);
+		// Arriving from liveintently.app: the phone flies forward out of the mist (arrival.ts), smaller and
+		// turning while it is still far off.
+		const near = Math.exp(intro.logZoom);
+		tilt.position.set(x * near, (y + Math.sin(t * 1.1) * 0.03) * near, 0);
+		tilt.scale.setScalar(size * mix(0.6, 1, appear) * near);
+		tilt.rotation.set(rx + my * 0.06 + Math.sin(t * 0.7) * 0.015, ry + spin + mx * 0.12 + (1 - near) * Math.PI * 0.7, Math.sin(t * 0.5) * 0.01);
 		shadow.position.set(x, y - (PHONE_H / 2) * size - 0.12 * size, -0.4);
 		shadow.scale.setScalar(size);
 		(shadow.material as THREE.MeshBasicMaterial).opacity = appear * (1 - Math.abs(Math.sin(spin)) * 0.5);

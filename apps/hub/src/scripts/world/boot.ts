@@ -13,18 +13,25 @@ import { buildAtlas, markPoints } from './atlas.ts';
 import { Renderer, MAX_POINTS, type PointCloud } from './renderer.ts';
 import { frameAt } from './timeline.ts';
 import { FrameBudget } from './budget.ts';
+import { DiveDirector, previewDive } from './dive-ui.ts';
+import type { ChapterId, Tier } from '@intently/world/handoff';
+import { canAnimate, deviceSignals } from '@intently/world/capability';
+import { parseReturn } from '@intently/world/handoff';
 
 export const markInner = logo.replace(/^[\s\S]*?<\/title>/, '').replace(/<\/svg>\s*$/, '').replace(/id="/g, 'id="w-');
 
+/** Reduced motion, Save-Data, ?world=static or no WebGL2 keep the static landscapes (@intently/world capability). */
 export function canRun(): boolean {
-	if (matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
-	if ((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData) return false;
-	if (new URLSearchParams(location.search).get('world') === 'static') return false;
-	try {
-		return !!document.createElement('canvas').getContext('webgl2');
-	} catch {
-		return false;
-	}
+	return canAnimate(deviceSignals());
+}
+
+/** Without the live world, a link back from an app (#from=) still lands on its hour. */
+function landOnReturn(): void {
+	const r = parseReturn(location.hash);
+	document.documentElement.classList.remove('returning');
+	if (!r) return;
+	history.replaceState(history.state, '', location.pathname + location.search);
+	document.querySelector(`[data-scene="${r.ch}"]`)?.scrollIntoView({ block: 'center' });
 }
 
 function afterSplash(): Promise<void> {
@@ -56,7 +63,10 @@ export async function start(): Promise<void> {
 }
 
 async function run(): Promise<void> {
-	if (!canRun()) return;
+	if (!canRun()) {
+		landOnReturn();
+		return;
+	}
 	await afterSplash();
 
 	const root = document.documentElement;
@@ -82,6 +92,7 @@ async function run(): Promise<void> {
 	} catch (e) {
 		canvas.remove();
 		console.warn('[world] falling back to static landscapes:', e);
+		landOnReturn();
 		return;
 	}
 
@@ -124,6 +135,28 @@ async function run(): Promise<void> {
 	// dawn, the day rail) are time-based, so they arrive on time even when frames are slow.
 	const lenis = new Lenis({ autoRaf: false, anchors: { duration: 1.2 }, lerp: 0.09 });
 	onMeasure = () => lenis.resize();
+	// The dive into an app's site, and the way back (dive-ui.ts).
+	let slowFrames = false;
+	const director = new DiveDirector({
+		u: () => lastU,
+		begin: () => {
+			lenis.stop();
+			root.classList.add('diving');
+		},
+		end: () => {
+			lenis.start();
+			root.classList.remove('diving');
+		},
+		restore: (y) => {
+			lenis.scrollTo(y, { immediate: true, force: true });
+			lastU = uAt(y);
+		},
+		sceneY: (ch) => {
+			const i = SCENES.findIndex((s) => s.id === ch);
+			return i < 0 ? null : centers[i] - innerHeight / 2;
+		},
+		slow: () => slowFrames,
+	});
 	const ro = new ResizeObserver(measure);
 	ro.observe(document.body);
 	addEventListener('resize', measure);
@@ -131,6 +164,10 @@ async function run(): Promise<void> {
 
 	let running = true;
 	let lastU = uAt(scrollY);
+	director.attach();
+	const back = director.returning();
+	if (back) director.back(back);
+	else root.classList.remove('returning');
 	let velocity = 0;
 	let current = '';
 	const budget = new FrameBudget();
@@ -169,7 +206,9 @@ async function run(): Promise<void> {
 
 	// Read-only state for tests and debugging: what the world is drawing right now.
 	// `hide` lets a test draw the scene without some sprites (to find exactly where they are).
-	const state = { u: 0, scene: '', frames: 0, resting: false, zenith: '', walker: { x: 0, y: 0 }, scale: 1, hide: [] as string[] };
+	const state = { u: 0, scene: '', frames: 0, resting: false, zenith: '', walker: { x: 0, y: 0 }, scale: 1, hide: [] as string[], dive: null as { zeta: number; fill: number } | null,
+		// Draws that moment of a dive instead of the live one (tests, tuning); nothing navigates.
+		preview: null as { app: string; ch: ChapterId; t: number; tier?: Tier; back?: boolean } | null };
 	(window as Window & { __intentlyWorld?: typeof state }).__intentlyWorld = state;
 
 	const teardown = (why: string) => {
@@ -225,8 +264,8 @@ async function run(): Promise<void> {
 		state.u = u;
 		state.scene = SCENES[Math.round(u)]?.id ?? '';
 
-		// Once the app family covers the screen, the world can rest.
-		state.resting = !!family && family.getBoundingClientRect().top <= 0;
+		// Once the app family covers the screen, the world can rest (unless it's flying from there).
+		state.resting = !!family && family.getBoundingClientRect().top <= 0 && !director.active;
 		if (state.resting) {
 			drewLastTick = false;
 			tell(now, -1, true, null, 1);
@@ -234,7 +273,7 @@ async function run(): Promise<void> {
 		}
 
 		// When nothing moves, the clouds and stars can drift at half the frame rate.
-		still = Math.abs(velocity) < 2e-5 ? still + 1 : 0;
+		still = Math.abs(velocity) < 2e-5 && !director.active && !state.preview ? still + 1 : 0;
 		if (still > 30 && still % 2 === 1) return;
 
 		const scale = innerHeight / 1000;
@@ -246,13 +285,18 @@ async function run(): Promise<void> {
 		const cssH = canvas.clientHeight;
 		const visW = (canvas.clientWidth / cssH) * 1000;
 		const time = (now - t0) / 1000;
-		const frame = frameAt({ u, visW, time, velocity, sprites, markRect: markRect && rescale(markRect, innerHeight, cssH) });
+		const fu = director.u ?? u;
+		const frame = frameAt({ u: fu, visW, time, velocity: director.active ? 0 : velocity, sprites, markRect: markRect && rescale(markRect, innerHeight, cssH) });
 		const w = frame.sprites.find((d) => d.kind === 'walker');
 		if (w) state.walker = { x: w.x, y: w.y };
 		state.scale = cssH / 1000;
 		tell(now, reading, Math.abs(velocity) > 2e-4, w ?? null, cssH / 1000);
 		if (state.hide.length) frame.sprites = frame.sprites.filter((d) => !state.hide.includes(d.kind ?? ''));
-		renderer.render(frame, time);
+		const dive = state.preview ? previewDive(frame, state.preview) : director.draw(frame, now);
+		renderer.render(frame, time, dive);
+		state.dive = dive ? { zeta: dive.eye.zeta, fill: dive.fill } : null;
+		// The page's own colour layer (Base.astro) steps aside once the world draws the way back.
+		if (dive && root.classList.contains('returning')) requestAnimationFrame(() => root.classList.remove('returning'));
 		state.frames++;
 		state.zenith = frame.sky.zenith;
 
@@ -261,6 +305,7 @@ async function run(): Promise<void> {
 		lastDrawn = now;
 		drewLastTick = true;
 		if (decision === 'lower') {
+			slowFrames = true;
 			dprCap = Math.max(0.6, dprCap * 0.75);
 			measure();
 		} else if (decision === 'static') teardown('too slow');

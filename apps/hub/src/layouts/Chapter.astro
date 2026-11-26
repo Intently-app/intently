@@ -101,8 +101,12 @@ const isLast = c.id === 'faith';
 
 <script>
 	import { watchRanges } from '../scripts/feel/range.ts';
+	import { attachBridge } from '../scripts/world/bridge.ts';
+	import type { ChapterId } from '@intently/world/handoff';
 
 	watchRanges(document);
+	const ch = document.querySelector<HTMLElement>('main[data-chapter]')?.dataset.chapter as ChapterId | undefined;
+	if (ch) attachBridge(ch);
 </script>
 
 <style>

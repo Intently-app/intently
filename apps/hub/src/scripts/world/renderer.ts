@@ -6,9 +6,24 @@
  */
 import { computeColumns, TREE_SLOTS, type Columns } from './columns.ts';
 import { LAYERS } from '../../world/terrain.ts';
-import { hexToRgb } from '../lib/color.ts';
-import { FULLSCREEN_VS, LANDSCAPE_FS, POND_FS, SPRITE_VS, SPRITE_FS, POINTS_VS, POINTS_FS, DOTS_VS, DOTS_FS, GRAIN_FS } from './shaders.ts';
+import { hexToRgb, type Rgb } from '../lib/color.ts';
+import { FULLSCREEN_VS, LANDSCAPE_FS, POND_FS, SPRITE_VS, SPRITE_FS, POINTS_VS, POINTS_FS, DOTS_VS, DOTS_FS, GRAIN_FS, FILL_FS } from './shaders.ts';
 import type { Frame, SpriteDraw } from './timeline.ts';
+import { REST, project, type Eye } from './depth.ts';
+
+/** A dive in progress (dive.ts): where the eye is, and how much of the app's colour covers the screen. */
+export interface DiveDraw {
+	eye: Eye;
+	/** 0..1: the app's colour, blooming from `focus` (screen units). */
+	fill: number;
+	color: Rgb;
+	focus: [number, number];
+}
+
+const PAR = LAYERS.map((l) => l.parallax);
+const FG = PAR[3];
+/** A sprite's depth: its layer's parallax (depth.ts). */
+export const depthOf = (s: SpriteDraw): number => s.depth ?? (s.ground ? PAR[s.ground.layer] : s.front ? FG : 0.3);
 
 type Uniforms = Record<string, WebGLUniformLocation | null>;
 
@@ -45,6 +60,8 @@ export interface PointCloud {
 }
 
 export const MAX_POINTS = 100 * 52;
+/** Floats per sprite vertex: pos(2) uv(2) tint(4) fx(2) depth(1). */
+const SPRITE_STRIDE = 11;
 const MAX_DOTS = 2048;
 
 export class Renderer {
@@ -55,12 +72,13 @@ export class Renderer {
 	private pts: ReturnType<typeof compile>;
 	private grain: ReturnType<typeof compile>;
 	private dots: ReturnType<typeof compile>;
+	private fill: ReturnType<typeof compile>;
 	private dotsVao: WebGLVertexArrayObject;
 	private dotsBuf: WebGLBuffer;
 	private quad: WebGLVertexArrayObject;
 	private spriteVao: WebGLVertexArrayObject;
 	private spriteBuf: WebGLBuffer;
-	private spriteData = new Float32Array(256 * 6 * 10);
+	private spriteData = new Float32Array(256 * 6 * SPRITE_STRIDE);
 	private pointsVao: WebGLVertexArrayObject;
 	private pointCount: number;
 	private ridgeTex: WebGLTexture;
@@ -82,6 +100,7 @@ export class Renderer {
 		this.pts = compile(gl, POINTS_VS, POINTS_FS);
 		this.grain = compile(gl, FULLSCREEN_VS, GRAIN_FS);
 		this.dots = compile(gl, DOTS_VS, DOTS_FS);
+		this.fill = compile(gl, FULLSCREEN_VS, FILL_FS);
 
 		// One triangle that covers the screen.
 		this.quad = gl.createVertexArray()!;
@@ -89,13 +108,13 @@ export class Renderer {
 		const qb = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, qb);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-		for (const p of [this.land.prog, this.pond.prog, this.grain.prog]) {
+		for (const p of [this.land.prog, this.pond.prog, this.grain.prog, this.fill.prog]) {
 			const loc = gl.getAttribLocation(p, 'aPos');
 			gl.enableVertexAttribArray(loc);
 			gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
 		}
 
-		// Sprites: pos(2) uv(2) tint(4) fx(2) per vertex.
+		// Sprites: pos(2) uv(2) tint(4) fx(2) depth(1) per vertex.
 		this.spriteVao = gl.createVertexArray()!;
 		gl.bindVertexArray(this.spriteVao);
 		this.spriteBuf = gl.createBuffer()!;
@@ -104,12 +123,13 @@ export class Renderer {
 		const attr = (name: string, size: number, offset: number) => {
 			const loc = gl.getAttribLocation(this.sprite.prog, name);
 			gl.enableVertexAttribArray(loc);
-			gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 40, offset * 4);
+			gl.vertexAttribPointer(loc, size, gl.FLOAT, false, SPRITE_STRIDE * 4, offset * 4);
 		};
 		attr('aPos', 2, 0);
 		attr('aUV', 2, 2);
 		attr('aTint', 4, 4);
 		attr('aFx', 2, 8);
+		attr('aPar', 1, 10);
 
 		// Points.
 		this.pointsVao = gl.createVertexArray()!;
@@ -191,8 +211,9 @@ export class Renderer {
 		} else gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, TREE_SLOTS, 2, gl.RGBA, gl.FLOAT, this.columns.trees);
 	}
 
-	render(frame: Frame, time: number) {
+	render(frame: Frame, time: number, dive: DiveDraw | null = null) {
 		const gl = this.gl;
+		const eye = dive?.eye ?? REST;
 		const W = this.canvas.width;
 		const H = this.canvas.height;
 		const scale = H / 1000;
@@ -238,6 +259,11 @@ export class Renderer {
 		gl.uniform1f(L.u.uWind, frame.wind ?? 0);
 		// Flowers show by daylight: where there is a sun and the stars are faint.
 		gl.uniform1f(L.u.uFlowers, s.sun.show * Math.max(0, 1 - s.stars * 2));
+		gl.uniform3f(L.u.uEye, eye.zeta, eye.cx, eye.cy);
+		gl.uniform4f(L.u.uPar, PAR[0], PAR[1], PAR[2], PAR[3]);
+		const lightPar = new Float32Array(8);
+		frame.lights.forEach((l, i) => { if (i < 8) lightPar[i] = l.depth ?? FG; });
+		gl.uniform1fv(L.u.uLightPar, lightPar);
 		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, this.ridgeTex);
 		gl.uniform1i(L.u.uRidges, 0);
@@ -258,11 +284,11 @@ export class Renderer {
 		gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 		this.drawPoints(frame, time, scale, W, H);
 		pass(1);
-		this.drawSprites(frame.sprites.filter((d) => !d.front), scale, W, H);
+		this.drawSprites(frame.sprites.filter((d) => !d.front), scale, W, H, eye);
 		pass(2);
-		this.drawPond(frame, time, scale, W, H);
-		this.drawDots(frame, scale, W, H);
-		this.drawSprites(frame.sprites.filter((d) => d.front), scale, W, H);
+		this.drawPond(frame, time, scale, W, H, eye);
+		this.drawDots(frame, scale, W, H, eye);
+		this.drawSprites(frame.sprites.filter((d) => d.front), scale, W, H, eye);
 
 		// Grain, multiplied in at 2x.
 		gl.useProgram(this.grain.prog);
@@ -271,20 +297,36 @@ export class Renderer {
 		gl.blendFunc(gl.DST_COLOR, gl.SRC_COLOR);
 		gl.bindVertexArray(this.quad);
 		gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+		// The app's colour, last, so a full fill is exactly that colour.
+		if (dive && dive.fill > 0) {
+			const F = this.fill;
+			gl.useProgram(F.prog);
+			gl.uniform2f(F.u.uRes, W, H);
+			gl.uniform1f(F.u.uScale, scale);
+			gl.uniform2f(F.u.uFocus, dive.focus[0], dive.focus[1]);
+			gl.uniform1f(F.u.uFill, dive.fill);
+			gl.uniform3fv(F.u.uColor, dive.color);
+			gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+			gl.drawArrays(gl.TRIANGLES, 0, 3);
+		}
 		gl.bindVertexArray(null);
 	}
 
 	/** The pond, over the finished land and only inside its own box (so the rest of the screen is free). */
-	private drawPond(frame: Frame, time: number, scale: number, W: number, H: number) {
+	private drawPond(frame: Frame, time: number, scale: number, W: number, H: number, eye: Eye) {
 		const p = frame.pond;
 		if (!p || p[2] <= 0) return;
 		const fx = frame.pondFx;
 		const reach = Math.max(p[2], fx?.grown ?? 0) + 14;
 		const reachY = (reach * p[3]) / p[2] + 14;
-		const x0 = Math.max(0, Math.floor((p[0] - reach) * scale + W / 2));
-		const x1 = Math.min(W, Math.ceil((p[0] + reach) * scale + W / 2));
-		const y0 = Math.max(0, Math.floor(H - (p[1] + reachY) * scale));
-		const y1 = Math.min(H, Math.ceil(H - (p[1] - reachY) * scale));
+		// Its box as seen from the eye (the pond lies on the foreground).
+		const [ax, ay] = project(eye, FG, p[0] - reach, p[1] - reachY);
+		const [bx, by] = project(eye, FG, p[0] + reach, p[1] + reachY);
+		const x0 = Math.max(0, Math.floor(ax * scale + W / 2));
+		const x1 = Math.min(W, Math.ceil(bx * scale + W / 2));
+		const y0 = Math.max(0, Math.floor(H - by * scale));
+		const y1 = Math.min(H, Math.ceil(H - ay * scale));
 		if (x1 <= x0 || y1 <= y0) return;
 		const gl = this.gl;
 		const P = this.pond;
@@ -303,6 +345,8 @@ export class Renderer {
 		gl.uniform4fv(P.u.uPondRing, fx?.ring ?? [0, 0, 0, 0]);
 		gl.uniform4fv(P.u.uPondJetty, fx?.jetty ?? [0, 0, 0, 0]);
 		gl.uniform1f(P.u.uPondGrown, fx?.grown ?? 0);
+		gl.uniform3f(P.u.uEye, eye.zeta, eye.cx, eye.cy);
+		gl.uniform1f(P.u.uPar, FG);
 		gl.enable(gl.SCISSOR_TEST);
 		gl.scissor(x0, y0, x1 - x0, y1 - y0);
 		gl.bindVertexArray(this.quad);
@@ -338,7 +382,7 @@ export class Renderer {
 		gl.drawArrays(gl.POINTS, 0, Math.min(p.total, this.pointCount));
 	}
 
-	private drawDots(frame: Frame, scale: number, W: number, H: number) {
+	private drawDots(frame: Frame, scale: number, W: number, H: number, eye: Eye) {
 		const dots = frame.dots;
 		if (!dots || dots.length === 0) return;
 		const gl = this.gl;
@@ -348,13 +392,15 @@ export class Renderer {
 		gl.uniform2f(D.u.uRes, W, H);
 		gl.uniform1f(D.u.uScale, scale);
 		gl.uniform3fv(D.u.uColor, frame.dotColor ?? [1, 0.85, 0.55]);
+		gl.uniform3f(D.u.uEye, eye.zeta, eye.cx, eye.cy);
+		gl.uniform1f(D.u.uPar, FG);
 		gl.bindVertexArray(this.dotsVao);
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.dotsBuf);
 		gl.bufferSubData(gl.ARRAY_BUFFER, 0, dots, 0, n * 4);
 		gl.drawArrays(gl.POINTS, 0, n);
 	}
 
-	private drawSprites(list: SpriteDraw[], scale: number, W: number, H: number) {
+	private drawSprites(list: SpriteDraw[], scale: number, W: number, H: number, eye: Eye) {
 		if (!list.length) return;
 		const gl = this.gl;
 		const d = this.spriteData;
@@ -368,11 +414,12 @@ export class Renderer {
 			const sin = Math.sin(a);
 			// Lean shears about the base (y = 0), so whatever stands on the ground stays on it.
 			const shear = Math.tan(((s.lean ?? 0) * Math.PI) / 180);
+			const par = depthOf(s);
 			const corner = (cx: number, cy: number, u: number, v: number) => {
 				const py = cy * sy;
 				const px = cx * sx - shear * py;
-				d.set([s.x + px * cos - py * sin, s.y + px * sin + py * cos, u, v, ...(s.tint ?? [0, 0, 0, 0]), s.alpha, s.blur ?? 0], n);
-				n += 10;
+				d.set([s.x + px * cos - py * sin, s.y + px * sin + py * cos, u, v, ...(s.tint ?? [0, 0, 0, 0]), s.alpha, s.blur ?? 0, par], n);
+				n += SPRITE_STRIDE;
 			};
 			const { u0, v0, u1, v1 } = s.sprite;
 			corner(x0, y0, u0, v0);
@@ -386,12 +433,13 @@ export class Renderer {
 		gl.useProgram(S.prog);
 		gl.uniform2f(S.u.uRes, W, H);
 		gl.uniform1f(S.u.uScale, scale);
+		gl.uniform3f(S.u.uEye, eye.zeta, eye.cx, eye.cy);
 		gl.activeTexture(gl.TEXTURE2);
 		gl.bindTexture(gl.TEXTURE_2D, this.atlasTex);
 		gl.uniform1i(S.u.uAtlas, 2);
 		gl.bindVertexArray(this.spriteVao);
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.spriteBuf);
 		gl.bufferSubData(gl.ARRAY_BUFFER, 0, d, 0, n);
-		gl.drawArrays(gl.TRIANGLES, 0, n / 10);
+		gl.drawArrays(gl.TRIANGLES, 0, n / SPRITE_STRIDE);
 	}
 }

@@ -2,6 +2,8 @@
 import '../styles/site.css';
 import Mark from '../components/Mark.astro';
 import { SITE, STUDIO } from '../lib/site';
+import ArrivalVeil from '@intently/world/ArrivalVeil.astro';
+import { app } from '@intently/registry';
 
 interface Props {
 	title: string;
@@ -37,6 +39,9 @@ const organization = {
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
+		<!-- Arriving from liveintently.app's dive: Hisab's colour first, before anything else runs
+		     (packages/world, docs/world-dive.md). Does nothing on an ordinary visit. -->
+		<ArrivalVeil app={app('hisab')} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{shownTitle}</title>
 		<meta name="description" content={description} />
@@ -99,5 +104,16 @@ const organization = {
 				<p class="foot-small">&copy; {year} {STUDIO.owner}</p>
 			</div>
 		</footer>
+		<script>
+			// The arrival world (src/scripts/arrival.ts) after a dive from liveintently.app, and the
+			// way back: links to Intently carry the hour the visitor came from.
+			import { browserDiveEnabled } from '@intently/world/flags';
+			import { markHubLinks } from '@intently/world/reverse';
+
+			if (window.__intentlyArrival && !window.__intentlyArrival.done) {
+				import('../scripts/arrival').then((m) => m.startArrival());
+			}
+			if (browserDiveEnabled()) markHubLinks(document, 'hisab', 'wealth');
+		</script>
 	</body>
 </html>

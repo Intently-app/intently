@@ -10,6 +10,8 @@
 <canvas class="pj-canvas" aria-hidden="true"></canvas>
 
 <script>
+	import { intro } from '../../scripts/arrival-intro';
+
 	const canvas = document.querySelector<HTMLCanvasElement>('.pj-canvas');
 	const fits = matchMedia('(min-width: 1000px) and (prefers-reduced-motion: no-preference)');
 	const webgl2 = () => {
@@ -20,16 +22,44 @@
 		}
 	};
 
+	/** Arriving from liveintently.app (scripts/arrival.ts): the phone waits for the mist to part, then flies in. */
+	const arriving = () => {
+		const a = (window as Window & { __intentlyArrival?: { done: boolean } }).__intentlyArrival;
+		return !!a && !a.done;
+	};
+
+	/** The phone comes forward out of the distance (intro.logZoom from far to 0), easing out. */
+	function flyIn(ms = 700, from = -1.4) {
+		const t0 = performance.now();
+		const step = (now: number) => {
+			const x = Math.min(1, (now - t0) / ms);
+			intro.logZoom = from * (1 - x) ** 3;
+			if (x < 1) requestAnimationFrame(step);
+		};
+		intro.logZoom = from;
+		requestAnimationFrame(step);
+	}
+
 	let stop: (() => void) | undefined;
 	async function start() {
 		if (stop || !canvas || !fits.matches || (navigator.hardwareConcurrency ?? 4) < 4 || !webgl2()) return;
+		const root = document.documentElement;
+		const afterDive = arriving();
 		try {
+			if (afterDive) {
+				// The flat phone stays hidden while the 3D one waits: no swap after the mist parts.
+				root.classList.add('phone-coming');
+				await new Promise((done) => document.addEventListener('intently:arrived', done, { once: true }));
+			}
 			const { startPhoneJourney } = await import('../../scripts/phone-journey');
+			if (afterDive) flyIn();
 			stop = await startPhoneJourney(canvas);
-			document.documentElement.classList.add('phone-3d');
+			root.classList.add('phone-3d');
 		} catch (e) {
 			console.warn('3D phone unavailable, keeping the CSS phone', e);
-			document.documentElement.classList.remove('phone-3d');
+			root.classList.remove('phone-3d');
+		} finally {
+			root.classList.remove('phone-coming');
 		}
 	}
 	fits.addEventListener('change', () => {

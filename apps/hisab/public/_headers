@@ -1,4 +1,7 @@
+# Supports-Loading-Mode: liveintently.app may prerender this site while a visitor chooses Hisab, so
+# its dive lands on a page that is already there (packages/world speculate.ts, docs/world-dive.md).
 /*
+  Supports-Loading-Mode: credentialed-prerender
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin

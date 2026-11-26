@@ -14,6 +14,8 @@ export interface ArrivalState {
 	/** Set by the world when it takes over from the veil. */
 	taken: boolean;
 	done: boolean;
+	/** When the veil started its clock: performance.now() once the page was shown. */
+	shownAt?: number;
 	/** Clears the veil and dispatches intently:arrived (once). */
 	finish: () => void;
 }
@@ -43,10 +45,10 @@ export function currentArrival(): ArrivalState | null {
 	return a && !a.done ? a : null;
 }
 
-/** ms since the page was shown (a prerendered page counts from its activation). */
-function sinceShown(): number {
+/** ms since the veil started its clock (the page was shown: a prerendered page counts from its activation). */
+function sinceShown(a: ArrivalState): number {
 	const nav = performance.getEntriesByType?.('navigation')[0] as (PerformanceNavigationTiming & { activationStart?: number }) | undefined;
-	return performance.now() - (nav?.activationStart ?? 0);
+	return performance.now() - (a.shownAt ?? nav?.activationStart ?? 0);
 }
 
 const later = (ms: number) => new Promise<'late'>((r) => setTimeout(() => r('late'), Math.max(0, ms)));
@@ -59,7 +61,7 @@ export async function runArrival(world: ArrivalWorld): Promise<boolean> {
 		return false;
 	}
 	if (document.prerendering) await new Promise((r) => document.addEventListener('prerenderingchange', r, { once: true }));
-	const won = await Promise.race([world.ready.then(() => 'ready' as const), later(ARRIVAL_WAIT - sinceShown())]);
+	const won = await Promise.race([world.ready.then(() => 'ready' as const), later(ARRIVAL_WAIT - sinceShown(a))]);
 	if (won !== 'ready' || a.done || document.documentElement.classList.contains('arrival-parting')) {
 		await world.ready.catch(() => undefined);
 		world.settle();
