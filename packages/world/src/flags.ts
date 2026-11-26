@@ -1,10 +1,11 @@
 /**
- * The switch for shipping the dive dark. On the workers.dev preview hosts (and localhost) it is on; in
- * production it follows DIVE_DEFAULT, and a visitor can turn it on for themselves with ?dive=1
- * (remembered in localStorage; ?dive=0 to undo). Turning the default on is a one-line pull request
- * that needs the owner's go-ahead. The hub's Base.astro repeats this rule inline, before first paint.
+ * The dive's switch. It has been on in production since 2026-11-26 (owner's go-ahead,
+ * Intently-app/tracker#315). On the workers.dev preview hosts and on localhost it is always on. A
+ * visitor can turn it off for themselves with ?dive=0, remembered in localStorage; ?dive=1 undoes that.
+ * Setting it back to false switches the dive off everywhere in production, and that needs the owner's
+ * go-ahead. The hub's Base.astro repeats this rule inline, before first paint.
  */
-export const DIVE_DEFAULT = false;
+export const DIVE_DEFAULT = true;
 
 const DIVE_KEY = 'intently:dive';
 
