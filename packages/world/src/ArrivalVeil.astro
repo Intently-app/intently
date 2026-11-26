@@ -1,0 +1,17 @@
+---
+/**
+ * Put this first in <head>, right after <meta charset>, before any analytics (see veil.ts).
+ * It costs one small inline script and style on every page view; without a handoff it does nothing.
+ */
+import type { App } from '@intently/registry';
+import { veilCss, veilScript } from './veil.ts';
+
+interface Props {
+	app: App;
+}
+
+const { app } = Astro.props;
+---
+
+<script is:inline set:html={veilScript(app.id)} />
+<style is:inline set:html={veilCss(app.color)} />
