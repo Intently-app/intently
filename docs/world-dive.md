@@ -1,7 +1,7 @@
 # The dive: from the hub into an app's own world
 
-Status: in progress (Intently-app/tracker#298). Shipped dark: nothing changes in production until
-`DIVE_DEFAULT` / `ENGINE_DEFAULT` in `packages/world/src/flags.ts` are turned on with the owner's go-ahead.
+Status: live (Intently-app/tracker#298). `DIVE_DEFAULT` in `packages/world/src/flags.ts` was turned on on
+2026-11-26 with the owner's go-ahead. Setting it to `false` switches the dive off in production.
 
 Choosing an app on liveintently.app turns the camera into the screen: the day's landscape rushes
 past, the app's colour fills the view, and the app's own site picks the flight up in its own three.js
