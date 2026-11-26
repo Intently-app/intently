@@ -10,7 +10,8 @@ import Reflection from '../components/Reflection.astro';
 import Practice from '../components/Practice.astro';
 import AppCard from '../components/AppCard.astro';
 import { neighbours, type Chapter } from '../data/chapters.ts';
-import { STUDIO } from '@intently/registry';
+import { STUDIO, appSchemaId } from '@intently/registry';
+import { WEBSITE_ID } from '../data/schema.ts';
 import '../styles/feel.css';
 
 interface Props {
@@ -28,8 +29,10 @@ const schema = [
 		url,
 		name: c.meta.title,
 		description: c.meta.description,
-		isPartOf: { '@type': 'WebSite', name: STUDIO.name, url: STUDIO.url },
+		isPartOf: { '@id': WEBSITE_ID },
 		publisher: { '@id': `${STUDIO.url}/#organization` },
+		about: c.apps.map((a) => ({ '@id': appSchemaId(a) })),
+		primaryImageOfPage: new URL(`/og/${c.id}.jpg`, Astro.site).href,
 	},
 	{
 		'@context': 'https://schema.org',
@@ -44,7 +47,8 @@ const isFirst = c.id === 'time';
 const isLast = c.id === 'faith';
 ---
 
-<Base title={c.meta.title} description={c.meta.description} sky={c.sky} schema={schema}>
+<Base title={c.meta.title} description={c.meta.description} sky={c.sky} schema={schema} ogScene={c.id}
+	ogAlt={`The ${c.name.toLowerCase()} hour of the Intently day: a hand-drawn ${c.sky} landscape.`}>
 	<main class="chapter" data-chapter={c.id} style={`--light:${c.light}`}>
 		<Postcard id={c.id} as="header" eager class="hero">
 			<p class="when"><span class="light" aria-hidden="true"></span><span>{c.clock}</span><strong>{c.name}</strong></p>

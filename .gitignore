@@ -207,3 +207,6 @@ apps/hub/test-results/
 apps/hub/playwright-report/
 apps/respite/art/heroes/contact-sheet.jpg
 apps/respite/art/app-screens/contact-sheet.jpg
+# Share images drawn before each build (apps/hub/scripts/render-og.ts, packages/ui/scripts/render-og.ts)
+apps/hub/public/og/
+apps/*/public/og.jpg

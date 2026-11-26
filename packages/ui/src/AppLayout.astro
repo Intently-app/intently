@@ -1,7 +1,7 @@
 ---
 import './base.css';
 import AppMark from './AppMark.astro';
-import { STUDIO, type App } from '@intently/registry';
+import { STUDIO, appSchemaId, type App } from '@intently/registry';
 import { onColor, type SiteContent } from './site';
 
 interface Props {
@@ -16,6 +16,9 @@ const { app, content, title, description, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, `https://${app.host}`);
 const fullTitle = title === app.name ? `${app.name}: ${app.tagline}` : `${title} · ${app.name}`;
 const year = new Date().getFullYear();
+// public/og.jpg, drawn before each build by scripts/render-og.ts (the app's mark on its colour).
+const ogImage = `https://${app.host}/og.jpg`;
+const ogAlt = `The ${app.name} mark on a field of its colour.`;
 ---
 
 <!doctype html>
@@ -33,16 +36,27 @@ const year = new Date().getFullYear();
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={ogAlt} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={fullTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:image:alt" content={ogAlt} />
 		{noindex && <meta name="robots" content="noindex" />}
 		<script type="application/ld+json" set:html={JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'SoftwareApplication',
+			'@id': appSchemaId(app),
 			name: app.name,
 			description: app.tagline,
 			url: `https://${app.host}`,
 			operatingSystem: app.platforms.join(', '),
 			applicationCategory: 'MobileApplication',
 			author: { '@type': 'Organization', '@id': `${STUDIO.url}/#organization`, name: STUDIO.name, url: STUDIO.url },
+			publisher: { '@id': `${STUDIO.url}/#organization` },
 		})} />
 	</head>
 	<body>

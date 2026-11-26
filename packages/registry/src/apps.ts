@@ -30,6 +30,11 @@ export interface App {
 	highlights?: string[];
 	/** Hosts that should 301 to this app's site (old names). */
 	aliases?: string[];
+	/**
+	 * The fragment of the app's schema.org SoftwareApplication `@id` on its own site, when it isn't
+	 * `#app` (Respite's predates the convention). Read it through appSchemaId().
+	 */
+	schemaFragment?: string;
 }
 
 export const STUDIO = {
@@ -57,6 +62,7 @@ export const APPS: App[] = [
 		},
 		color: '#2F6079',
 		icon: '/icons/respite.svg',
+		schemaFragment: '#software',
 		highlights: [
 			'A short, kind pause before the apps you choose',
 			'Daily limits and gentle timers, plus an app lock on iPhone',
@@ -149,4 +155,13 @@ export function app(id: string): App {
 	const found = APPS.find((a) => a.id === id);
 	if (!found) throw new Error(`Unknown app id: ${id}`);
 	return found;
+}
+
+/**
+ * The schema.org `@id` of an app's SoftwareApplication, as its own site declares it. The hub and every
+ * app site use this, so search engines and answer engines join them into one graph:
+ * Intently (https://liveintently.app/#organization) publishes each app.
+ */
+export function appSchemaId(a: App): string {
+	return `https://${a.host}/${a.schemaFragment ?? '#app'}`;
 }

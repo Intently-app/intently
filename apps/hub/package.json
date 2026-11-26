@@ -5,8 +5,9 @@
 	"private": true,
 	"scripts": {
 		"dev": "astro dev",
+		"prebuild": "node scripts/render-og.ts",
 		"build": "astro build",
-		"check": "astro check && astro build && tsc --noEmit && node --test 'src/**/*.test.ts' && wrangler deploy --dry-run",
+		"check": "astro check && npm run build && tsc --noEmit && node --test 'src/**/*.test.ts' && wrangler deploy --dry-run",
 		"deploy": "wrangler deploy",
 		"cf-typegen": "wrangler types",
 		"test": "node --test 'src/**/*.test.ts'",
@@ -31,6 +32,7 @@
 		"@astrojs/check": "^0.9.10",
 		"@axe-core/playwright": "^4.13.0",
 		"@playwright/test": "^1.63.0",
+		"sharp": "0.34.5",
 		"wrangler": "^4.149.0"
 	}
 }
