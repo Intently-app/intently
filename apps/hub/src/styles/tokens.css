@@ -139,3 +139,22 @@ html.returning.world-pending::after { animation-delay: 1100ms; }
 	html.returning::after { display: none; }
 	html.diving body > :not(canvas.world) { transition: none; }
 }
+
+/* Page to page within the hub (src/scripts/transitions.ts): a cross-fade, and the chosen hour grows
+   into its chapter page. Not with reduced motion. */
+@view-transition { navigation: auto; }
+
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: 320ms; }
+
+::view-transition-group(chapter-hour) {
+	animation-duration: 520ms;
+	animation-timing-function: cubic-bezier(0.3, 0, 0.1, 1);
+}
+
+::view-transition-old(chapter-hour),
+::view-transition-new(chapter-hour) { height: 100%; object-fit: cover; }
+
+@media (prefers-reduced-motion: reduce) {
+	@view-transition { navigation: none; }
+}
