@@ -951,7 +951,8 @@ const dock = ['Phone', 'MessageCircle', 'Camera', 'Image'];
 	}
 
 	/* The WebGL phone (PhoneJourney) takes over this spot; the steps and hint stay. */
-	:global(html.phone-3d) .hp-scene > * {
+	:global(html.phone-3d) .hp-scene > *,
+	:global(html.phone-coming) .hp-scene > * {
 		visibility: hidden;
 	}
 

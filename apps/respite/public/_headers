@@ -9,3 +9,8 @@
 /images/report-card/*
   Cache-Control: public, max-age=604800
   X-Robots-Tag: noindex
+
+# Same-site prerendering: liveintently.app starts loading this site while a visitor chooses Respite,
+# so its dive lands on a page that is already there (packages/world speculate.ts, docs/world-dive.md).
+/*
+  Supports-Loading-Mode: credentialed-prerender

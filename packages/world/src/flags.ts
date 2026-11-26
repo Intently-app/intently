@@ -1,15 +1,12 @@
 /**
- * Switches for shipping the dive dark. On the workers.dev preview hosts both are on; in production
- * they follow the defaults below, and a visitor can turn one on for themselves with ?dive=1 or
- * ?engine=three (remembered in localStorage, ?dive=0 / ?engine=raw to undo). Turning a default on is a
- * one-line pull request that needs the owner's go-ahead.
+ * The switch for shipping the dive dark. On the workers.dev preview hosts (and localhost) it is on; in
+ * production it follows DIVE_DEFAULT, and a visitor can turn it on for themselves with ?dive=1
+ * (remembered in localStorage; ?dive=0 to undo). Turning the default on is a one-line pull request
+ * that needs the owner's go-ahead. The hub's Base.astro repeats this rule inline, before first paint.
  */
 export const DIVE_DEFAULT = false;
-export type Engine = 'raw' | 'three';
-export const ENGINE_DEFAULT: Engine = 'raw';
 
 const DIVE_KEY = 'intently:dive';
-const ENGINE_KEY = 'intently:engine';
 
 interface Where {
 	hostname: string;
@@ -47,17 +44,8 @@ export function diveEnabled(where: Where, store: Store): boolean {
 	return DIVE_DEFAULT || isPreviewHost(where.hostname);
 }
 
-export function engine(where: Where, store: Store): Engine {
-	const q = new URLSearchParams(where.search).get('engine');
-	if (q === 'three' || q === 'raw') write(store, ENGINE_KEY, q);
-	const saved = read(store, ENGINE_KEY);
-	if (saved === 'three' || saved === 'raw') return saved;
-	return isPreviewHost(where.hostname) ? 'three' : ENGINE_DEFAULT;
-}
-
 /** The browser's own answers. */
 export const browserDiveEnabled = () => diveEnabled(location, safeStorage());
-export const browserEngine = () => engine(location, safeStorage());
 
 function safeStorage(): Store {
 	try {

@@ -33,6 +33,8 @@ export interface SpriteDraw {
 	blur?: number;
 	/** Drawn behind the foreground (props on the far layers) or in front of it. */
 	front: boolean;
+	/** The parallax of the layer it belongs to (its depth in a dive: depth.ts). Default: 1 in front, 0.3 behind. */
+	depth?: number;
 	/** What it is, so a chapter page can adjust it (fade the notifications, brighten the lantern). */
 	kind?: string;
 }
@@ -44,6 +46,8 @@ export interface LightDraw {
 	strength: number;
 	color: Rgb;
 	kind?: string;
+	/** The parallax of the layer it shines on (depth.ts). Default 1, the foreground. */
+	depth?: number;
 }
 
 export interface Frame {
@@ -153,10 +157,10 @@ export function frameAt({ u, visW, time, velocity, sprites, markRect }: Timeline
 		}
 	}
 
-	const light = (x: number, y: number, look: Sprite, scale: number, alpha: number) => {
+	const light = (x: number, y: number, look: Sprite, scale: number, alpha: number, depth = 1) => {
 		const g = look.glow;
 		if (!g || alpha <= 0.01) return;
-		lights.push({ x: x + g.x * scale, y: y + g.y * scale, r: g.r * scale, strength: g.strength * alpha, color: hexToRgb(g.color), kind: look.kind });
+		lights.push({ x: x + g.x * scale, y: y + g.y * scale, r: g.r * scale, strength: g.strength * alpha, color: hexToRgb(g.color), kind: look.kind, depth });
 	};
 
 	// ——— The walker ———
@@ -212,6 +216,8 @@ export function frameAt({ u, visW, time, velocity, sprites, markRect }: Timeline
 			let alpha = 1;
 			let scaleY: number | undefined;
 			const front = layer === 3;
+			// What the walker carries, and what crowds around it, is as near as the walker.
+			let depth = par;
 
 			switch (p.kind) {
 				// Things the walker carries come with the walker.
@@ -220,6 +226,7 @@ export function frameAt({ u, visW, time, velocity, sprites, markRect }: Timeline
 					const home = walkerHome(i, visW);
 					x = wx + ((p.fx - 0.5) * visW + (p.dx ?? 0) - home.x);
 					y = wy - (p.y ?? 0);
+					depth = 1;
 					alpha = weight;
 					if (p.kind === 'lantern') y += Math.sin(time * 1.3) * 1.5;
 					break;
@@ -235,6 +242,7 @@ export function frameAt({ u, visW, time, velocity, sprites, markRect }: Timeline
 					x = wx + ox * (1 + (1 - gather) * 2.5) + Math.sin(time * 1.1 + k) * 6;
 					y = oy - (1 - gather) * 140 - scatter * 520 + Math.cos(time * 0.9 + k * 1.7) * 5;
 					alpha = gather * (1 - scatter);
+					depth = 1;
 					const bird = sprites.get('bird')!;
 					const ba = smooth(0.15, 0.4, d) * (1 - smooth(0.9, 1.4, d));
 					if (ba > 0.01) {
@@ -268,7 +276,7 @@ export function frameAt({ u, visW, time, velocity, sprites, markRect }: Timeline
 						for (let n = 0; puff && n < 4; n++) {
 							const t = (time * 0.11 + n / 4) % 1;
 							out.push({
-								sprite: puff, kind: 'puff', front,
+								sprite: puff, kind: 'puff', front, depth: par,
 								x: x - p.size * 0.3 + t * 30 + Math.sin(time * 0.7 + n * 1.9) * 3,
 								y: y - p.size * 0.95 - t * 62,
 								scale: 0.45 + 1.1 * t,
@@ -286,11 +294,11 @@ export function frameAt({ u, visW, time, velocity, sprites, markRect }: Timeline
 			if (!near(x) || alpha <= 0.01) return;
 			const isFigure = p.kind === 'figure';
 			out.push({
-				sprite: look, x, y, scale: 1, scaleY, flip: p.flip, tilt: p.tilt, lean: p.lean, alpha, front,
+				sprite: look, x, y, scale: 1, scaleY, flip: p.flip, tilt: p.tilt, lean: p.lean, alpha, front, depth,
 				tint: isFigure ? walkerTint : undefined, kind: p.kind,
 				ground: p.layer !== undefined && baseHalfWidth(p.kind, p.size) > 0 ? { layer: p.layer, half: baseHalfWidth(p.kind, p.size) } : undefined,
 			});
-			light(x, y, look, 1, alpha * (p.kind === 'fire' ? 0.85 + 0.15 * Math.sin(time * 13) : 1));
+			light(x, y, look, 1, alpha * (p.kind === 'fire' ? 0.85 + 0.15 * Math.sin(time * 13) : 1), depth);
 		});
 	}
 

@@ -46,7 +46,20 @@ uniform float uRipple;
 uniform float uWind;
 uniform float uFlowers;
 
+// The dive (depth.ts): the eye's travel (ζ, cx, cy), each layer's parallax, and each light's.
+uniform vec3 uEye;
+uniform vec4 uPar;
+uniform float uLightPar[8];
+
 out vec4 outColor;
+
+// Which rest-screen point of the layer at parallax par shows at screen point s (depth.ts unproject).
+vec2 at(vec2 s, float par) {
+	if (uEye == vec3(0.0)) return s;
+	float k = 1.0 - par * uEye.x;
+	return vec2(s.x * k + par * uEye.y, 500.0 + (s.y - 500.0) * k + par * uEye.z);
+}
+bool diving() { return uEye != vec3(0.0); }
 
 uint hashu(uint x) {
 	x ^= x >> 16; x *= 0x7feb352dU; x ^= x >> 15; x *= 0x846ca68bU; x ^= x >> 16;
@@ -157,22 +170,35 @@ float hazeAt(float y) {
 	return y < 665.0 ? 0.42 * (y - 500.0) / 165.0 : 0.42 * (800.0 - y) / 135.0;
 }
 
-// The land behind the foreground: layers 0..2 over the sky (alpha 0 where only sky shows).
-vec4 back(vec2 p, vec4 r) {
+// The land behind the foreground: layers 0..2 over the sky (alpha 0 where only sky shows). Each layer
+// is looked up at its own point (p0..p2) and ridge height (r0..r2); at rest they are all the same point.
+vec4 backAt(vec2 p0, vec2 p1, vec2 p2, float r0, float r1, float r2) {
 	vec4 col = vec4(0.0);
-	if (p.y >= r.x) col = vec4(uGround[0], 1.0);
-	float hz = hazeAt(p.y);
+	if (p0.y >= r0) col = vec4(uGround[0], 1.0);
+	float hz = hazeAt(p0.y);
 	col = col.a > 0.0 ? vec4(mix(col.rgb, uHorizon, hz), 1.0) : vec4(uHorizon * hz, hz);
-	if (p.y >= r.y || treeHit(0, p)) col = vec4(uGround[1], 1.0);
-	if (p.y >= r.z || treeHit(1, p)) col = vec4(uGround[2], 1.0);
+	if (p1.y >= r1 || treeHit(0, p1)) col = vec4(uGround[1], 1.0);
+	if (p2.y >= r2 || treeHit(1, p2)) col = vec4(uGround[2], 1.0);
 	return col;
 }
 
-void light(inout vec4 col, vec2 p) {
+// The same, for a point seen at rest (no dive): one ridge lookup for all three layers.
+vec4 backRest(vec2 p) {
+	vec4 r = ridgesAt(p.x);
+	return backAt(p, p, p, r.x, r.y, r.z);
+}
+
+vec4 back(vec2 s) {
+	if (!diving()) return backRest(s);
+	vec2 p0 = at(s, uPar.x), p1 = at(s, uPar.y), p2 = at(s, uPar.z);
+	return backAt(p0, p1, p2, ridgesAt(p0.x).x, ridgesAt(p1.x).y, ridgesAt(p2.x).z);
+}
+
+void light(inout vec4 col, vec2 s) {
 	for (int i = 0; i < 8; i++) {
 		if (i >= uLightCount) break;
 		vec4 L = uLights[i];
-		float d = length(p - L.xy) / L.z;
+		float d = length(at(s, uLightPar[i]) - L.xy) / L.z;
 		if (d >= 1.0) continue;
 		// The warm gradient: bright core, soft shoulder, nothing at the edge.
 		vec4 g = d < 0.3 ? mix(vec4(1.0, 0.827, 0.541, 0.9), vec4(uLightColor[i], 0.35), d / 0.3)
@@ -183,28 +209,31 @@ void light(inout vec4 col, vec2 p) {
 }
 
 void main() {
-	vec2 p = vec2((gl_FragCoord.x - uRes.x * 0.5) / uScale, (uRes.y - gl_FragCoord.y) / uScale);
+	vec2 s = vec2((gl_FragCoord.x - uRes.x * 0.5) / uScale, (uRes.y - gl_FragCoord.y) / uScale);
 
+	// The sky is at infinity: a dive never moves it.
 	if (uPass == 0) {
-		outColor = vec4(sky(p), 1.0);
+		outColor = vec4(sky(s), 1.0);
 		return;
 	}
 
-	vec4 r = ridgesAt(p.x);
-
 	if (uPass == 1) {
-		outColor = back(p, r);
+		outColor = back(s);
 		return;
 	}
 
 	// Pass 2: water, the foreground, and every light in the scene. Premultiplied alpha.
+	// p is the foreground's own point under this pixel (s itself, at rest).
+	vec2 p = at(s, uPar.w);
+	vec4 r = vec4(0.0, 0.0, 0.0, ridgesAt(p.x).w);
 	vec4 col = vec4(0.0);
 	bool inLake = p.x > uLake.x - 110.0 && p.x < uLake.y + 110.0;
 	if (uLake.z > 0.0 && p.y >= uLake.z && inLake) {
 		float depth = p.y - uLake.z;
 		float wob = sin(p.y * 0.35 - uTime * 1.6) * (0.6 + uRipple * 7.0) + sin(p.y * 0.09 + uTime * 0.7) * uRipple * 10.0;
 		vec2 q = vec2(p.x + wob * (0.25 + depth * 0.012), 2.0 * uLake.z - p.y);
-		vec4 rb = back(q, ridgesAt(q.x));
+		// The reflection is of the land as it stands at rest (close enough while diving).
+		vec4 rb = backRest(q);
 		vec3 refl = rb.rgb + sky(q) * (1.0 - rb.a);
 		vec3 tint = mix(uHorizon, uGround[2], 0.45);
 		vec3 w = mix(tint, refl, 0.62);
@@ -247,7 +276,7 @@ void main() {
 		if (plank || post) col = vec4(mix(uGround[3], uGround[2], 0.35), 1.0);
 	}
 
-	light(col, p);
+	light(col, s);
 	outColor = col;
 }
 `;
@@ -273,6 +302,8 @@ uniform vec4 uPond;
 uniform vec4 uPondRing;
 uniform vec4 uPondJetty;
 uniform float uPondGrown;
+uniform vec3 uEye;
+uniform float uPar;
 
 out vec4 outColor;
 
@@ -293,7 +324,10 @@ void put(inout vec4 col, vec3 c, float a) {
 float shoreR(float a) { return 1.0 + 0.05 * sin(3.0 * a + 0.6) + 0.03 * sin(5.0 * a + 2.1); }
 
 void main() {
-	vec2 p = vec2((gl_FragCoord.x - uRes.x * 0.5) / uScale, (uRes.y - gl_FragCoord.y) / uScale);
+	vec2 s = vec2((gl_FragCoord.x - uRes.x * 0.5) / uScale, (uRes.y - gl_FragCoord.y) / uScale);
+	// The pond lies on the foreground: its own point under this pixel (depth.ts).
+	float k = 1.0 - uPar * uEye.x;
+	vec2 p = uEye == vec3(0.0) ? s : vec2(s.x * k + uPar * uEye.y, 500.0 + (s.y - 500.0) * k + uPar * uEye.z);
 	vec4 col = vec4(0.0);
 	vec2 e = (p - uPond.xy) / uPond.zw;
 	float len = max(length(e), 1e-4);
@@ -362,8 +396,10 @@ in vec2 aPos;
 in vec2 aUV;
 in vec4 aTint;
 in vec2 aFx;
+in float aPar;
 uniform vec2 uRes;
 uniform float uScale;
+uniform vec3 uEye;
 out vec2 vUV;
 out vec4 vTint;
 out vec2 vFx;
@@ -371,7 +407,10 @@ void main() {
 	vUV = aUV;
 	vTint = aTint;
 	vFx = aFx;
-	vec2 px = vec2(aPos.x * uScale + uRes.x * 0.5, aPos.y * uScale);
+	// Seen from the dive's eye, on the sprite's own layer (depth.ts project).
+	float k = max(1.0 - aPar * uEye.x, 1e-3);
+	vec2 q = uEye == vec3(0.0) ? aPos : vec2((aPos.x - aPar * uEye.y) / k, 500.0 + (aPos.y - 500.0 - aPar * uEye.z) / k);
+	vec2 px = vec2(q.x * uScale + uRes.x * 0.5, q.y * uScale);
 	gl_Position = vec4(px.x / uRes.x * 2.0 - 1.0, 1.0 - px.y / uRes.y * 2.0, 0.0, 1.0);
 }
 `;
@@ -461,11 +500,15 @@ export const DOTS_VS = `#version 300 es
 in vec4 aDot;
 uniform vec2 uRes;
 uniform float uScale;
+uniform vec3 uEye;
+uniform float uPar;
 out float vAlpha;
 void main() {
-	vec2 px = vec2(aDot.x * uScale + uRes.x * 0.5, aDot.y * uScale);
+	float k = max(1.0 - uPar * uEye.x, 1e-3);
+	vec2 q = uEye == vec3(0.0) ? aDot.xy : vec2((aDot.x - uPar * uEye.y) / k, 500.0 + (aDot.y - 500.0 - uPar * uEye.z) / k);
+	vec2 px = vec2(q.x * uScale + uRes.x * 0.5, q.y * uScale);
 	gl_Position = vec4(px.x / uRes.x * 2.0 - 1.0, 1.0 - px.y / uRes.y * 2.0, 0.0, 1.0);
-	gl_PointSize = aDot.z * uScale;
+	gl_PointSize = aDot.z * uScale / k;
 	vAlpha = aDot.w;
 }
 `;
@@ -495,5 +538,26 @@ void main() {
 	float n = float(hashu(c.x * 1973U + c.y * 9277U + uint(uTime * 24.0) * 26699U)) / 4294967295.0;
 	// Multiplied in at 2x: 0.5 leaves a pixel as it is.
 	outColor = vec4(vec3(0.5 + (n - 0.5) * uAmount), 1.0);
+}
+`;
+
+/**
+ * The app's colour, blooming from where the dive is heading until it covers the screen: the hub's
+ * last frame before it hands over, and the first frame of the way back. Premultiplied alpha, drawn
+ * last, so at full it is exactly the app's colour (the app's veil paints the same).
+ */
+export const FILL_FS = `#version 300 es
+precision highp float;
+uniform vec2 uRes;
+uniform float uScale;
+uniform vec2 uFocus;
+uniform float uFill;
+uniform vec3 uColor;
+out vec4 outColor;
+void main() {
+	vec2 s = vec2((gl_FragCoord.x - uRes.x * 0.5) / uScale, (uRes.y - gl_FragCoord.y) / uScale);
+	float reach = length(uRes / uScale) * 1.4 * uFill;
+	float a = uFill >= 1.0 ? 1.0 : smoothstep(reach, reach * 0.55, length(s - uFocus)) * smoothstep(0.0, 0.35, uFill);
+	outColor = vec4(uColor * a, a);
 }
 `;

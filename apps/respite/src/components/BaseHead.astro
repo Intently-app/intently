@@ -5,6 +5,8 @@ import '@fontsource-variable/nunito/wght.css';
 import '../styles/global.css';
 import '../styles/design-system.css';
 import OrganizationSchema from './SEO/OrganizationSchema.astro';
+import ArrivalVeil from '@intently/world/ArrivalVeil.astro';
+import { app } from '@intently/registry';
 
 interface Props {
 	title: string;
@@ -55,6 +57,9 @@ const noindexRobots = follow ? 'noindex, follow' : 'noindex, nofollow';
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
+<!-- Arriving from liveintently.app's dive: the app's colour first, before anything else runs
+     (packages/world, docs/world-dive.md). Does nothing on an ordinary visit. -->
+<ArrivalVeil app={app('respite')} />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico" />
@@ -141,6 +146,26 @@ const noindexRobots = follow ? 'noindex, follow' : 'noindex, nofollow';
   initAnalytics();
 </script>
 
+<!-- The arrival world (src/scripts/arrival.ts) when the visitor dived in from liveintently.app, and
+     the way back: links to Intently carry the hour they came from. -->
+<script>
+  import { browserDiveEnabled } from '@intently/world/flags';
+  import { markHubLinks } from '@intently/world/reverse';
+  import { ARRIVAL_CHAPTER_KEY } from '@intently/world/veil';
+  import type { ChapterId } from '@intently/world/handoff';
+
+  if (window.__intentlyArrival && !window.__intentlyArrival.done) {
+    import('../scripts/arrival').then((m) => m.startArrival());
+  }
+  if (browserDiveEnabled()) {
+    let ch: ChapterId = 'attention';
+    try {
+      ch = (sessionStorage.getItem(ARRIVAL_CHAPTER_KEY) as ChapterId | null) ?? ch;
+    } catch {}
+    markHubLinks(document, 'respite', ch);
+  }
+</script>
+
 <!-- Google Analytics 4, web stream "Respite Website" (G-40F2MVBEQE), with Consent Mode v2.
      No banner: in the EEA, the UK and Switzerland analytics_storage stays denied, so GA4 sets no
      cookies there and sends cookieless pings only. Elsewhere it uses first-party cookies. Ads
@@ -155,4 +180,17 @@ const noindexRobots = follow ? 'noindex, follow' : 'noindex, nofollow';
   gtag('js', new Date());
   gtag('config', 'G-40F2MVBEQE', { allow_google_signals: false, allow_ad_personalization_signals: false });
 </script>
-<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-40F2MVBEQE"></script>
+<script is:inline>
+  // gtag.js, once the page is actually shown: a page prerendered by liveintently.app (or the
+  // browser) that is never opened sends nothing.
+  (function () {
+    function load() {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-40F2MVBEQE';
+      document.head.appendChild(s);
+    }
+    if (document.prerendering) document.addEventListener('prerenderingchange', load, { once: true });
+    else load();
+  })();
+</script>

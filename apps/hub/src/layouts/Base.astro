@@ -12,6 +12,7 @@ import { CHAPTERS } from '../data/chapters.ts';
 import { SKY, type SkyKey } from '../data/sky.ts';
 import type { SceneId } from '../world/scenes.ts';
 import { organization } from '../data/schema.ts';
+import { DIVE_DEFAULT } from '@intently/world/flags';
 
 interface Props {
 	title: string;
@@ -40,6 +41,7 @@ const fullTitle = title === STUDIO.name ? title : `${title} · ${STUDIO.name}`;
 const year = new Date().getFullYear();
 const listed = APPS.filter((a) => a.status !== 'soon');
 const ogImage = new URL(`/og/${ogScene}.jpg`, Astro.site).href;
+const appColors = Object.fromEntries(APPS.map((a) => [a.id, a.color]));
 ---
 
 <!doctype html>
@@ -47,6 +49,25 @@ const ogImage = new URL(`/og/${ogScene}.jpg`, Astro.site).href;
 	<head>
 		<meta charset="utf-8" />
 		<script is:inline>document.documentElement.classList.add('js');</script>
+		<script is:inline define:vars={{ appColors, diveDefault: DIVE_DEFAULT }}>
+			// Coming back from an app's site after a dive (back button, or the app's link to us with
+			// #from=<app>.<chapter>): start in the app's colour, so the hub's first frame matches the app's
+			// last; the world flies out of it (src/scripts/world/dive-ui.ts), and without the world it fades.
+			// Only where the dive is on (packages/world/src/flags.ts), never with reduced motion.
+			try {
+				var h = location.hostname, on = localStorage.getItem('intently:dive');
+				var dive = on === '1' || (on !== '0' && (diveDefault || /\.workers\.dev$/.test(h) || h === 'localhost' || h === '127.0.0.1'));
+				var st = history.state, nav = performance.getEntriesByType('navigation')[0];
+				var m = /^#from=([a-z]+)\.([a-z]+)$/.exec(location.hash);
+				var id = st && st.dive && nav && nav.type === 'back_forward' ? st.dive.app : m && m[1];
+				if (dive && id && appColors[id] && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+					var d = document.documentElement;
+					d.classList.add('returning');
+					d.style.setProperty('--returning', appColors[id]);
+					setTimeout(function () { d.classList.remove('returning'); }, 1600);
+				}
+			} catch (e) {}
+		</script>
 		{world && (
 			<script is:inline>
 				// Where the live world will likely run, don't fetch the static landscapes it replaces.

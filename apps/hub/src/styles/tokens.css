@@ -111,3 +111,31 @@ html.js .no-js-only { display: none !important; }
 }
 
 .step:hover { text-decoration-color: currentColor; }
+
+/* The dive into an app's site (src/scripts/world/dive-ui.ts): the page steps aside while the world flies. */
+html.diving body > :not(canvas.world) {
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 150ms ease-out;
+}
+
+/* Back from an app's site: its colour first (Base.astro), then the world flies out of it, or, without
+   the world, the colour simply fades. */
+html.returning::after {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: 2147483000;
+	pointer-events: none;
+	background: var(--returning);
+	animation: intently-unveil 420ms ease-out 120ms forwards;
+}
+
+html.returning.world-pending::after { animation-delay: 1100ms; }
+
+@keyframes intently-unveil { to { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+	html.returning::after { display: none; }
+	html.diving body > :not(canvas.world) { transition: none; }
+}

@@ -23,16 +23,19 @@ export interface DiveTiming {
 	appMs: number;
 }
 
-const FULL: DiveTiming = { hubMs: 700, navAt: 560, fillFrom: 400, logZoom: Math.log(8), appMs: 500 };
-const LITE: DiveTiming = { hubMs: 550, navAt: 440, fillFrom: 300, logZoom: Math.log(6), appMs: 450 };
+const FULL: DiveTiming = { hubMs: 700, navAt: 560, fillFrom: 440, logZoom: Math.log(12), appMs: 500 };
+const LITE: DiveTiming = { hubMs: 550, navAt: 440, fillFrom: 340, logZoom: Math.log(8), appMs: 450 };
 const BRIDGE: DiveTiming = { hubMs: 300, navAt: 300, fillFrom: 0, logZoom: 0, appMs: 250 };
 
 export function diveTiming(tier: Tier): DiveTiming {
 	return tier === 'full' ? FULL : tier === 'lite' ? LITE : BRIDGE;
 }
 
-/** An arrival waits this long for its world to be ready before it falls back to the CSS parting (ms). */
-export const ARRIVAL_WAIT = 350;
+/**
+ * An arrival waits this long, from the veil's first paint, for its world to take over before the veil
+ * parts in CSS instead (ms). The visitor sees the app's colour meanwhile, the colour the hub ended on.
+ */
+export const ARRIVAL_WAIT = 600;
 /** Whatever happens, the veil is gone this long after the page becomes visible (ms). */
 export const FAILSAFE = 1500;
 /** The reverse flight back to the hub (ms). */
@@ -41,10 +44,10 @@ export const RETURN_MS = 700;
 const clamp01 = (x: number) => (x < 0 ? 0 : x > 1 ? 1 : x);
 const smoothstep = (x: number) => { const t = clamp01(x); return t * t * (3 - 2 * t); };
 
-/** The hub's progress, 0..1, at t ms: an ease-in cubic, so the flight gathers speed. */
+/** The hub's progress, 0..1, at t ms: an ease-in (quadratic), so the flight gathers speed. */
 export function hubProgress(t: number, d: DiveTiming): number {
 	const x = clamp01(t / d.hubMs);
-	return x * x * x;
+	return x * x;
 }
 
 /** ln(scale) of the hub's view at t ms (0 at rest). */
@@ -55,7 +58,7 @@ export function hubLogZoom(t: number, d: DiveTiming): number {
 /** The hub's zoom rate at t ms (1/s). */
 export function hubRate(t: number, d: DiveTiming): number {
 	const x = clamp01(t / d.hubMs);
-	return (d.logZoom * 3 * x * x) / (d.hubMs / 1000);
+	return (d.logZoom * 2 * x) / (d.hubMs / 1000);
 }
 
 /** The zoom rate the app inherits: the hub's at the moment it navigated (1/s). */

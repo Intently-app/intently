@@ -18,6 +18,7 @@ function run(hash: string, opts: { reduced?: boolean; prerendering?: boolean; ap
 		location: { hash, pathname: '/page/', search: '?q=1' },
 		history: { state: { keep: 1 }, replaceState: (_s: unknown, _t: string, u: string) => { url = u; } },
 		matchMedia: () => ({ matches: !!opts.reduced }),
+		performance: { now: () => 42 },
 		sessionStorage: { setItem: (k: string, v: string) => session.set(k, v) },
 		setTimeout: (f: () => void) => timers.push(f),
 		CustomEvent: class { type: string; constructor(t: string) { this.type = t; } },
@@ -61,8 +62,10 @@ test('the veil always clears: parting after the wait, then the failsafe', () => 
 test('a prerendered page starts its clock when it is shown', () => {
 	const r = run('#intently=v1.respite.attention.full', { prerendering: true });
 	assert.equal(r.timers.length, 0);
+	assert.equal(r.arrival?.shownAt, undefined);
 	r.listeners.get('prerenderingchange')!();
 	assert.equal(r.timers.length, 2);
+	assert.equal(r.arrival?.shownAt, 42);
 });
 
 test('reduced motion: the fragment goes, nothing else happens', () => {

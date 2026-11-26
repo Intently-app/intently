@@ -31,7 +31,7 @@ d.classList.add('arriving');d.setAttribute('data-arrival',m[3]);
 function done(){d.classList.remove('arriving','arrival-parting');d.removeAttribute('data-arrival');
 if(!w.__intentlyArrival.done){w.__intentlyArrival.done=true;document.dispatchEvent(new CustomEvent('intently:arrived'));}}
 w.__intentlyArrival.done=false;w.__intentlyArrival.finish=done;
-function start(){
+function start(){w.__intentlyArrival.shownAt=performance.now();
 setTimeout(function(){if(!w.__intentlyArrival.taken){d.classList.add('arrival-parting');setTimeout(done,${450});}},${ARRIVAL_WAIT});
 setTimeout(done,${FAILSAFE});}
 if(document.prerendering)document.addEventListener('prerenderingchange',start,{once:true});else start();
